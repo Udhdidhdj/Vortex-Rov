@@ -9,9 +9,9 @@
   <style>
     :root {
       --bg: #0b192c;
-      --bg-soft: rgba(11, 25, 44, 0.72);
+      --bg-soft: rgba(11, 25, 44, 0.75);
       --card: #13263f;
-      --card-2: #172e4c;
+      --card-2: #18304f;
       --accent: #00b4d8;
       --accent-ink: #04101d;
       --text: #f1f5f9;
@@ -24,7 +24,7 @@
 
     body.light {
       --bg: #f1f5f9;
-      --bg-soft: rgba(255, 255, 255, 0.85);
+      --bg-soft: rgba(255, 255, 255, 0.9);
       --card: #ffffff;
       --card-2: #f8fafc;
       --accent: #0284c7;
@@ -48,7 +48,7 @@
       transition: background-color 0.2s ease, color 0.2s ease;
     }
 
-    .container { max-width: 1060px; margin: 0 auto; }
+    .container { max-width: 1080px; margin: 0 auto; }
 
     .topbar {
       display: flex;
@@ -74,8 +74,31 @@
       margin-bottom: 14px;
     }
 
+    .auth-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .auth-box-card {
+      background: var(--card-2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .auth-box-title {
+      font-weight: 800;
+      font-size: 15px;
+      margin: 0;
+    }
+
     .row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
-    .stack { display: flex; flex-direction: column; gap: 10px; margin-top: 12px; }
+    .stack { display: flex; flex-direction: column; gap: 10px; }
 
     .tabs {
       display: flex;
@@ -90,7 +113,7 @@
       border: 1px solid var(--border);
       padding: 9px 14px;
       border-radius: 10px;
-      font-weight: 600;
+      font-weight: 700;
       cursor: pointer;
     }
 
@@ -126,7 +149,7 @@
       font-size: 14px;
     }
 
-    textarea { resize: vertical; min-height: 72px; width: 100%; }
+    textarea { resize: vertical; min-height: 74px; width: 100%; }
 
     button {
       background: var(--accent);
@@ -137,7 +160,7 @@
     }
 
     button:disabled { opacity: 0.55; cursor: not-allowed; }
-    button.secondary { background: var(--card-2); color: var(--text); border: 1px solid var(--border); }
+    button.secondary { background: var(--bg-soft); color: var(--text); border: 1px solid var(--border); }
     button.danger { background: var(--danger); color: #fff; }
     button.ok { background: var(--ok); color: #fff; }
 
@@ -168,11 +191,10 @@
     .badge.warn { border-color: var(--warn); color: var(--warn); }
     .badge.danger { border-color: var(--danger); color: var(--danger); }
 
-    .divider { height: 1px; background: var(--border); margin: 14px 0; }
     .hint { font-size: 12px; color: var(--muted); }
     .hidden { display: none !important; }
 
-    #statusBox {
+    #vortex-status-box {
       margin-top: 10px;
       padding: 11px 13px;
       border-radius: 10px;
@@ -183,191 +205,191 @@
       white-space: pre-line;
     }
 
-    #statusBox.error {
+    #vortex-status-box.error {
       border-color: var(--danger);
-      background: rgba(239, 68, 68, 0.12);
+      background: rgba(239, 68, 68, 0.14);
     }
 
-    #statusBox.ok {
+    #vortex-status-box.ok {
       border-color: var(--ok);
-      background: rgba(34, 197, 94, 0.12);
+      background: rgba(34, 197, 94, 0.14);
     }
 
     .diag-list {
       margin: 10px 0 0 0;
       padding: 0 18px 0 0;
       font-size: 13px;
-      line-height: 1.8;
+      line-height: 1.85;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <!-- الشريط العلوي والتحكم السريع -->
+    <!-- الشريط العلوي -->
     <div class="topbar">
       <div class="brand">
-        <h1 id="appTitle">Vortex ROV — مركز قيادة ومهام الفريق</h1>
-        <p id="appSubtitle">نظام إدارة الفريق والمعدات والإعلانات والمهام — MATE ROV</p>
+        <h1 id="vortex-app-title">Vortex ROV — مركز قيادة ومهام الفريق</h1>
+        <p id="vortex-app-sub">نظام متكامل للفريق والمعدات والإعلانات والمهام — MATE ROV</p>
       </div>
       <div class="row">
-        <span id="netBadge" class="badge ok">متصل بالشبكة</span>
-        <button id="themeBtn" type="button" class="secondary">الوضع النهاري</button>
-        <button id="langBtn" type="button" class="secondary">English</button>
+        <span id="vortex-net-badge" class="badge ok">متصل بالشبكة</span>
+        <button id="vortex-theme-btn" type="button" class="secondary">الوضع النهاري</button>
+        <button id="vortex-lang-btn" type="button" class="secondary">English</button>
       </div>
     </div>
 
-    <!-- بطاقة الحساب وتسجيل الدخول -->
+    <!-- بطاقة تسجيل الدخول والحساب -->
     <div class="card">
       <div class="row" style="justify-content:space-between;">
-        <h2 id="authHeading" style="margin:0; font-size:18px;">الحساب وتسجيل الدخول</h2>
-        <span id="userInfo" class="badge hidden"></span>
+        <h2 style="margin:0; font-size:18px;">الحساب وطرق تسجيل الدخول</h2>
+        <div class="row">
+          <span id="vortex-user-badge" class="badge hidden"></span>
+          <button id="vortex-logout-btn" type="button" class="secondary hidden">تسجيل الخروج</button>
+        </div>
       </div>
 
-      <div id="statusBox">جاري تهيئة النظام وفحص البيئة...</div>
+      <div id="vortex-status-box">جاري تهيئة النظام وفحص البيئة...</div>
 
-      <div id="authBox" style="margin-top:12px;">
-        <div class="row">
-          <button id="loginGoogleBtn" type="button">تسجيل الدخول بحساب Google</button>
-          <button id="logoutBtn" type="button" class="secondary hidden">تسجيل الخروج</button>
+      <!-- خيارات تسجيل الدخول الثلاثة -->
+      <div id="vortex-auth-panel" class="auth-grid">
+        <!-- 1. Google -->
+        <div class="auth-box-card">
+          <h3 class="auth-box-title">1. تسجيل الدخول بحساب Google</h3>
+          <p class="hint" style="margin:0;">دخول سريع عبر حساب Google على Windows وMac وAndroid وiOS.</p>
+          <button id="vortex-google-btn" type="button">الدخول عبر Google</button>
+          <button id="vortex-google-force-redirect-btn" type="button" class="secondary">دخول Google بإعادة التوجيه (Redirect)</button>
         </div>
 
-        <div id="authMethodsSection" class="stack">
-          <div class="divider"></div>
-          <div class="hint">تسجيل الدخول أو إنشاء حساب بالبريد الإلكتروني وكلمة المرور:</div>
+        <!-- 2. البريد الإلكتروني وكلمة المرور -->
+        <div id="vortex-email-box" class="auth-box-card">
+          <h3 class="auth-box-title">2. البريد الإلكتروني وكلمة المرور</h3>
+          <input id="vortex-email-input" type="email" dir="ltr" placeholder="name@example.com" />
+          <input id="vortex-pass-input" type="password" dir="ltr" placeholder="كلمة المرور (6 أحرف فأكثر)" />
           <div class="row">
-            <input id="emailInput" type="email" dir="ltr" placeholder="name@example.com" style="flex:1; min-width:200px;" />
-            <input id="passwordInput" type="password" dir="ltr" placeholder="كلمة المرور (6 أحرف فأكثر)" style="flex:1; min-width:200px;" />
+            <button id="vortex-email-signin-btn" type="button">دخول بالبريد</button>
+            <button id="vortex-email-signup-btn" type="button" class="secondary">إنشاء حساب</button>
           </div>
-          <div class="row">
-            <button id="emailSignInBtn" type="button">دخول بالبريد</button>
-            <button id="emailSignUpBtn" type="button" class="secondary">إنشاء حساب جديد</button>
-            <button id="resetPassBtn" type="button" class="secondary">إعادة تعيين كلمة المرور</button>
-          </div>
+          <button id="vortex-reset-pass-btn" type="button" class="secondary">إرسال رابط استعادة كلمة المرور</button>
+        </div>
 
-          <div class="divider"></div>
-          <div class="hint">تسجيل الدخول برقم التليفون (مثال: +201012345678):</div>
-          <div class="row">
-            <input id="phoneInput" type="tel" dir="ltr" placeholder="+201xxxxxxxxx" style="flex:1; min-width:200px;" />
-            <button id="sendOtpBtn" type="button" class="secondary">إرسال كود التحقق</button>
+        <!-- 3. رقم التليفون -->
+        <div id="vortex-phone-box" class="auth-box-card">
+          <h3 class="auth-box-title">3. تسجيل الدخول برقم التليفون</h3>
+          <input id="vortex-phone-input" type="tel" dir="ltr" placeholder="+201012345678" />
+          <button id="vortex-send-otp-btn" type="button">إرسال كود التحقق (SMS)</button>
+          <div id="vortex-otp-box" class="stack hidden">
+            <input id="vortex-otp-input" type="text" dir="ltr" inputmode="numeric" placeholder="أدخل كود التحقق (6 أرقام)" />
+            <button id="vortex-verify-otp-btn" type="button" class="ok">تأكيد الكود وتسجيل الدخول</button>
           </div>
-          <div id="otpRow" class="row hidden">
-            <input id="otpInput" type="text" dir="ltr" inputmode="numeric" placeholder="كود التحقق (6 أرقام)" style="flex:1; min-width:200px;" />
-            <button id="verifyOtpBtn" type="button">تأكيد الدخول</button>
-          </div>
-          <div id="recaptcha-container"></div>
+          <div id="vortex-recaptcha-box"></div>
         </div>
       </div>
     </div>
 
     <!-- إدارة المشرفين للمالك -->
-    <div id="adminBox" class="card hidden">
+    <div id="vortex-admin-box" class="card hidden">
       <h3 style="margin:0 0 10px 0;">إدارة المشرفين (Owner)</h3>
       <div class="row">
-        <input id="adminEmailInput" type="email" dir="ltr" placeholder="admin@example.com" style="flex:1; min-width:200px;" />
-        <button id="addAdminBtn" type="button">إضافة Admin</button>
-        <button id="removeAdminBtn" type="button" class="danger">إزالة Admin</button>
+        <input id="vortex-admin-email-input" type="email" dir="ltr" placeholder="admin@example.com" style="flex:1; min-width:200px;" />
+        <button id="vortex-add-admin-btn" type="button">إضافة Admin</button>
+        <button id="vortex-remove-admin-btn" type="button" class="danger">إزالة Admin</button>
       </div>
     </div>
 
-    <!-- واجهة النظام الاحترافية بعد تسجيل الدخول -->
-    <div id="workspaceBox" class="hidden">
-      <!-- لوحة الإحصائيات السريعة -->
+    <!-- مساحة العمل الاحترافية بعد تسجيل الدخول -->
+    <div id="vortex-workspace" class="hidden">
       <div class="stats-grid">
         <div class="stat-box">
           <div class="stat-label">إجمالي المهام</div>
-          <div id="statTotalTasks" class="stat-val">0</div>
+          <div id="stat-total-tasks" class="stat-val">0</div>
         </div>
         <div class="stat-box">
           <div class="stat-label">قيد التنفيذ</div>
-          <div id="statPendingTasks" class="stat-val">0</div>
+          <div id="stat-pending-tasks" class="stat-val">0</div>
         </div>
         <div class="stat-box">
           <div class="stat-label">مهام مكتملة</div>
-          <div id="statDoneTasks" class="stat-val">0</div>
+          <div id="stat-done-tasks" class="stat-val">0</div>
         </div>
         <div class="stat-box">
-          <div class="stat-label">قطع ومعدات ROV</div>
-          <div id="statGearCount" class="stat-val">0</div>
+          <div class="stat-label">معدات ROV المسجلة</div>
+          <div id="stat-total-gear" class="stat-val">0</div>
         </div>
       </div>
 
-      <!-- تبويبات الأقسام -->
       <div class="tabs">
-        <button type="button" class="tab-btn active" data-tab="tasks">المهام</button>
-        <button type="button" class="tab-btn" data-tab="gear">معدات ROV</button>
-        <button type="button" class="tab-btn" data-tab="announcements">إعلانات الفريق</button>
-        <button type="button" class="tab-btn" data-tab="diagnostics">فحص الأخطاء والبيئة</button>
+        <button type="button" class="tab-btn active" data-vtab="tasks">مهام الفريق</button>
+        <button type="button" class="tab-btn" data-vtab="gear">معدات ROV</button>
+        <button type="button" class="tab-btn" data-vtab="announcements">إعلانات الفريق</button>
+        <button type="button" class="tab-btn" data-vtab="diagnostics">فحص الأخطاء والبيئة</button>
       </div>
 
       <!-- تبويب المهام -->
-      <div id="tab-tasks" class="card">
+      <div id="vtab-tasks" class="card">
         <h3 style="margin:0 0 10px 0;">مهام الفريق</h3>
         <div class="row">
-          <input id="taskTitleInput" type="text" placeholder="عنوان المهمة الجديدة..." style="flex:1; min-width:200px;" />
-          <select id="taskPrioritySelect">
+          <input id="vortex-task-title" type="text" placeholder="عنوان المهمة الجديدة..." style="flex:1; min-width:200px;" />
+          <select id="vortex-task-priority">
             <option value="normal">أولوية عادية</option>
             <option value="high">أولوية عالية</option>
           </select>
-          <select id="taskStatusSelect">
+          <select id="vortex-task-status">
             <option value="pending">قيد التنفيذ</option>
             <option value="done">مكتملة</option>
           </select>
-          <button id="addTaskBtn" type="button">إضافة مهمة</button>
+          <button id="vortex-add-task-btn" type="button">إضافة مهمة</button>
         </div>
 
         <div class="row" style="margin-top:12px;">
-          <input id="taskSearchInput" type="text" placeholder="بحث في المهام..." style="flex:1; min-width:180px;" />
-          <label for="filterSelect">تصفية:</label>
-          <select id="filterSelect">
+          <input id="vortex-task-search" type="text" placeholder="بحث في المهام..." style="flex:1; min-width:180px;" />
+          <label for="vortex-task-filter">تصفية:</label>
+          <select id="vortex-task-filter">
             <option value="all">الكل</option>
             <option value="pending">قيد التنفيذ</option>
             <option value="done">مكتملة</option>
           </select>
         </div>
 
-        <div id="tasksList"></div>
+        <div id="vortex-tasks-list"></div>
       </div>
 
-      <!-- تبويب معدات وقطع ROV -->
-      <div id="tab-gear" class="card hidden">
-        <h3 style="margin:0 0 10px 0;">معدات وقطع ROV (كهرباء، حساسات، دفّاعات، هيكل)</h3>
+      <!-- تبويب معدات ROV -->
+      <div id="vtab-gear" class="card hidden">
+        <h3 style="margin:0 0 10px 0;">معدات وقطع ROV</h3>
         <div class="row">
-          <input id="gearNameInput" type="text" placeholder="اسم القطعة أو الجهاز (مثلاً: Thruster T200)" style="flex:1; min-width:200px;" />
-          <input id="gearQtyInput" type="number" min="1" value="1" style="width:90px;" />
-          <select id="gearStateSelect">
+          <input id="vortex-gear-name" type="text" placeholder="اسم القطعة أو الجهاز (مثلاً: Thruster / Sensor)" style="flex:1; min-width:200px;" />
+          <input id="vortex-gear-qty" type="number" min="1" value="1" style="width:90px;" />
+          <select id="vortex-gear-state">
             <option value="ready">جاهز</option>
             <option value="maintenance">صيانة / فحص</option>
             <option value="missing">ناقص / مطلوب</option>
           </select>
-          <button id="addGearBtn" type="button">إضافة قطعة</button>
+          <button id="vortex-add-gear-btn" type="button">إضافة قطعة</button>
         </div>
-        <div id="gearList"></div>
+        <div id="vortex-gear-list"></div>
       </div>
 
-      <!-- تبويب إعلانات الفريق -->
-      <div id="tab-announcements" class="card hidden">
-        <h3 style="margin:0 0 10px 0;">إعلانات وملاحظات الفريق</h3>
+      <!-- تبويب الإعلانات -->
+      <div id="vtab-announcements" class="card hidden">
+        <h3 style="margin:0 0 10px 0;">إعلانات وتنبيهات الفريق</h3>
         <div class="stack">
-          <input id="annTitleInput" type="text" placeholder="عنوان الإعلان أو التحديث..." />
-          <textarea id="annBodyInput" placeholder="اكتب تفاصيل الاجتماع أو الاختبار أو التنبيه..."></textarea>
+          <input id="vortex-ann-title" type="text" placeholder="عنوان الإعلان..." />
+          <textarea id="vortex-ann-body" placeholder="اكتب تفاصيل الاجتماع أو الاختبار أو التنبيه..."></textarea>
           <div class="row">
-            <button id="addAnnBtn" type="button">نشر إعلان</button>
+            <button id="vortex-add-ann-btn" type="button">نشر إعلان</button>
           </div>
         </div>
-        <div id="annList"></div>
+        <div id="vortex-ann-list"></div>
       </div>
 
-      <!-- تبويب فحص الأخطاء والبيئة وسجل التشخيص -->
-      <div id="tab-diagnostics" class="card hidden">
+      <!-- تبويب الفحص والتشخيص -->
+      <div id="vtab-diagnostics" class="card hidden">
         <h3 style="margin:0 0 8px 0;">فحص الأخطاء والبيئة (Diagnostics)</h3>
-        <p class="hint" style="margin:0 0 10px 0;">
-          يفحص تلقائياً اتصال الإنترنت، إعدادات Firebase، نوع المتصفح/الـ WebView، وحالة Service Worker وStorage.
-        </p>
         <div class="row">
-          <button id="runDiagBtn" type="button">إعادة فحص البيئة الآن</button>
-          <button id="clearSwBtn" type="button" class="secondary">تحديث Service Worker ومسح الكاش</button>
+          <button id="vortex-run-diag-btn" type="button">إعادة فحص البيئة الآن</button>
+          <button id="vortex-clear-cache-btn" type="button" class="secondary">تحديث Service Worker ومسح الكاش</button>
         </div>
-        <ul id="diagResults" class="diag-list"></ul>
+        <ul id="vortex-diag-list" class="diag-list"></ul>
       </div>
     </div>
   </div>
@@ -376,6 +398,8 @@
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
     import {
       getAuth,
+      setPersistence,
+      browserLocalPersistence,
       GoogleAuthProvider,
       signInWithEmailAndPassword,
       createUserWithEmailAndPassword,
@@ -402,10 +426,8 @@
       serverTimestamp
     } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-    // ضع بريد المالك هنا بحروف صغيرة إذا أردت صلاحية Owner تلقائياً
     const OWNER_EMAIL = "";
 
-    // إعدادات مشروع Firebase الحقيقية
     const firebaseConfig = {
       apiKey: "AIzaSyCTb6fawE3ltI6A06lBVrx_5zre4Ei4N8g",
       authDomain: "vortex-rov.firebaseapp.com",
@@ -420,42 +442,42 @@
       "auth/invalid-api-key": {
         num: "ERR-01",
         msg: "مفتاح Firebase API Key غير صحيح.",
-        fix: "تأكد من تطابق apiKey مع بيانات مشروع vortex-rov في Firebase Console."
+        fix: "تأكد من مطابقة apiKey مع مشروع vortex-rov في Firebase Console."
       },
       "auth/unauthorized-domain": {
         num: "ERR-02",
         msg: "الدومين الحالي غير مضاف في Authorized domains.",
-        fix: "أضف udhdidhdj.github.io في Firebase Console ← Authentication ← Settings ← Authorized domains."
+        fix: "أضف udhdidhdj.github.io في Authentication ← Settings ← Authorized domains."
       },
       "auth/operation-not-allowed": {
         num: "ERR-03",
-        msg: "طريقة الدخول هذه غير مفعّلة في Firebase.",
+        msg: "طريقة تسجيل الدخول هذه غير مفعّلة في Firebase.",
         fix: "فعّل Google / Phone / Email-Password في Authentication ← Sign-in method."
       },
       "auth/popup-blocked": {
         num: "ERR-04",
-        msg: "المتصفح منع نافذة تسجيل الدخول المنبثقة.",
-        fix: "اسمح بالـ Pop-ups أو افتح الرابط مباشرة في Chrome أو Safari."
+        msg: "المتصفح منع نافذة الدخول المنبثقة.",
+        fix: "استخدم زر «دخول Google بإعادة التوجيه (Redirect)» أو اسمح بالـ Pop-ups."
       },
       "auth/popup-closed-by-user": {
         num: "ERR-05",
-        msg: "تم إغلاق نافذة تسجيل الدخول قبل إتمام العملية.",
-        fix: "أعد المحاولة وأكمل اختيار الحساب حتى النهاية."
+        msg: "تم إغلاق نافذة الدخول قبل إتمام العملية.",
+        fix: "أعد المحاولة وأكمل اختيار الحساب."
       },
       "auth/cancelled-popup-request": {
         num: "ERR-06",
         msg: "تم إلغاء طلب نافذة الدخول بسبب ضغط متكرر أو تحويل.",
-        fix: "اضغط مرة واحدة فقط وانتظر فتح النافذة أو إعادة التوجيه."
+        fix: "اضغط مرة واحدة فقط وانتظر فتح النافذة."
       },
       "auth/operation-not-supported-in-this-environment": {
         num: "ERR-07",
-        msg: "البيئة الحالية (WebView أو متصفح مدمج أو وضع مقيد) لا تدعم العملية.",
-        fix: "افتح الرابط في Chrome أو Safari وتأكد من عدم حظر الكوكيز أو التخزين."
+        msg: "البيئة الحالية (WebView أو متصفح مدمج) لا تدعم هذه الخطوة.",
+        fix: "افتح الرابط في Chrome أو Safari وتأكد من تفعيل الكوكيز والتخزين."
       },
       "auth/network-request-failed": {
         num: "ERR-08",
-        msg: "تعذر الاتصال بخوادم Firebase بسبب الشبكة أو حجب الاتصال.",
-        fix: "تحقق من الإنترنت وأوقف أي مانع إعلانات أو VPN أو Proxy مقيد."
+        msg: "مشكلة في الاتصال بالإنترنت أو حجب طلب الشبكة.",
+        fix: "افحص الإنترنت أو أوقف أي مانع إعلانات/VPN/Proxy."
       },
       "auth/invalid-email": {
         num: "ERR-09",
@@ -469,18 +491,18 @@
       },
       "auth/email-already-in-use": {
         num: "ERR-11",
-        msg: "البريد الإلكتروني مسجل مسبقاً.",
-        fix: "اضغط «دخول بالبريد» بدلاً من «إنشاء حساب جديد»."
+        msg: "هذا البريد الإلكتروني مسجل من قبل.",
+        fix: "اضغط «دخول بالبريد» بدلاً من «إنشاء حساب»."
       },
       "auth/invalid-credential": {
         num: "ERR-12",
-        msg: "بيانات البريد الإلكتروني أو كلمة المرور غير صحيحة.",
+        msg: "البريد الإلكتروني أو كلمة المرور غير صحيحة.",
         fix: "راجع البريد وكلمة المرور أو أنشئ حساباً جديداً."
       },
       "auth/user-not-found": {
         num: "ERR-13",
-        msg: "لا يوجد حساب بهذا البريد الإلكتروني.",
-        fix: "اضغط «إنشاء حساب جديد» أولاً."
+        msg: "لا يوجد مستخدم بهذا البريد الإلكتروني.",
+        fix: "اضغط «إنشاء حساب» أولاً."
       },
       "auth/wrong-password": {
         num: "ERR-14",
@@ -494,8 +516,8 @@
       },
       "auth/too-many-requests": {
         num: "ERR-16",
-        msg: "تم إرسال طلبات كثيرة جداً في فترة قصيرة.",
-        fix: "انتظر قليلاً ثم أعد المحاولة، أو أضف رقم اختبار في Firebase Phone Auth."
+        msg: "تم إرسال طلبات كثيرة جداً في وقت قصير.",
+        fix: "انتظر قليلاً ثم أعد المحاولة أو استخدم أرقام اختبار في Firebase Phone Auth."
       },
       "auth/captcha-check-failed": {
         num: "ERR-17",
@@ -505,17 +527,22 @@
       "auth/invalid-verification-code": {
         num: "ERR-18",
         msg: "كود التحقق المكون من 6 أرقام غير صحيح.",
-        fix: "راجع الكود المرسل إلى هاتفك وأعد إدخاله."
+        fix: "تأكد من كتابة الكود الصحيح."
       },
       "auth/code-expired": {
         num: "ERR-19",
         msg: "انتهت صلاحية كود التحقق.",
-        fix: "اضغط «إرسال كود التحقق» مرة أخرى."
+        fix: "اضغط «إرسال كود التحقق (SMS)» مرة أخرى."
+      },
+      "auth/web-storage-unsupported": {
+        num: "ERR-22",
+        msg: "تخزين المتصفح غير مدعوم أو معطل في هذا الوضع.",
+        fix: "أوقف التصفح الخاص/المقيد واسمح بالكوكيز وLocal Storage."
       },
       "permission-denied": {
         num: "ERR-20",
-        msg: "قاعدة بيانات Firestore رفضت العملية بسبب الصلاحيات.",
-        fix: "راجع قواعد Firestore في Firebase Console واسمح للمستخدم المسجل."
+        msg: "الصلاحيات مرفوضة من قاعدة بيانات Firestore.",
+        fix: "راجع قواعد Firestore واسمح للمستخدم المسجل."
       },
       "unavailable": {
         num: "ERR-21",
@@ -524,36 +551,39 @@
       }
     };
 
-    const statusBox = document.getElementById("statusBox");
-    const netBadge = document.getElementById("netBadge");
-    const themeBtn = document.getElementById("themeBtn");
-    const langBtn = document.getElementById("langBtn");
-    const loginGoogleBtn = document.getElementById("loginGoogleBtn");
-    const logoutBtn = document.getElementById("logoutBtn");
-    const authMethodsSection = document.getElementById("authMethodsSection");
-    const emailInput = document.getElementById("emailInput");
-    const passwordInput = document.getElementById("passwordInput");
-    const emailSignInBtn = document.getElementById("emailSignInBtn");
-    const emailSignUpBtn = document.getElementById("emailSignUpBtn");
-    const resetPassBtn = document.getElementById("resetPassBtn");
-    const phoneInput = document.getElementById("phoneInput");
-    const sendOtpBtn = document.getElementById("sendOtpBtn");
-    const otpRow = document.getElementById("otpRow");
-    const otpInput = document.getElementById("otpInput");
-    const verifyOtpBtn = document.getElementById("verifyOtpBtn");
-    const userInfo = document.getElementById("userInfo");
-    const adminBox = document.getElementById("adminBox");
-    const workspaceBox = document.getElementById("workspaceBox");
+    const statusBox = document.getElementById("vortex-status-box");
+    const netBadge = document.getElementById("vortex-net-badge");
+    const themeBtn = document.getElementById("vortex-theme-btn");
+    const langBtn = document.getElementById("vortex-lang-btn");
+    const authPanel = document.getElementById("vortex-auth-panel");
+    const googleBtn = document.getElementById("vortex-google-btn");
+    const googleRedirectBtn = document.getElementById("vortex-google-force-redirect-btn");
+    const logoutBtn = document.getElementById("vortex-logout-btn");
+    const userBadge = document.getElementById("vortex-user-badge");
+    const adminBox = document.getElementById("vortex-admin-box");
+    const workspace = document.getElementById("vortex-workspace");
 
-    const tasksList = document.getElementById("tasksList");
-    const filterSelect = document.getElementById("filterSelect");
-    const taskSearchInput = document.getElementById("taskSearchInput");
-    const gearList = document.getElementById("gearList");
-    const annList = document.getElementById("annList");
-    const diagResults = document.getElementById("diagResults");
+    const emailInput = document.getElementById("vortex-email-input");
+    const passInput = document.getElementById("vortex-pass-input");
+    const emailSignInBtn = document.getElementById("vortex-email-signin-btn");
+    const emailSignUpBtn = document.getElementById("vortex-email-signup-btn");
+    const resetPassBtn = document.getElementById("vortex-reset-pass-btn");
 
-    let unknownCounter = 100;
-    const unknownMap = new Map();
+    const phoneInput = document.getElementById("vortex-phone-input");
+    const sendOtpBtn = document.getElementById("vortex-send-otp-btn");
+    const otpBox = document.getElementById("vortex-otp-box");
+    const otpInput = document.getElementById("vortex-otp-input");
+    const verifyOtpBtn = document.getElementById("vortex-verify-otp-btn");
+
+    const tasksList = document.getElementById("vortex-tasks-list");
+    const taskFilter = document.getElementById("vortex-task-filter");
+    const taskSearch = document.getElementById("vortex-task-search");
+    const gearList = document.getElementById("vortex-gear-list");
+    const annList = document.getElementById("vortex-ann-list");
+    const diagList = document.getElementById("vortex-diag-list");
+
+    let unknownSeq = 100;
+    const unknownCodes = new Map();
 
     function setStatus(text, type = "normal") {
       statusBox.textContent = text;
@@ -562,21 +592,21 @@
       if (type === "ok") statusBox.classList.add("ok");
     }
 
-    function resolveError(err, fallbackTitle = "حدث خطأ") {
+    function resolveError(err, title = "حدث خطأ") {
       const raw = err && (err.code || err.message) ? String(err.code || err.message) : "unknown";
       const clean = raw.replace(/^Firebase:\s*/i, "").replace(/\(.*\)\.?$/, "").trim();
 
       if (ERROR_CATALOG[clean]) {
         const e = ERROR_CATALOG[clean];
-        return `[${e.num}] ${fallbackTitle}: ${e.msg}\nالحل: ${e.fix} (${clean})`;
+        return `[${e.num}] ${title}: ${e.msg}\nالحل: ${e.fix} (${clean})`;
       }
 
-      if (!unknownMap.has(raw)) {
-        unknownCounter += 1;
-        unknownMap.set(raw, `ERR-${unknownCounter}`);
+      if (!unknownCodes.has(raw)) {
+        unknownSeq += 1;
+        unknownCodes.set(raw, `ERR-${unknownSeq}`);
       }
-      const num = unknownMap.get(raw);
-      return `[${num}] ${fallbackTitle} — كود غير مصنف مسبقاً: ${raw}\nالحل: تحقق من إعدادات Firebase وراجع تبويب «فحص الأخطاء والبيئة».`;
+      const codeNum = unknownCodes.get(raw);
+      return `[${codeNum}] ${title} — خطأ غير مصنف: ${raw}\nالحل: راجع إعدادات Firebase وتبويب «فحص الأخطاء والبيئة».`;
     }
 
     function isMobileOrIOS() {
@@ -593,112 +623,96 @@
       return "+" + cleaned;
     }
 
-    function updateNetworkBadge() {
+    function syncNetBadge() {
       const online = navigator.onLine;
       netBadge.textContent = online ? "متصل بالشبكة" : "غير متصل بالشبكة";
       netBadge.classList.toggle("ok", online);
       netBadge.classList.toggle("danger", !online);
     }
+    window.addEventListener("online", () => { syncNetBadge(); setStatus("عاد الاتصال بالشبكة.", "ok"); });
+    window.addEventListener("offline", () => { syncNetBadge(); setStatus("[ERR-08] الاتصال بالإنترنت مقطوع.", "error"); });
+    syncNetBadge();
 
-    window.addEventListener("online", () => {
-      updateNetworkBadge();
-      setStatus("عاد الاتصال بالشبكة.", "ok");
-    });
-
-    window.addEventListener("offline", () => {
-      updateNetworkBadge();
-      setStatus("[ERR-08] تم فقدان الاتصال بالإنترنت — بعض العمليات قد تتوقف لحين عودة الاتصال.", "error");
-    });
-
-    updateNetworkBadge();
-
-    // الوضع الليلي / النهاري
     const savedTheme = localStorage.getItem("vortex_theme") || "dark";
     if (savedTheme === "light") {
       document.body.classList.add("light");
       themeBtn.textContent = "الوضع الليلي";
     }
     themeBtn.addEventListener("click", () => {
-      const isLight = document.body.classList.toggle("light");
-      localStorage.setItem("vortex_theme", isLight ? "light" : "dark");
-      themeBtn.textContent = isLight ? "الوضع الليلي" : "الوضع النهاري";
+      const light = document.body.classList.toggle("light");
+      localStorage.setItem("vortex_theme", light ? "light" : "dark");
+      themeBtn.textContent = light ? "الوضع الليلي" : "الوضع النهاري";
     });
 
-    // تبديل اتجاه اللغة (عربي / إنجليزي)
-    let isEnglish = false;
+    let isEn = false;
     langBtn.addEventListener("click", () => {
-      isEnglish = !isEnglish;
-      document.documentElement.lang = isEnglish ? "en" : "ar";
-      document.documentElement.dir = isEnglish ? "ltr" : "rtl";
-      document.getElementById("appTitle").textContent = isEnglish
+      isEn = !isEn;
+      document.documentElement.lang = isEn ? "en" : "ar";
+      document.documentElement.dir = isEn ? "ltr" : "rtl";
+      document.getElementById("vortex-app-title").textContent = isEn
         ? "Vortex ROV — Team Command & Task Hub"
         : "Vortex ROV — مركز قيادة ومهام الفريق";
-      document.getElementById("appSubtitle").textContent = isEnglish
+      document.getElementById("vortex-app-sub").textContent = isEn
         ? "Team Tasks, ROV Gear, Announcements & Diagnostics — MATE ROV"
-        : "نظام إدارة الفريق والمعدات والإعلانات والمهام — MATE ROV";
-      langBtn.textContent = isEnglish ? "العربية" : "English";
+        : "نظام متكامل للفريق والمعدات والإعلانات والمهام — MATE ROV";
+      langBtn.textContent = isEn ? "العربية" : "English";
     });
 
-    // التبديل بين التبويبات
     document.querySelectorAll(".tab-btn").forEach((btn) => {
       btn.addEventListener("click", () => {
-        const target = btn.dataset.tab;
+        const target = btn.dataset.vtab;
         document.querySelectorAll(".tab-btn").forEach((b) => b.classList.remove("active"));
         btn.classList.add("active");
         ["tasks", "gear", "announcements", "diagnostics"].forEach((name) => {
-          document.getElementById(`tab-${name}`).classList.toggle("hidden", name !== target);
+          document.getElementById(`vtab-${name}`).classList.toggle("hidden", name !== target);
         });
         if (target === "diagnostics") runDiagnostics();
       });
     });
 
-    // تسجيل Service Worker بأمان
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", () => {
         navigator.serviceWorker
           .register("/Vortex-Rov/service-worker.js")
-          .catch((err) => console.warn("ServiceWorker note:", err));
+          .catch((err) => console.warn("SW note:", err));
       });
     }
 
-    // أداة فحص الأخطاء والبيئة
     async function runDiagnostics() {
-      const checks = [];
-      checks.push(`المتصفح / الجهاز: ${navigator.userAgent}`);
-      checks.push(`حالة الشبكة: ${navigator.onLine ? "متصل (Online)" : "غير متصل (Offline)"}`);
-      checks.push(`الدومين الحالي: ${window.location.origin} (المسار: ${window.location.pathname})`);
-      checks.push(`توافق Firebase Config: ${firebaseConfig.apiKey.startsWith("AIza") && firebaseConfig.projectId === "vortex-rov" ? "سليم ✓" : "تحقق من القيم"}`);
+      const items = [];
+      items.push(`الجهاز / المتصفح: ${navigator.userAgent}`);
+      items.push(`الشبكة: ${navigator.onLine ? "متصل (Online)" : "غير متصل (Offline)"}`);
+      items.push(`الدومين / المسار: ${window.location.origin}${window.location.pathname}`);
+      items.push(`Firebase Project: ${firebaseConfig.projectId} (API Key مضاف ✓)`);
 
-      let storageOk = false;
+      let lsOk = false;
       try {
-        localStorage.setItem("_vortex_test", "1");
-        localStorage.removeItem("_vortex_test");
-        storageOk = true;
+        localStorage.setItem("_vx_t", "1");
+        localStorage.removeItem("_vx_t");
+        lsOk = true;
       } catch (_) {}
-      checks.push(`تخزين المتصفح (localStorage): ${storageOk ? "متاح ✓" : "محجوب أو مقيد (قد يؤثر على الجلسات أو الإعدادات)"}`);
+      items.push(`Local Storage: ${lsOk ? "متاح ✓" : "محجوب أو مقيد"}`);
 
       if ("serviceWorker" in navigator) {
         try {
           const regs = await navigator.serviceWorker.getRegistrations();
-          checks.push(`Service Worker: مسجل (${regs.length} تسجيل نشط)`);
+          items.push(`Service Worker: ${regs.length} تسجيل نشط`);
         } catch (e) {
-          checks.push(`Service Worker: تعذر الفحص (${e.message || e})`);
+          items.push(`Service Worker: تعذر الفحص (${e.message || e})`);
         }
-      } else {
-        checks.push("Service Worker: غير مدعوم في هذا المتصفح");
       }
 
-      diagResults.innerHTML = "";
-      checks.forEach((line) => {
+      diagList.innerHTML = "";
+      items.forEach((txt) => {
         const li = document.createElement("li");
-        li.textContent = line;
-        diagResults.appendChild(li);
+        li.textContent = txt;
+        diagList.appendChild(li);
       });
     }
 
-    document.getElementById("runDiagBtn").addEventListener("click", runDiagnostics);
+    document.getElementById("vortex-run-diag-btn").addEventListener("click", runDiagnostics);
 
-    document.getElementById("clearSwBtn").addEventListener("click", async () => {
+    document.getElementById("vortex-clear-cache-btn").addEventListener("click", async () => {
       try {
         if ("serviceWorker" in navigator) {
           const regs = await navigator.serviceWorker.getRegistrations();
@@ -708,14 +722,13 @@
           const keys = await caches.keys();
           for (const k of keys) await caches.delete(k);
         }
-        setStatus("تم تحديث Service Worker ومسح الكاش. سيتم إعادة تحميل الصفحة...", "ok");
-        setTimeout(() => window.location.reload(true), 800);
+        setStatus("تم تحديث Service Worker ومسح الكاش. جاري إعادة التحميل...", "ok");
+        setTimeout(() => window.location.reload(true), 700);
       } catch (err) {
         setStatus(resolveError(err, "تعذر مسح الكاش"), "error");
       }
     });
 
-    // تهيئة Firebase
     let auth = null;
     let db = null;
     let provider = null;
@@ -728,6 +741,7 @@
       db = getFirestore(app);
       provider = new GoogleAuthProvider();
       provider.setCustomParameters({ prompt: "select_account" });
+      setPersistence(auth, browserLocalPersistence).catch(() => {});
     } catch (err) {
       setStatus(resolveError(err, "فشل تهيئة Firebase"), "error");
       console.error(err);
@@ -735,7 +749,7 @@
 
     function ensureRecaptcha() {
       if (!auth || recaptchaVerifier) return recaptchaVerifier;
-      recaptchaVerifier = new RecaptchaVerifier(auth, "recaptcha-container", {
+      recaptchaVerifier = new RecaptchaVerifier(auth, "vortex-recaptcha-box", {
         size: "invisible"
       });
       return recaptchaVerifier;
@@ -747,10 +761,7 @@
     let allTasks = [];
     let allGear = [];
     let allAnnouncements = [];
-    let unsubscribeTasks = null;
-    let unsubscribeAdmins = null;
-    let unsubscribeGear = null;
-    let unsubscribeAnn = null;
+    let unsubs = [];
 
     function computeRole(user) {
       if (!user) return "Member";
@@ -761,38 +772,36 @@
     }
 
     function updateStats() {
-      document.getElementById("statTotalTasks").textContent = String(allTasks.length);
-      document.getElementById("statPendingTasks").textContent = String(
+      document.getElementById("stat-total-tasks").textContent = String(allTasks.length);
+      document.getElementById("stat-pending-tasks").textContent = String(
         allTasks.filter((t) => t.status !== "done").length
       );
-      document.getElementById("statDoneTasks").textContent = String(
+      document.getElementById("stat-done-tasks").textContent = String(
         allTasks.filter((t) => t.status === "done").length
       );
-      document.getElementById("statGearCount").textContent = String(allGear.length);
+      document.getElementById("stat-total-gear").textContent = String(allGear.length);
     }
 
     function renderUI() {
       if (!currentUser) {
-        loginGoogleBtn.classList.remove("hidden");
-        authMethodsSection.classList.remove("hidden");
+        authPanel.classList.remove("hidden");
         logoutBtn.classList.add("hidden");
-        userInfo.classList.add("hidden");
+        userBadge.classList.add("hidden");
         adminBox.classList.add("hidden");
-        workspaceBox.classList.add("hidden");
-        setStatus("سجّل الدخول بحساب Google أو البريد الإلكتروني أو رقم التليفون.", "normal");
+        workspace.classList.add("hidden");
+        setStatus("اختر طريقة تسجيل الدخول (Google، البريد الإلكتروني، أو رقم التليفون).", "normal");
         return;
       }
 
       currentRole = computeRole(currentUser);
-      const identity = currentUser.email || currentUser.phoneNumber || currentUser.uid;
+      const idText = currentUser.email || currentUser.phoneNumber || currentUser.uid;
 
-      loginGoogleBtn.classList.add("hidden");
-      authMethodsSection.classList.add("hidden");
-      otpRow.classList.add("hidden");
+      authPanel.classList.add("hidden");
+      otpBox.classList.add("hidden");
       logoutBtn.classList.remove("hidden");
-      userInfo.classList.remove("hidden");
-      userInfo.textContent = `${identity} (${currentRole})`;
-      workspaceBox.classList.remove("hidden");
+      userBadge.classList.remove("hidden");
+      userBadge.textContent = `${idText} (${currentRole})`;
+      workspace.classList.remove("hidden");
       adminBox.classList.toggle("hidden", currentRole !== "Owner");
       setStatus(`تم تسجيل الدخول بنجاح — الصلاحية: ${currentRole}`, "ok");
       updateStats();
@@ -801,21 +810,19 @@
       renderAnnouncements();
     }
 
-    function canManageItem(item) {
+    function canManage(item) {
       if (!currentUser) return false;
       if (currentRole === "Owner" || currentRole === "Admin") return true;
       return item.createdByUid === currentUser.uid;
     }
 
-    // عرض المهام
     function renderTasks() {
-      const filter = filterSelect.value;
-      const search = taskSearchInput.value.trim().toLowerCase();
-
+      const f = taskFilter.value;
+      const qText = taskSearch.value.trim().toLowerCase();
       const filtered = allTasks.filter((t) => {
-        const matchStatus = filter === "all" || t.status === filter;
-        const matchText = !search || String(t.title || "").toLowerCase().includes(search);
-        return matchStatus && matchText;
+        const okStatus = f === "all" || t.status === f;
+        const okSearch = !qText || String(t.title || "").toLowerCase().includes(qText);
+        return okStatus && okSearch;
       });
 
       tasksList.innerHTML = "";
@@ -835,9 +842,9 @@
 
         const metaEl = document.createElement("div");
         metaEl.className = "hint";
-        const prioText = task.priority === "high" ? "أولوية عالية" : "أولوية عادية";
-        const stText = task.status === "done" ? "مكتملة" : "قيد التنفيذ";
-        metaEl.textContent = `${stText} • ${prioText} • بواسطة: ${task.createdByLabel || "عضو"}`;
+        metaEl.textContent = `${task.status === "done" ? "مكتملة" : "قيد التنفيذ"} • ${
+          task.priority === "high" ? "أولوية عالية" : "أولوية عادية"
+        } • بواسطة: ${task.createdByLabel || "عضو"}`;
 
         left.appendChild(titleEl);
         left.appendChild(metaEl);
@@ -845,7 +852,7 @@
         const actions = document.createElement("div");
         actions.className = "row";
 
-        if (canManageItem(task)) {
+        if (canManage(task)) {
           const toggleBtn = document.createElement("button");
           toggleBtn.type = "button";
           toggleBtn.className = "secondary";
@@ -882,11 +889,10 @@
       });
     }
 
-    // عرض معدات ROV
     function renderGear() {
       gearList.innerHTML = "";
       if (allGear.length === 0) {
-        gearList.innerHTML = `<p class="hint" style="margin-top:12px;">لم تُضف معدات بعد.</p>`;
+        gearList.innerHTML = `<p class="hint" style="margin-top:12px;">لا توجد معدات مسجلة بعد.</p>`;
         return;
       }
 
@@ -901,7 +907,7 @@
 
         const metaEl = document.createElement("div");
         metaEl.className = "hint";
-        metaEl.textContent = `أضافها: ${item.createdByLabel || "عضو"}`;
+        metaEl.textContent = `بواسطة: ${item.createdByLabel || "عضو"}`;
 
         left.appendChild(titleEl);
         left.appendChild(metaEl);
@@ -923,7 +929,7 @@
         }
         right.appendChild(badge);
 
-        if (canManageItem(item)) {
+        if (canManage(item)) {
           const delBtn = document.createElement("button");
           delBtn.type = "button";
           delBtn.className = "danger";
@@ -944,7 +950,6 @@
       });
     }
 
-    // عرض إعلانات الفريق
     function renderAnnouncements() {
       annList.innerHTML = "";
       if (allAnnouncements.length === 0) {
@@ -976,10 +981,9 @@
         left.appendChild(titleEl);
         left.appendChild(bodyEl);
         left.appendChild(metaEl);
-
         div.appendChild(left);
 
-        if (canManageItem(ann)) {
+        if (canManage(ann)) {
           const delBtn = document.createElement("button");
           delBtn.type = "button";
           delBtn.className = "danger";
@@ -998,22 +1002,20 @@
       });
     }
 
-    // نتيجة إعادة التوجيه (Google Redirect)
     if (auth) {
       getRedirectResult(auth).catch((err) => {
         setStatus(resolveError(err, "تعذر إتمام تسجيل الدخول بعد إعادة التوجيه"), "error");
       });
     }
 
-    // تسجيل الدخول بحساب Google
-    loginGoogleBtn.addEventListener("click", async () => {
+    async function startGoogleLogin(forceRedirect = false) {
       if (!auth || !provider) {
         setStatus("[ERR-01] Firebase غير مهيأ.", "error");
         return;
       }
       setStatus("جاري فتح تسجيل الدخول بحساب Google...", "normal");
       try {
-        if (isMobileOrIOS()) {
+        if (forceRedirect || isMobileOrIOS()) {
           await signInWithRedirect(auth, provider);
           return;
         }
@@ -1035,23 +1037,25 @@
         }
         setStatus(resolveError(err, "فشل تسجيل الدخول بحساب Google"), "error");
       }
-    });
+    }
 
-    // البريد الإلكتروني وكلمة المرور
+    googleBtn.addEventListener("click", () => startGoogleLogin(false));
+    googleRedirectBtn.addEventListener("click", () => startGoogleLogin(true));
+
     emailSignInBtn.addEventListener("click", async () => {
       if (!auth) return;
       const email = emailInput.value.trim();
-      const password = passwordInput.value;
-      if (!email || !password) {
+      const pass = passInput.value;
+      if (!email || !pass) {
         setStatus("[ERR-09] أدخل البريد الإلكتروني وكلمة المرور.", "error");
         return;
       }
       emailSignInBtn.disabled = true;
-      setStatus("جاري تسجيل الدخول بالبريد الإلكتروني...", "normal");
+      setStatus("جاري تسجيل الدخول بالبريد...", "normal");
       try {
-        await signInWithEmailAndPassword(auth, email, password);
+        await signInWithEmailAndPassword(auth, email, pass);
       } catch (err) {
-        setStatus(resolveError(err, "فشل الدخول بالبريد الإلكتروني"), "error");
+        setStatus(resolveError(err, "فشل الدخول بالبريد"), "error");
       } finally {
         emailSignInBtn.disabled = false;
       }
@@ -1060,15 +1064,15 @@
     emailSignUpBtn.addEventListener("click", async () => {
       if (!auth) return;
       const email = emailInput.value.trim();
-      const password = passwordInput.value;
-      if (!email || !password) {
+      const pass = passInput.value;
+      if (!email || !pass) {
         setStatus("[ERR-09] أدخل البريد الإلكتروني وكلمة المرور لإنشاء الحساب.", "error");
         return;
       }
       emailSignUpBtn.disabled = true;
       setStatus("جاري إنشاء الحساب...", "normal");
       try {
-        await createUserWithEmailAndPassword(auth, email, password);
+        await createUserWithEmailAndPassword(auth, email, pass);
       } catch (err) {
         setStatus(resolveError(err, "فشل إنشاء الحساب"), "error");
       } finally {
@@ -1080,22 +1084,21 @@
       if (!auth) return;
       const email = emailInput.value.trim();
       if (!email) {
-        setStatus("[ERR-09] اكتب البريد الإلكتروني في خانة البريد أولاً لإرسال رابط الاستعادة.", "error");
+        setStatus("[ERR-09] اكتب البريد الإلكتروني أولاً لإرسال رابط الاستعادة.", "error");
         return;
       }
       try {
         await sendPasswordResetEmail(auth, email);
-        setStatus(`تم إرسال رسالة إعادة تعيين كلمة المرور إلى ${email}.`, "ok");
+        setStatus(`تم إرسال رابط استعادة كلمة المرور إلى ${email}.`, "ok");
       } catch (err) {
         setStatus(resolveError(err, "تعذر إرسال رابط الاستعادة"), "error");
       }
     });
 
-    // رقم التليفون (OTP)
     sendOtpBtn.addEventListener("click", async () => {
       if (!auth) return;
-      const phoneNumber = normalizePhone(phoneInput.value);
-      if (!/^\+\d{8,15}$/.test(phoneNumber)) {
+      const phone = normalizePhone(phoneInput.value);
+      if (!/^\+\d{8,15}$/.test(phone)) {
         setStatus("[ERR-15] اكتب رقم التليفون بصيغة دولية مثل +201012345678.", "error");
         return;
       }
@@ -1103,9 +1106,9 @@
       setStatus("جاري إرسال كود التحقق...", "normal");
       try {
         const verifier = ensureRecaptcha();
-        confirmationResult = await signInWithPhoneNumber(auth, phoneNumber, verifier);
-        otpRow.classList.remove("hidden");
-        setStatus(`تم إرسال كود التحقق إلى ${phoneNumber}.`, "ok");
+        confirmationResult = await signInWithPhoneNumber(auth, phone, verifier);
+        otpBox.classList.remove("hidden");
+        setStatus(`تم إرسال كود التحقق إلى ${phone}.`, "ok");
       } catch (err) {
         setStatus(resolveError(err, "تعذر إرسال كود التحقق"), "error");
         if (recaptchaVerifier) {
@@ -1137,7 +1140,6 @@
       }
     });
 
-    // تسجيل الخروج
     logoutBtn.addEventListener("click", async () => {
       try {
         await signOut(auth);
@@ -1146,14 +1148,12 @@
       }
     });
 
-    // إضافة مهمة
-    document.getElementById("addTaskBtn").addEventListener("click", async () => {
-      const input = document.getElementById("taskTitleInput");
-      const statusSel = document.getElementById("taskStatusSelect");
-      const prioSel = document.getElementById("taskPrioritySelect");
-      const title = input.value.trim();
+    document.getElementById("vortex-add-task-btn").addEventListener("click", async () => {
+      const titleInput = document.getElementById("vortex-task-title");
+      const statusSel = document.getElementById("vortex-task-status");
+      const prioSel = document.getElementById("vortex-task-priority");
+      const title = titleInput.value.trim();
       if (!title || !currentUser) return;
-
       try {
         await addDoc(collection(db, "tasks"), {
           title,
@@ -1163,21 +1163,19 @@
           createdByLabel: currentUser.email || currentUser.phoneNumber || "عضو",
           createdAt: serverTimestamp()
         });
-        input.value = "";
+        titleInput.value = "";
       } catch (err) {
         setStatus(resolveError(err, "تعذر إضافة المهمة"), "error");
       }
     });
 
-    // إضافة قطعة معدات ROV
-    document.getElementById("addGearBtn").addEventListener("click", async () => {
-      const nameInput = document.getElementById("gearNameInput");
-      const qtyInput = document.getElementById("gearQtyInput");
-      const stateSel = document.getElementById("gearStateSelect");
+    document.getElementById("vortex-add-gear-btn").addEventListener("click", async () => {
+      const nameInput = document.getElementById("vortex-gear-name");
+      const qtyInput = document.getElementById("vortex-gear-qty");
+      const stateSel = document.getElementById("vortex-gear-state");
       const name = nameInput.value.trim();
       const qty = Math.max(1, parseInt(qtyInput.value, 10) || 1);
       if (!name || !currentUser) return;
-
       try {
         await addDoc(collection(db, "gear"), {
           name,
@@ -1194,14 +1192,12 @@
       }
     });
 
-    // نشر إعلان للفريق
-    document.getElementById("addAnnBtn").addEventListener("click", async () => {
-      const titleInput = document.getElementById("annTitleInput");
-      const bodyInput = document.getElementById("annBodyInput");
+    document.getElementById("vortex-add-ann-btn").addEventListener("click", async () => {
+      const titleInput = document.getElementById("vortex-ann-title");
+      const bodyInput = document.getElementById("vortex-ann-body");
       const title = titleInput.value.trim();
       const body = bodyInput.value.trim();
       if (!title || !body || !currentUser) return;
-
       try {
         await addDoc(collection(db, "announcements"), {
           title,
@@ -1217,10 +1213,9 @@
       }
     });
 
-    // إدارة المشرفين
-    document.getElementById("addAdminBtn").addEventListener("click", async () => {
-      const emailInput = document.getElementById("adminEmailInput");
-      const email = emailInput.value.trim().toLowerCase();
+    document.getElementById("vortex-add-admin-btn").addEventListener("click", async () => {
+      const input = document.getElementById("vortex-admin-email-input");
+      const email = input.value.trim().toLowerCase();
       if (!email || currentRole !== "Owner") return;
       try {
         await setDoc(doc(db, "admins", encodeURIComponent(email)), {
@@ -1228,38 +1223,32 @@
           role: "Admin",
           updatedAt: serverTimestamp()
         });
-        emailInput.value = "";
+        input.value = "";
       } catch (err) {
         setStatus(resolveError(err, "تعذر إضافة المشرف"), "error");
       }
     });
 
-    document.getElementById("removeAdminBtn").addEventListener("click", async () => {
-      const emailInput = document.getElementById("adminEmailInput");
-      const email = emailInput.value.trim().toLowerCase();
+    document.getElementById("vortex-remove-admin-btn").addEventListener("click", async () => {
+      const input = document.getElementById("vortex-admin-email-input");
+      const email = input.value.trim().toLowerCase();
       if (!email || currentRole !== "Owner") return;
       try {
         await deleteDoc(doc(db, "admins", encodeURIComponent(email)));
-        emailInput.value = "";
+        input.value = "";
       } catch (err) {
         setStatus(resolveError(err, "تعذر إزالة المشرف"), "error");
       }
     });
 
-    filterSelect.addEventListener("change", renderTasks);
-    taskSearchInput.addEventListener("input", renderTasks);
+    taskFilter.addEventListener("change", renderTasks);
+    taskSearch.addEventListener("input", renderTasks);
 
-    // مراقبة حالة المستخدم والمجموعات في Firestore
     if (auth && db) {
       onAuthStateChanged(auth, (user) => {
         currentUser = user;
-        [unsubscribeTasks, unsubscribeAdmins, unsubscribeGear, unsubscribeAnn].forEach((fn) => {
-          if (typeof fn === "function") fn();
-        });
-        unsubscribeTasks = null;
-        unsubscribeAdmins = null;
-        unsubscribeGear = null;
-        unsubscribeAnn = null;
+        unsubs.forEach((fn) => { if (typeof fn === "function") fn(); });
+        unsubs = [];
 
         if (!user) {
           allTasks = [];
@@ -1270,47 +1259,55 @@
           return;
         }
 
-        unsubscribeAdmins = onSnapshot(
-          collection(db, "admins"),
-          (snap) => {
-            const nextSet = new Set();
-            snap.forEach((d) => {
-              const data = d.data();
-              if (data && data.email) nextSet.add(String(data.email).toLowerCase());
-            });
-            adminEmails = nextSet;
-            renderUI();
-          },
-          () => renderUI()
+        unsubs.push(
+          onSnapshot(
+            collection(db, "admins"),
+            (snap) => {
+              const nextSet = new Set();
+              snap.forEach((d) => {
+                const data = d.data();
+                if (data && data.email) nextSet.add(String(data.email).toLowerCase());
+              });
+              adminEmails = nextSet;
+              renderUI();
+            },
+            () => renderUI()
+          )
         );
 
-        unsubscribeTasks = onSnapshot(
-          query(collection(db, "tasks"), orderBy("createdAt", "desc")),
-          (snap) => {
-            allTasks = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
-            updateStats();
-            renderTasks();
-          },
-          (err) => setStatus(resolveError(err, "تعذر تحميل المهام"), "error")
+        unsubs.push(
+          onSnapshot(
+            query(collection(db, "tasks"), orderBy("createdAt", "desc")),
+            (snap) => {
+              allTasks = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+              updateStats();
+              renderTasks();
+            },
+            (err) => setStatus(resolveError(err, "تعذر تحميل المهام"), "error")
+          )
         );
 
-        unsubscribeGear = onSnapshot(
-          query(collection(db, "gear"), orderBy("createdAt", "desc")),
-          (snap) => {
-            allGear = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
-            updateStats();
-            renderGear();
-          },
-          (err) => setStatus(resolveError(err, "تعذر تحميل المعدات"), "error")
+        unsubs.push(
+          onSnapshot(
+            query(collection(db, "gear"), orderBy("createdAt", "desc")),
+            (snap) => {
+              allGear = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+              updateStats();
+              renderGear();
+            },
+            (err) => setStatus(resolveError(err, "تعذر تحميل المعدات"), "error")
+          )
         );
 
-        unsubscribeAnn = onSnapshot(
-          query(collection(db, "announcements"), orderBy("createdAt", "desc")),
-          (snap) => {
-            allAnnouncements = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
-            renderAnnouncements();
-          },
-          (err) => setStatus(resolveError(err, "تعذر تحميل الإعلانات"), "error")
+        unsubs.push(
+          onSnapshot(
+            query(collection(db, "announcements"), orderBy("createdAt", "desc")),
+            (snap) => {
+              allAnnouncements = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+              renderAnnouncements();
+            },
+            (err) => setStatus(resolveError(err, "تعذر تحميل الإعلانات"), "error")
+          )
         );
 
         renderUI();
