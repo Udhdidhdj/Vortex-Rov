@@ -1123,7 +1123,7 @@
           <section id="vpage-owners" class="hidden">
             <div class="page-header">
               <h1 id="t-owners-page-title" class="page-title">Owners & Accounts Directory</h1>
-              <p id="t-owners-page-sub" class="page-subtitle">Owner-only controls: create verified member accounts, permanently wipe any member & history, and manage owners.</p>
+              <p id="t-owners-page-sub" class="page-subtitle">Owner-only controls: create verified member accounts, delete member accounts, and manage owners.</p>
             </div>
 
             <!-- Create Member Account (Owner Only) -->
@@ -1183,7 +1183,7 @@
                 <span id="t-all-accounts-title">🗂 All Accounts, Usernames & Site Passcodes</span>
                 <span id="vortex-accounts-count-badge" class="badge ok">0</span>
               </div>
-              <div class="hint" id="t-pass-note-owner">Owner can view/change any member's site passcode, update team, or permanently wipe a member and all their history.</div>
+              <div class="hint" id="t-pass-note-owner">Owner can view/change any member's site passcode, update team, or delete a member account.</div>
               <div id="vortex-owner-accounts-directory"></div>
             </div>
           </section>
@@ -1382,8 +1382,8 @@
         complete: "✔ Complete",
         markDoneMember: "✔ Done",
         deleteBtn: "🗑 Delete",
-        wipeAccountBtn: "🧨 Wipe Account & History",
-        confirmWipeMsg: "Permanently delete ({name}) and wipe all their schedule slots, chat messages, task assignments, and roster records?",
+        deleteAccountBtn: "🗑 Delete Account",
+        confirmDeleteMsg: "Permanently delete account ({name})?",
         untitled: "Untitled",
         member: "Member",
         by: "By",
@@ -1430,7 +1430,7 @@
         sendChat: "📨 Send",
         noChat: "No chat messages yet.",
         ownersPageTitle: "Owners & Accounts Directory",
-        ownersPageSub: "Owner-only controls: create verified member accounts, permanently wipe any member & history, and manage owners.",
+        ownersPageSub: "Owner-only controls: create verified member accounts, delete member accounts, and manage owners.",
         createMemberTitle: "➕ Create Member Account (Owner Only)",
         newMemberNamePh: "Full Name (e.g. Omar Ali)",
         newMemberEmailPh: "member@gmail.com",
@@ -1440,9 +1440,9 @@
         regenPassBtn: "🎲 Gen Pass",
         createMemberBtn: "✅ Create Member Account",
         memberCreatedOk: "✔ Member account created.",
-        memberDeletedOk: "✔ Member account and all history wiped.",
+        memberDeletedOk: "✔ Member account deleted.",
         allAccountsTitle: "🗂 All Accounts, Usernames & Site Passcodes",
-        passNoteOwner: "Owner can view/change any member's site passcode, update team, or permanently wipe a member and all their history.",
+        passNoteOwner: "Owner can view/change any member's site passcode, update team, or delete a member account.",
         sitePassFieldPh: "New site passcode",
         setSitePassBtn: "🔑 Set Site Pass",
         genPassBtn: "🎲 Random",
@@ -1558,8 +1558,8 @@
         complete: "✔ إتمام",
         markDoneMember: "✔ تم التنفيذ",
         deleteBtn: "🗑 حذف",
-        wipeAccountBtn: "🧨 مسح الأكونت بتاريخه",
-        confirmWipeMsg: "هل أنت متأكد من حذف الأكونت ({name}) ومسح كل مواعيده ورسائله وتعيينات مهامه وسجلاته نهائيًا؟",
+        deleteAccountBtn: "🗑 حذف الحساب",
+        confirmDeleteMsg: "هل أنت متأكد من حذف حساب ({name}) نهائيًا؟",
         untitled: "بدون عنوان",
         member: "عضو",
         by: "بواسطة",
@@ -1606,7 +1606,7 @@
         sendChat: "📨 إرسال",
         noChat: "لا توجد رسائل بعد.",
         ownersPageTitle: "Owners & Accounts Directory",
-        ownersPageSub: "صلاحيات الأونر فقط: إنشاء حساب عضو بإيميل حقيقي، مسح أي حساب بتاريخه كاملًا، وإدارة الملاك.",
+        ownersPageSub: "صلاحيات الأونر فقط: إنشاء حساب عضو بإيميل حقيقي، حذف حسابات الأعضاء، وإدارة الملاك.",
         createMemberTitle: "➕ إنشاء حساب عضو جديد (للأونر فقط)",
         newMemberNamePh: "اسم العضو الكامل (مثال: عمر علي)",
         newMemberEmailPh: "member@gmail.com",
@@ -1616,9 +1616,9 @@
         regenPassBtn: "🎲 توليد باسورد",
         createMemberBtn: "✅ إنشاء حساب العضو",
         memberCreatedOk: "✔ تم إنشاء حساب العضو بنجاح.",
-        memberDeletedOk: "✔ تم حذف الأكونت ومسح تاريخه بالكامل.",
+        memberDeletedOk: "✔ تم حذف الحساب بنجاح.",
         allAccountsTitle: "🗂 جميع الحسابات واليوزر نيم وباسوردات الموقع",
-        passNoteOwner: "للأونر فقط: رؤية وتغيير باسورد الموقع لأي عضو، تعديل التيم، أو مسح أي حساب بتاريخه بالكامل.",
+        passNoteOwner: "للأونر فقط: رؤية وتغيير باسورد الموقع لأي عضو، تعديل التيم، أو حذف حساب عضو.",
         sitePassFieldPh: "باسورد موقع جديد للعضو",
         setSitePassBtn: "🔑 تغيير باسورد الموقع",
         genPassBtn: "🎲 توليد",
@@ -1652,7 +1652,6 @@
       if (localPart.length < 2) return false;
       if (BLOCKED_TEMP_DOMAINS.has(domain)) return false;
 
-      // Reject obvious keyboard mash / random strings like "hyjsjr"
       const alphaOnly = localPart.replace(/[^a-z]/g, "");
       if (alphaOnly.length >= 5) {
         const hasVowel = /[aeiou]/.test(alphaOnly);
@@ -2126,51 +2125,16 @@
       return TEAMS.includes(authTeamSelect.value) ? authTeamSelect.value : "GUI";
     }
 
-    async function wipeMemberAndAllHistory(memberObj) {
+    async function deleteMemberAccount(memberObj) {
       if (!isOwner() || !db || !memberObj) return;
       const targetUid = memberObj.uid;
       const targetEmail = String(memberObj.email || "").trim().toLowerCase();
-      const targetLabels = [
-        String(memberObj.fullName || "").trim().toLowerCase(),
-        String(memberObj.label || "").trim().toLowerCase(),
-        String(memberObj.username || "").trim().toLowerCase(),
-        targetEmail
-      ].filter(Boolean);
 
       await deleteDoc(doc(db, "members_profiles", targetUid)).catch(() => {});
       if (targetEmail) {
         await deleteDoc(doc(db, "team_roster", encodeURIComponent(targetEmail))).catch(() => {});
         knownEmailsMap.delete(targetEmail);
       }
-
-      const slotsToDelete = allBusySlots.filter(
-        (sl) =>
-          sl.uid === targetUid ||
-          (targetEmail && String(sl.userLabel || "").trim().toLowerCase() === targetEmail) ||
-          targetLabels.includes(String(sl.userLabel || "").trim().toLowerCase())
-      );
-      await Promise.all(slotsToDelete.map((sl) => deleteDoc(doc(db, "busy_schedule", sl.id)).catch(() => {})));
-
-      const msgsToDelete = allChat.filter(
-        (msg) =>
-          msg.createdByUid === targetUid ||
-          targetLabels.includes(String(msg.createdByLabel || "").trim().toLowerCase())
-      );
-      await Promise.all(msgsToDelete.map((msg) => deleteDoc(doc(db, "chat_messages", msg.id)).catch(() => {})));
-
-      const tasksToClean = allTasks.filter((tk) => {
-        const asg = String(tk.assignedTo || "").trim().toLowerCase();
-        const cmp = String(tk.completedBy || "").trim().toLowerCase();
-        return targetLabels.includes(asg) || targetLabels.includes(cmp);
-      });
-      await Promise.all(
-        tasksToClean.map((tk) => {
-          const patch = {};
-          if (targetLabels.includes(String(tk.assignedTo || "").trim().toLowerCase())) patch.assignedTo = "";
-          if (targetLabels.includes(String(tk.completedBy || "").trim().toLowerCase())) patch.completedBy = "";
-          return updateDoc(doc(db, "tasks", tk.id), patch).catch(() => {});
-        })
-      );
 
       membersMap.delete(targetUid);
     }
@@ -3306,25 +3270,25 @@
         right.appendChild(updBtn);
 
         if (!isPrimary) {
-          const wipeBtn = document.createElement("button");
-          wipeBtn.type = "button";
-          wipeBtn.className = "danger";
-          wipeBtn.textContent = t("wipeAccountBtn");
-          wipeBtn.addEventListener("click", async () => {
-            const msg = t("confirmWipeMsg").replaceAll("{name}", fullNameVal);
+          const delAccBtn = document.createElement("button");
+          delAccBtn.type = "button";
+          delAccBtn.className = "danger";
+          delAccBtn.textContent = t("deleteAccountBtn");
+          delAccBtn.addEventListener("click", async () => {
+            const msg = t("confirmDeleteMsg").replaceAll("{name}", fullNameVal);
             if (!window.confirm(msg)) return;
-            wipeBtn.disabled = true;
+            delAccBtn.disabled = true;
             try {
-              await wipeMemberAndAllHistory(m);
+              await deleteMemberAccount(m);
               renderUI();
               setStatus(`${t("memberDeletedOk")} (${fullNameVal})`, "ok");
             } catch (err) {
               setStatus(formatErr(err), "error");
             } finally {
-              wipeBtn.disabled = false;
+              delAccBtn.disabled = false;
             }
           });
-          right.appendChild(wipeBtn);
+          right.appendChild(delAccBtn);
         }
 
         item.appendChild(left);
