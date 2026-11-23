@@ -1,22 +1,13 @@
 {
-  "name": "Vortex ROV - Task Manager",
-  "short_name": "Vortex ROV",
-  "start_url": "/Vortex-Rov/",
-  "scope": "/Vortex-Rov/",
+  "background_color": "#ffffff",
+  "dir": "ltr",
   "display": "standalone",
-  "background_color": "#0b192c",
-  "theme_color": "#0b192c",
-  "orientation": "portrait-primary",
-  "icons": [
-    {
-      "src": "https://udhdidhdj.github.io/Vortex-Rov/icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "https://udhdidhdj.github.io/Vortex-Rov/icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    }
-  ]
+  "name": "Vortex Rov",
+  "orientation": "any",
+  "scope": "/",
+  "short_name": "Vortex Rov",
+  "start_url": "/",
+  "theme_color": "#ffffff",
+  "id": "Vortex-Rov",
+  "description": "Vortex ROV Team Task Manager"
 }
