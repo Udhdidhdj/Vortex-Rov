@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vortex ROV — Command & Tasks</title>
+  <title>Vortex ROV — مركز قيادة ومهام الفريق</title>
   <link rel="manifest" href="/Vortex-Rov/manifest.json" />
-  <meta name="theme-color" content="#0b192c" />
+  <meta name="theme-color" content="#071322" />
   <style>
     :root {
       --bg: #071322;
-      --bg-soft: rgba(10, 25, 47, 0.82);
+      --bg-soft: rgba(10, 25, 47, 0.84);
       --card: #10233b;
       --card-2: #162e4d;
       --accent: #06b6d4;
@@ -25,7 +25,7 @@
 
     body.light {
       --bg: #f1f5f9;
-      --bg-soft: rgba(255, 255, 255, 0.92);
+      --bg-soft: rgba(255, 255, 255, 0.94);
       --card: #ffffff;
       --card-2: #f8fafc;
       --accent: #0284c7;
@@ -46,17 +46,17 @@
     body {
       margin: 0;
       background:
-        radial-gradient(circle at top right, rgba(6, 182, 212, 0.12), transparent 42%),
+        radial-gradient(circle at top right, rgba(6, 182, 212, 0.14), transparent 42%),
         radial-gradient(circle at bottom left, rgba(14, 165, 233, 0.08), transparent 45%),
         var(--bg);
       color: var(--text);
       min-height: 100vh;
-      padding: 18px;
+      padding: 16px;
       transition: background-color 0.2s ease, color 0.2s ease;
     }
 
     .container {
-      max-width: 1080px;
+      max-width: 1120px;
       margin: 0 auto;
     }
 
@@ -64,26 +64,43 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 14px;
+      gap: 12px;
       flex-wrap: wrap;
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 16px 20px;
-      margin-bottom: 16px;
-      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.22);
+      padding: 15px 18px;
+      margin-bottom: 14px;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.2);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: rgba(6, 182, 212, 0.16);
+      border: 1px solid var(--accent);
+      display: grid;
+      place-items: center;
+      color: var(--accent);
+      flex-shrink: 0;
     }
 
     .brand h1 {
       margin: 0;
-      font-size: 21px;
+      font-size: 20px;
       font-weight: 800;
-      letter-spacing: 0.2px;
     }
 
     .brand p {
-      margin: 4px 0 0 0;
-      font-size: 12.5px;
+      margin: 3px 0 0 0;
+      font-size: 12px;
       color: var(--muted);
     }
 
@@ -91,9 +108,9 @@
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 18px;
-      margin-bottom: 16px;
-      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.14);
+      padding: 16px;
+      margin-bottom: 14px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
     }
 
     .section-head {
@@ -107,22 +124,25 @@
 
     .section-title {
       margin: 0;
-      font-size: 18px;
+      font-size: 17px;
       font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
     .auth-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 14px;
-      margin-top: 14px;
+      grid-template-columns: repeat(auto-fit, minmax(295px, 1fr));
+      gap: 12px;
+      margin-top: 12px;
     }
 
     .auth-panel {
       background: var(--card-2);
       border: 1px solid var(--border);
       border-radius: 12px;
-      padding: 16px;
+      padding: 15px;
       display: flex;
       flex-direction: column;
       gap: 10px;
@@ -132,11 +152,14 @@
       margin: 0;
       font-size: 15px;
       font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 7px;
     }
 
     .row {
       display: flex;
-      gap: 10px;
+      gap: 9px;
       flex-wrap: wrap;
       align-items: center;
     }
@@ -158,10 +181,13 @@
       background: var(--card);
       color: var(--text);
       border: 1px solid var(--border);
-      padding: 10px 16px;
+      padding: 10px 15px;
       border-radius: 10px;
       font-weight: 700;
       cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
     }
 
     .tab-btn.active {
@@ -172,16 +198,16 @@
 
     .stats-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 12px;
-      margin-bottom: 16px;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 10px;
+      margin-bottom: 14px;
     }
 
     .stat-box {
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: 12px;
-      padding: 14px;
+      padding: 13px;
     }
 
     .stat-label {
@@ -191,14 +217,14 @@
     }
 
     .stat-val {
-      font-size: 24px;
+      font-size: 22px;
       font-weight: 800;
       margin-top: 4px;
     }
 
     input, select, textarea, button {
       padding: 10px 12px;
-      border-radius: 10px;
+      border-radius: 9px;
       border: 1px solid var(--border);
       background: var(--bg-soft);
       color: var(--text);
@@ -207,7 +233,7 @@
 
     textarea {
       resize: vertical;
-      min-height: 76px;
+      min-height: 74px;
       width: 100%;
     }
 
@@ -217,6 +243,9 @@
       font-weight: 700;
       border: none;
       cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
     }
 
     button:disabled {
@@ -235,27 +264,40 @@
       color: #ffffff;
     }
 
+    button.ok {
+      background: var(--ok);
+      color: #ffffff;
+    }
+
     .item-card {
       display: flex;
       justify-content: space-between;
       align-items: center;
       gap: 12px;
-      padding: 13px 15px;
+      padding: 12px 14px;
       border: 1px solid var(--border);
-      border-radius: 12px;
+      border-radius: 11px;
       margin-top: 10px;
       background: var(--bg-soft);
       flex-wrap: wrap;
     }
 
+    .item-card.pinned {
+      border-color: var(--warn);
+      background: rgba(245, 158, 11, 0.08);
+    }
+
     .badge {
-      padding: 5px 10px;
+      padding: 4px 10px;
       border-radius: 999px;
       font-size: 12px;
       background: var(--card-2);
       color: var(--text);
       border: 1px solid var(--border);
       font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
     }
 
     .badge.ok { border-color: var(--ok); color: var(--ok); }
@@ -273,7 +315,7 @@
 
     #vortex-status-box {
       margin-top: 8px;
-      padding: 11px 14px;
+      padding: 10px 13px;
       border-radius: 10px;
       border: 1px solid var(--border);
       background: var(--bg-soft);
@@ -292,6 +334,31 @@
       background: rgba(34, 197, 94, 0.14);
     }
 
+    .chat-box {
+      max-height: 360px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 10px;
+      border-radius: 11px;
+      border: 1px solid var(--border);
+      background: var(--bg-soft);
+      margin-bottom: 10px;
+    }
+
+    .chat-msg {
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--card-2);
+    }
+
+    .chat-msg.mine {
+      border-color: var(--accent);
+      background: rgba(6, 182, 212, 0.12);
+    }
+
     .diag-list {
       margin: 12px 0 0 0;
       padding: 0 18px;
@@ -305,47 +372,53 @@
     <!-- الشريط العلوي -->
     <header class="topbar">
       <div class="brand">
-        <h1 id="t-app-title">Vortex ROV — مركز قيادة ومهام الفريق</h1>
-        <p id="t-app-sub">نظام إدارة المهام والمعدات والإعلانات — MATE ROV</p>
+        <div class="brand-icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="9"></circle>
+            <path d="M12 3v18M3 12h18"></path>
+          </svg>
+        </div>
+        <div>
+          <h1 id="t-app-title">Vortex ROV — مركز قيادة ومهام الفريق</h1>
+          <p id="t-app-sub">نظام إدارة المهام والمعدات والإعلانات والشات — MATE ROV</p>
+        </div>
       </div>
       <div class="row">
-        <span id="vortex-net-badge" class="badge ok">متصل بالشبكة</span>
-        <button id="vortex-theme-btn" type="button" class="secondary">الوضع النهاري</button>
-        <button id="vortex-lang-btn" type="button" class="secondary">English</button>
+        <span id="vortex-net-badge" class="badge ok">● متصل بالشبكة</span>
+        <button id="vortex-theme-btn" type="button" class="secondary">☀ الوضع النهاري</button>
+        <button id="vortex-lang-btn" type="button" class="secondary">🌐 English</button>
       </div>
     </header>
 
     <!-- بطاقة الحساب وتسجيل الدخول -->
     <section class="card">
       <div class="section-head">
-        <h2 id="t-auth-title" class="section-title">الحساب وتسجيل الدخول</h2>
+        <h2 id="t-auth-title" class="section-title">🔐 الحساب وتسجيل الدخول</h2>
         <div class="row">
           <span id="vortex-user-badge" class="badge hidden"></span>
-          <button id="vortex-logout-btn" type="button" class="secondary hidden">تسجيل الخروج</button>
+          <button id="vortex-logout-btn" type="button" class="secondary hidden">🚪 تسجيل الخروج</button>
         </div>
       </div>
 
-      <div id="vortex-status-box">جاري تهيئة النظام...</div>
+      <div id="vortex-status-box">⏳ جاري تهيئة النظام...</div>
 
       <div id="vortex-auth-grid" class="auth-grid">
-        <!-- Google -->
         <div class="auth-panel">
-          <h3 id="t-google-title">تسجيل الدخول بحساب Google</h3>
+          <h3 id="t-google-title">🔑 تسجيل الدخول بحساب Google</h3>
           <p id="t-google-desc" class="hint" style="margin:0;">دخول سريع عبر Google على Windows وMac وAndroid وiOS.</p>
-          <button id="vortex-google-popup-btn" type="button">الدخول عبر Google</button>
-          <button id="vortex-google-redirect-btn" type="button" class="secondary">الدخول عبر Google (Redirect)</button>
+          <button id="vortex-google-popup-btn" type="button">🚀 الدخول عبر Google</button>
+          <button id="vortex-google-redirect-btn" type="button" class="secondary">↪ الدخول عبر Google (Redirect)</button>
         </div>
 
-        <!-- البريد الإلكتروني وكلمة المرور -->
         <div class="auth-panel">
-          <h3 id="t-email-title">البريد الإلكتروني وكلمة المرور</h3>
+          <h3 id="t-email-title">✉️ البريد الإلكتروني وكلمة المرور</h3>
           <input id="vortex-email-input" type="email" dir="ltr" placeholder="name@example.com" />
           <input id="vortex-pass-input" type="password" dir="ltr" placeholder="كلمة المرور (6 أحرف فأكثر)" />
           <div class="row">
-            <button id="vortex-email-signin-btn" type="button">دخول بالبريد</button>
-            <button id="vortex-email-signup-btn" type="button" class="secondary">إنشاء حساب</button>
+            <button id="vortex-email-signin-btn" type="button">✅ دخول بالبريد</button>
+            <button id="vortex-email-signup-btn" type="button" class="secondary">➕ إنشاء حساب</button>
           </div>
-          <button id="vortex-reset-pass-btn" type="button" class="secondary">إرسال رابط استعادة كلمة المرور</button>
+          <button id="vortex-reset-pass-btn" type="button" class="secondary">🔄 إرسال رابط استعادة كلمة المرور</button>
         </div>
       </div>
     </section>
@@ -353,13 +426,13 @@
     <!-- إدارة الملاك (بحد أقصى 4 حسابات Owner) -->
     <section id="vortex-owner-box" class="card hidden">
       <div class="section-head">
-        <h3 id="t-owner-title" class="section-title">إدارة الملاك (الحد الأقصى 4 حسابات Owner)</h3>
-        <span id="vortex-owners-count-badge" class="badge">Owners: 0 / 4</span>
+        <h3 id="t-owner-title" class="section-title">👑 إدارة الملاك (الحد الأقصى 4 حسابات Owner)</h3>
+        <span id="vortex-owners-count-badge" class="badge">Owners: 1 / 4</span>
       </div>
       <div class="row">
         <input id="vortex-owner-email-input" type="email" dir="ltr" placeholder="owner@example.com" style="flex:1; min-width:210px;" />
-        <button id="vortex-add-owner-btn" type="button">إضافة Owner</button>
-        <button id="vortex-remove-owner-btn" type="button" class="danger">إزالة Owner</button>
+        <button id="vortex-add-owner-btn" type="button">➕ إضافة Owner</button>
+        <button id="vortex-remove-owner-btn" type="button" class="danger">✖ إزالة Owner</button>
       </div>
       <div id="vortex-owners-list" class="row" style="margin-top:10px;"></div>
     </section>
@@ -368,62 +441,124 @@
     <main id="vortex-workspace" class="hidden">
       <div class="stats-grid">
         <div class="stat-box">
-          <div id="t-stat-total" class="stat-label">إجمالي المهام</div>
+          <div id="t-stat-total" class="stat-label">📌 إجمالي المهام</div>
           <div id="stat-total-tasks" class="stat-val">0</div>
         </div>
         <div class="stat-box">
-          <div id="t-stat-pending" class="stat-label">قيد التنفيذ</div>
+          <div id="t-stat-pending" class="stat-label">⏳ قيد التنفيذ</div>
           <div id="stat-pending-tasks" class="stat-val">0</div>
         </div>
         <div class="stat-box">
-          <div id="t-stat-done" class="stat-label">مهام مكتملة</div>
+          <div id="t-stat-done" class="stat-label">✅ مهام مكتملة</div>
           <div id="stat-done-tasks" class="stat-val">0</div>
         </div>
         <div class="stat-box">
-          <div id="t-stat-gear" class="stat-label">معدات ROV</div>
+          <div id="t-stat-rate" class="stat-label">📊 نسبة الإنجاز</div>
+          <div id="stat-completion-rate" class="stat-val">0%</div>
+        </div>
+        <div class="stat-box">
+          <div id="t-stat-gear" class="stat-label">🛠️ معدات ROV</div>
           <div id="stat-total-gear" class="stat-val">0</div>
         </div>
+        <div class="stat-box">
+          <div id="t-stat-chat" class="stat-label">💬 رسائل الشات</div>
+          <div id="stat-total-chat" class="stat-val">0</div>
+        </div>
       </div>
 
+      <!-- التبويبات -->
       <div class="tabs">
-        <button type="button" class="tab-btn active" data-vtab="tasks" data-i18n="tabTasks">المهام</button>
-        <button type="button" class="tab-btn" data-vtab="gear" data-i18n="tabGear">معدات ROV</button>
-        <button type="button" class="tab-btn" data-vtab="announcements" data-i18n="tabAnn">إعلانات الفريق</button>
-        <button type="button" class="tab-btn" data-vtab="diagnostics" data-i18n="tabDiag">فحص الأخطاء</button>
+        <button type="button" class="tab-btn active" data-vtab="tasks">📋 <span data-i18n="tabTasks">المهام</span></button>
+        <button type="button" class="tab-btn" data-vtab="chat">💬 <span data-i18n="tabChat">شات الفريق</span></button>
+        <button type="button" class="tab-btn" data-vtab="gear">🛠️ <span data-i18n="tabGear">معدات ROV</span></button>
+        <button type="button" class="tab-btn" data-vtab="announcements">📢 <span data-i18n="tabAnn">إعلانات الفريق</span></button>
+        <button type="button" class="tab-btn" data-vtab="diagnostics">🩺 <span data-i18n="tabDiag">فحص الأخطاء</span></button>
       </div>
 
-      <!-- تبويب المهام (متاح بالكامل لـ Member والجميع) -->
-      <section id="vtab-tasks" class="card">
-        <h3 id="t-tasks-heading" style="margin:0 0 12px 0;">مهام الفريق</h3>
+      <!-- تبويب المهام: البحث والتصفية في بطاقة مستقلة تماماً عن مهام الفريق -->
+      <div id="vtab-tasks">
+        <!-- بطاقة البحث والتصفية والفرز المستقلة -->
+        <section class="card">
+          <div class="section-head">
+            <h3 id="t-search-heading" class="section-title">🔎 البحث والتصفية في المهام</h3>
+            <button id="vortex-reset-filters-btn" type="button" class="secondary">♻️ إعادة ضبط الفلاتر</button>
+          </div>
+          <div class="row">
+            <input id="vortex-task-search" type="text" placeholder="ابحث باسم المهمة أو العضو..." style="flex:1; min-width:210px;" />
+            <select id="vortex-task-filter">
+              <option value="all" data-i18n="filterAll">الكل</option>
+              <option value="pending" data-i18n="stPending">قيد التنفيذ</option>
+              <option value="done" data-i18n="stDone">مكتملة</option>
+            </select>
+            <select id="vortex-task-dept-filter">
+              <option value="all" data-i18n="deptAll">كل الأقسام</option>
+              <option value="electrical" data-i18n="deptElec">كهرباء</option>
+              <option value="software" data-i18n="deptSoft">برمجة</option>
+              <option value="mechanical" data-i18n="deptMech">ميكانيكا</option>
+              <option value="general" data-i18n="deptGen">عام</option>
+            </select>
+            <select id="vortex-task-sort">
+              <option value="newest" data-i18n="sortNewest">الأحدث أولاً</option>
+              <option value="oldest" data-i18n="sortOldest">الأقدم أولاً</option>
+              <option value="priority" data-i18n="sortPrio">الأولوية الأعلى</option>
+            </select>
+          </div>
+        </section>
+
+        <!-- بطاقة إضافة وعرض مهام الفريق المستقلة -->
+        <section class="card">
+          <div class="section-head">
+            <h3 id="t-tasks-heading" class="section-title">📋 مهام الفريق</h3>
+            <span id="vortex-tasks-count-badge" class="badge">0</span>
+          </div>
+          <div class="row">
+            <input id="vortex-task-title" type="text" placeholder="عنوان المهمة الجديدة..." style="flex:1; min-width:210px;" />
+            <select id="vortex-task-dept">
+              <option value="electrical" data-i18n="deptElec">كهرباء</option>
+              <option value="software" data-i18n="deptSoft">برمجة</option>
+              <option value="mechanical" data-i18n="deptMech">ميكانيكا</option>
+              <option value="general" data-i18n="deptGen">عام</option>
+            </select>
+            <select id="vortex-task-priority">
+              <option value="normal" data-i18n="prioNormal">أولوية عادية</option>
+              <option value="high" data-i18n="prioHigh">أولوية عالية</option>
+              <option value="urgent" data-i18n="prioUrgent">عاجلة</option>
+            </select>
+            <select id="vortex-task-status">
+              <option value="pending" data-i18n="stPending">قيد التنفيذ</option>
+              <option value="done" data-i18n="stDone">مكتملة</option>
+            </select>
+            <button id="vortex-add-task-btn" type="button">➕ إضافة مهمة</button>
+          </div>
+
+          <div id="vortex-tasks-list"></div>
+        </section>
+      </div>
+
+      <!-- تبويب شات الفريق -->
+      <section id="vtab-chat" class="card hidden">
+        <div class="section-head">
+          <h3 id="t-chat-heading" class="section-title">💬 شات الفريق المباشر</h3>
+          <button id="vortex-scroll-chat-btn" type="button" class="secondary">⬇ آخر الرسائل</button>
+        </div>
+        <div id="vortex-chat-box" class="chat-box"></div>
         <div class="row">
-          <input id="vortex-task-title" type="text" placeholder="عنوان المهمة الجديدة..." style="flex:1; min-width:210px;" />
-          <select id="vortex-task-priority">
-            <option value="normal" data-i18n="prioNormal">أولوية عادية</option>
-            <option value="high" data-i18n="prioHigh">أولوية عالية</option>
-          </select>
-          <select id="vortex-task-status">
-            <option value="pending" data-i18n="stPending">قيد التنفيذ</option>
-            <option value="done" data-i18n="stDone">مكتملة</option>
-          </select>
-          <button id="vortex-add-task-btn" type="button">إضافة مهمة</button>
+          <input id="vortex-chat-input" type="text" placeholder="اكتب رسالة للفريق..." style="flex:1; min-width:220px;" />
+          <button id="vortex-send-chat-btn" type="button">📨 إرسال</button>
         </div>
-
-        <div class="row" style="margin-top:12px;">
-          <input id="vortex-task-search" type="text" placeholder="بحث في المهام..." style="flex:1; min-width:190px;" />
-          <label id="t-filter-label" for="vortex-task-filter">تصفية:</label>
-          <select id="vortex-task-filter">
-            <option value="all" data-i18n="filterAll">الكل</option>
-            <option value="pending" data-i18n="stPending">قيد التنفيذ</option>
-            <option value="done" data-i18n="stDone">مكتملة</option>
-          </select>
-        </div>
-
-        <div id="vortex-tasks-list"></div>
       </section>
 
       <!-- تبويب معدات ROV -->
       <section id="vtab-gear" class="card hidden">
-        <h3 id="t-gear-heading" style="margin:0 0 12px 0;">معدات وقطع ROV</h3>
+        <div class="section-head">
+          <h3 id="t-gear-heading" class="section-title">🛠️ معدات وقطع ROV</h3>
+          <select id="vortex-gear-filter">
+            <option value="all" data-i18n="filterAll">الكل</option>
+            <option value="ready" data-i18n="gearReady">جاهز</option>
+            <option value="maintenance" data-i18n="gearMaint">صيانة / فحص</option>
+            <option value="missing" data-i18n="gearMissing">ناقص / مطلوب</option>
+          </select>
+        </div>
         <div class="row">
           <input id="vortex-gear-name" type="text" placeholder="اسم القطعة أو الجهاز..." style="flex:1; min-width:210px;" />
           <input id="vortex-gear-qty" type="number" min="1" value="1" style="width:92px;" />
@@ -432,19 +567,19 @@
             <option value="maintenance" data-i18n="gearMaint">صيانة / فحص</option>
             <option value="missing" data-i18n="gearMissing">ناقص / مطلوب</option>
           </select>
-          <button id="vortex-add-gear-btn" type="button">إضافة قطعة</button>
+          <button id="vortex-add-gear-btn" type="button">➕ إضافة قطعة</button>
         </div>
         <div id="vortex-gear-list"></div>
       </section>
 
       <!-- تبويب الإعلانات -->
       <section id="vtab-announcements" class="card hidden">
-        <h3 id="t-ann-heading" style="margin:0 0 12px 0;">إعلانات الفريق</h3>
+        <h3 id="t-ann-heading" class="section-title" style="margin-bottom:12px;">📢 إعلانات الفريق</h3>
         <div class="stack">
           <input id="vortex-ann-title" type="text" placeholder="عنوان الإعلان..." />
           <textarea id="vortex-ann-body" placeholder="اكتب تفاصيل الإعلان أو التحديث..."></textarea>
           <div class="row">
-            <button id="vortex-add-ann-btn" type="button">نشر إعلان</button>
+            <button id="vortex-add-ann-btn" type="button">📣 نشر إعلان</button>
           </div>
         </div>
         <div id="vortex-ann-list"></div>
@@ -452,10 +587,10 @@
 
       <!-- تبويب فحص الأخطاء -->
       <section id="vtab-diagnostics" class="card hidden">
-        <h3 id="t-diag-heading" style="margin:0 0 10px 0;">فحص الأخطاء والبيئة</h3>
+        <h3 id="t-diag-heading" class="section-title" style="margin-bottom:12px;">🩺 فحص الأخطاء والبيئة</h3>
         <div class="row">
-          <button id="vortex-run-diag-btn" type="button">فحص البيئة الآن</button>
-          <button id="vortex-clear-cache-btn" type="button" class="secondary">تحديث Service Worker ومسح الكاش</button>
+          <button id="vortex-run-diag-btn" type="button">🔍 فحص البيئة الآن</button>
+          <button id="vortex-clear-cache-btn" type="button" class="secondary">🧹 تحديث Service Worker ومسح الكاش</button>
         </div>
         <ul id="vortex-diag-list" class="diag-list"></ul>
       </section>
@@ -509,143 +644,183 @@
     const I18N = {
       ar: {
         appTitle: "Vortex ROV — مركز قيادة ومهام الفريق",
-        appSub: "نظام إدارة المهام والمعدات والإعلانات — MATE ROV",
-        online: "متصل بالشبكة",
-        offline: "غير متصل بالشبكة",
-        lightMode: "الوضع النهاري",
-        darkMode: "الوضع الليلي",
-        langSwitch: "English",
-        authTitle: "الحساب وتسجيل الدخول",
-        logout: "تسجيل الخروج",
-        initMsg: "جاري تهيئة النظام...",
+        appSub: "نظام إدارة المهام والمعدات والإعلانات والشات — MATE ROV",
+        online: "● متصل بالشبكة",
+        offline: "○ غير متصل بالشبكة",
+        lightMode: "☀ الوضع النهاري",
+        darkMode: "🌙 الوضع الليلي",
+        langSwitch: "🌐 English",
+        authTitle: "🔐 الحساب وتسجيل الدخول",
+        logout: "🚪 تسجيل الخروج",
+        initMsg: "⏳ جاري تهيئة النظام...",
         chooseAuth: "اختر طريقة تسجيل الدخول (Google أو البريد الإلكتروني وكلمة المرور).",
-        googleTitle: "تسجيل الدخول بحساب Google",
+        googleTitle: "🔑 تسجيل الدخول بحساب Google",
         googleDesc: "دخول سريع عبر Google على Windows وMac وAndroid وiOS.",
-        googlePopup: "الدخول عبر Google",
-        googleRedirect: "الدخول عبر Google (Redirect)",
-        emailTitle: "البريد الإلكتروني وكلمة المرور",
+        googlePopup: "🚀 الدخول عبر Google",
+        googleRedirect: "↪ الدخول عبر Google (Redirect)",
+        emailTitle: "✉️ البريد الإلكتروني وكلمة المرور",
         emailPh: "name@example.com",
         passPh: "كلمة المرور (6 أحرف فأكثر)",
-        emailSignIn: "دخول بالبريد",
-        emailSignUp: "إنشاء حساب",
-        resetPass: "إرسال رابط استعادة كلمة المرور",
-        ownerTitle: "إدارة الملاك (الحد الأقصى 4 حسابات Owner)",
+        emailSignIn: "✅ دخول بالبريد",
+        emailSignUp: "➕ إنشاء حساب",
+        resetPass: "🔄 إرسال رابط استعادة كلمة المرور",
+        ownerTitle: "👑 إدارة الملاك (الحد الأقصى 4 حسابات Owner)",
         ownerPh: "owner@example.com",
-        addOwner: "إضافة Owner",
-        removeOwner: "إزالة Owner",
+        addOwner: "➕ إضافة Owner",
+        removeOwner: "✖ إزالة Owner",
         maxOwnersReached: "وصلت إلى الحد الأقصى المسموح به (4 حسابات Owner).",
         cannotRemovePrimary: "لا يمكن إزالة حساب المالك الأساسي.",
-        statTotal: "إجمالي المهام",
-        statPending: "قيد التنفيذ",
-        statDone: "مهام مكتملة",
-        statGear: "معدات ROV",
+        statTotal: "📌 إجمالي المهام",
+        statPending: "⏳ قيد التنفيذ",
+        statDone: "✅ مهام مكتملة",
+        statRate: "📊 نسبة الإنجاز",
+        statGear: "🛠️ معدات ROV",
+        statChat: "💬 رسائل الشات",
         tabTasks: "المهام",
+        tabChat: "شات الفريق",
         tabGear: "معدات ROV",
         tabAnn: "إعلانات الفريق",
         tabDiag: "فحص الأخطاء",
-        tasksHeading: "مهام الفريق",
+        searchHeading: "🔎 البحث والتصفية في المهام",
+        resetFilters: "♻️ إعادة ضبط الفلاتر",
+        searchPh: "ابحث باسم المهمة أو العضو...",
+        filterAll: "الكل",
+        deptAll: "كل الأقسام",
+        deptElec: "كهرباء",
+        deptSoft: "برمجة",
+        deptMech: "ميكانيكا",
+        deptGen: "عام",
+        sortNewest: "الأحدث أولاً",
+        sortOldest: "الأقدم أولاً",
+        sortPrio: "الأولوية الأعلى",
+        tasksHeading: "📋 مهام الفريق",
         taskPh: "عنوان المهمة الجديدة...",
         prioNormal: "أولوية عادية",
         prioHigh: "أولوية عالية",
+        prioUrgent: "عاجلة",
         stPending: "قيد التنفيذ",
         stDone: "مكتملة",
-        addTask: "إضافة مهمة",
-        searchPh: "بحث في المهام...",
-        filterLabel: "تصفية:",
-        filterAll: "الكل",
+        addTask: "➕ إضافة مهمة",
         noTasks: "لا توجد مهام مطابقة.",
-        reopen: "إعادة فتح",
-        complete: "إتمام",
-        deleteBtn: "حذف",
+        reopen: "↩ إعادة فتح",
+        complete: "✔ إتمام",
+        copyBtn: "📋 نسخ",
+        copiedToast: "تم نسخ عنوان المهمة.",
+        deleteBtn: "🗑 حذف",
         untitled: "بدون عنوان",
         member: "عضو",
         by: "بواسطة",
-        gearHeading: "معدات وقطع ROV",
+        chatHeading: "💬 شات الفريق المباشر",
+        scrollChat: "⬇ آخر الرسائل",
+        chatPh: "اكتب رسالة للفريق...",
+        sendChat: "📨 إرسال",
+        noChat: "لا توجد رسائل بعد. ابدأ المحادثة مع الفريق.",
+        gearHeading: "🛠️ معدات وقطع ROV",
         gearPh: "اسم القطعة أو الجهاز...",
         gearReady: "جاهز",
         gearMaint: "صيانة / فحص",
         gearMissing: "ناقص / مطلوب",
-        addGear: "إضافة قطعة",
+        addGear: "➕ إضافة قطعة",
         noGear: "لا توجد معدات مسجلة بعد.",
-        annHeading: "إعلانات الفريق",
+        annHeading: "📢 إعلانات الفريق",
         annTitlePh: "عنوان الإعلان...",
         annBodyPh: "اكتب تفاصيل الإعلان أو التحديث...",
-        addAnn: "نشر إعلان",
+        addAnn: "📣 نشر إعلان",
         noAnn: "لا توجد إعلانات حالياً.",
-        diagHeading: "فحص الأخطاء والبيئة",
-        runDiag: "فحص البيئة الآن",
-        clearCache: "تحديث Service Worker ومسح الكاش",
+        diagHeading: "🩺 فحص الأخطاء والبيئة",
+        runDiag: "🔍 فحص البيئة الآن",
+        clearCache: "🧹 تحديث Service Worker ومسح الكاش",
         signedInAs: "تم تسجيل الدخول بنجاح — الصلاحية",
         fixPrefix: "الحل"
       },
       en: {
         appTitle: "Vortex ROV — Team Command & Task Hub",
-        appSub: "Team Tasks, ROV Gear & Announcements — MATE ROV",
-        online: "Online",
-        offline: "Offline",
-        lightMode: "Light Mode",
-        darkMode: "Dark Mode",
-        langSwitch: "العربية",
-        authTitle: "Account & Sign In",
-        logout: "Sign Out",
-        initMsg: "Initializing system...",
+        appSub: "Team Tasks, ROV Gear, Announcements & Chat — MATE ROV",
+        online: "● Online",
+        offline: "○ Offline",
+        lightMode: "☀ Light Mode",
+        darkMode: "🌙 Dark Mode",
+        langSwitch: "🌐 العربية",
+        authTitle: "🔐 Account & Sign In",
+        logout: "🚪 Sign Out",
+        initMsg: "⏳ Initializing system...",
         chooseAuth: "Choose a sign-in method (Google or Email & Password).",
-        googleTitle: "Sign In with Google",
+        googleTitle: "🔑 Sign In with Google",
         googleDesc: "Fast sign-in via Google on Windows, Mac, Android, and iOS.",
-        googlePopup: "Continue with Google",
-        googleRedirect: "Continue with Google (Redirect)",
-        emailTitle: "Email & Password",
+        googlePopup: "🚀 Continue with Google",
+        googleRedirect: "↪ Continue with Google (Redirect)",
+        emailTitle: "✉️ Email & Password",
         emailPh: "name@example.com",
         passPh: "Password (6+ characters)",
-        emailSignIn: "Sign In",
-        emailSignUp: "Create Account",
-        resetPass: "Send Password Reset Link",
-        ownerTitle: "Owners Management (Max 4 Owner Accounts)",
+        emailSignIn: "✅ Sign In",
+        emailSignUp: "➕ Create Account",
+        resetPass: "🔄 Send Password Reset Link",
+        ownerTitle: "👑 Owners Management (Max 4 Owner Accounts)",
         ownerPh: "owner@example.com",
-        addOwner: "Add Owner",
-        removeOwner: "Remove Owner",
+        addOwner: "➕ Add Owner",
+        removeOwner: "✖ Remove Owner",
         maxOwnersReached: "Maximum limit reached (4 Owner accounts).",
         cannotRemovePrimary: "Primary owner account cannot be removed.",
-        statTotal: "Total Tasks",
-        statPending: "In Progress",
-        statDone: "Completed",
-        statGear: "ROV Gear",
+        statTotal: "📌 Total Tasks",
+        statPending: "⏳ In Progress",
+        statDone: "✅ Completed",
+        statRate: "📊 Completion",
+        statGear: "🛠️ ROV Gear",
+        statChat: "💬 Chat Messages",
         tabTasks: "Tasks",
+        tabChat: "Team Chat",
         tabGear: "ROV Gear",
         tabAnn: "Announcements",
         tabDiag: "Diagnostics",
-        tasksHeading: "Team Tasks",
+        searchHeading: "🔎 Task Search & Filters",
+        resetFilters: "♻️ Reset Filters",
+        searchPh: "Search by task title or member...",
+        filterAll: "All",
+        deptAll: "All Departments",
+        deptElec: "Electrical",
+        deptSoft: "Software",
+        deptMech: "Mechanical",
+        deptGen: "General",
+        sortNewest: "Newest First",
+        sortOldest: "Oldest First",
+        sortPrio: "Highest Priority",
+        tasksHeading: "📋 Team Tasks",
         taskPh: "New task title...",
         prioNormal: "Normal Priority",
         prioHigh: "High Priority",
+        prioUrgent: "Urgent",
         stPending: "In Progress",
         stDone: "Completed",
-        addTask: "Add Task",
-        searchPh: "Search tasks...",
-        filterLabel: "Filter:",
-        filterAll: "All",
+        addTask: "➕ Add Task",
         noTasks: "No matching tasks found.",
-        reopen: "Reopen",
-        complete: "Complete",
-        deleteBtn: "Delete",
+        reopen: "↩ Reopen",
+        complete: "✔ Complete",
+        copyBtn: "📋 Copy",
+        copiedToast: "Task title copied.",
+        deleteBtn: "🗑 Delete",
         untitled: "Untitled",
         member: "Member",
         by: "By",
-        gearHeading: "ROV Equipment & Parts",
+        chatHeading: "💬 Live Team Chat",
+        scrollChat: "⬇ Latest Messages",
+        chatPh: "Write a message to the team...",
+        sendChat: "📨 Send",
+        noChat: "No chat messages yet. Start the team conversation.",
+        gearHeading: "🛠️ ROV Equipment & Parts",
         gearPh: "Part or device name...",
         gearReady: "Ready",
         gearMaint: "Maintenance",
         gearMissing: "Missing / Needed",
-        addGear: "Add Part",
+        addGear: "➕ Add Part",
         noGear: "No equipment added yet.",
-        annHeading: "Team Announcements",
+        annHeading: "📢 Team Announcements",
         annTitlePh: "Announcement title...",
         annBodyPh: "Write announcement or update details...",
-        addAnn: "Post Announcement",
+        addAnn: "📣 Post Announcement",
         noAnn: "No announcements yet.",
-        diagHeading: "Diagnostics & Environment",
-        runDiag: "Run Diagnostics",
-        clearCache: "Refresh Service Worker & Clear Cache",
+        diagHeading: "🩺 Diagnostics & Environment",
+        runDiag: "🔍 Run Diagnostics",
+        clearCache: "🧹 Refresh Service Worker & Clear Cache",
         signedInAs: "Signed in successfully — Role",
         fixPrefix: "Fix"
       }
@@ -769,22 +944,29 @@
     const resetPassBtn = document.getElementById("vortex-reset-pass-btn");
 
     const tasksList = document.getElementById("vortex-tasks-list");
+    const tasksCountBadge = document.getElementById("vortex-tasks-count-badge");
     const taskFilter = document.getElementById("vortex-task-filter");
+    const taskDeptFilter = document.getElementById("vortex-task-dept-filter");
+    const taskSort = document.getElementById("vortex-task-sort");
     const taskSearch = document.getElementById("vortex-task-search");
+
+    const chatBox = document.getElementById("vortex-chat-box");
+    const chatInput = document.getElementById("vortex-chat-input");
+    const sendChatBtn = document.getElementById("vortex-send-chat-btn");
+
+    const gearFilter = document.getElementById("vortex-gear-filter");
     const gearList = document.getElementById("vortex-gear-list");
     const annList = document.getElementById("vortex-ann-list");
     const diagList = document.getElementById("vortex-diag-list");
 
     let unknownSeq = 100;
     const unknownCodes = new Map();
-    let lastStatusState = { key: "init", type: "normal", extra: "" };
 
     function t(key) {
       return (I18N[lang] && I18N[lang][key]) || I18N.ar[key] || key;
     }
 
-    function setStatus(text, type = "normal", meta = null) {
-      if (meta) lastStatusState = meta;
+    function setStatus(text, type = "normal") {
       statusBox.textContent = text;
       statusBox.classList.remove("error", "ok");
       if (type === "error") statusBox.classList.add("error");
@@ -853,20 +1035,31 @@
       document.getElementById("t-stat-total").textContent = t("statTotal");
       document.getElementById("t-stat-pending").textContent = t("statPending");
       document.getElementById("t-stat-done").textContent = t("statDone");
+      document.getElementById("t-stat-rate").textContent = t("statRate");
       document.getElementById("t-stat-gear").textContent = t("statGear");
+      document.getElementById("t-stat-chat").textContent = t("statChat");
 
+      document.getElementById("t-search-heading").textContent = t("searchHeading");
+      document.getElementById("vortex-reset-filters-btn").textContent = t("resetFilters");
+      taskSearch.placeholder = t("searchPh");
       document.getElementById("t-tasks-heading").textContent = t("tasksHeading");
       document.getElementById("vortex-task-title").placeholder = t("taskPh");
       document.getElementById("vortex-add-task-btn").textContent = t("addTask");
-      document.getElementById("vortex-task-search").placeholder = t("searchPh");
-      document.getElementById("t-filter-label").textContent = t("filterLabel");
+
+      document.getElementById("t-chat-heading").textContent = t("chatHeading");
+      document.getElementById("vortex-scroll-chat-btn").textContent = t("scrollChat");
+      chatInput.placeholder = t("chatPh");
+      sendChatBtn.textContent = t("sendChat");
+
       document.getElementById("t-gear-heading").textContent = t("gearHeading");
       document.getElementById("vortex-gear-name").placeholder = t("gearPh");
       document.getElementById("vortex-add-gear-btn").textContent = t("addGear");
+
       document.getElementById("t-ann-heading").textContent = t("annHeading");
       document.getElementById("vortex-ann-title").placeholder = t("annTitlePh");
       document.getElementById("vortex-ann-body").placeholder = t("annBodyPh");
       document.getElementById("vortex-add-ann-btn").textContent = t("addAnn");
+
       document.getElementById("t-diag-heading").textContent = t("diagHeading");
       document.getElementById("vortex-run-diag-btn").textContent = t("runDiag");
       document.getElementById("vortex-clear-cache-btn").textContent = t("clearCache");
@@ -909,7 +1102,7 @@
         const target = btn.dataset.vtab;
         document.querySelectorAll(".tab-btn").forEach((b) => b.classList.remove("active"));
         btn.classList.add("active");
-        ["tasks", "gear", "announcements", "diagnostics"].forEach((name) => {
+        ["tasks", "chat", "gear", "announcements", "diagnostics"].forEach((name) => {
           document.getElementById(`vtab-${name}`).classList.toggle("hidden", name !== target);
         });
         if (target === "diagnostics") runDiagnostics();
@@ -989,6 +1182,7 @@
     let allTasks = [];
     let allGear = [];
     let allAnnouncements = [];
+    let allChat = [];
     let unsubs = [];
 
     function getEffectiveOwnersSet() {
@@ -1000,20 +1194,22 @@
     function computeRole(user) {
       if (!user || !user.email) return "Member";
       const email = user.email.toLowerCase();
-      const activeOwners = getEffectiveOwnersSet();
-      if (activeOwners.includes(email)) return "Owner";
+      if (getEffectiveOwnersSet().includes(email)) return "Owner";
       return "Member";
     }
 
     function updateStats() {
-      document.getElementById("stat-total-tasks").textContent = String(allTasks.length);
-      document.getElementById("stat-pending-tasks").textContent = String(
-        allTasks.filter((item) => item.status !== "done").length
-      );
-      document.getElementById("stat-done-tasks").textContent = String(
-        allTasks.filter((item) => item.status === "done").length
-      );
+      const total = allTasks.length;
+      const done = allTasks.filter((item) => item.status === "done").length;
+      const pending = total - done;
+      const rate = total > 0 ? Math.round((done / total) * 100) : 0;
+
+      document.getElementById("stat-total-tasks").textContent = String(total);
+      document.getElementById("stat-pending-tasks").textContent = String(pending);
+      document.getElementById("stat-done-tasks").textContent = String(done);
+      document.getElementById("stat-completion-rate").textContent = `${rate}%`;
       document.getElementById("stat-total-gear").textContent = String(allGear.length);
+      document.getElementById("stat-total-chat").textContent = String(allChat.length);
     }
 
     function renderOwnersList() {
@@ -1023,7 +1219,7 @@
       activeOwners.forEach((email) => {
         const chip = document.createElement("span");
         chip.className = "badge ok";
-        chip.textContent = email;
+        chip.textContent = `👑 ${email}`;
         ownersList.appendChild(chip);
       });
     }
@@ -1035,7 +1231,7 @@
         userBadge.classList.add("hidden");
         ownerBox.classList.add("hidden");
         workspace.classList.add("hidden");
-        setStatus(t("chooseAuth"), "normal", { key: "chooseAuth", type: "normal" });
+        setStatus(t("chooseAuth"), "normal");
         return;
       }
 
@@ -1045,18 +1241,18 @@
       authGrid.classList.add("hidden");
       logoutBtn.classList.remove("hidden");
       userBadge.classList.remove("hidden");
-      userBadge.textContent = `${identity} (${currentRole})`;
+      userBadge.textContent = `👤 ${identity} (${currentRole})`;
 
-      // Member يمتلك الوصول الكامل لقسم المهام وإضافتها؛ Owner فقط يملك إدارة الملاك (حتى 4)
       workspace.classList.remove("hidden");
       ownerBox.classList.toggle("hidden", currentRole !== "Owner");
       if (currentRole === "Owner") renderOwnersList();
 
-      setStatus(`${t("signedInAs")}: ${currentRole}`, "ok", { key: "signedInAs", type: "ok" });
+      setStatus(`✔ ${t("signedInAs")}: ${currentRole}`, "ok");
       updateStats();
       renderTasks();
       renderGear();
       renderAnnouncements();
+      renderChat();
     }
 
     function canManageItem(item) {
@@ -1065,16 +1261,50 @@
       return item.createdByUid === currentUser.uid;
     }
 
+    function deptLabel(dept) {
+      if (dept === "electrical") return t("deptElec");
+      if (dept === "software") return t("deptSoft");
+      if (dept === "mechanical") return t("deptMech");
+      return t("deptGen");
+    }
+
+    function prioLabel(prio) {
+      if (prio === "urgent") return t("prioUrgent");
+      if (prio === "high") return t("prioHigh");
+      return t("prioNormal");
+    }
+
+    function prioWeight(prio) {
+      if (prio === "urgent") return 3;
+      if (prio === "high") return 2;
+      return 1;
+    }
+
     function renderTasks() {
       const f = taskFilter.value;
+      const dFilter = taskDeptFilter.value;
+      const sortMode = taskSort.value;
       const qText = taskSearch.value.trim().toLowerCase();
-      const filtered = allTasks.filter((task) => {
-        const okStatus = f === "all" || task.status === f;
-        const okSearch = !qText || String(task.title || "").toLowerCase().includes(qText);
-        return okStatus && okSearch;
-      });
 
+      const filtered = allTasks
+        .filter((task) => {
+          const okStatus = f === "all" || task.status === f;
+          const okDept = dFilter === "all" || (task.dept || "general") === dFilter;
+          const okSearch =
+            !qText ||
+            String(task.title || "").toLowerCase().includes(qText) ||
+            String(task.createdByLabel || "").toLowerCase().includes(qText);
+          return okStatus && okDept && okSearch;
+        })
+        .sort((a, b) => {
+          if (sortMode === "priority") return prioWeight(b.priority) - prioWeight(a.priority);
+          if (sortMode === "oldest") return (a.createdAt?.seconds || 0) - (b.createdAt?.seconds || 0);
+          return (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0);
+        });
+
+      tasksCountBadge.textContent = String(filtered.length);
       tasksList.innerHTML = "";
+
       if (filtered.length === 0) {
         tasksList.innerHTML = `<p class="hint" style="margin-top:12px;">${t("noTasks")}</p>`;
         return;
@@ -1086,20 +1316,31 @@
 
         const left = document.createElement("div");
         const titleEl = document.createElement("div");
-        titleEl.textContent = task.title || t("untitled");
+        titleEl.textContent = `📌 ${task.title || t("untitled")}`;
         titleEl.style.fontWeight = "700";
 
         const metaEl = document.createElement("div");
         metaEl.className = "hint";
-        const stLabel = task.status === "done" ? t("stDone") : t("stPending");
-        const prLabel = task.priority === "high" ? t("prioHigh") : t("prioNormal");
-        metaEl.textContent = `${stLabel} • ${prLabel} • ${t("by")}: ${task.createdByLabel || t("member")}`;
+        const stLabel = task.status === "done" ? `✅ ${t("stDone")}` : `⏳ ${t("stPending")}`;
+        metaEl.textContent = `${stLabel} • ⚡ ${prioLabel(task.priority)} • 🏷 ${deptLabel(task.dept)} • ${t("by")}: ${task.createdByLabel || t("member")}`;
 
         left.appendChild(titleEl);
         left.appendChild(metaEl);
 
         const actions = document.createElement("div");
         actions.className = "row";
+
+        const copyBtn = document.createElement("button");
+        copyBtn.type = "button";
+        copyBtn.className = "secondary";
+        copyBtn.textContent = t("copyBtn");
+        copyBtn.addEventListener("click", async () => {
+          try {
+            await navigator.clipboard.writeText(task.title || "");
+            setStatus(`✔ ${t("copiedToast")}`, "ok");
+          } catch (_) {}
+        });
+        actions.appendChild(copyBtn);
 
         if (canManageItem(task)) {
           const toggleBtn = document.createElement("button");
@@ -1138,20 +1379,73 @@
       });
     }
 
+    function renderChat() {
+      chatBox.innerHTML = "";
+      if (allChat.length === 0) {
+        chatBox.innerHTML = `<p class="hint" style="margin:0;">${t("noChat")}</p>`;
+        return;
+      }
+
+      allChat.forEach((msg) => {
+        const bubble = document.createElement("div");
+        const isMine = currentUser && msg.createdByUid === currentUser.uid;
+        bubble.className = `chat-msg ${isMine ? "mine" : ""}`;
+
+        const topRow = document.createElement("div");
+        topRow.className = "row";
+        topRow.style.justifyContent = "space-between";
+
+        const senderEl = document.createElement("strong");
+        senderEl.style.fontSize = "12px";
+        senderEl.textContent = `👤 ${msg.createdByLabel || t("member")}`;
+
+        topRow.appendChild(senderEl);
+
+        if (canManageItem(msg)) {
+          const delMsgBtn = document.createElement("button");
+          delMsgBtn.type = "button";
+          delMsgBtn.className = "danger";
+          delMsgBtn.style.padding = "4px 8px";
+          delMsgBtn.style.fontSize = "11px";
+          delMsgBtn.textContent = t("deleteBtn");
+          delMsgBtn.addEventListener("click", async () => {
+            try {
+              await deleteDoc(doc(db, "chat_messages", msg.id));
+            } catch (err) {
+              setStatus(resolveError(err, t("chatHeading")), "error");
+            }
+          });
+          topRow.appendChild(delMsgBtn);
+        }
+
+        const textEl = document.createElement("div");
+        textEl.style.marginTop = "6px";
+        textEl.style.fontSize = "14px";
+        textEl.textContent = msg.text || "";
+
+        bubble.appendChild(topRow);
+        bubble.appendChild(textEl);
+        chatBox.appendChild(bubble);
+      });
+    }
+
     function renderGear() {
+      const gf = gearFilter.value;
+      const filtered = allGear.filter((g) => gf === "all" || g.state === gf);
+
       gearList.innerHTML = "";
-      if (allGear.length === 0) {
+      if (filtered.length === 0) {
         gearList.innerHTML = `<p class="hint" style="margin-top:12px;">${t("noGear")}</p>`;
         return;
       }
 
-      allGear.forEach((item) => {
+      filtered.forEach((item) => {
         const div = document.createElement("div");
         div.className = "item-card";
 
         const left = document.createElement("div");
         const titleEl = document.createElement("div");
-        titleEl.textContent = `${item.name || t("untitled")} × ${item.qty || 1}`;
+        titleEl.textContent = `🛠️ ${item.name || t("untitled")} × ${item.qty || 1}`;
         titleEl.style.fontWeight = "700";
 
         const metaEl = document.createElement("div");
@@ -1167,18 +1461,43 @@
         const badge = document.createElement("span");
         badge.className = "badge";
         if (item.state === "ready") {
-          badge.textContent = t("gearReady");
+          badge.textContent = `🟢 ${t("gearReady")}`;
           badge.classList.add("ok");
         } else if (item.state === "maintenance") {
-          badge.textContent = t("gearMaint");
+          badge.textContent = `🟡 ${t("gearMaint")}`;
           badge.classList.add("warn");
         } else {
-          badge.textContent = t("gearMissing");
+          badge.textContent = `🔴 ${t("gearMissing")}`;
           badge.classList.add("danger");
         }
         right.appendChild(badge);
 
         if (canManageItem(item)) {
+          const incBtn = document.createElement("button");
+          incBtn.type = "button";
+          incBtn.className = "secondary";
+          incBtn.textContent = "+1";
+          incBtn.addEventListener("click", async () => {
+            try {
+              await updateDoc(doc(db, "gear", item.id), { qty: (item.qty || 1) + 1 });
+            } catch (err) {
+              setStatus(resolveError(err, t("gearHeading")), "error");
+            }
+          });
+
+          const decBtn = document.createElement("button");
+          decBtn.type = "button";
+          decBtn.className = "secondary";
+          decBtn.textContent = "-1";
+          decBtn.addEventListener("click", async () => {
+            const nextQty = Math.max(1, (item.qty || 1) - 1);
+            try {
+              await updateDoc(doc(db, "gear", item.id), { qty: nextQty });
+            } catch (err) {
+              setStatus(resolveError(err, t("gearHeading")), "error");
+            }
+          });
+
           const delBtn = document.createElement("button");
           delBtn.type = "button";
           delBtn.className = "danger";
@@ -1190,6 +1509,9 @@
               setStatus(resolveError(err, t("gearHeading")), "error");
             }
           });
+
+          right.appendChild(incBtn);
+          right.appendChild(decBtn);
           right.appendChild(delBtn);
         }
 
@@ -1208,13 +1530,13 @@
 
       allAnnouncements.forEach((ann) => {
         const div = document.createElement("div");
-        div.className = "item-card";
+        div.className = `item-card ${ann.pinned ? "pinned" : ""}`;
 
         const left = document.createElement("div");
         left.style.flex = "1";
 
         const titleEl = document.createElement("div");
-        titleEl.textContent = ann.title || t("untitled");
+        titleEl.textContent = `${ann.pinned ? "📌 " : "📣 "}${ann.title || t("untitled")}`;
         titleEl.style.fontWeight = "700";
 
         const bodyEl = document.createElement("div");
@@ -1233,6 +1555,21 @@
         div.appendChild(left);
 
         if (canManageItem(ann)) {
+          const actions = document.createElement("div");
+          actions.className = "row";
+
+          const pinBtn = document.createElement("button");
+          pinBtn.type = "button";
+          pinBtn.className = "secondary";
+          pinBtn.textContent = ann.pinned ? "📍" : "📌";
+          pinBtn.addEventListener("click", async () => {
+            try {
+              await updateDoc(doc(db, "announcements", ann.id), { pinned: !ann.pinned });
+            } catch (err) {
+              setStatus(resolveError(err, t("annHeading")), "error");
+            }
+          });
+
           const delBtn = document.createElement("button");
           delBtn.type = "button";
           delBtn.className = "danger";
@@ -1244,7 +1581,10 @@
               setStatus(resolveError(err, t("annHeading")), "error");
             }
           });
-          div.appendChild(delBtn);
+
+          actions.appendChild(pinBtn);
+          actions.appendChild(delBtn);
+          div.appendChild(actions);
         }
 
         annList.appendChild(div);
@@ -1335,7 +1675,7 @@
       }
       try {
         await sendPasswordResetEmail(auth, email);
-        setStatus(`${t("resetPass")}: ${email}`, "ok");
+        setStatus(`✔ ${t("resetPass")}: ${email}`, "ok");
       } catch (err) {
         setStatus(resolveError(err, t("resetPass")), "error");
       }
@@ -1351,6 +1691,7 @@
 
     document.getElementById("vortex-add-task-btn").addEventListener("click", async () => {
       const titleInput = document.getElementById("vortex-task-title");
+      const deptSel = document.getElementById("vortex-task-dept");
       const statusSel = document.getElementById("vortex-task-status");
       const prioSel = document.getElementById("vortex-task-priority");
       const title = titleInput.value.trim();
@@ -1359,6 +1700,7 @@
       try {
         await addDoc(collection(db, "tasks"), {
           title,
+          dept: deptSel.value,
           status: statusSel.value,
           priority: prioSel.value,
           createdByUid: currentUser.uid,
@@ -1369,6 +1711,34 @@
       } catch (err) {
         setStatus(resolveError(err, t("addTask")), "error");
       }
+    });
+
+    async function sendChatMessage() {
+      const text = chatInput.value.trim();
+      if (!text || !currentUser) return;
+      sendChatBtn.disabled = true;
+      try {
+        await addDoc(collection(db, "chat_messages"), {
+          text,
+          createdByUid: currentUser.uid,
+          createdByLabel: currentUser.email || currentUser.uid,
+          createdAt: serverTimestamp()
+        });
+        chatInput.value = "";
+        setTimeout(() => { chatBox.scrollTop = chatBox.scrollHeight; }, 100);
+      } catch (err) {
+        setStatus(resolveError(err, t("chatHeading")), "error");
+      } finally {
+        sendChatBtn.disabled = false;
+      }
+    }
+
+    sendChatBtn.addEventListener("click", sendChatMessage);
+    chatInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") sendChatMessage();
+    });
+    document.getElementById("vortex-scroll-chat-btn").addEventListener("click", () => {
+      chatBox.scrollTop = chatBox.scrollHeight;
     });
 
     document.getElementById("vortex-add-gear-btn").addEventListener("click", async () => {
@@ -1406,6 +1776,7 @@
         await addDoc(collection(db, "announcements"), {
           title,
           body,
+          pinned: false,
           createdByUid: currentUser.uid,
           createdByLabel: currentUser.email || currentUser.uid,
           createdAt: serverTimestamp()
@@ -1458,8 +1829,19 @@
       }
     });
 
+    document.getElementById("vortex-reset-filters-btn").addEventListener("click", () => {
+      taskSearch.value = "";
+      taskFilter.value = "all";
+      taskDeptFilter.value = "all";
+      taskSort.value = "newest";
+      renderTasks();
+    });
+
     taskFilter.addEventListener("change", renderTasks);
+    taskDeptFilter.addEventListener("change", renderTasks);
+    taskSort.addEventListener("change", renderTasks);
     taskSearch.addEventListener("input", renderTasks);
+    gearFilter.addEventListener("change", renderGear);
 
     if (auth && db) {
       onAuthStateChanged(auth, (user) => {
@@ -1471,6 +1853,7 @@
           allTasks = [];
           allGear = [];
           allAnnouncements = [];
+          allChat = [];
           ownersSet = new Set(INITIAL_OWNERS.map((e) => e.toLowerCase()));
           renderUI();
           return;
@@ -1501,6 +1884,18 @@
               renderTasks();
             },
             (err) => setStatus(resolveError(err, t("tasksHeading")), "error")
+          )
+        );
+
+        unsubs.push(
+          onSnapshot(
+            query(collection(db, "chat_messages"), orderBy("createdAt", "asc")),
+            (snap) => {
+              allChat = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+              updateStats();
+              renderChat();
+            },
+            (err) => setStatus(resolveError(err, t("chatHeading")), "error")
           )
         );
 
