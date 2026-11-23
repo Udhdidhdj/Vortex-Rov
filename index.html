@@ -86,7 +86,6 @@
 </head>
 <body>
   <div class="container">
-    <!-- بطاقة الحساب وتسجيل الدخول -->
     <div class="card">
       <h2 style="margin:0 0 8px 0;">Vortex ROV — إدارة المهام</h2>
       <div id="statusMsg">جاري تهيئة النظام...</div>
@@ -99,7 +98,6 @@
         </div>
 
         <div id="authMethodsSection" class="stack">
-          <!-- البريد الإلكتروني وكلمة المرور -->
           <div class="divider"></div>
           <div class="hint">تسجيل الدخول أو إنشاء حساب بالبريد الإلكتروني وكلمة المرور:</div>
           <div class="row">
@@ -111,7 +109,6 @@
             <button id="emailSignUpBtn" type="button" class="secondary">إنشاء حساب جديد</button>
           </div>
 
-          <!-- رقم التليفون -->
           <div class="divider"></div>
           <div class="hint">تسجيل الدخول برقم التليفون (مثال: +201012345678):</div>
           <div class="row">
@@ -127,7 +124,6 @@
       </div>
     </div>
 
-    <!-- إدارة المشرفين للمالك -->
     <div id="adminBox" class="card hidden">
       <h3 style="margin:0 0 10px 0;">إدارة المشرفين (Owner)</h3>
       <div class="row">
@@ -137,7 +133,6 @@
       </div>
     </div>
 
-    <!-- قسم المهام -->
     <div id="appBox" class="card hidden">
       <h3 style="margin:0 0 10px 0;">المهام</h3>
       <div class="row">
@@ -191,7 +186,6 @@
       serverTimestamp
     } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-    // استبدل هذه القيم ببيانات مشروعك الحقيقية من Firebase Console
     const OWNER_EMAIL = "OWNER_EMAIL_HERE";
 
     const firebaseConfig = {
