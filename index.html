@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vortex ROV — Student & Team Portal</title>
+  <title>Vortex ROV — Student & Team Academy</title>
   <link rel="manifest" href="/Vortex-Rov/manifest.json" />
-  <meta name="theme-color" content="#0f5ea8" />
+  <meta name="theme-color" content="#1d6fd6" />
   <style>
     :root {
       --bg: #f4f6f9;
@@ -61,22 +61,22 @@
       min-height: 100vh;
     }
 
-    /* القائمة الجانبية بأسلوب الأكاديمية */
+    /* القائمة الجانبية المنظمة في اليمين (RTL) / اليسار (LTR) */
     .sidebar {
-      width: 270px;
+      width: 268px;
       flex-shrink: 0;
       background: var(--sidebar-bg);
       border-inline-end: 1px solid var(--border);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      padding: 20px 14px;
+      padding: 18px 14px;
     }
 
     .greeting-box {
-      padding: 6px 10px 14px;
+      padding: 4px 10px 12px;
       border-bottom: 1px solid var(--border);
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
 
     .greeting-title {
@@ -104,7 +104,7 @@
       border: 1px solid var(--border);
       border-radius: 10px;
       padding: 10px;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
 
     .mini-avatar {
@@ -145,15 +145,15 @@
       font-size: 11px;
       font-weight: 700;
       color: var(--muted);
-      padding: 8px 10px 4px;
+      padding: 10px 10px 4px;
       text-transform: uppercase;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.05em;
     }
 
     .nav-list {
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 3px;
     }
 
     .nav-btn {
@@ -162,13 +162,13 @@
       color: var(--text);
       border: 1px solid transparent;
       border-radius: 9px;
-      padding: 10px 12px;
-      font-size: 14px;
+      padding: 9px 12px;
+      font-size: 13.5px;
       font-weight: 600;
       display: flex;
       align-items: center;
       justify-content: flex-start;
-      gap: 10px;
+      gap: 9px;
       cursor: pointer;
       text-align: start;
     }
@@ -184,7 +184,7 @@
       font-weight: 700;
     }
 
-    /* المحتوى الرئيسي الواسع */
+    /* المحتوى الرئيسي */
     .main-area {
       flex: 1;
       min-width: 0;
@@ -211,7 +211,7 @@
 
     .page-title {
       margin: 0;
-      font-size: 28px;
+      font-size: 26px;
       font-weight: 800;
     }
 
@@ -309,7 +309,7 @@
 
     .stats-row {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 14px;
       margin-bottom: 18px;
     }
@@ -318,7 +318,7 @@
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 18px 20px;
+      padding: 16px 20px;
       box-shadow: var(--shadow);
     }
 
@@ -332,39 +332,6 @@
       font-size: 26px;
       font-weight: 800;
       margin-top: 6px;
-    }
-
-    /* أعمدة حالة المهام بأسلوب All Team Tickets */
-    .status-strip {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(165px, 1fr));
-      gap: 12px;
-      margin-bottom: 16px;
-    }
-
-    .status-pill-card {
-      background: var(--surface-2);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 12px 14px;
-      cursor: pointer;
-      text-align: start;
-    }
-
-    .status-pill-card.active {
-      border-color: var(--primary);
-      background: var(--primary-soft);
-    }
-
-    .status-pill-name {
-      font-size: 13px;
-      font-weight: 700;
-    }
-
-    .status-pill-count {
-      font-size: 12px;
-      color: var(--muted);
-      margin-top: 4px;
     }
 
     input, select, button {
@@ -403,11 +370,6 @@
       color: #ffffff;
     }
 
-    button.ok {
-      background: var(--ok);
-      color: #ffffff;
-    }
-
     .badge {
       padding: 5px 11px;
       border-radius: 999px;
@@ -425,12 +387,12 @@
     .badge.warn { border-color: var(--warn); color: var(--warn); }
     .badge.danger { border-color: var(--danger); color: var(--danger); }
 
-    .task-item {
+    .list-item {
       display: flex;
       justify-content: space-between;
       align-items: center;
       gap: 14px;
-      padding: 15px 18px;
+      padding: 14px 18px;
       border: 1px solid var(--border);
       border-radius: 11px;
       background: var(--surface-2);
@@ -550,14 +512,25 @@
         </div>
 
         <div id="vortex-nav-section" class="hidden">
-          <div id="t-nav-workspace" class="nav-group-label">WORKSPACE</div>
+          <div id="t-nav-acc" class="nav-group-label">ACCOUNT</div>
           <nav class="nav-list">
             <button type="button" class="nav-btn active" data-vpage="profile">👤 <span data-i18n="navProfile">My Profile</span></button>
-            <button type="button" class="nav-btn" data-vpage="tickets">📋 <span data-i18n="navTickets">All Team Tickets</span></button>
-            <button type="button" class="nav-btn" data-vpage="leaderboard">🏆 <span data-i18n="navLeaderboard">Leaderboard & Summary</span></button>
-            <button type="button" class="nav-btn" data-vpage="chat">💬 <span data-i18n="navChat">Team Chat</span></button>
-            <button id="vortex-nav-owner-btn" type="button" class="nav-btn hidden" data-vpage="owners">👑 <span data-i18n="navOwners">Owners & Roster</span></button>
           </nav>
+
+          <div id="t-nav-work" class="nav-group-label">TEAM WORKSPACE</div>
+          <nav class="nav-list">
+            <button type="button" class="nav-btn" data-vpage="tickets">📋 <span data-i18n="navTickets">All Team Tickets</span></button>
+            <button type="button" class="nav-btn" data-vpage="teams">🎯 <span data-i18n="navTeams">Sub-teams & Members</span></button>
+            <button type="button" class="nav-btn" data-vpage="points">🏆 <span data-i18n="navPoints">Points & Leaderboard</span></button>
+            <button type="button" class="nav-btn" data-vpage="chat">💬 <span data-i18n="navChat">Team Chat</span></button>
+          </nav>
+
+          <div id="vortex-nav-admin-group" class="hidden">
+            <div id="t-nav-admin" class="nav-group-label">OWNER CONTROLS</div>
+            <nav class="nav-list">
+              <button type="button" class="nav-btn" data-vpage="owners">👑 <span data-i18n="navOwners">Owners & Roster</span></button>
+            </nav>
+          </div>
         </div>
       </div>
 
@@ -581,14 +554,30 @@
           </div>
         </div>
 
-        <!-- بطاقة تسجيل الدخول (تظهر قبل تسجيل الدخول) -->
+        <!-- بطاقة تسجيل الدخول / إنشاء حساب مع اختيار التيم -->
         <section id="vortex-auth-card" class="card">
           <div class="page-header" style="margin-bottom:12px;">
             <h1 id="t-auth-title" class="page-title">🔐 الحساب وتسجيل الدخول</h1>
-            <p id="t-choose-auth" class="page-subtitle">اختر طريقة تسجيل الدخول (Google أو البريد الإلكتروني أو رقم الموبايل).</p>
+            <p id="t-choose-auth" class="page-subtitle">اختر التيم الخاص بك ثم سجل دخولك عبر Google أو البريد الإلكتروني أو رقم الموبايل.</p>
           </div>
 
           <div id="vortex-status-box">⏳ جاري تهيئة النظام...</div>
+
+          <div class="card" style="margin-top:14px; margin-bottom:14px; background:var(--surface-2);">
+            <div class="row" style="justify-content:space-between;">
+              <div>
+                <strong id="t-signup-team-label">🎯 اختر التيم الخاص بك (للحساب الجديد / البروفايل):</strong>
+                <div class="hint" id="t-signup-team-hint">يُستخدم لتحديد التيم الخاص بك في قائمة التيمات والشات.</div>
+              </div>
+              <select id="vortex-auth-team-select" style="min-width:200px;">
+                <option value="GUI">GUI</option>
+                <option value="Vision">Vision</option>
+                <option value="Control">Control</option>
+                <option value="Mechanical">Mechanical</option>
+                <option value="Electrical">Electrical</option>
+              </select>
+            </div>
+          </div>
 
           <div class="auth-grid">
             <!-- 1. Google -->
@@ -625,7 +614,7 @@
           </div>
         </section>
 
-        <!-- مساحة عمل الفريق بعد تسجيل الدخول -->
+        <!-- مساحة العمل بعد تسجيل الدخول -->
         <div id="vortex-workspace" class="hidden">
           <div class="stats-row">
             <div class="stat-card">
@@ -641,16 +630,16 @@
               <div id="stat-done-tasks" class="stat-value">0</div>
             </div>
             <div class="stat-card">
-              <div id="t-stat-chat" class="stat-label">💬 رسائل الشات</div>
-              <div id="stat-total-chat" class="stat-value">0</div>
+              <div id="t-stat-points" class="stat-label">⭐ النقاط</div>
+              <div id="stat-user-points" class="stat-value">0</div>
             </div>
           </div>
 
-          <!-- صفحة My Profile -->
+          <!-- 1. My Profile -->
           <section id="vpage-profile">
             <div class="page-header">
               <h1 id="t-profile-heading" class="page-title">My Profile</h1>
-              <p id="t-profile-sub" class="page-subtitle">Your account details and team role in Vortex ROV.</p>
+              <p id="t-profile-sub" class="page-subtitle">Your account details, selected team, and points.</p>
             </div>
 
             <div class="card">
@@ -668,7 +657,22 @@
                     <div id="t-lbl-email" class="field-label">Email / Phone</div>
                     <div id="vortex-prof-contact" class="field-value">—</div>
                   </div>
-                  <span class="badge">Vortex ROV</span>
+                  <span id="vortex-prof-points-badge" class="badge warn">⭐ 0 pts</span>
+                </div>
+                <div class="field-box">
+                  <div style="flex:1;">
+                    <div id="t-lbl-my-team" class="field-label">My Team</div>
+                    <div class="row" style="margin-top:6px;">
+                      <select id="vortex-profile-team-select">
+                        <option value="GUI">GUI</option>
+                        <option value="Vision">Vision</option>
+                        <option value="Control">Control</option>
+                        <option value="Mechanical">Mechanical</option>
+                        <option value="Electrical">Electrical</option>
+                      </select>
+                      <button id="vortex-save-team-btn" type="button">💾 حفظ التيم</button>
+                    </div>
+                  </div>
                 </div>
                 <div class="field-box">
                   <div>
@@ -676,32 +680,15 @@
                     <div id="vortex-prof-uid" class="field-value" style="font-size:13px;">—</div>
                   </div>
                 </div>
-                <div class="field-box">
-                  <div>
-                    <div id="t-lbl-teams" class="field-label">Sub-teams</div>
-                    <div class="field-value" style="font-size:14px;">GUI • Vision • Control • Mechanical • Electrical</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="card">
-              <h3 id="t-history-heading" class="card-title">My history</h3>
-              <div class="field-box">
-                <div>
-                  <div class="field-value">Vortex ROV — MATE ROV Season</div>
-                  <div id="t-history-desc" class="hint" style="margin-top:4px;">Active team workspace connected to live tasks and team chat.</div>
-                </div>
-                <span class="badge ok">Active</span>
               </div>
             </div>
           </section>
 
-          <!-- صفحة All Team Tickets (البحث والتصفية + مهام الفريق) -->
+          <!-- 2. All Team Tickets (البحث والتصفية + المهام) -->
           <section id="vpage-tickets" class="hidden">
             <div class="page-header">
               <h1 id="t-tickets-heading" class="page-title">All Team Tickets</h1>
-              <p id="t-tickets-sub" class="page-subtitle">Filter and manage team tasks across all sub-teams.</p>
+              <p id="t-tickets-sub" class="page-subtitle">Search and filter team tasks across all sub-teams.</p>
             </div>
 
             <!-- بطاقة البحث والتصفية المستقلة -->
@@ -710,22 +697,6 @@
                 <span id="t-search-heading">🔎 البحث والتصفية</span>
                 <button id="vortex-reset-filters-btn" type="button" class="secondary">♻️ إعادة ضبط الفلاتر</button>
               </div>
-
-              <div class="status-strip">
-                <button type="button" class="status-pill-card active" data-quick-status="all">
-                  <div class="status-pill-name" data-i18n="filterAll">الكل</div>
-                  <div id="cnt-pill-all" class="status-pill-count">0 tickets</div>
-                </button>
-                <button type="button" class="status-pill-card" data-quick-status="pending">
-                  <div class="status-pill-name" data-i18n="stPending">قيد التنفيذ</div>
-                  <div id="cnt-pill-pending" class="status-pill-count">0 tickets</div>
-                </button>
-                <button type="button" class="status-pill-card" data-quick-status="done">
-                  <div class="status-pill-name" data-i18n="stDone">مكتملة</div>
-                  <div id="cnt-pill-done" class="status-pill-count">0 tickets</div>
-                </button>
-              </div>
-
               <div class="row">
                 <input id="vortex-task-search" type="text" placeholder="ابحث باسم المهمة أو التيم أو الإيميل..." style="flex:1; min-width:220px;" />
                 <select id="vortex-task-filter">
@@ -747,7 +718,7 @@
               </div>
             </div>
 
-            <!-- بطاقة المهام (الإضافة والتحكم للـ Owner فقط) -->
+            <!-- بطاقة المهام (الإضافة والتحكم للأونر فقط، بدون قيد التنفيذ/مكتمل عند الإضافة) -->
             <div class="card">
               <div class="card-title">
                 <span id="t-tasks-list-heading">📋 مهام الفريق</span>
@@ -765,13 +736,9 @@
                     <option value="Electrical">Electrical</option>
                   </select>
                   <select id="vortex-task-priority">
-                    <option value="normal" data-i18n="prioNormal">أولوية عادية</option>
-                    <option value="high" data-i18n="prioHigh">أولوية عالية</option>
-                    <option value="urgent" data-i18n="prioUrgent">عاجلة</option>
-                  </select>
-                  <select id="vortex-task-status">
-                    <option value="pending" data-i18n="stPending">قيد التنفيذ</option>
-                    <option value="done" data-i18n="stDone">مكتملة</option>
+                    <option value="normal" data-i18n="prioNormal">أولوية عادية (+10 pts)</option>
+                    <option value="high" data-i18n="prioHigh">أولوية عالية (+20 pts)</option>
+                    <option value="urgent" data-i18n="prioUrgent">عاجلة (+30 pts)</option>
                   </select>
                   <button id="vortex-pick-assignee-btn" type="button" class="secondary">👤 اختيار الشخص المسؤول</button>
                   <button id="vortex-add-task-btn" type="button">➕ إضافة مهمة</button>
@@ -793,24 +760,47 @@
             </div>
           </section>
 
-          <!-- صفحة Leaderboard & Summary -->
-          <section id="vpage-leaderboard" class="hidden">
+          <!-- 3. Sub-teams & Members (معرفة مين في GUI وVision وControl وMechanical وElectrical) -->
+          <section id="vpage-teams" class="hidden">
             <div class="page-header">
-              <h1 id="t-lb-heading" class="page-title">Leaderboard & Summary</h1>
-              <p id="t-lb-sub" class="page-subtitle">Overview of completed and active tasks per sub-team.</p>
+              <h1 id="t-teams-page-heading" class="page-title">Sub-teams & Members</h1>
+              <p id="t-teams-page-sub" class="page-subtitle">See which members belong to GUI, Vision, Control, Mechanical, and Electrical.</p>
             </div>
 
             <div class="card">
-              <h3 id="t-team-breakdown" class="card-title">Sub-teams Breakdown</h3>
-              <div id="vortex-team-breakdown-list"></div>
+              <div class="card-title">
+                <span id="t-teams-filter-lbl">🎯 اختر التيم لعرض أعضائه ومهامه:</span>
+                <div id="vortex-team-tabs" class="row">
+                  <button type="button" class="email-chip-btn selected" data-view-team="ALL">ALL</button>
+                  <button type="button" class="email-chip-btn" data-view-team="GUI">GUI</button>
+                  <button type="button" class="email-chip-btn" data-view-team="Vision">Vision</button>
+                  <button type="button" class="email-chip-btn" data-view-team="Control">Control</button>
+                  <button type="button" class="email-chip-btn" data-view-team="Mechanical">Mechanical</button>
+                  <button type="button" class="email-chip-btn" data-view-team="Electrical">Electrical</button>
+                </div>
+              </div>
+              <div id="vortex-subteams-grid"></div>
             </div>
           </section>
 
-          <!-- صفحة Team Chat (الإرسال والحذف للـ Owner فقط) -->
+          <!-- 4. Points & Leaderboard -->
+          <section id="vpage-points" class="hidden">
+            <div class="page-header">
+              <h1 id="t-points-heading" class="page-title">Points & Leaderboard</h1>
+              <p id="t-points-sub" class="page-subtitle">Points earned from completed tasks per member and team.</p>
+            </div>
+
+            <div class="card">
+              <h3 id="t-lb-members-title" class="card-title">🏆 Members Points</h3>
+              <div id="vortex-points-list"></div>
+            </div>
+          </section>
+
+          <!-- 5. Team Chat (مفتوح لجميع الأعضاء والـ Owner، والحذف للـ Owner فقط) -->
           <section id="vpage-chat" class="hidden">
             <div class="page-header">
               <h1 id="t-chat-heading" class="page-title">Team Chat</h1>
-              <p id="t-chat-sub" class="page-subtitle">Direct team messages channel.</p>
+              <p id="t-chat-sub" class="page-subtitle">All members and owners can send messages here.</p>
             </div>
 
             <div class="card">
@@ -819,14 +809,14 @@
                 <button id="vortex-scroll-chat-btn" type="button" class="secondary">⬇ آخر الرسائل</button>
               </div>
               <div id="vortex-chat-box" class="chat-box"></div>
-              <div id="vortex-owner-chat-controls" class="row">
+              <div class="row">
                 <input id="vortex-chat-input" type="text" placeholder="اكتب رسالة للفريق..." style="flex:1; min-width:240px;" />
                 <button id="vortex-send-chat-btn" type="button">📨 إرسال</button>
               </div>
             </div>
           </section>
 
-          <!-- صفحة Owners & Roster (الـ Owner فقط، حتى 4 Owner) -->
+          <!-- 6. Owners & Roster (الـ Owner فقط، حتى 4 Owner) -->
           <section id="vpage-owners" class="hidden">
             <div class="page-header">
               <h1 id="t-owners-page-title" class="page-title">Owners & Team Emails</h1>
@@ -907,10 +897,13 @@
     const I18N = {
       ar: {
         greeting: "مساء الخير",
-        navWorkspace: "مساحة العمل",
+        navAcc: "الحساب",
+        navWork: "مساحة الفريق",
+        navAdmin: "إدارة الأونر",
         navProfile: "ملفي الشخصي",
         navTickets: "مهام الفريق",
-        navLeaderboard: "الترتيب والتيمات",
+        navTeams: "التيمات والأعضاء",
+        navPoints: "النقاط والترتيب",
         navChat: "شات الفريق",
         navOwners: "الملاك والإيميلات",
         online: "● متصل بالشبكة",
@@ -919,7 +912,9 @@
         lightMode: "☀ الوضع النهاري",
         langSwitch: "🌐 English",
         authTitle: "🔐 الحساب وتسجيل الدخول",
-        chooseAuth: "اختر طريقة تسجيل الدخول (Google أو البريد الإلكتروني أو رقم الموبايل).",
+        chooseAuth: "اختر التيم الخاص بك ثم سجل دخولك عبر Google أو البريد الإلكتروني أو رقم الموبايل.",
+        signupTeamLabel: "🎯 اختر التيم الخاص بك (للحساب الجديد / البروفايل):",
+        signupTeamHint: "يُستخدم لتحديد التيم الخاص بك في قائمة التيمات والشات.",
         logout: "🚪 تسجيل الخروج",
         googleTitle: "🔑 تسجيل الدخول بحساب Google",
         googleDesc: "دخول سريع عبر Google على Windows وMac وAndroid وiOS.",
@@ -937,16 +932,16 @@
         otpPh: "أدخل كود التحقق (6 أرقام)",
         verifyOtp: "✔ تأكيد الكود وتسجيل الدخول",
         profileHeading: "ملفي الشخصي",
-        profileSub: "بيانات الحساب والدور داخل فريق Vortex ROV.",
+        profileSub: "بيانات الحساب، التيم الخاص بك، ونقاطك.",
         accDetails: "تفاصيل الحساب",
         lblName: "الاسم / الهوية",
         lblEmail: "البريد / رقم الهاتف",
+        lblMyTeam: "التيم الخاص بي",
+        saveTeam: "💾 حفظ التيم",
+        teamSaved: "تم حفظ التيم بنجاح.",
         lblUid: "معرف الحساب (UID)",
-        lblTeams: "التيمات المتاحة",
-        historyHeading: "سجلي في الفريق",
-        historyDesc: "عضو نشط في موسم Vortex ROV مع متابعة مباشرة للمهام والشات.",
         ticketsHeading: "مهام الفريق",
-        ticketsSub: "تصفية ومتابعة المهام عبر جميع التيمات.",
+        ticketsSub: "البحث والتصفية ومتابعة المهام عبر جميع التيمات.",
         searchHeading: "🔎 البحث والتصفية",
         resetFilters: "♻️ إعادة ضبط الفلاتر",
         searchPh: "ابحث باسم المهمة أو التيم أو الإيميل...",
@@ -959,9 +954,9 @@
         assignedTo: "المسؤول",
         tasksListHeading: "📋 قائمة المهام",
         taskPh: "عنوان المهمة الجديدة...",
-        prioNormal: "أولوية عادية",
-        prioHigh: "أولوية عالية",
-        prioUrgent: "عاجلة",
+        prioNormal: "أولوية عادية (+10 pts)",
+        prioHigh: "أولوية عالية (+20 pts)",
+        prioUrgent: "عاجلة (+30 pts)",
         stPending: "قيد التنفيذ",
         stDone: "مكتملة",
         addTask: "➕ إضافة مهمة",
@@ -972,11 +967,16 @@
         untitled: "بدون عنوان",
         member: "عضو",
         by: "بواسطة",
-        lbHeading: "الترتيب وملخص التيمات",
-        lbSub: "توزيع المهام المكتملة وقيد التنفيذ حسب كل تيم.",
-        teamBreakdown: "تفاصيل التيمات الخمسة",
+        teamsPageHeading: "التيمات والأعضاء",
+        teamsPageSub: "اعرف مين موجود في GUI وVision وControl وMechanical وElectrical.",
+        teamsFilterLbl: "🎯 اختر التيم لعرض أعضائه ومهامه:",
+        noTeamMembers: "لا يوجد أعضاء مسجلون في هذا التيم بعد.",
+        pointsHeading: "النقاط والترتيب",
+        pointsSub: "النقاط المكتسبة من المهام المكتملة لكل عضو.",
+        lbMembersTitle: "🏆 ترتيب الأعضاء بالنقاط",
+        noPointsData: "لا توجد نقاط مسجلة بعد.",
         chatHeading: "شات الفريق",
-        chatSub: "قناة رسائل الفريق المباشرة.",
+        chatSub: "جميع الأعضاء والأونر يمكنهم إرسال الرسائل هنا.",
         scrollChat: "⬇ آخر الرسائل",
         chatPh: "اكتب رسالة للفريق...",
         sendChat: "📨 إرسال",
@@ -984,17 +984,20 @@
         statTotal: "📌 إجمالي المهام",
         statPending: "⏳ قيد التنفيذ",
         statDone: "✅ مهام مكتملة",
-        statChat: "💬 رسائل الشات",
+        statPoints: "⭐ النقاط",
         maxOwnersReached: "وصلت إلى الحد الأقصى المسموح به (4 حسابات Owner).",
         cannotRemovePrimary: "لا يمكن إزالة حساب المالك الأساسي.",
         ownerOnlyError: "هذا الإجراء متاح للـ Owner فقط."
       },
       en: {
         greeting: "Good Evening",
-        navWorkspace: "WORKSPACE",
+        navAcc: "ACCOUNT",
+        navWork: "TEAM WORKSPACE",
+        navAdmin: "OWNER CONTROLS",
         navProfile: "My Profile",
         navTickets: "All Team Tickets",
-        navLeaderboard: "Leaderboard & Summary",
+        navTeams: "Sub-teams & Members",
+        navPoints: "Points & Leaderboard",
         navChat: "Team Chat",
         navOwners: "Owners & Roster",
         online: "● Online",
@@ -1003,7 +1006,9 @@
         lightMode: "☀ Light Mode",
         langSwitch: "🌐 العربية",
         authTitle: "🔐 Account & Sign In",
-        chooseAuth: "Choose a sign-in method (Google, Email & Password, or Mobile Number).",
+        chooseAuth: "Choose your team, then sign in with Google, Email & Password, or Mobile Number.",
+        signupTeamLabel: "🎯 Select your team (for new account / profile):",
+        signupTeamHint: "Used to display your team in Sub-teams & Team Chat.",
         logout: "🚪 Sign Out",
         googleTitle: "🔑 Sign In with Google",
         googleDesc: "Fast sign-in via Google on Windows, Mac, Android, and iOS.",
@@ -1021,16 +1026,16 @@
         otpPh: "Enter 6-digit code",
         verifyOtp: "✔ Verify Code & Sign In",
         profileHeading: "My Profile",
-        profileSub: "Your account details and team role in Vortex ROV.",
+        profileSub: "Your account details, selected team, and points.",
         accDetails: "Account details",
         lblName: "Name / Identity",
         lblEmail: "Email / Phone",
+        lblMyTeam: "My Team",
+        saveTeam: "💾 Save Team",
+        teamSaved: "Team saved successfully.",
         lblUid: "Account UID",
-        lblTeams: "Sub-teams",
-        historyHeading: "My history",
-        historyDesc: "Active Vortex ROV workspace connected to live tasks and team chat.",
         ticketsHeading: "All Team Tickets",
-        ticketsSub: "Filter and manage team tasks across all sub-teams.",
+        ticketsSub: "Search and filter team tasks across all sub-teams.",
         searchHeading: "🔎 Search & Filters",
         resetFilters: "♻️ Reset Filters",
         searchPh: "Search by task title, team, or email...",
@@ -1043,9 +1048,9 @@
         assignedTo: "Assignee",
         tasksListHeading: "📋 Team Tasks",
         taskPh: "New task title...",
-        prioNormal: "Normal Priority",
-        prioHigh: "High Priority",
-        prioUrgent: "Urgent",
+        prioNormal: "Normal Priority (+10 pts)",
+        prioHigh: "High Priority (+20 pts)",
+        prioUrgent: "Urgent (+30 pts)",
         stPending: "In Progress",
         stDone: "Completed",
         addTask: "➕ Add Task",
@@ -1056,11 +1061,16 @@
         untitled: "Untitled",
         member: "Member",
         by: "By",
-        lbHeading: "Leaderboard & Summary",
-        lbSub: "Overview of completed and active tasks per sub-team.",
-        teamBreakdown: "Sub-teams Breakdown",
+        teamsPageHeading: "Sub-teams & Members",
+        teamsPageSub: "See who is in GUI, Vision, Control, Mechanical, and Electrical.",
+        teamsFilterLbl: "🎯 Filter by sub-team:",
+        noTeamMembers: "No members registered in this team yet.",
+        pointsHeading: "Points & Leaderboard",
+        pointsSub: "Points earned from completed tasks per member.",
+        lbMembersTitle: "🏆 Members Points",
+        noPointsData: "No points recorded yet.",
         chatHeading: "Team Chat",
-        chatSub: "Direct team messages channel.",
+        chatSub: "All members and owners can send messages here.",
         scrollChat: "⬇ Latest Messages",
         chatPh: "Write a message to the team...",
         sendChat: "📨 Send",
@@ -1068,7 +1078,7 @@
         statTotal: "📌 Total Tasks",
         statPending: "⏳ In Progress",
         statDone: "✅ Completed",
-        statChat: "💬 Chat Messages",
+        statPoints: "⭐ Points",
         maxOwnersReached: "Maximum limit reached (4 Owner accounts).",
         cannotRemovePrimary: "Primary owner account cannot be removed.",
         ownerOnlyError: "This action is restricted to Owner only."
@@ -1078,6 +1088,7 @@
     let lang = localStorage.getItem("vortex_lang") === "en" ? "en" : "ar";
     let theme = localStorage.getItem("vortex_theme") === "dark" ? "dark" : "light";
     let activePage = "profile";
+    let viewedTeam = "ALL";
 
     const statusBox = document.getElementById("vortex-status-box");
     const netBadge = document.getElementById("vortex-net-badge");
@@ -1085,9 +1096,13 @@
     const langBtn = document.getElementById("vortex-lang-btn");
 
     const authCard = document.getElementById("vortex-auth-card");
+    const authTeamSelect = document.getElementById("vortex-auth-team-select");
+    const profileTeamSelect = document.getElementById("vortex-profile-team-select");
+    const saveTeamBtn = document.getElementById("vortex-save-team-btn");
+
     const workspace = document.getElementById("vortex-workspace");
     const navSection = document.getElementById("vortex-nav-section");
-    const navOwnerBtn = document.getElementById("vortex-nav-owner-btn");
+    const navAdminGroup = document.getElementById("vortex-nav-admin-group");
     const logoutBtn = document.getElementById("vortex-logout-btn");
 
     const miniAvatar = document.getElementById("vortex-mini-avatar");
@@ -1109,8 +1124,6 @@
     const verifyOtpBtn = document.getElementById("vortex-verify-otp-btn");
 
     const ownerTaskControls = document.getElementById("vortex-owner-task-controls");
-    const ownerChatControls = document.getElementById("vortex-owner-chat-controls");
-
     const tasksList = document.getElementById("vortex-tasks-list");
     const tasksCountBadge = document.getElementById("vortex-tasks-count-badge");
     const taskFilter = document.getElementById("vortex-task-filter");
@@ -1174,7 +1187,7 @@
       document.querySelectorAll(".nav-btn").forEach((btn) => {
         btn.classList.toggle("active", btn.dataset.vpage === pageName);
       });
-      ["profile", "tickets", "leaderboard", "chat", "owners"].forEach((p) => {
+      ["profile", "tickets", "teams", "points", "chat", "owners"].forEach((p) => {
         const el = document.getElementById(`vpage-${p}`);
         if (el) el.classList.toggle("hidden", p !== pageName);
       });
@@ -1184,13 +1197,13 @@
       btn.addEventListener("click", () => switchPage(btn.dataset.vpage));
     });
 
-    document.querySelectorAll(".status-pill-card").forEach((card) => {
-      card.addEventListener("click", () => {
-        const st = card.dataset.quickStatus || "all";
-        taskFilter.value = st;
-        document.querySelectorAll(".status-pill-card").forEach((c) => c.classList.remove("active"));
-        card.classList.add("active");
-        renderTasks();
+    document.querySelectorAll("[data-view-team]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        viewedTeam = btn.dataset.viewTeam || "ALL";
+        document.querySelectorAll("[data-view-team]").forEach((b) => {
+          b.classList.toggle("selected", b.dataset.viewTeam === viewedTeam);
+        });
+        renderSubteamsAndMembers();
       });
     });
 
@@ -1199,9 +1212,14 @@
       document.documentElement.dir = lang === "en" ? "ltr" : "rtl";
 
       document.getElementById("t-greeting").textContent = t("greeting");
-      document.getElementById("t-nav-workspace").textContent = t("navWorkspace");
+      document.getElementById("t-nav-acc").textContent = t("navAcc");
+      document.getElementById("t-nav-work").textContent = t("navWork");
+      document.getElementById("t-nav-admin").textContent = t("navAdmin");
+
       document.getElementById("t-auth-title").textContent = t("authTitle");
       document.getElementById("t-choose-auth").textContent = t("chooseAuth");
+      document.getElementById("t-signup-team-label").textContent = t("signupTeamLabel");
+      document.getElementById("t-signup-team-hint").textContent = t("signupTeamHint");
       document.getElementById("t-google-title").textContent = t("googleTitle");
       document.getElementById("t-google-desc").textContent = t("googleDesc");
       googlePopupBtn.textContent = t("googlePopup");
@@ -1224,10 +1242,9 @@
       document.getElementById("t-acc-details").textContent = t("accDetails");
       document.getElementById("t-lbl-name").textContent = t("lblName");
       document.getElementById("t-lbl-email").textContent = t("lblEmail");
+      document.getElementById("t-lbl-my-team").textContent = t("lblMyTeam");
+      saveTeamBtn.textContent = t("saveTeam");
       document.getElementById("t-lbl-uid").textContent = t("lblUid");
-      document.getElementById("t-lbl-teams").textContent = t("lblTeams");
-      document.getElementById("t-history-heading").textContent = t("historyHeading");
-      document.getElementById("t-history-desc").textContent = t("historyDesc");
 
       document.getElementById("t-tickets-heading").textContent = t("ticketsHeading");
       document.getElementById("t-tickets-sub").textContent = t("ticketsSub");
@@ -1240,9 +1257,13 @@
       pickAssigneeBtn.textContent = t("pickAssigneeBtn");
       document.getElementById("t-pick-assignee-title").textContent = t("pickAssigneeTitle");
 
-      document.getElementById("t-lb-heading").textContent = t("lbHeading");
-      document.getElementById("t-lb-sub").textContent = t("lbSub");
-      document.getElementById("t-team-breakdown").textContent = t("teamBreakdown");
+      document.getElementById("t-teams-page-heading").textContent = t("teamsPageHeading");
+      document.getElementById("t-teams-page-sub").textContent = t("teamsPageSub");
+      document.getElementById("t-teams-filter-lbl").textContent = t("teamsFilterLbl");
+
+      document.getElementById("t-points-heading").textContent = t("pointsHeading");
+      document.getElementById("t-points-sub").textContent = t("pointsSub");
+      document.getElementById("t-lb-members-title").textContent = t("lbMembersTitle");
 
       document.getElementById("t-chat-heading").textContent = t("chatHeading");
       document.getElementById("t-chat-sub").textContent = t("chatSub");
@@ -1253,7 +1274,7 @@
       document.getElementById("t-stat-total").textContent = t("statTotal");
       document.getElementById("t-stat-pending").textContent = t("statPending");
       document.getElementById("t-stat-done").textContent = t("statDone");
-      document.getElementById("t-stat-chat").textContent = t("statChat");
+      document.getElementById("t-stat-points").textContent = t("statPoints");
 
       document.querySelectorAll("[data-i18n]").forEach((el) => {
         const k = el.getAttribute("data-i18n");
@@ -1309,9 +1330,55 @@
     let currentRole = "Member";
     let ownersSet = new Set(INITIAL_OWNERS.map((e) => e.toLowerCase()));
     let knownEmailsSet = new Set(INITIAL_OWNERS.map((e) => e.toLowerCase()));
+    let membersMap = new Map(); // uid -> { uid, label, team }
     let allTasks = [];
     let allChat = [];
     let unsubs = [];
+
+    function taskPointsValue(prio) {
+      if (prio === "urgent") return 30;
+      if (prio === "high") return 20;
+      return 10;
+    }
+
+    function getUserPoints(userObj) {
+      if (!userObj) return 0;
+      const emailLower = (userObj.email || "").toLowerCase();
+      const labelLower = (userObj.label || "").toLowerCase();
+      return allTasks
+        .filter((tk) => tk.status === "done")
+        .filter((tk) => {
+          const asg = (tk.assignedTo || "").toLowerCase();
+          return (emailLower && asg === emailLower) || (labelLower && asg === labelLower);
+        })
+        .reduce((sum, tk) => sum + taskPointsValue(tk.priority), 0);
+    }
+
+    async function persistMemberProfile(user, chosenTeam) {
+      if (!db || !user) return;
+      const teamVal = TEAMS.includes(chosenTeam) ? chosenTeam : "GUI";
+      const labelVal = user.displayName || user.email || user.phoneNumber || user.uid;
+      try {
+        await setDoc(
+          doc(db, "members_profiles", user.uid),
+          {
+            uid: user.uid,
+            email: (user.email || "").toLowerCase(),
+            label: labelVal,
+            team: teamVal,
+            updatedAt: serverTimestamp()
+          },
+          { merge: true }
+        );
+      } catch (_) {}
+    }
+
+    saveTeamBtn.addEventListener("click", async () => {
+      if (!currentUser) return;
+      const chosen = profileTeamSelect.value || "GUI";
+      await persistMemberProfile(currentUser, chosen);
+      setStatus(t("teamSaved"), "ok");
+    });
 
     function getEffectiveOwnersSet() {
       const merged = new Set(INITIAL_OWNERS.map((e) => e.toLowerCase()));
@@ -1323,6 +1390,7 @@
       const emails = new Set(getEffectiveOwnersSet());
       knownEmailsSet.forEach((e) => { if (e) emails.add(e.toLowerCase()); });
       if (currentUser && currentUser.email) emails.add(currentUser.email.toLowerCase());
+      membersMap.forEach((m) => { if (m.email && m.email.includes("@")) emails.add(m.email.toLowerCase()); });
       allTasks.forEach((tk) => {
         if (tk.createdByLabel && tk.createdByLabel.includes("@")) emails.add(tk.createdByLabel.toLowerCase());
         if (tk.assignedTo && tk.assignedTo.includes("@")) emails.add(tk.assignedTo.toLowerCase());
@@ -1400,35 +1468,84 @@
       const total = allTasks.length;
       const done = allTasks.filter((item) => item.status === "done").length;
       const pending = total - done;
+      const myPts = currentUser
+        ? getUserPoints({
+            email: currentUser.email,
+            label: currentUser.displayName || currentUser.email || currentUser.phoneNumber
+          })
+        : 0;
 
       document.getElementById("stat-total-tasks").textContent = String(total);
       document.getElementById("stat-pending-tasks").textContent = String(pending);
       document.getElementById("stat-done-tasks").textContent = String(done);
-      document.getElementById("stat-total-chat").textContent = String(allChat.length);
+      document.getElementById("stat-user-points").textContent = String(myPts);
+      document.getElementById("vortex-prof-points-badge").textContent = `⭐ ${myPts} pts`;
 
-      document.getElementById("cnt-pill-all").textContent = `${total} tickets`;
-      document.getElementById("cnt-pill-pending").textContent = `${pending} tickets`;
-      document.getElementById("cnt-pill-done").textContent = `${done} tickets`;
-
-      renderTeamBreakdown();
+      renderSubteamsAndMembers();
+      renderPointsLeaderboard();
     }
 
-    function renderTeamBreakdown() {
-      const box = document.getElementById("vortex-team-breakdown-list");
+    function renderSubteamsAndMembers() {
+      const box = document.getElementById("vortex-subteams-grid");
       if (!box) return;
       box.innerHTML = "";
-      TEAMS.forEach((tm) => {
-        const tmTasks = allTasks.filter((x) => (x.team || "GUI") === tm);
-        const tmDone = tmTasks.filter((x) => x.status === "done").length;
-        const tmOpen = tmTasks.length - tmDone;
+
+      const teamsToShow = viewedTeam === "ALL" ? TEAMS : [viewedTeam];
+      const allMembers = Array.from(membersMap.values());
+
+      teamsToShow.forEach((tm) => {
+        const tmMembers = allMembers.filter((m) => (m.team || "GUI") === tm);
+        const tmTasks = allTasks.filter((tk) => (tk.team || "GUI") === tm);
+        const tmDone = tmTasks.filter((tk) => tk.status === "done").length;
+
+        const block = document.createElement("div");
+        block.className = "list-item";
+        block.style.alignItems = "flex-start";
+
+        const membersHtml = tmMembers.length
+          ? tmMembers
+              .map((m) => {
+                const pts = getUserPoints(m);
+                return `<span class="badge ok">👤 ${m.label || m.email || m.uid} • ⭐ ${pts}</span>`;
+              })
+              .join(" ")
+          : `<span class="hint">${t("noTeamMembers")}</span>`;
+
+        block.innerHTML = `
+          <div style="flex:1; min-width:250px;">
+            <div style="font-size:16px; font-weight:800;">🎯 ${tm}</div>
+            <div class="hint" style="margin-top:4px;">${t("statTotal")}: ${tmTasks.length} • ${t("statDone")}: ${tmDone}</div>
+            <div class="row" style="margin-top:10px;">${membersHtml}</div>
+          </div>
+          <span class="badge">${tmMembers.length} ${t("member")}</span>
+        `;
+        box.appendChild(block);
+      });
+    }
+
+    function renderPointsLeaderboard() {
+      const box = document.getElementById("vortex-points-list");
+      if (!box) return;
+      box.innerHTML = "";
+
+      const entries = Array.from(membersMap.values())
+        .map((m) => ({ ...m, points: getUserPoints(m) }))
+        .sort((a, b) => b.points - a.points);
+
+      if (entries.length === 0) {
+        box.innerHTML = `<p class="hint" style="margin:0;">${t("noPointsData")}</p>`;
+        return;
+      }
+
+      entries.forEach((entry, idx) => {
         const row = document.createElement("div");
-        row.className = "task-item";
+        row.className = "list-item";
         row.innerHTML = `
           <div>
-            <strong>🎯 ${tm}</strong>
-            <div class="hint">${t("stPending")}: ${tmOpen} • ${t("stDone")}: ${tmDone}</div>
+            <strong>#${idx + 1} • ${entry.label || entry.email || entry.uid}</strong>
+            <div class="hint">🎯 ${entry.team || "GUI"}</div>
           </div>
-          <span class="badge">${tmTasks.length}</span>
+          <span class="badge warn">⭐ ${entry.points} pts</span>
         `;
         box.appendChild(row);
       });
@@ -1436,7 +1553,9 @@
 
     function renderOwnersList() {
       const activeOwners = getEffectiveOwnersSet();
-      ownersCountBadge.textContent = `Owners: ${activeOwners.length} / ${MAX_OWNERS}`;
+      const badge = document.getElementById("vortex-owners-count-badge");
+      if (badge) badge.textContent = `Owners: ${activeOwners.length} / ${MAX_OWNERS}`;
+
       const ownersList = document.getElementById("vortex-owners-list");
       const rosterList = document.getElementById("vortex-roster-list");
       ownersList.innerHTML = "";
@@ -1476,16 +1595,22 @@
       const displayLabel = currentUser.displayName || identity;
       const initials = String(displayLabel || "V").trim().charAt(0).toUpperCase() || "V";
 
+      const savedProf = membersMap.get(currentUser.uid);
+      const activeTeam = (savedProf && TEAMS.includes(savedProf.team))
+        ? savedProf.team
+        : (TEAMS.includes(authTeamSelect.value) ? authTeamSelect.value : "GUI");
+      profileTeamSelect.value = activeTeam;
+
       authCard.classList.add("hidden");
       otpBox.classList.add("hidden");
       workspace.classList.remove("hidden");
       navSection.classList.remove("hidden");
       logoutBtn.classList.remove("hidden");
-      navOwnerBtn.classList.toggle("hidden", !ownerMode);
+      navAdminGroup.classList.toggle("hidden", !ownerMode);
 
       miniAvatar.textContent = initials;
       miniName.textContent = displayLabel;
-      miniRole.textContent = currentRole;
+      miniRole.textContent = `${currentRole} • ${activeTeam}`;
 
       document.getElementById("vortex-prof-name").textContent = displayLabel;
       document.getElementById("vortex-prof-role").textContent = currentRole;
@@ -1493,7 +1618,6 @@
       document.getElementById("vortex-prof-uid").textContent = currentUser.uid;
 
       ownerTaskControls.classList.toggle("hidden", !ownerMode);
-      ownerChatControls.classList.toggle("hidden", !ownerMode);
       if (!ownerMode) assigneePicker.classList.add("hidden");
       if (ownerMode) renderOwnersList();
 
@@ -1539,7 +1663,7 @@
 
       filtered.forEach((task) => {
         const div = document.createElement("div");
-        div.className = "task-item";
+        div.className = "list-item";
 
         const left = document.createElement("div");
         const titleEl = document.createElement("div");
@@ -1613,7 +1737,8 @@
 
         const senderEl = document.createElement("strong");
         senderEl.style.fontSize = "13px";
-        senderEl.textContent = `👤 ${msg.createdByLabel || t("member")}`;
+        const tmTag = msg.senderTeam ? ` • 🎯 ${msg.senderTeam}` : "";
+        senderEl.textContent = `👤 ${msg.createdByLabel || t("member")}${tmTag}`;
         topRow.appendChild(senderEl);
 
         if (isOwner()) {
@@ -1700,7 +1825,10 @@
       if (!email || !pass) return;
       emailSignUpBtn.disabled = true;
       try {
-        await createUserWithEmailAndPassword(auth, email, pass);
+        const cred = await createUserWithEmailAndPassword(auth, email, pass);
+        if (cred && cred.user) {
+          await persistMemberProfile(cred.user, authTeamSelect.value || "GUI");
+        }
       } catch (err) {
         setStatus(formatErr(err), "error");
       } finally {
@@ -1775,7 +1903,6 @@
       }
       const titleInput = document.getElementById("vortex-task-title");
       const teamSel = document.getElementById("vortex-task-team");
-      const statusSel = document.getElementById("vortex-task-status");
       const prioSel = document.getElementById("vortex-task-priority");
       const title = titleInput.value.trim();
       if (!title || !currentUser) return;
@@ -1784,7 +1911,7 @@
         await addDoc(collection(db, "tasks"), {
           title,
           team: teamSel.value,
-          status: statusSel.value,
+          status: "pending",
           priority: prioSel.value,
           assignedTo: taskAssigneeSelect.value || "",
           createdByUid: currentUser.uid,
@@ -1793,204 +1920,4 @@
         });
         titleInput.value = "";
       } catch (err) {
-        setStatus(formatErr(err), "error");
-      }
-    });
-
-    async function sendChatMessage() {
-      if (!isOwner()) {
-        setStatus(t("ownerOnlyError"), "error");
-        return;
-      }
-      const text = chatInput.value.trim();
-      if (!text || !currentUser) return;
-      sendChatBtn.disabled = true;
-      try {
-        await addDoc(collection(db, "chat_messages"), {
-          text,
-          createdByUid: currentUser.uid,
-          createdByLabel: currentUser.email || currentUser.phoneNumber || currentUser.uid,
-          createdAt: serverTimestamp()
-        });
-        chatInput.value = "";
-        setTimeout(() => { chatBox.scrollTop = chatBox.scrollHeight; }, 100);
-      } catch (err) {
-        setStatus(formatErr(err), "error");
-      } finally {
-        sendChatBtn.disabled = false;
-      }
-    }
-
-    sendChatBtn.addEventListener("click", sendChatMessage);
-    chatInput.addEventListener("keydown", (e) => {
-      if (e.key === "Enter") sendChatMessage();
-    });
-    document.getElementById("vortex-scroll-chat-btn").addEventListener("click", () => {
-      chatBox.scrollTop = chatBox.scrollHeight;
-    });
-
-    document.getElementById("vortex-add-owner-btn").addEventListener("click", async () => {
-      const input = document.getElementById("vortex-owner-email-input");
-      const email = input.value.trim().toLowerCase();
-      if (!email || !isOwner()) return;
-
-      const currentOwners = getEffectiveOwnersSet();
-      if (!currentOwners.includes(email) && currentOwners.length >= MAX_OWNERS) {
-        setStatus(t("maxOwnersReached"), "error");
-        return;
-      }
-
-      try {
-        await setDoc(doc(db, "owners", encodeURIComponent(email)), {
-          email,
-          role: "Owner",
-          updatedAt: serverTimestamp()
-        });
-        knownEmailsSet.add(email);
-        input.value = "";
-      } catch (err) {
-        setStatus(formatErr(err), "error");
-      }
-    });
-
-    document.getElementById("vortex-remove-owner-btn").addEventListener("click", async () => {
-      const input = document.getElementById("vortex-owner-email-input");
-      const email = input.value.trim().toLowerCase();
-      if (!email || !isOwner()) return;
-
-      if (email === PRIMARY_OWNER_EMAIL.toLowerCase()) {
-        setStatus(t("cannotRemovePrimary"), "error");
-        return;
-      }
-
-      try {
-        await deleteDoc(doc(db, "owners", encodeURIComponent(email)));
-        input.value = "";
-      } catch (err) {
-        setStatus(formatErr(err), "error");
-      }
-    });
-
-    document.getElementById("vortex-add-roster-btn").addEventListener("click", async () => {
-      const input = document.getElementById("vortex-roster-email-input");
-      const email = input.value.trim().toLowerCase();
-      if (!email || !email.includes("@") || !isOwner()) return;
-      try {
-        await setDoc(doc(db, "team_roster", encodeURIComponent(email)), {
-          email,
-          updatedAt: serverTimestamp()
-        });
-        knownEmailsSet.add(email);
-        input.value = "";
-        renderOwnersList();
-        renderAssigneeOptions();
-      } catch (err) {
-        setStatus(formatErr(err), "error");
-      }
-    });
-
-    document.getElementById("vortex-reset-filters-btn").addEventListener("click", () => {
-      taskSearch.value = "";
-      taskFilter.value = "all";
-      taskTeamFilter.value = "all";
-      taskAssigneeFilter.value = "all";
-      document.querySelectorAll(".status-pill-card").forEach((c) => {
-        c.classList.toggle("active", c.dataset.quickStatus === "all");
-      });
-      renderTasks();
-    });
-
-    taskFilter.addEventListener("change", () => {
-      document.querySelectorAll(".status-pill-card").forEach((c) => {
-        c.classList.toggle("active", c.dataset.quickStatus === taskFilter.value);
-      });
-      renderTasks();
-    });
-
-    taskTeamFilter.addEventListener("change", renderTasks);
-    taskAssigneeFilter.addEventListener("change", renderTasks);
-    taskSearch.addEventListener("input", renderTasks);
-
-    if (auth && db) {
-      onAuthStateChanged(auth, (user) => {
-        currentUser = user;
-        unsubs.forEach((fn) => { if (typeof fn === "function") fn(); });
-        unsubs = [];
-
-        if (!user) {
-          allTasks = [];
-          allChat = [];
-          ownersSet = new Set(INITIAL_OWNERS.map((e) => e.toLowerCase()));
-          knownEmailsSet = new Set(INITIAL_OWNERS.map((e) => e.toLowerCase()));
-          renderUI();
-          return;
-        }
-
-        unsubs.push(
-          onSnapshot(
-            collection(db, "owners"),
-            (snap) => {
-              const nextSet = new Set(INITIAL_OWNERS.map((e) => e.toLowerCase()));
-              snap.forEach((d) => {
-                const data = d.data();
-                if (data && data.email) {
-                  const em = String(data.email).toLowerCase();
-                  nextSet.add(em);
-                  knownEmailsSet.add(em);
-                }
-              });
-              ownersSet = nextSet;
-              renderUI();
-            },
-            () => renderUI()
-          )
-        );
-
-        unsubs.push(
-          onSnapshot(
-            collection(db, "team_roster"),
-            (snap) => {
-              snap.forEach((d) => {
-                const data = d.data();
-                if (data && data.email) knownEmailsSet.add(String(data.email).toLowerCase());
-              });
-              renderOwnersList();
-              renderAssigneeOptions();
-            },
-            () => {}
-          )
-        );
-
-        unsubs.push(
-          onSnapshot(
-            query(collection(db, "tasks"), orderBy("createdAt", "desc")),
-            (snap) => {
-              allTasks = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
-              updateStats();
-              renderTasks();
-              renderAssigneeOptions();
-            },
-            (err) => setStatus(formatErr(err), "error")
-          )
-        );
-
-        unsubs.push(
-          onSnapshot(
-            query(collection(db, "chat_messages"), orderBy("createdAt", "asc")),
-            (snap) => {
-              allChat = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
-              updateStats();
-              renderChat();
-            },
-            (err) => setStatus(formatErr(err), "error")
-          )
-        );
-
-        renderUI();
-      });
-    }
-
-    applyLanguage();
-  </script>
-</body>
-</html>
+        setStatus(format
