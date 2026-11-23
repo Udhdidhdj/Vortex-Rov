@@ -8,7 +8,7 @@
   <meta name="theme-color" content="#1d6fd6" />
   <style>
     :root {
-      --bg: #f4f6f9;
+      --bg: #f3f6fa;
       --surface: #ffffff;
       --surface-2: #f8fafc;
       --sidebar-bg: #ffffff;
@@ -21,25 +21,25 @@
       --ok: #16a34a;
       --warn: #d97706;
       --danger: #dc2626;
-      --radius: 12px;
-      --shadow: 0 2px 10px rgba(15, 23, 42, 0.05);
+      --radius: 14px;
+      --shadow: 0 3px 14px rgba(15, 23, 42, 0.05);
     }
 
     body.dark {
-      --bg: #0b1320;
-      --surface: #121e31;
-      --surface-2: #182840;
-      --sidebar-bg: #101b2c;
+      --bg: #0a111e;
+      --surface: #111c2e;
+      --surface-2: #17263d;
+      --sidebar-bg: #0e1828;
       --primary: #38bdf8;
       --primary-soft: rgba(56, 189, 248, 0.14);
       --primary-ink: #06131f;
       --text: #f1f5f9;
       --muted: #94a3b8;
-      --border: #243652;
+      --border: #233550;
       --ok: #22c55e;
       --warn: #f59e0b;
       --danger: #ef4444;
-      --shadow: 0 6px 20px rgba(0, 0, 0, 0.28);
+      --shadow: 0 8px 24px rgba(0, 0, 0, 0.32);
     }
 
     * {
@@ -68,9 +68,8 @@
       max-width: 100%;
     }
 
-    /* القائمة الجانبية */
     .sidebar {
-      width: clamp(230px, 20vw, 275px);
+      width: clamp(236px, 20vw, 280px);
       flex-shrink: 0;
       background: var(--sidebar-bg);
       border-inline-end: 1px solid var(--border);
@@ -109,15 +108,15 @@
       gap: 10px;
       background: var(--surface-2);
       border: 1px solid var(--border);
-      border-radius: 10px;
+      border-radius: 12px;
       padding: 10px;
       margin-bottom: 12px;
     }
 
     .mini-avatar {
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
       background: var(--primary);
       color: var(--primary-ink);
       display: grid;
@@ -146,13 +145,14 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      margin-top: 2px;
     }
 
     .nav-group-label {
       font-size: 11px;
-      font-weight: 700;
+      font-weight: 800;
       color: var(--muted);
-      padding: 10px 10px 4px;
+      padding: 12px 10px 5px;
       text-transform: uppercase;
       letter-spacing: 0.05em;
     }
@@ -160,7 +160,7 @@
     .nav-list {
       display: flex;
       flex-direction: column;
-      gap: 3px;
+      gap: 4px;
     }
 
     .nav-btn {
@@ -168,7 +168,7 @@
       background: transparent;
       color: var(--text);
       border: 1px solid transparent;
-      border-radius: 9px;
+      border-radius: 10px;
       padding: 10px 12px;
       font-size: 13.5px;
       font-weight: 600;
@@ -188,11 +188,10 @@
     .nav-btn.active {
       background: var(--primary-soft);
       color: var(--primary);
-      border-color: rgba(29, 111, 214, 0.22);
+      border-color: rgba(29, 111, 214, 0.25);
       font-weight: 700;
     }
 
-    /* المحتوى الرئيسي المتجاوب مع Windows / Mac / Android / iOS */
     .main-area {
       flex: 1;
       min-width: 0;
@@ -212,6 +211,8 @@
       gap: 10px;
       flex-wrap: wrap;
       margin-bottom: 18px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
     }
 
     .page-header {
@@ -244,7 +245,7 @@
     .card-title {
       margin: 0 0 14px;
       font-size: 17px;
-      font-weight: 700;
+      font-weight: 800;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -298,7 +299,7 @@
     .field-box {
       background: var(--surface-2);
       border: 1px solid var(--border);
-      border-radius: 10px;
+      border-radius: 12px;
       padding: 14px 16px;
       display: flex;
       justify-content: space-between;
@@ -350,7 +351,7 @@
 
     input, select, button {
       padding: 11px 14px;
-      border-radius: 9px;
+      border-radius: 10px;
       border: 1px solid var(--border);
       background: var(--surface-2);
       color: var(--text);
@@ -412,12 +413,35 @@
       justify-content: space-between;
       align-items: center;
       gap: 12px;
-      padding: 14px 16px;
+      padding: 15px 18px;
       border: 1px solid var(--border);
-      border-radius: 11px;
+      border-radius: 12px;
       background: var(--surface-2);
       margin-top: 10px;
       flex-wrap: wrap;
+    }
+
+    .task-badges {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--border);
+      overflow: hidden;
+      margin-top: 8px;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--primary);
+      border-radius: 999px;
+      transition: width 0.25s ease;
     }
 
     .hint {
@@ -458,7 +482,7 @@
       flex-direction: column;
       gap: 10px;
       padding: 14px;
-      border-radius: 11px;
+      border-radius: 12px;
       border: 1px solid var(--border);
       background: var(--surface-2);
       margin-bottom: 14px;
@@ -466,7 +490,7 @@
 
     .chat-msg {
       padding: 12px 14px;
-      border-radius: 11px;
+      border-radius: 12px;
       border: 1px solid var(--border);
       background: var(--surface);
       word-break: break-word;
@@ -480,7 +504,7 @@
     .assignee-picker {
       background: var(--surface-2);
       border: 1px dashed var(--primary);
-      border-radius: 11px;
+      border-radius: 12px;
       padding: 14px;
       margin-top: 12px;
     }
@@ -490,7 +514,7 @@
       color: var(--text);
       border: 1px solid var(--border);
       font-size: 12px;
-      padding: 6px 11px;
+      padding: 6px 12px;
       border-radius: 999px;
       min-height: 34px;
     }
@@ -623,7 +647,7 @@
             <div class="row" style="justify-content:space-between;">
               <div>
                 <strong id="t-signup-team-label">🎯 اختر التيم الخاص بك (للحساب الجديد / البروفايل):</strong>
-                <div class="hint" id="t-signup-team-hint">يُستخدم لتحديد التيم الخاص بك في قائمة التيمات والشات.</div>
+                <div class="hint" id="t-signup-team-hint">يُستخدم لتحديد التيم الخاص بك في قائمة التيمات والشات وصلاحيات المهام.</div>
               </div>
               <select id="vortex-auth-team-select" style="min-width:190px;">
                 <option value="GUI">GUI</option>
@@ -636,7 +660,6 @@
           </div>
 
           <div class="auth-grid">
-            <!-- 1. Google -->
             <div class="auth-panel">
               <h3 id="t-google-title">🔑 تسجيل الدخول بحساب Google</h3>
               <p id="t-google-desc" class="hint" style="margin:0;">دخول سريع عبر Google على Windows وMac وAndroid وiOS.</p>
@@ -644,7 +667,6 @@
               <button id="vortex-google-redirect-btn" type="button" class="secondary">↪ الدخول عبر Google (Redirect)</button>
             </div>
 
-            <!-- 2. البريد الإلكتروني وكلمة المرور -->
             <div class="auth-panel">
               <h3 id="t-email-title">✉️ البريد الإلكتروني وكلمة المرور</h3>
               <input id="vortex-email-input" type="email" dir="ltr" autocomplete="email" placeholder="name@example.com" />
@@ -656,7 +678,6 @@
               <button id="vortex-reset-pass-btn" type="button" class="secondary">🔄 إرسال رابط استعادة كلمة المرور</button>
             </div>
 
-            <!-- 3. رقم الموبايل -->
             <div class="auth-panel">
               <h3 id="t-phone-title">📱 تسجيل الدخول برقم الموبايل</h3>
               <input id="vortex-phone-input" type="tel" dir="ltr" autocomplete="tel" placeholder="+201012345678" />
@@ -740,14 +761,13 @@
             </div>
           </section>
 
-          <!-- 2. All Team Tickets (البحث والتصفية + المهام) -->
+          <!-- 2. All Team Tickets -->
           <section id="vpage-tickets" class="hidden">
             <div class="page-header">
               <h1 id="t-tickets-heading" class="page-title">All Team Tickets</h1>
-              <p id="t-tickets-sub" class="page-subtitle">Search and filter team tasks across all sub-teams.</p>
+              <p id="t-tickets-sub" class="page-subtitle">View all sub-team tasks; complete tasks in your own team assigned to you or unassigned.</p>
             </div>
 
-            <!-- بطاقة البحث والتصفية المستقلة -->
             <div class="card">
               <div class="card-title">
                 <span id="t-search-heading">🔎 البحث والتصفية</span>
@@ -774,10 +794,9 @@
               </div>
             </div>
 
-            <!-- بطاقة المهام (الإضافة والتحكم للأونر فقط، بدون قيد التنفيذ/مكتمل عند الإضافة) -->
             <div class="card">
               <div class="card-title">
-                <span id="t-tasks-list-heading">📋 مهام الفريق</span>
+                <span id="t-tasks-list-heading">📋 قائمة المهام</span>
                 <span id="vortex-tasks-count-badge" class="badge">0</span>
               </div>
 
@@ -806,7 +825,7 @@
                     <span id="vortex-selected-assignee-label" class="badge ok"></span>
                   </div>
                   <select id="vortex-task-assignee-select" style="width:100%; margin-bottom:10px;">
-                    <option value="" data-i18n="unassignedOption">بدون تعيين محدد</option>
+                    <option value="" data-i18n="unassignedOption">بدون تعيين محدد (أي حد في التيم)</option>
                   </select>
                   <div id="vortex-assignee-chips" class="row"></div>
                 </div>
@@ -843,11 +862,14 @@
           <section id="vpage-points" class="hidden">
             <div class="page-header">
               <h1 id="t-points-heading" class="page-title">Points & Leaderboard</h1>
-              <p id="t-points-sub" class="page-subtitle">Points earned from completed tasks per member.</p>
+              <p id="t-points-sub" class="page-subtitle">Points calculated by task priority plus speed & completion rank bonus (#1 +15, #2 +10, #3 +5, others +2).</p>
             </div>
 
             <div class="card">
-              <h3 id="t-lb-members-title" class="card-title">🏆 Members Points</h3>
+              <div class="card-title">
+                <span id="t-lb-members-title">🏆 ترتيب الأعضاء بالنقاط والسرعة</span>
+                <span class="badge warn">⚡ Speed Bonus: #1 +15 • #2 +10 • #3 +5</span>
+              </div>
               <div id="vortex-points-list"></div>
             </div>
           </section>
@@ -872,7 +894,7 @@
             </div>
           </section>
 
-          <!-- 6. Owners & Roster (الـ Owner فقط، حتى 4 Owner) -->
+          <!-- 6. Owners & Roster -->
           <section id="vpage-owners" class="hidden">
             <div class="page-header">
               <h1 id="t-owners-page-title" class="page-title">Owners & Team Emails</h1>
@@ -973,7 +995,7 @@
         authTitle: "🔐 الحساب وتسجيل الدخول",
         chooseAuth: "اختر التيم الخاص بك ثم سجل دخولك عبر Google أو البريد الإلكتروني أو رقم الموبايل.",
         signupTeamLabel: "🎯 اختر التيم الخاص بك (للحساب الجديد / البروفايل):",
-        signupTeamHint: "يُستخدم لتحديد التيم الخاص بك في قائمة التيمات والشات.",
+        signupTeamHint: "يُستخدم لتحديد التيم الخاص بك في قائمة التيمات والشات وصلاحيات المهام.",
         logout: "🚪 تسجيل الخروج",
         googleTitle: "🔑 تسجيل الدخول بحساب Google",
         googleDesc: "دخول سريع عبر Google على Windows وMac وAndroid وiOS.",
@@ -1000,17 +1022,18 @@
         teamSaved: "تم حفظ التيم بنجاح.",
         lblUid: "معرف الحساب (UID)",
         ticketsHeading: "مهام الفريق",
-        ticketsSub: "البحث والتصفية ومتابعة المهام عبر جميع التيمات.",
+        ticketsSub: "تقدر تشوف مهام كل التيمات، وتنفذ المهام الخاصة بتيمك لو معينة لك أو بدون تعيين.",
         searchHeading: "🔎 البحث والتصفية",
         resetFilters: "♻️ إعادة ضبط الفلاتر",
         searchPh: "ابحث باسم المهمة أو التيم أو الإيميل...",
         filterAll: "الكل",
         teamAll: "كل التيمات",
         assigneeAll: "كل المسؤولين",
-        unassignedOption: "بدون تعيين محدد",
+        unassignedOption: "بدون تعيين محدد (أي حد في التيم)",
         pickAssigneeBtn: "👤 اختيار الشخص المسؤول",
         pickAssigneeTitle: "✉ اختر الشخص المسؤول من الإيميلات المحطوطة:",
         assignedTo: "المسؤول",
+        openForTeam: "متاحة لأي عضو في التيم",
         tasksListHeading: "📋 قائمة المهام",
         taskPh: "عنوان المهمة الجديدة...",
         prioNormal: "أولوية عادية (+10 pts)",
@@ -1022,6 +1045,7 @@
         noTasks: "لا توجد مهام مطابقة.",
         reopen: "↩ إعادة فتح",
         complete: "✔ إتمام",
+        markDoneMember: "✔ أنا عملتها",
         deleteBtn: "🗑 حذف",
         untitled: "بدون عنوان",
         member: "عضو",
@@ -1031,8 +1055,10 @@
         teamsFilterLbl: "🎯 اختر التيم لعرض أعضائه ومهامه:",
         noTeamMembers: "لا يوجد أعضاء مسجلون في هذا التيم بعد.",
         pointsHeading: "النقاط والترتيب",
-        pointsSub: "النقاط المكتسبة من المهام المكتملة لكل عضو.",
-        lbMembersTitle: "🏆 ترتيب الأعضاء بالنقاط",
+        pointsSub: "النقاط تُحسب من أولوية المهمة + مكافأة السرعة والترتيب (#1 +15، #2 +10، #3 +5، والباقي +2).",
+        lbMembersTitle: "🏆 ترتيب الأعضاء بالنقاط والسرعة",
+        basePtsLbl: "مهام",
+        speedBonusLbl: "مكافأة السرعة",
         noPointsData: "لا توجد نقاط مسجلة بعد.",
         chatHeading: "شات الفريق",
         chatSub: "جميع الأعضاء والأونر يمكنهم إرسال الرسائل هنا.",
@@ -1069,7 +1095,7 @@
         authTitle: "🔐 Account & Sign In",
         chooseAuth: "Choose your team, then sign in with Google, Email & Password, or Mobile Number.",
         signupTeamLabel: "🎯 Select your team (for new account / profile):",
-        signupTeamHint: "Used to display your team in Sub-teams & Team Chat.",
+        signupTeamHint: "Used to display your team in Sub-teams, Team Chat, and task permissions.",
         logout: "🚪 Sign Out",
         googleTitle: "🔑 Sign In with Google",
         googleDesc: "Fast sign-in via Google on Windows, Mac, Android, and iOS.",
@@ -1096,17 +1122,18 @@
         teamSaved: "Team saved successfully.",
         lblUid: "Account UID",
         ticketsHeading: "All Team Tickets",
-        ticketsSub: "Search and filter team tasks across all sub-teams.",
+        ticketsSub: "View all sub-team tasks; complete tasks in your own team assigned to you or unassigned.",
         searchHeading: "🔎 Search & Filters",
         resetFilters: "♻️ Reset Filters",
         searchPh: "Search by task title, team, or email...",
         filterAll: "All",
         teamAll: "All Teams",
         assigneeAll: "All Assignees",
-        unassignedOption: "Unassigned",
+        unassignedOption: "Unassigned (Anyone in team)",
         pickAssigneeBtn: "👤 Select Assignee",
         pickAssigneeTitle: "✉ Select task assignee from saved emails:",
         assignedTo: "Assignee",
+        openForTeam: "Open to team members",
         tasksListHeading: "📋 Team Tasks",
         taskPh: "New task title...",
         prioNormal: "Normal Priority (+10 pts)",
@@ -1118,6 +1145,7 @@
         noTasks: "No matching tasks found.",
         reopen: "↩ Reopen",
         complete: "✔ Complete",
+        markDoneMember: "✔ I did this",
         deleteBtn: "🗑 Delete",
         untitled: "Untitled",
         member: "Member",
@@ -1127,8 +1155,10 @@
         teamsFilterLbl: "🎯 Filter by sub-team:",
         noTeamMembers: "No members registered in this team yet.",
         pointsHeading: "Points & Leaderboard",
-        pointsSub: "Points earned from completed tasks per member.",
-        lbMembersTitle: "🏆 Members Points",
+        pointsSub: "Points calculated by task priority plus speed & completion rank bonus (#1 +15, #2 +10, #3 +5, others +2).",
+        lbMembersTitle: "🏆 Members Points & Speed Leaderboard",
+        basePtsLbl: "Tasks",
+        speedBonusLbl: "Speed Bonus",
         noPointsData: "No points recorded yet.",
         chatHeading: "Team Chat",
         chatSub: "All members and owners can send messages here.",
@@ -1404,23 +1434,90 @@
     let allChat = [];
     let unsubs = [];
 
+    function getCurrentUserTeam() {
+      if (!currentUser) return authTeamSelect.value || "GUI";
+      const savedProf = membersMap.get(currentUser.uid);
+      if (savedProf && TEAMS.includes(savedProf.team)) return savedProf.team;
+      return TEAMS.includes(authTeamSelect.value) ? authTeamSelect.value : "GUI";
+    }
+
+    function canMemberCompleteTask(task) {
+      if (!currentUser || task.status === "done") return false;
+      const myTeam = getCurrentUserTeam();
+      const taskTeam = task.team || "GUI";
+      if (myTeam !== taskTeam) return false;
+
+      const assignee = String(task.assignedTo || "").trim().toLowerCase();
+      if (!assignee) return true;
+
+      const myEmail = String(currentUser.email || "").trim().toLowerCase();
+      const myLabel = String(currentUser.displayName || currentUser.phoneNumber || currentUser.uid || "").trim().toLowerCase();
+      return (myEmail && assignee === myEmail) || (myLabel && assignee === myLabel);
+    }
+
     function taskPointsValue(prio) {
       if (prio === "urgent") return 30;
       if (prio === "high") return 20;
       return 10;
     }
 
-    function getUserPoints(userObj) {
-      if (!userObj) return 0;
-      const emailLower = (userObj.email || "").toLowerCase();
-      const labelLower = (userObj.label || "").toLowerCase();
-      return allTasks
+    function completionOrderScore(task) {
+      if (!task.completedAt) return Number.MAX_SAFE_INTEGER;
+      if (typeof task.completedAt.toMillis === "function") return task.completedAt.toMillis();
+      if (task.completedAt.seconds) return task.completedAt.seconds * 1000;
+      const parsed = Date.parse(task.completedAt);
+      return Number.isNaN(parsed) ? Number.MAX_SAFE_INTEGER : parsed;
+    }
+
+    function speedRankBonus(rankIndex) {
+      if (rankIndex === 0) return 15;
+      if (rankIndex === 1) return 10;
+      if (rankIndex === 2) return 5;
+      return 2;
+    }
+
+    function computePointsBreakdown() {
+      const doneTasks = allTasks
         .filter((tk) => tk.status === "done")
-        .filter((tk) => {
-          const asg = (tk.assignedTo || "").toLowerCase();
-          return (emailLower && asg === emailLower) || (labelLower && asg === labelLower);
-        })
-        .reduce((sum, tk) => sum + taskPointsValue(tk.priority), 0);
+        .sort((a, b) => completionOrderScore(a) - completionOrderScore(b));
+
+      const statsByKey = new Map();
+
+      function ensureEntry(key, displayName) {
+        if (!statsByKey.has(key)) {
+          statsByKey.set(key, { name: displayName, base: 0, speed: 0, total: 0, doneCount: 0 });
+        }
+        return statsByKey.get(key);
+      }
+
+      doneTasks.forEach((tk, idx) => {
+        const actorRaw = String(tk.completedBy || tk.assignedTo || "").trim();
+        if (!actorRaw) return;
+        const key = actorRaw.toLowerCase();
+        const entry = ensureEntry(key, actorRaw);
+        const base = taskPointsValue(tk.priority);
+        const bonus = speedRankBonus(idx);
+        entry.base += base;
+        entry.speed += bonus;
+        entry.total += base + bonus;
+        entry.doneCount += 1;
+      });
+
+      return statsByKey;
+    }
+
+    function getUserPointsBreakdown(userObj) {
+      const map = computePointsBreakdown();
+      if (!userObj) return { base: 0, speed: 0, total: 0, doneCount: 0 };
+      const candidates = [
+        String(userObj.email || "").trim().toLowerCase(),
+        String(userObj.label || "").trim().toLowerCase()
+      ].filter(Boolean);
+
+      for (const k of candidates) {
+        if (map.has(k)) return map.get(k);
+      }
+      return { base: 0, speed: 0, total: 0, doneCount: 0 };
     }
 
     async function persistMemberProfile(user, chosenTeam) {
@@ -1537,18 +1634,18 @@
       const total = allTasks.length;
       const done = allTasks.filter((item) => item.status === "done").length;
       const pending = total - done;
-      const myPts = currentUser
-        ? getUserPoints({
+      const myBreakdown = currentUser
+        ? getUserPointsBreakdown({
             email: currentUser.email,
             label: currentUser.displayName || currentUser.email || currentUser.phoneNumber
           })
-        : 0;
+        : { total: 0 };
 
       document.getElementById("stat-total-tasks").textContent = String(total);
       document.getElementById("stat-pending-tasks").textContent = String(pending);
       document.getElementById("stat-done-tasks").textContent = String(done);
-      document.getElementById("stat-user-points").textContent = String(myPts);
-      document.getElementById("vortex-prof-points-badge").textContent = `⭐ ${myPts} pts`;
+      document.getElementById("stat-user-points").textContent = String(myBreakdown.total);
+      document.getElementById("vortex-prof-points-badge").textContent = `⭐ ${myBreakdown.total} pts`;
 
       renderSubteamsAndMembers();
       renderPointsLeaderboard();
@@ -1566,27 +1663,30 @@
         const tmMembers = allMembers.filter((m) => (m.team || "GUI") === tm);
         const tmTasks = allTasks.filter((tk) => (tk.team || "GUI") === tm);
         const tmDone = tmTasks.filter((tk) => tk.status === "done").length;
+        const pct = tmTasks.length > 0 ? Math.round((tmDone / tmTasks.length) * 100) : 0;
 
         const block = document.createElement("div");
         block.className = "list-item";
-        block.style.alignItems = "flex-start";
+        block.style.alignItems = "stretch";
 
         const membersHtml = tmMembers.length
           ? tmMembers
               .map((m) => {
-                const pts = getUserPoints(m);
+                const pts = getUserPointsBreakdown(m).total;
                 return `<span class="badge ok">👤 ${m.label || m.email || m.uid} • ⭐ ${pts}</span>`;
               })
               .join(" ")
           : `<span class="hint">${t("noTeamMembers")}</span>`;
 
         block.innerHTML = `
-          <div style="flex:1; min-width:220px;">
-            <div style="font-size:16px; font-weight:800;">🎯 ${tm}</div>
-            <div class="hint" style="margin-top:4px;">${t("statTotal")}: ${tmTasks.length} • ${t("statDone")}: ${tmDone}</div>
+          <div style="flex:1; min-width:240px;">
+            <div class="row" style="justify-content:space-between;">
+              <strong style="font-size:16px; font-weight:800;">🎯 ${tm}</strong>
+              <span class="badge">${tmDone} / ${tmTasks.length} (${pct}%)</span>
+            </div>
+            <div class="progress-track"><div class="progress-fill" style="width:${pct}%;"></div></div>
             <div class="row" style="margin-top:10px;">${membersHtml}</div>
           </div>
-          <span class="badge">${tmMembers.length} ${t("member")}</span>
         `;
         box.appendChild(block);
       });
@@ -1597,9 +1697,38 @@
       if (!box) return;
       box.innerHTML = "";
 
-      const entries = Array.from(membersMap.values())
-        .map((m) => ({ ...m, points: getUserPoints(m) }))
-        .sort((a, b) => b.points - a.points);
+      const breakdownMap = computePointsBreakdown();
+      const entries = [];
+      const seenKeys = new Set();
+
+      Array.from(membersMap.values()).forEach((m) => {
+        const bd = getUserPointsBreakdown(m);
+        const k = String(m.email || m.label || m.uid).toLowerCase();
+        seenKeys.add(k);
+        entries.push({
+          name: m.label || m.email || m.uid,
+          team: m.team || "GUI",
+          base: bd.base,
+          speed: bd.speed,
+          points: bd.total,
+          doneCount: bd.doneCount
+        });
+      });
+
+      breakdownMap.forEach((bd, k) => {
+        if (!seenKeys.has(k)) {
+          entries.push({
+            name: bd.name,
+            team: "ROV",
+            base: bd.base,
+            speed: bd.speed,
+            points: bd.total,
+            doneCount: bd.doneCount
+          });
+        }
+      });
+
+      entries.sort((a, b) => b.points - a.points || b.speed - a.speed);
 
       if (entries.length === 0) {
         box.innerHTML = `<p class="hint" style="margin:0;">${t("noPointsData")}</p>`;
@@ -1607,12 +1736,17 @@
       }
 
       entries.forEach((entry, idx) => {
+        const medal = idx === 0 ? "🥇" : idx === 1 ? "🥈" : idx === 2 ? "🥉" : `#${idx + 1}`;
         const row = document.createElement("div");
         row.className = "list-item";
         row.innerHTML = `
           <div>
-            <strong>#${idx + 1} • ${entry.label || entry.email || entry.uid}</strong>
-            <div class="hint">🎯 ${entry.team || "GUI"}</div>
+            <strong>${medal} • ${entry.name}</strong>
+            <div class="task-badges">
+              <span class="badge">🎯 ${entry.team}</span>
+              <span class="badge">${t("basePtsLbl")}: +${entry.base}</span>
+              <span class="badge ok">⚡ ${t("speedBonusLbl")}: +${entry.speed}</span>
+            </div>
           </div>
           <span class="badge warn">⭐ ${entry.points} pts</span>
         `;
@@ -1660,14 +1794,11 @@
 
       currentRole = computeRole(currentUser);
       const ownerMode = isOwner();
+      const activeTeam = getCurrentUserTeam();
       const identity = currentUser.email || currentUser.phoneNumber || currentUser.uid;
       const displayLabel = currentUser.displayName || identity;
       const initials = String(displayLabel || "V").trim().charAt(0).toUpperCase() || "V";
 
-      const savedProf = membersMap.get(currentUser.uid);
-      const activeTeam = (savedProf && TEAMS.includes(savedProf.team))
-        ? savedProf.team
-        : (TEAMS.includes(authTeamSelect.value) ? authTeamSelect.value : "GUI");
       profileTeamSelect.value = activeTeam;
 
       authCard.classList.add("hidden");
@@ -1737,16 +1868,41 @@
         const left = document.createElement("div");
         const titleEl = document.createElement("div");
         titleEl.textContent = `📌 ${task.title || t("untitled")}`;
-        titleEl.style.fontWeight = "700";
+        titleEl.style.fontWeight = "800";
 
-        const metaEl = document.createElement("div");
-        metaEl.className = "hint";
-        const stLabel = task.status === "done" ? `✅ ${t("stDone")}` : `⏳ ${t("stPending")}`;
-        const asgText = task.assignedTo ? ` • ✉ ${t("assignedTo")}: ${task.assignedTo}` : "";
-        metaEl.textContent = `${stLabel} • ⚡ ${prioLabel(task.priority)} • 🎯 ${task.team || "GUI"}${asgText} • ${t("by")}: ${task.createdByLabel || t("member")}`;
+        const badgesRow = document.createElement("div");
+        badgesRow.className = "task-badges";
+
+        const stBadge = document.createElement("span");
+        stBadge.className = `badge ${task.status === "done" ? "ok" : "warn"}`;
+        stBadge.textContent = task.status === "done" ? `✅ ${t("stDone")}` : `⏳ ${t("stPending")}`;
+
+        const teamBadge = document.createElement("span");
+        teamBadge.className = "badge";
+        teamBadge.textContent = `🎯 ${task.team || "GUI"}`;
+
+        const prioBadge = document.createElement("span");
+        prioBadge.className = "badge";
+        prioBadge.textContent = `⚡ ${prioLabel(task.priority)}`;
+
+        const asgBadge = document.createElement("span");
+        asgBadge.className = "badge";
+        asgBadge.textContent = task.assignedTo
+          ? `✉ ${t("assignedTo")}: ${task.assignedTo}`
+          : `👥 ${t("openForTeam")}`;
+
+        const byBadge = document.createElement("span");
+        byBadge.className = "hint";
+        byBadge.textContent = `${t("by")}: ${task.createdByLabel || t("member")}`;
+
+        badgesRow.appendChild(stBadge);
+        badgesRow.appendChild(teamBadge);
+        badgesRow.appendChild(prioBadge);
+        badgesRow.appendChild(asgBadge);
+        badgesRow.appendChild(byBadge);
 
         left.appendChild(titleEl);
-        left.appendChild(metaEl);
+        left.appendChild(badgesRow);
 
         const actions = document.createElement("div");
         actions.className = "row";
@@ -1758,8 +1914,12 @@
           toggleBtn.textContent = task.status === "done" ? t("reopen") : t("complete");
           toggleBtn.addEventListener("click", async () => {
             try {
+              const nextStatus = task.status === "done" ? "pending" : "done";
+              const actor = currentUser.email || currentUser.displayName || currentUser.uid;
               await updateDoc(doc(db, "tasks", task.id), {
-                status: task.status === "done" ? "pending" : "done"
+                status: nextStatus,
+                completedBy: nextStatus === "done" ? (task.assignedTo || actor) : "",
+                completedAt: nextStatus === "done" ? serverTimestamp() : null
               });
             } catch (err) {
               setStatus(formatErr(err), "error");
@@ -1780,6 +1940,24 @@
 
           actions.appendChild(toggleBtn);
           actions.appendChild(delBtn);
+        } else if (canMemberCompleteTask(task)) {
+          const doneBtn = document.createElement("button");
+          doneBtn.type = "button";
+          doneBtn.textContent = t("markDoneMember");
+          doneBtn.addEventListener("click", async () => {
+            if (!canMemberCompleteTask(task)) return;
+            try {
+              const actor = currentUser.email || currentUser.displayName || currentUser.phoneNumber || currentUser.uid;
+              await updateDoc(doc(db, "tasks", task.id), {
+                status: "done",
+                completedBy: actor,
+                completedAt: serverTimestamp()
+              });
+            } catch (err) {
+              setStatus(formatErr(err), "error");
+            }
+          });
+          actions.appendChild(doneBtn);
         }
 
         div.appendChild(left);
@@ -1983,6 +2161,8 @@
           status: "pending",
           priority: prioSel.value,
           assignedTo: taskAssigneeSelect.value || "",
+          completedBy: "",
+          completedAt: null,
           createdByUid: currentUser.uid,
           createdByLabel: currentUser.email || currentUser.phoneNumber || currentUser.uid,
           createdAt: serverTimestamp()
@@ -1996,10 +2176,7 @@
     async function sendChatMessage() {
       const text = chatInput.value.trim();
       if (!text || !currentUser) return;
-      const savedProf = membersMap.get(currentUser.uid);
-      const senderTeam = (savedProf && TEAMS.includes(savedProf.team))
-        ? savedProf.team
-        : (TEAMS.includes(authTeamSelect.value) ? authTeamSelect.value : "GUI");
+      const senderTeam = getCurrentUserTeam();
 
       sendChatBtn.disabled = true;
       try {
