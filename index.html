@@ -278,7 +278,7 @@
 
     .days-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(295px, 1fr));
       gap: 14px;
       margin-top: 12px;
     }
@@ -306,6 +306,25 @@
       gap: 8px;
       padding-bottom: 8px;
       border-bottom: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+
+    .time-group {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      padding: 8px 10px;
+    }
+
+    .time-group-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--muted);
+      min-width: 34px;
     }
 
     .auth-grid {
@@ -393,13 +412,13 @@
     }
 
     input, select, button {
-      padding: 10px 13px;
+      padding: 9px 12px;
       border-radius: 11px;
       border: 1px solid var(--border);
       background: var(--surface-2);
       color: var(--text);
       font-size: 13.5px;
-      min-height: 40px;
+      min-height: 38px;
       max-width: 100%;
     }
 
@@ -513,7 +532,8 @@
       display: none !important;
     }
 
-    #vortex-status-box {
+    #vortex-status-box,
+    #vortex-workspace-banner {
       padding: 12px 15px;
       border-radius: 11px;
       border: 1px solid var(--border);
@@ -524,12 +544,14 @@
       word-break: break-word;
     }
 
-    #vortex-status-box.error {
+    #vortex-status-box.error,
+    #vortex-workspace-banner.error {
       border-color: var(--danger);
       background: rgba(220, 38, 38, 0.1);
     }
 
-    #vortex-status-box.ok {
+    #vortex-status-box.ok,
+    #vortex-workspace-banner.ok {
       border-color: var(--ok);
       background: rgba(22, 163, 74, 0.1);
     }
@@ -750,6 +772,8 @@
 
         <!-- مساحة عمل الفريق بعد تسجيل الدخول -->
         <div id="vortex-workspace" class="hidden">
+          <div id="vortex-workspace-banner" class="hidden" style="margin-bottom:16px;"></div>
+
           <div class="stats-row">
             <div class="stat-card">
               <div id="t-stat-total" class="stat-label">📌 إجمالي المهام</div>
@@ -822,10 +846,13 @@
           <section id="vpage-tickets" class="hidden">
             <div class="page-header">
               <h1 id="t-tickets-heading" class="page-title">Team Tasks</h1>
-              <p id="t-tickets-sub" class="page-subtitle">View all sub-team tasks; complete tasks in your own team assigned to you or unassigned.</p>
+              <p id="t-tickets-sub" class="page-subtitle">تابع مهام كل التيمات، ونفّذ المهام الخاصة بتيمك المعينة لك أو المفتوحة للتيم.</p>
             </div>
 
             <div class="card">
+              <div class="card-title">
+                <span id="t-task-filter-title">🔎 تصفية وبحث المهام</span>
+              </div>
               <div class="row">
                 <input id="vortex-task-search" type="text" placeholder="ابحث باسم المهمة أو التيم أو الإيميل..." style="flex:1; min-width:200px;" />
                 <select id="vortex-task-filter">
@@ -889,17 +916,17 @@
             </div>
           </section>
 
-          <!-- 3. Time table (الأوقات المشغولة من السبت للجمعة + الوقت الفاضي المشترك) -->
+          <!-- 3. Time table -->
           <section id="vpage-timetable" class="hidden">
             <div class="page-header">
               <h1 id="t-timetable-heading" class="page-title">🕒 Time table</h1>
-              <p id="t-timetable-sub" class="page-subtitle">سجّل الأوقات المشغولة من السبت للجمعة لمعرفة إجمالي الساعات وأفضل وقت فاضي مشترك للتيم أو الفريق.</p>
+              <p id="t-timetable-sub" class="page-subtitle">سجّل مواعيد انشغالك من السبت للجمعة، واعرف ساعاتك اليومية والأسبوعية؛ وكل عضو يرى مواعيده فقط بينما يرى الأونر كل المواعيد.</p>
             </div>
 
-            <!-- ملخص الساعات الأسبوعية والوقت الفاضي المشترك -->
+            <!-- الوقت الفاضي المشترك -->
             <div class="card">
               <div class="card-title">
-                <span id="t-common-free-title">🤝 الوقت الفاضي المشترك وحساب الساعات الأسبوعية</span>
+                <span id="t-common-free-title">🤝 الوقت الفاضي المتاح</span>
                 <div class="row">
                   <select id="vortex-overlap-day">
                     <option value="Saturday">السبت / Saturday</option>
@@ -910,32 +937,34 @@
                     <option value="Thursday">الخميس / Thursday</option>
                     <option value="Friday">الجمعة / Friday</option>
                   </select>
-                  <select id="vortex-overlap-scope">
-                    <option value="ALL">كل الفريق (All Teams)</option>
-                    <option value="GUI">تيم GUI فقط</option>
-                    <option value="Vision">تيم Vision فقط</option>
-                    <option value="Control">تيم Control فقط</option>
-                    <option value="Mechanical">تيم Mechanical فقط</option>
-                    <option value="Electrical">تيم Electrical فقط</option>
+                  <select id="vortex-overlap-scope" class="hidden">
+                    <option value="ALL">كل التيمات معًا (All Teams)</option>
+                    <option value="Electrical">Electrical</option>
+                    <option value="GUI">GUI</option>
+                    <option value="Vision">Vision</option>
+                    <option value="Control">Control</option>
+                    <option value="Mechanical">Mechanical</option>
                   </select>
+                  <button id="vortex-copy-free-btn" type="button" class="secondary">📋 نسخ الوقت الفاضي</button>
                 </div>
               </div>
               <div id="vortex-overlap-summary"></div>
+              <div id="vortex-all-teams-free-overview" style="margin-top:12px;"></div>
             </div>
 
-            <!-- شبكة الأيام من السبت إلى الجمعة لإضافة الوقت المشغول مباشرة -->
+            <!-- شبكة الأيام من السبت إلى الجمعة -->
             <div class="card">
               <div class="card-title">
-                <span id="t-days-grid-title">📆 إضافة التزاماتك الأسبوعية (من السبت إلى الجمعة)</span>
-                <span id="vortex-my-weekly-hours" class="badge ok">⏱ ساعاتك الأسبوعية: 0.0 ساعة</span>
+                <span id="t-days-grid-title">📆 إضافة أوقات انشغالك (السبت ← الجمعة)</span>
+                <span id="vortex-my-weekly-hours" class="badge ok">⏱ إجمالي أسبوعك: 0.0 ساعة</span>
               </div>
               <div id="vortex-days-grid" class="days-grid"></div>
             </div>
 
-            <!-- قائمة المواعيد المسجلة مع التصفية -->
+            <!-- قائمة الأوقات المشغولة المسجلة -->
             <div class="card">
               <div class="card-title">
-                <span id="t-busy-list-title">📋 سجل الأوقات المشغولة المسجلة</span>
+                <span id="t-busy-list-title">📋 سجل مواعيدك وساعاتك</span>
                 <div class="row">
                   <select id="vortex-busy-day-filter">
                     <option value="all">كل الأيام</option>
@@ -947,7 +976,7 @@
                     <option value="Thursday">الخميس / Thursday</option>
                     <option value="Friday">الجمعة / Friday</option>
                   </select>
-                  <select id="vortex-busy-team-filter">
+                  <select id="vortex-busy-team-filter" class="hidden">
                     <option value="all">كل التيمات</option>
                     <option value="GUI">GUI</option>
                     <option value="Vision">Vision</option>
@@ -965,7 +994,7 @@
           <section id="vpage-teams" class="hidden">
             <div class="page-header">
               <h1 id="t-teams-page-heading" class="page-title">Sub-teams & Members</h1>
-              <p id="t-teams-page-sub" class="page-subtitle">See who is in GUI, Vision, Control, Mechanical, and Electrical.</p>
+              <p id="t-teams-page-sub" class="page-subtitle">تعرف على أعضاء كل تيم ونسبة إنجاز المهام.</p>
             </div>
 
             <div class="card">
@@ -988,7 +1017,7 @@
           <section id="vpage-points" class="hidden">
             <div class="page-header">
               <h1 id="t-points-heading" class="page-title">Points & Leaderboard</h1>
-              <p id="t-points-sub" class="page-subtitle">Points calculated by task priority plus speed & completion rank bonus (#1 +15, #2 +10, #3 +5, others +2).</p>
+              <p id="t-points-sub" class="page-subtitle">النقاط تُحسب من أولوية المهمة + مكافأة السرعة والترتيب (#1 +15، #2 +10، #3 +5، والباقي +2).</p>
             </div>
 
             <div class="card">
@@ -1004,7 +1033,7 @@
           <section id="vpage-chat" class="hidden">
             <div class="page-header">
               <h1 id="t-chat-heading" class="page-title">Team Chat</h1>
-              <p id="t-chat-sub" class="page-subtitle">All members and owners can send messages here.</p>
+              <p id="t-chat-sub" class="page-subtitle">مساحة تواصل مباشرة لجميع أعضاء التيم والأونر.</p>
             </div>
 
             <div class="card">
@@ -1024,7 +1053,7 @@
           <section id="vpage-owners" class="hidden">
             <div class="page-header">
               <h1 id="t-owners-page-title" class="page-title">Owners & Team Emails</h1>
-              <p class="page-subtitle">Max 4 Owner accounts + saved emails list with their sub-teams for task assignment.</p>
+              <p id="t-owners-page-sub" class="page-subtitle">إدارة حسابات الملاك (حتى 4 حسابات) وربط إيميلات الأعضاء بالتيمات لتعيين المهام.</p>
             </div>
 
             <div class="card">
@@ -1154,6 +1183,12 @@
         sendOtp: "📲 إرسال كود التحقق (SMS)",
         otpPh: "أدخل كود التحقق (6 أرقام)",
         verifyOtp: "✔ تأكيد الكود وتسجيل الدخول",
+        missingEmail: "من فضلك اكتب البريد الإلكتروني أولاً.",
+        missingEmailAndPass: "من فضلك اكتب البريد الإلكتروني وكلمة المرور.",
+        weakPassError: "كلمة المرور لازم تكون 6 أحرف أو أرقام على الأقل.",
+        accountCreatedOk: "✔ تم إنشاء الحساب وتسجيل الدخول بنجاح.",
+        signedInOk: "✔ تم تسجيل الدخول بنجاح.",
+        resetSentOk: "✔ تم إرسال رابط استعادة كلمة المرور إلى بريدك الإلكتروني.",
         profileHeading: "ملفي الشخصي",
         profileSub: "بيانات الحساب، التيم الخاص بك، ونقاطك.",
         accDetails: "تفاصيل الحساب",
@@ -1165,6 +1200,7 @@
         lblUid: "معرف الحساب (UID)",
         ticketsHeading: "المهام",
         ticketsSub: "تقدر تشوف مهام كل التيمات، وتنفذ المهام الخاصة بتيمك لو معينة لك أو بدون تعيين.",
+        taskFilterTitle: "🔎 تصفية وبحث المهام",
         searchPh: "ابحث باسم المهمة أو التيم أو الإيميل...",
         filterAll: "الكل",
         teamAll: "كل التيمات",
@@ -1192,24 +1228,35 @@
         member: "عضو",
         by: "بواسطة",
         timetableHeading: "🕒 Time table",
-        timetableSub: "سجّل الأوقات المشغولة من السبت للجمعة لمعرفة إجمالي الساعات وأفضل وقت فاضي مشترك للتيم أو الفريق.",
-        commonFreeTitle: "🤝 الوقت الفاضي المشترك وحساب الساعات الأسبوعية",
-        daysGridTitle: "📆 إضافة التزاماتك الأسبوعية (من السبت إلى الجمعة)",
-        busyListTitle: "📋 سجل الأوقات المشغولة المسجلة",
+        timetableSub: "سجّل مواعيد انشغالك من السبت للجمعة، واعرف ساعاتك اليومية والأسبوعية؛ وكل عضو يرى مواعيده فقط بينما يرى الأونر كل المواعيد.",
+        commonFreeTitle: "🤝 الوقت الفاضي المتاح",
+        copyFreeBtn: "📋 نسخ الوقت الفاضي",
+        copiedFreeOk: "✔ تم نسخ الوقت الفاضي بنجاح.",
+        daysGridTitle: "📆 إضافة أوقات انشغالك (السبت ← الجمعة)",
+        busyListTitle: "📋 سجل مواعيدك وساعاتك",
+        busyListOwnerTitle: "📋 سجل مواعيد وساعات كل الأعضاء",
         activityNamePh: "اسم الحاجة (درس، مدرسة، تدريب...)",
         noteOptionalPh: "ملاحظة (اختياري)",
         repeatWeeklyLbl: "يتكرر كل أسبوع",
         oneTimeLbl: "مرة واحدة فقط",
         saveBusyBtn: "➕ حفظ في اليوم",
+        fromLbl: "من",
+        toLbl: "إلى",
+        amLbl: "صباحًا (AM)",
+        pmLbl: "مساءً (PM)",
         invalidTimeRange: "من فضلك تأكد أن وقت النهاية بعد وقت البداية.",
         missingActivityName: "من فضلك اكتب اسم الحاجة المشغول فيها.",
         noBusyEntries: "لا توجد مواعيد مشغولة مسجلة بعد.",
-        commonFreeLabel: "الفترات الفاضية المشتركة (بين 08:00 و 22:00)",
-        noCommonFree: "لا توجد فترة فاضية مشتركة متصلة في هذا اليوم للمجموعة المحددة.",
-        weeklyHoursPrefix: "ساعاتك الأسبوعية",
-        hoursUnit: "ساعة/أسبوع",
+        commonFreeLabel: "الفترات الفاضية (08:00 AM – 10:00 PM)",
+        ownerCommonFreeLabel: "الفترات الفاضية المشتركة (08:00 AM – 10:00 PM)",
+        allTeamsSummaryTitle: "🌐 نظرة سريعة على الوقت الفاضي المشترك لكل تيم وكل الفريق:",
+        noCommonFree: "لا توجد فترة فاضية متصلة في هذا اليوم للمجموعة المحددة.",
+        weeklyHoursPrefix: "إجمالي أسبوعك",
+        dayHoursPrefix: "ساعات اليوم",
+        memberWeeklyHours: "أسبوعيًا",
+        hoursUnit: "ساعة",
         teamsPageHeading: "التيمات والأعضاء",
-        teamsPageSub: "اعرف مين موجود في GUI وVision وControl وMechanical وElectrical.",
+        teamsPageSub: "تعرف على أعضاء كل تيم ونسبة إنجاز المهام.",
         teamsFilterLbl: "🎯 اختر التيم لعرض أعضائه ومهامه:",
         noTeamMembers: "لا يوجد أعضاء مسجلون في هذا التيم بعد.",
         pointsHeading: "النقاط والترتيب",
@@ -1219,11 +1266,13 @@
         speedBonusLbl: "مكافأة السرعة",
         noPointsData: "لا توجد نقاط مسجلة بعد.",
         chatHeading: "شات الفريق",
-        chatSub: "جميع الأعضاء والأونر يمكنهم إرسال الرسائل هنا.",
+        chatSub: "مساحة تواصل مباشرة لجميع أعضاء التيم والأونر.",
         scrollChat: "⬇ آخر الرسائل",
         chatPh: "اكتب رسالة للفريق...",
         sendChat: "📨 إرسال",
         noChat: "لا توجد رسائل بعد.",
+        ownersPageTitle: "Owners & Team Emails",
+        ownersPageSub: "إدارة حسابات الملاك (حتى 4 حسابات) وربط إيميلات الأعضاء بالتيمات لتعيين المهام.",
         statTotal: "📌 إجمالي المهام",
         statPending: "⏳ قيد التنفيذ",
         statDone: "✅ مهام مكتملة",
@@ -1270,6 +1319,12 @@
         sendOtp: "📲 Send Verification Code (SMS)",
         otpPh: "Enter 6-digit code",
         verifyOtp: "✔ Verify Code & Sign In",
+        missingEmail: "Please enter your email address first.",
+        missingEmailAndPass: "Please enter both email and password.",
+        weakPassError: "Password must be at least 6 characters.",
+        accountCreatedOk: "✔ Account created and signed in successfully.",
+        signedInOk: "✔ Signed in successfully.",
+        resetSentOk: "✔ Password reset email sent.",
         profileHeading: "My Profile",
         profileSub: "Your account details, selected team, and points.",
         accDetails: "Account details",
@@ -1281,6 +1336,7 @@
         lblUid: "Account UID",
         ticketsHeading: "Team Tasks",
         ticketsSub: "View all sub-team tasks; complete tasks in your own team assigned to you or unassigned.",
+        taskFilterTitle: "🔎 Filter & Search Tasks",
         searchPh: "Search by task title, team, or email...",
         filterAll: "All",
         teamAll: "All Teams",
@@ -1308,24 +1364,35 @@
         member: "Member",
         by: "By",
         timetableHeading: "🕒 Time table",
-        timetableSub: "Log busy slots from Saturday to Friday to see weekly hours and common free windows for a team or everyone.",
-        commonFreeTitle: "🤝 Common Free Time & Weekly Hours",
-        daysGridTitle: "📆 Add Busy Commitments (Saturday to Friday)",
-        busyListTitle: "📋 Recorded Busy Schedule",
+        timetableSub: "Log busy slots from Saturday to Friday and view daily/weekly hours; members see only their own schedule while Owners see everyone's.",
+        commonFreeTitle: "🤝 Available Free Windows",
+        copyFreeBtn: "📋 Copy Free Time",
+        copiedFreeOk: "✔ Free time copied to clipboard.",
+        daysGridTitle: "📆 Add Busy Commitments (Saturday → Friday)",
+        busyListTitle: "📋 Your Recorded Schedule & Hours",
+        busyListOwnerTitle: "📋 All Members Recorded Schedule & Hours",
         activityNamePh: "Activity name (lesson, school, training...)",
         noteOptionalPh: "Note (optional)",
         repeatWeeklyLbl: "Repeats every week",
         oneTimeLbl: "One-time only",
         saveBusyBtn: "➕ Save Day Slot",
+        fromLbl: "From",
+        toLbl: "To",
+        amLbl: "AM",
+        pmLbl: "PM",
         invalidTimeRange: "Please make sure end time is after start time.",
         missingActivityName: "Please enter what you are busy with.",
         noBusyEntries: "No busy slots recorded yet.",
-        commonFreeLabel: "Common free windows (08:00 – 22:00)",
+        commonFreeLabel: "Free windows (08:00 AM – 10:00 PM)",
+        ownerCommonFreeLabel: "Common free windows (08:00 AM – 10:00 PM)",
+        allTeamsSummaryTitle: "🌐 Quick Overview of Common Free Time Per Team & All Teams:",
         noCommonFree: "No continuous common free window found for this day and selection.",
-        weeklyHoursPrefix: "Your weekly busy hours",
-        hoursUnit: "hrs/wk",
+        weeklyHoursPrefix: "Your weekly total",
+        dayHoursPrefix: "Day hours",
+        memberWeeklyHours: "Weekly",
+        hoursUnit: "hrs",
         teamsPageHeading: "Sub-teams & Members",
-        teamsPageSub: "See who is in GUI, Vision, Control, Mechanical, and Electrical.",
+        teamsPageSub: "See members in each sub-team and task completion rate.",
         teamsFilterLbl: "🎯 Filter by sub-team:",
         noTeamMembers: "No members registered in this team yet.",
         pointsHeading: "Points & Leaderboard",
@@ -1335,11 +1402,13 @@
         speedBonusLbl: "Speed Bonus",
         noPointsData: "No points recorded yet.",
         chatHeading: "Team Chat",
-        chatSub: "All members and owners can send messages here.",
+        chatSub: "Direct team communication space for all members and owners.",
         scrollChat: "⬇ Latest Messages",
         chatPh: "Write a message to the team...",
         sendChat: "📨 Send",
         noChat: "No chat messages yet.",
+        ownersPageTitle: "Owners & Team Emails",
+        ownersPageSub: "Manage Owner accounts (up to 4) and assign member emails to sub-teams for tasks.",
         statTotal: "📌 Total Tasks",
         statPending: "⏳ In Progress",
         statDone: "✅ Completed",
@@ -1365,6 +1434,7 @@
     let viewedTeam = "ALL";
 
     const statusBox = document.getElementById("vortex-status-box");
+    const workspaceBanner = document.getElementById("vortex-workspace-banner");
     const netBadge = document.getElementById("vortex-net-badge");
     const themeBtn = document.getElementById("vortex-theme-btn");
     const langBtn = document.getElementById("vortex-lang-btn");
@@ -1416,7 +1486,9 @@
     const daysGrid = document.getElementById("vortex-days-grid");
     const overlapDaySel = document.getElementById("vortex-overlap-day");
     const overlapScopeSel = document.getElementById("vortex-overlap-scope");
+    const copyFreeBtn = document.getElementById("vortex-copy-free-btn");
     const overlapSummaryBox = document.getElementById("vortex-overlap-summary");
+    const allTeamsFreeOverview = document.getElementById("vortex-all-teams-free-overview");
     const myWeeklyHoursBadge = document.getElementById("vortex-my-weekly-hours");
     const busyDayFilter = document.getElementById("vortex-busy-day-filter");
     const busyTeamFilter = document.getElementById("vortex-busy-team-filter");
@@ -1433,7 +1505,7 @@
     function dayLabel(dayKey) {
       const found = DAYS_OF_WEEK.find((d) => d.key === dayKey);
       if (!found) return dayKey || "";
-      return `${found.ar} (${found.en})`;
+      return lang === "en" ? found.en : `${found.ar} / ${found.en}`;
     }
 
     function setStatus(text, type = "normal") {
@@ -1441,11 +1513,42 @@
       statusBox.classList.remove("error", "ok");
       if (type === "error") statusBox.classList.add("error");
       if (type === "ok") statusBox.classList.add("ok");
+
+      if (currentUser && text) {
+        workspaceBanner.classList.remove("hidden", "error", "ok");
+        workspaceBanner.textContent = text;
+        if (type === "error") workspaceBanner.classList.add("error");
+        if (type === "ok") workspaceBanner.classList.add("ok");
+      } else {
+        workspaceBanner.classList.add("hidden");
+      }
     }
 
     function formatErr(err) {
-      const code = err && (err.code || err.message) ? String(err.code || err.message) : "Error";
-      return code.replace(/^Firebase:\s*/i, "");
+      const code = err && err.code ? String(err.code) : "";
+      const msg = err && err.message ? String(err.message).replace(/^Firebase:\s*/i, "") : "Error";
+      const friendlyAr = {
+        "auth/invalid-email": "صيغة البريد الإلكتروني غير صحيحة.",
+        "auth/user-not-found": "لا يوجد حساب مسجل بهذا البريد الإلكتروني.",
+        "auth/wrong-password": "كلمة المرور غير صحيحة.",
+        "auth/invalid-credential": "بيانات الدخول غير صحيحة أو الحساب مسجل بطريقة أخرى.",
+        "auth/email-already-in-use": "هذا البريد الإلكتروني مسجل من قبل؛ استخدم تسجيل الدخول.",
+        "auth/weak-password": "كلمة المرور ضعيفة، يجب أن تكون 6 أحرف على الأقل.",
+        "auth/too-many-requests": "محاولات كثيرة جدًا، انتظر قليلًا ثم حاول مرة أخرى.",
+        "auth/network-request-failed": "مشكلة في الاتصال بالإنترنت."
+      };
+      const friendlyEn = {
+        "auth/invalid-email": "Invalid email format.",
+        "auth/user-not-found": "No account found with this email.",
+        "auth/wrong-password": "Incorrect password.",
+        "auth/invalid-credential": "Invalid credentials.",
+        "auth/email-already-in-use": "Email is already registered; sign in instead.",
+        "auth/weak-password": "Password must be at least 6 characters.",
+        "auth/too-many-requests": "Too many attempts. Please try again later.",
+        "auth/network-request-failed": "Network connection error."
+      };
+      const mapped = lang === "en" ? friendlyEn[code] : friendlyAr[code];
+      return mapped || msg;
     }
 
     function isMobileOrIOS() {
@@ -1540,6 +1643,7 @@
 
       document.getElementById("t-tickets-heading").textContent = t("ticketsHeading");
       document.getElementById("t-tickets-sub").textContent = t("ticketsSub");
+      document.getElementById("t-task-filter-title").textContent = t("taskFilterTitle");
       taskSearch.placeholder = t("searchPh");
       document.getElementById("t-tasks-list-heading").textContent = t("tasksListHeading");
       document.getElementById("vortex-task-title").placeholder = t("taskPh");
@@ -1550,8 +1654,9 @@
       document.getElementById("t-timetable-heading").textContent = t("timetableHeading");
       document.getElementById("t-timetable-sub").textContent = t("timetableSub");
       document.getElementById("t-common-free-title").textContent = t("commonFreeTitle");
+      copyFreeBtn.textContent = t("copyFreeBtn");
       document.getElementById("t-days-grid-title").textContent = t("daysGridTitle");
-      document.getElementById("t-busy-list-title").textContent = t("busyListTitle");
+      document.getElementById("t-busy-list-title").textContent = isOwner() ? t("busyListOwnerTitle") : t("busyListTitle");
 
       document.getElementById("t-teams-page-heading").textContent = t("teamsPageHeading");
       document.getElementById("t-teams-page-sub").textContent = t("teamsPageSub");
@@ -1566,6 +1671,9 @@
       document.getElementById("vortex-scroll-chat-btn").textContent = t("scrollChat");
       chatInput.placeholder = t("chatPh");
       sendChatBtn.textContent = t("sendChat");
+
+      document.getElementById("t-owners-page-title").textContent = t("ownersPageTitle");
+      document.getElementById("t-owners-page-sub").textContent = t("ownersPageSub");
 
       document.getElementById("t-stat-total").textContent = t("statTotal");
       document.getElementById("t-stat-pending").textContent = t("statPending");
@@ -1633,6 +1741,10 @@
     let allChat = [];
     let unsubs = [];
 
+    function isOwner() {
+      return currentRole === "Owner";
+    }
+
     function getCurrentUserTeam() {
       if (!currentUser) return authTeamSelect.value || "GUI";
       const savedProf = membersMap.get(currentUser.uid);
@@ -1640,51 +1752,93 @@
       return TEAMS.includes(authTeamSelect.value) ? authTeamSelect.value : "GUI";
     }
 
-    function parseMinutes(hhmm) {
-      if (!hhmm || !/^\d{2}:\d{2}$/.test(hhmm)) return null;
-      const [h, m] = hhmm.split(":").map(Number);
-      if (h < 0 || h > 23 || m < 0 || m > 59) return null;
+    function to24HourMinutes(hour12, minuteVal, period) {
+      let h = Number(hour12);
+      const m = Number(minuteVal);
+      if (Number.isNaN(h) || Number.isNaN(m) || h < 1 || h > 12 || m < 0 || m > 59) return null;
+      if (period === "AM") {
+        if (h === 12) h = 0;
+      } else if (period === "PM") {
+        if (h !== 12) h += 12;
+      } else {
+        return null;
+      }
       return h * 60 + m;
     }
 
-    function formatMinutes(mins) {
+    function formatMinutes24(mins) {
       const clamped = Math.max(0, Math.min(24 * 60, Math.round(mins)));
       const h = String(Math.floor(clamped / 60)).padStart(2, "0");
       const m = String(clamped % 60).padStart(2, "0");
       return `${h}:${m}`;
     }
 
-    function computeWeeklyHoursForUid(uid) {
+    function formatMinutes12(mins) {
+      const clamped = Math.max(0, Math.min(24 * 60, Math.round(mins)));
+      const h24 = Math.floor(clamped / 60);
+      const m = String(clamped % 60).padStart(2, "0");
+      const period = h24 >= 12 ? t("pmLbl") : t("amLbl");
+      let h12 = h24 % 12;
+      if (h12 === 0) h12 = 12;
+      return `${String(h12).padStart(2, "0")}:${m} ${period}`;
+    }
+
+    function parseStoredSlotRange(sl) {
+      if (typeof sl.startMin === "number" && typeof sl.endMin === "number" && sl.endMin > sl.startMin) {
+        return [sl.startMin, sl.endMin];
+      }
+      if (sl.from && sl.to && /^\d{2}:\d{2}$/.test(sl.from) && /^\d{2}:\d{2}$/.test(sl.to)) {
+        const [sh, sm] = sl.from.split(":").map(Number);
+        const [eh, em] = sl.to.split(":").map(Number);
+        const s = sh * 60 + sm;
+        const e = eh * 60 + em;
+        if (e > s) return [s, e];
+      }
+      return null;
+    }
+
+    function getVisibleBusySlots() {
+      if (!currentUser) return [];
+      if (isOwner()) return allBusySlots;
+      return allBusySlots.filter((sl) => sl.uid === currentUser.uid);
+    }
+
+    function computeMinutesForUid(uid, dayFilter = null) {
+      if (!currentUser) return 0;
+      if (!isOwner() && uid !== currentUser.uid) return 0;
       let totalMins = 0;
       allBusySlots.forEach((sl) => {
         if (sl.uid !== uid) return;
-        const s = parseMinutes(sl.from);
-        const e = parseMinutes(sl.to);
-        if (s !== null && e !== null && e > s) {
-          totalMins += e - s;
-        }
+        if (dayFilter && sl.day !== dayFilter) return;
+        const rng = parseStoredSlotRange(sl);
+        if (rng) totalMins += rng[1] - rng[0];
       });
-      return (totalMins / 60).toFixed(1);
+      return totalMins;
+    }
+
+    function formatHoursFromMinutes(mins) {
+      return (mins / 60).toFixed(1);
     }
 
     function computeCommonFreeWindows(dayKey, scopeTeam) {
-      const daySlots = allBusySlots.filter((sl) => {
-        if (sl.day !== dayKey) return false;
-        if (scopeTeam && scopeTeam !== "ALL") {
-          return (sl.team || "GUI") === scopeTeam;
-        }
-        return true;
-      });
+      const sourceSlots = isOwner()
+        ? allBusySlots.filter((sl) => {
+            if (sl.day !== dayKey) return false;
+            if (scopeTeam && scopeTeam !== "ALL") {
+              return (sl.team || "GUI") === scopeTeam;
+            }
+            return true;
+          })
+        : allBusySlots.filter((sl) => currentUser && sl.uid === currentUser.uid && sl.day === dayKey);
 
       const windowStart = 8 * 60;
       const windowEnd = 22 * 60;
 
-      const intervals = daySlots
+      const intervals = sourceSlots
         .map((sl) => {
-          const s = parseMinutes(sl.from);
-          const e = parseMinutes(sl.to);
-          if (s === null || e === null || e <= s) return null;
-          return [Math.max(windowStart, s), Math.min(windowEnd, e)];
+          const rng = parseStoredSlotRange(sl);
+          if (!rng) return null;
+          return [Math.max(windowStart, rng[0]), Math.min(windowEnd, rng[1])];
         })
         .filter((iv) => iv && iv[1] > iv[0])
         .sort((a, b) => a[0] - b[0]);
@@ -1702,15 +1856,29 @@
       let cursor = windowStart;
       merged.forEach(([bs, be]) => {
         if (bs - cursor >= 30) {
-          freeWindows.push(`${formatMinutes(cursor)} → ${formatMinutes(bs)}`);
+          freeWindows.push(`${formatMinutes12(cursor)} → ${formatMinutes12(bs)}`);
         }
         cursor = Math.max(cursor, be);
       });
       if (windowEnd - cursor >= 30) {
-        freeWindows.push(`${formatMinutes(cursor)} → ${formatMinutes(windowEnd)}`);
+        freeWindows.push(`${formatMinutes12(cursor)} → ${formatMinutes12(windowEnd)}`);
       }
 
-      return { freeWindows, busyCount: daySlots.length };
+      return { freeWindows, busyCount: sourceSlots.length };
+    }
+
+    function buildHourOptions(selectedVal = "04") {
+      const hours = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"];
+      return hours
+        .map((h) => `<option value="${h}" ${h === selectedVal ? "selected" : ""}>${h}</option>`)
+        .join("");
+    }
+
+    function buildMinuteOptions(selectedVal = "00") {
+      const mins = ["00", "15", "30", "45"];
+      return mins
+        .map((m) => `<option value="${m}" ${m === selectedVal ? "selected" : ""}>${m}</option>`)
+        .join("");
     }
 
     function renderDaysGrid() {
@@ -1721,21 +1889,41 @@
         const daySlotsForMe = currentUser
           ? allBusySlots.filter((s) => s.uid === currentUser.uid && s.day === dObj.key)
           : [];
+        const dayMinsForMe = currentUser ? computeMinutesForUid(currentUser.uid, dObj.key) : 0;
 
         const card = document.createElement("div");
         card.className = `day-card ${daySlotsForMe.length ? "active-day" : ""}`;
 
-        const labelText = lang === "en" ? dObj.en : `${dObj.ar} / ${dObj.en}`;
+        const labelText = dayLabel(dObj.key);
         card.innerHTML = `
           <div class="day-header">
             <strong>📅 ${escapeHtml(labelText)}</strong>
-            <span class="badge">${daySlotsForMe.length}</span>
+            <span class="badge ok">⏱ ${escapeHtml(t("dayHoursPrefix"))}: ${formatHoursFromMinutes(dayMinsForMe)} ${escapeHtml(t("hoursUnit"))}</span>
           </div>
           <input type="text" class="day-title-inp" placeholder="${escapeHtml(t("activityNamePh"))}" />
-          <div class="row">
-            <input type="time" class="day-from-inp" dir="ltr" value="16:00" style="flex:1; min-width:115px;" />
-            <input type="time" class="day-to-inp" dir="ltr" value="18:00" style="flex:1; min-width:115px;" />
+
+          <div class="time-group">
+            <span class="time-group-label">${escapeHtml(t("fromLbl"))}</span>
+            <select class="day-from-h">${buildHourOptions("04")}</select>
+            <span>:</span>
+            <select class="day-from-m">${buildMinuteOptions("00")}</select>
+            <select class="day-from-p">
+              <option value="AM">${escapeHtml(t("amLbl"))}</option>
+              <option value="PM" selected>${escapeHtml(t("pmLbl"))}</option>
+            </select>
           </div>
+
+          <div class="time-group">
+            <span class="time-group-label">${escapeHtml(t("toLbl"))}</span>
+            <select class="day-to-h">${buildHourOptions("06")}</select>
+            <span>:</span>
+            <select class="day-to-m">${buildMinuteOptions("00")}</select>
+            <select class="day-to-p">
+              <option value="AM">${escapeHtml(t("amLbl"))}</option>
+              <option value="PM" selected>${escapeHtml(t("pmLbl"))}</option>
+            </select>
+          </div>
+
           <input type="text" class="day-note-inp" placeholder="${escapeHtml(t("noteOptionalPh"))}" />
           <label class="repeat-check">
             <input type="checkbox" class="day-repeat-chk" checked />
@@ -1745,8 +1933,12 @@
         `;
 
         const titleInp = card.querySelector(".day-title-inp");
-        const fromInp = card.querySelector(".day-from-inp");
-        const toInp = card.querySelector(".day-to-inp");
+        const fromH = card.querySelector(".day-from-h");
+        const fromM = card.querySelector(".day-from-m");
+        const fromP = card.querySelector(".day-from-p");
+        const toH = card.querySelector(".day-to-h");
+        const toM = card.querySelector(".day-to-m");
+        const toP = card.querySelector(".day-to-p");
         const noteInp = card.querySelector(".day-note-inp");
         const repeatChk = card.querySelector(".day-repeat-chk");
         const saveBtn = card.querySelector(".day-save-btn");
@@ -1758,20 +1950,28 @@
             setStatus(t("missingActivityName"), "error");
             return;
           }
-          const sMin = parseMinutes(fromInp.value);
-          const eMin = parseMinutes(toInp.value);
+
+          const sMin = to24HourMinutes(fromH.value, fromM.value, fromP.value);
+          const eMin = to24HourMinutes(toH.value, toM.value, toP.value);
           if (sMin === null || eMin === null || eMin <= sMin) {
             setStatus(t("invalidTimeRange"), "error");
             return;
           }
+
+          const fromFormatted = formatMinutes12(sMin);
+          const toFormatted = formatMinutes12(eMin);
 
           saveBtn.disabled = true;
           try {
             await addDoc(collection(db, "busy_schedule"), {
               day: dObj.key,
               title: titleVal,
-              from: fromInp.value,
-              to: toInp.value,
+              from: fromFormatted,
+              to: toFormatted,
+              from24: formatMinutes24(sMin),
+              to24: formatMinutes24(eMin),
+              startMin: sMin,
+              endMin: eMin,
               repeatWeekly: Boolean(repeatChk.checked),
               note: noteInp.value.trim(),
               team: getCurrentUserTeam(),
@@ -1781,7 +1981,7 @@
             });
             titleInp.value = "";
             noteInp.value = "";
-            setStatus(`✔ ${labelText}: ${titleVal}`, "ok");
+            setStatus(`✔ ${labelText}: ${titleVal} (${fromFormatted} → ${toFormatted})`, "ok");
           } catch (err) {
             setStatus(formatErr(err), "error");
           } finally {
@@ -1794,32 +1994,74 @@
     }
 
     function renderTimetableSection() {
+      const ownerMode = isOwner();
+      overlapScopeSel.classList.toggle("hidden", !ownerMode);
+      busyTeamFilter.classList.toggle("hidden", !ownerMode);
+      document.getElementById("t-busy-list-title").textContent = ownerMode ? t("busyListOwnerTitle") : t("busyListTitle");
+
       if (currentUser) {
-        const hrs = computeWeeklyHoursForUid(currentUser.uid);
-        myWeeklyHoursBadge.textContent = `⏱ ${t("weeklyHoursPrefix")}: ${hrs} ${t("hoursUnit")}`;
+        const wkMins = computeMinutesForUid(currentUser.uid, null);
+        myWeeklyHoursBadge.textContent = `⏱ ${t("weeklyHoursPrefix")}: ${formatHoursFromMinutes(wkMins)} ${t("hoursUnit")}`;
       }
 
       const chosenDay = overlapDaySel.value || "Saturday";
-      const chosenScope = overlapScopeSel.value || "ALL";
+      const chosenScope = ownerMode ? (overlapScopeSel.value || "ALL") : getCurrentUserTeam();
       const { freeWindows, busyCount } = computeCommonFreeWindows(chosenDay, chosenScope);
 
       const windowsHtml = freeWindows.length
         ? freeWindows.map((w) => `<span class="badge ok">🕒 ${escapeHtml(w)}</span>`).join(" ")
         : `<span class="hint">${escapeHtml(t("noCommonFree"))}</span>`;
 
+      const scopeTitle = ownerMode
+        ? (chosenScope === "ALL" ? (lang === "en" ? "All Teams" : "كل التيمات معًا") : chosenScope)
+        : (currentUser ? (currentUser.displayName || currentUser.email || t("member")) : "");
+
+      const freeCaption = ownerMode ? t("ownerCommonFreeLabel") : t("commonFreeLabel");
+
       overlapSummaryBox.innerHTML = `
         <div class="list-item" style="margin-top:0;">
           <div style="flex:1; min-width:240px;">
-            <strong>📅 ${escapeHtml(dayLabel(chosenDay))} • 🎯 ${escapeHtml(chosenScope)}</strong>
-            <div class="hint" style="margin-top:4px;">${escapeHtml(t("commonFreeLabel"))} (${busyCount} ${lang === "en" ? "busy entries" : "موعد مشغول"})</div>
+            <strong>📅 ${escapeHtml(dayLabel(chosenDay))} • 🎯 ${escapeHtml(scopeTitle)}</strong>
+            <div class="hint" style="margin-top:4px;">${escapeHtml(freeCaption)} (${busyCount} ${lang === "en" ? "busy entries" : "موعد مشغول"})</div>
             <div class="task-badges" style="margin-top:10px;">${windowsHtml}</div>
           </div>
         </div>
       `;
 
+      if (ownerMode) {
+        const overviewScopes = ["ALL", ...TEAMS];
+        const overviewCardsHtml = overviewScopes
+          .map((sc) => {
+            const res = computeCommonFreeWindows(chosenDay, sc);
+            const scName = sc === "ALL" ? (lang === "en" ? "All Teams" : "كل التيمات") : sc;
+            const chips = res.freeWindows.length
+              ? res.freeWindows.map((w) => `<span class="badge ok">🕒 ${escapeHtml(w)}</span>`).join(" ")
+              : `<span class="hint">${escapeHtml(t("noCommonFree"))}</span>`;
+            return `
+              <div class="list-item" style="margin-top:8px;">
+                <div style="flex:1; min-width:220px;">
+                  <strong>🎯 ${escapeHtml(scName)}</strong>
+                  <div class="task-badges">${chips}</div>
+                </div>
+                <span class="badge">${res.busyCount} ${lang === "en" ? "busy" : "مشغول"}</span>
+              </div>
+            `;
+          })
+          .join("");
+
+        allTeamsFreeOverview.innerHTML = `
+          <div class="hint" style="font-weight:700; margin-top:6px;">${escapeHtml(t("allTeamsSummaryTitle"))}</div>
+          ${overviewCardsHtml}
+        `;
+      } else {
+        allTeamsFreeOverview.innerHTML = "";
+      }
+
       const fDay = busyDayFilter.value;
-      const fTeam = busyTeamFilter.value;
-      const filtered = allBusySlots.filter((sl) => {
+      const fTeam = ownerMode ? busyTeamFilter.value : "all";
+      const visibleSlots = getVisibleBusySlots();
+
+      const filtered = visibleSlots.filter((sl) => {
         const okDay = fDay === "all" || sl.day === fDay;
         const okTeam = fTeam === "all" || (sl.team || "GUI") === fTeam;
         return okDay && okTeam;
@@ -1835,22 +2077,27 @@
         const row = document.createElement("div");
         row.className = "list-item";
 
+        const rng = parseStoredSlotRange(sl);
+        const slotDurHrs = rng ? ((rng[1] - rng[0]) / 60).toFixed(1) : "0.0";
+        const memberWkHrs = formatHoursFromMinutes(computeMinutesForUid(sl.uid, null));
         const repeatText = sl.repeatWeekly ? t("repeatWeeklyLbl") : t("oneTimeLbl");
+
         const left = document.createElement("div");
         left.innerHTML = `
           <strong>📌 ${escapeHtml(sl.title || t("untitled"))}</strong>
           <div class="task-badges">
             <span class="badge">📅 ${escapeHtml(dayLabel(sl.day))}</span>
-            <span class="badge warn">🕒 ${escapeHtml(sl.from || "--:--")} → ${escapeHtml(sl.to || "--:--")}</span>
-            <span class="badge ${sl.repeatWeekly ? "ok" : ""}">🔁 ${escapeHtml(repeatText)}</span>
+            <span class="badge warn">🕒 ${escapeHtml(sl.from || "--:--")} → ${escapeHtml(sl.to || "--:--")} (${slotDurHrs} ${escapeHtml(t("hoursUnit"))})</span>
+            <span class="badge ok">⏱ ${escapeHtml(t("memberWeeklyHours"))}: ${memberWkHrs} ${escapeHtml(t("hoursUnit"))}</span>
+            <span class="badge">🔁 ${escapeHtml(repeatText)}</span>
             <span class="badge">🎯 ${escapeHtml(sl.team || "GUI")}</span>
-            <span class="badge">👤 ${escapeHtml(sl.userLabel || t("member"))}</span>
+            ${ownerMode ? `<span class="badge">👤 ${escapeHtml(sl.userLabel || t("member"))}</span>` : ""}
             ${sl.note ? `<span class="badge">📝 ${escapeHtml(sl.note)}</span>` : ""}
           </div>
         `;
         row.appendChild(left);
 
-        const canDelete = currentUser && (isOwner() || sl.uid === currentUser.uid);
+        const canDelete = currentUser && (ownerMode || sl.uid === currentUser.uid);
         if (canDelete) {
           const delBtn = document.createElement("button");
           delBtn.type = "button";
@@ -1869,6 +2116,31 @@
         busyList.appendChild(row);
       });
     }
+
+    copyFreeBtn.addEventListener("click", async () => {
+      const chosenDay = overlapDaySel.value || "Saturday";
+      const chosenScope = isOwner() ? (overlapScopeSel.value || "ALL") : getCurrentUserTeam();
+      const { freeWindows } = computeCommonFreeWindows(chosenDay, chosenScope);
+      const textToCopy = freeWindows.length
+        ? `${dayLabel(chosenDay)} (${chosenScope}): ${freeWindows.join(" | ")}`
+        : `${dayLabel(chosenDay)} (${chosenScope}): ${t("noCommonFree")}`;
+
+      try {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          await navigator.clipboard.writeText(textToCopy);
+        } else {
+          const tmp = document.createElement("textarea");
+          tmp.value = textToCopy;
+          document.body.appendChild(tmp);
+          tmp.select();
+          document.execCommand("copy");
+          document.body.removeChild(tmp);
+        }
+        setStatus(t("copiedFreeOk"), "ok");
+      } catch (_) {
+        setStatus(textToCopy, "ok");
+      }
+    });
 
     function canMemberCompleteTask(task) {
       if (!currentUser || task.status === "done") return false;
@@ -2010,10 +2282,6 @@
       const all = getAllKnownEmails();
       const emailTeamMap = getEmailTeamMap();
       return all.filter((em) => emailTeamMap.get(em) === targetTeam);
-    }
-
-    function isOwner() {
-      return currentRole === "Owner";
     }
 
     function renderAssigneeOptions() {
@@ -2160,8 +2428,7 @@
           ? tmMembers
               .map((m) => {
                 const pts = getUserPointsBreakdown(m).total;
-                const hrs = computeWeeklyHoursForUid(m.uid);
-                return `<span class="badge ok">👤 ${escapeHtml(m.label || m.email || m.uid)} • ⭐ ${pts} • ⏱ ${hrs}h</span>`;
+                return `<span class="badge ok">👤 ${escapeHtml(m.label || m.email || m.uid)} • ⭐ ${pts}</span>`;
               })
               .join(" ")
           : `<span class="hint">${escapeHtml(t("noTeamMembers"))}</span>`;
@@ -2272,6 +2539,7 @@
       if (!currentUser) {
         authCard.classList.remove("hidden");
         workspace.classList.add("hidden");
+        workspaceBanner.classList.add("hidden");
         navSection.classList.add("hidden");
         logoutBtn.classList.add("hidden");
         otpBox.classList.add("hidden");
@@ -2509,7 +2777,14 @@
     }
 
     if (auth) {
-      getRedirectResult(auth).catch((err) => setStatus(formatErr(err), "error"));
+      getRedirectResult(auth)
+        .then((res) => {
+          if (res && res.user) {
+            persistMemberProfile(res.user, authTeamSelect.value || "GUI");
+            setStatus(t("signedInOk"), "ok");
+          }
+        })
+        .catch((err) => setStatus(formatErr(err), "error"));
     }
 
     async function handleGoogleSignIn(forceRedirect = false) {
@@ -2519,7 +2794,11 @@
           await signInWithRedirect(auth, provider);
           return;
         }
-        await signInWithPopup(auth, provider);
+        const cred = await signInWithPopup(auth, provider);
+        if (cred && cred.user) {
+          await persistMemberProfile(cred.user, authTeamSelect.value || "GUI");
+          setStatus(t("signedInOk"), "ok");
+        }
       } catch (err) {
         const code = err && err.code ? err.code : "";
         if (
@@ -2546,10 +2825,17 @@
       if (!auth) return;
       const email = emailInput.value.trim();
       const pass = passInput.value;
-      if (!email || !pass) return;
+      if (!email || !pass) {
+        setStatus(t("missingEmailAndPass"), "error");
+        return;
+      }
       emailSignInBtn.disabled = true;
       try {
-        await signInWithEmailAndPassword(auth, email, pass);
+        const cred = await signInWithEmailAndPassword(auth, email, pass);
+        if (cred && cred.user) {
+          await persistMemberProfile(cred.user, authTeamSelect.value || "GUI");
+          setStatus(t("signedInOk"), "ok");
+        }
       } catch (err) {
         setStatus(formatErr(err), "error");
       } finally {
@@ -2561,12 +2847,20 @@
       if (!auth) return;
       const email = emailInput.value.trim();
       const pass = passInput.value;
-      if (!email || !pass) return;
+      if (!email || !pass) {
+        setStatus(t("missingEmailAndPass"), "error");
+        return;
+      }
+      if (pass.length < 6) {
+        setStatus(t("weakPassError"), "error");
+        return;
+      }
       emailSignUpBtn.disabled = true;
       try {
         const cred = await createUserWithEmailAndPassword(auth, email, pass);
         if (cred && cred.user) {
           await persistMemberProfile(cred.user, authTeamSelect.value || "GUI");
+          setStatus(t("accountCreatedOk"), "ok");
         }
       } catch (err) {
         setStatus(formatErr(err), "error");
@@ -2578,12 +2872,18 @@
     resetPassBtn.addEventListener("click", async () => {
       if (!auth) return;
       const email = emailInput.value.trim();
-      if (!email) return;
+      if (!email) {
+        setStatus(t("missingEmail"), "error");
+        return;
+      }
+      resetPassBtn.disabled = true;
       try {
         await sendPasswordResetEmail(auth, email);
-        setStatus(`✔ ${t("resetPass")}: ${email}`, "ok");
+        setStatus(`${t("resetSentOk")} (${email})`, "ok");
       } catch (err) {
         setStatus(formatErr(err), "error");
+      } finally {
+        resetPassBtn.disabled = false;
       }
     });
 
@@ -2616,10 +2916,14 @@
       if (!confirmationResult || !code) return;
       verifyOtpBtn.disabled = true;
       try {
-        await confirmationResult.confirm(code);
+        const cred = await confirmationResult.confirm(code);
+        if (cred && cred.user) {
+          await persistMemberProfile(cred.user, authTeamSelect.value || "GUI");
+        }
         otpInput.value = "";
         phoneInput.value = "";
         confirmationResult = null;
+        setStatus(t("signedInOk"), "ok");
       } catch (err) {
         setStatus(formatErr(err), "error");
       } finally {
