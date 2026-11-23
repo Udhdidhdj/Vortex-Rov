@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Vortex ROV — Team Workspace & Timetable</title>
   <link rel="manifest" href="/Vortex-Rov/manifest.json" />
-  <meta name="theme-color" content="#1d6fd6" />
+  <meta name="theme-color" content="#0ea5e9" />
   <style>
     :root {
       --bg: #eef2f7;
@@ -305,6 +305,202 @@
       gap: 10px;
     }
 
+    /* Exact layout from reference image, styled with Vortex ROV colors */
+    .signin-stage {
+      border-radius: 26px;
+      padding: clamp(24px, 4vw, 48px) clamp(14px, 3vw, 28px);
+      background:
+        radial-gradient(circle at 16% 18%, rgba(56, 189, 248, 0.72), transparent 46%),
+        radial-gradient(circle at 84% 82%, rgba(2, 132, 199, 0.78), transparent 48%),
+        linear-gradient(135deg, #071324 0%, #0b2949 52%, #075985 100%);
+      box-shadow: 0 18px 45px rgba(7, 25, 54, 0.28);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .signin-blob-card {
+      width: 100%;
+      max-width: 450px;
+      background: linear-gradient(155deg, rgba(14, 165, 233, 0.88) 0%, rgba(15, 45, 82, 0.94) 56%, rgba(6, 182, 212, 0.88) 100%);
+      border: 2px solid rgba(125, 211, 252, 0.65);
+      border-radius: 46% 54% 48% 52% / 44% 42% 58% 56%;
+      padding: clamp(28px, 5vw, 42px) clamp(22px, 4vw, 34px);
+      box-shadow: 0 22px 45px rgba(2, 12, 27, 0.45);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      color: #ffffff;
+    }
+
+    .signin-top-avatar {
+      width: 82px;
+      height: 82px;
+      border-radius: 50%;
+      background: #ffffff;
+      display: grid;
+      place-items: center;
+      box-shadow: 0 8px 20px rgba(2, 132, 199, 0.32);
+    }
+
+    .signin-top-avatar svg {
+      width: 48px;
+      height: 48px;
+    }
+
+    .signin-heading-txt {
+      margin: 2px 0 6px;
+      font-size: 30px;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: 0.01em;
+      text-shadow: 0 2px 10px rgba(2, 12, 27, 0.35);
+    }
+
+    .signin-field-row {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      direction: ltr;
+    }
+
+    .signin-side-badge {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      flex-shrink: 0;
+      background: linear-gradient(135deg, #38bdf8 0%, #0284c7 100%);
+      color: #ffffff;
+      display: grid;
+      place-items: center;
+      font-size: 16px;
+      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.35);
+    }
+
+    .signin-pill-input-wrap {
+      flex: 1;
+      position: relative;
+      display: flex;
+      align-items: center;
+      background: rgba(8, 22, 42, 0.32);
+      border: 1.5px solid rgba(186, 230, 253, 0.85);
+      border-radius: 999px;
+      padding: 2px 12px 2px 16px;
+      min-height: 44px;
+    }
+
+    .signin-pill-input-wrap input {
+      width: 100%;
+      border: none;
+      background: transparent;
+      color: #ffffff;
+      font-size: 14.5px;
+      font-weight: 600;
+      padding: 8px 4px;
+      min-height: 36px;
+      outline: none;
+    }
+
+    .signin-pill-input-wrap input::placeholder {
+      color: rgba(224, 242, 254, 0.88);
+      font-weight: 500;
+    }
+
+    .signin-eye-btn {
+      background: transparent !important;
+      border: none !important;
+      color: #ffffff !important;
+      padding: 4px 6px !important;
+      min-height: 32px !important;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+    .signin-meta-line {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      font-size: 12.5px;
+      color: #ffffff;
+      padding: 2px 6px;
+      direction: ltr;
+    }
+
+    .signin-remember-lbl {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    .signin-remember-lbl input[type="checkbox"] {
+      width: 15px;
+      height: 15px;
+      min-height: 15px;
+      margin: 0;
+      accent-color: #38bdf8;
+      cursor: pointer;
+    }
+
+    .signin-forgot-link {
+      background: transparent !important;
+      border: none !important;
+      color: #e0f2fe !important;
+      font-size: 12.5px;
+      font-weight: 600;
+      padding: 2px 4px !important;
+      min-height: 28px !important;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .signin-login-btn {
+      width: 190px;
+      border-radius: 999px !important;
+      padding: 11px 22px !important;
+      min-height: 44px !important;
+      background: linear-gradient(90deg, #0284c7 0%, #0ea5e9 52%, #06b6d4 100%) !important;
+      color: #ffffff !important;
+      font-size: 15px !important;
+      font-weight: 800 !important;
+      letter-spacing: 0.06em;
+      box-shadow: 0 8px 20px rgba(2, 132, 199, 0.42);
+      margin-top: 4px;
+    }
+
+    .signin-bottom-note {
+      text-align: center;
+      font-size: 12.5px;
+      color: #ffffff;
+      line-height: 1.5;
+      margin-top: 2px;
+      direction: ltr;
+    }
+
+    .signin-signup-trigger {
+      background: transparent !important;
+      border: none !important;
+      color: #bae6fd !important;
+      font-weight: 800 !important;
+      padding: 0 4px !important;
+      min-height: 24px !important;
+      text-decoration: underline;
+      display: inline !important;
+    }
+
+    .signin-status-pill {
+      width: 100%;
+      max-width: 450px;
+      border-radius: 14px;
+    }
+
     .days-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(295px, 1fr));
@@ -354,30 +550,6 @@
       font-weight: 700;
       color: var(--muted);
       min-width: 44px;
-    }
-
-    .auth-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(265px, 1fr));
-      gap: 14px;
-      margin-top: 14px;
-    }
-
-    .auth-panel {
-      background: var(--surface-2);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      min-width: 0;
-    }
-
-    .auth-panel h3 {
-      margin: 0;
-      font-size: 16px;
-      font-weight: 800;
     }
 
     .field-grid-2 {
@@ -576,13 +748,13 @@
     #vortex-status-box.error,
     #vortex-workspace-banner.error {
       border-color: var(--danger);
-      background: rgba(220, 38, 38, 0.1);
+      background: rgba(220, 38, 38, 0.14);
     }
 
     #vortex-status-box.ok,
     #vortex-workspace-banner.ok {
       border-color: var(--ok);
-      background: rgba(22, 163, 74, 0.1);
+      background: rgba(22, 163, 74, 0.14);
     }
 
     .chat-box {
@@ -685,7 +857,7 @@
     <aside class="sidebar">
       <div>
         <div class="greeting-box">
-          <h2 id="t-greeting" class="greeting-title">Good Evening</h2>
+          <h2 id="t-greeting" class="greeting-title">مساء الخير</h2>
           <div class="greeting-sub">VORTEX ROV • MATE ROV</div>
         </div>
 
@@ -698,24 +870,24 @@
         </div>
 
         <div id="vortex-nav-section" class="hidden">
-          <div id="t-nav-acc" class="nav-group-label">ACCOUNT</div>
+          <div id="t-nav-acc" class="nav-group-label">الحساب</div>
           <nav class="nav-list">
-            <button type="button" class="nav-btn active" data-vpage="profile">👤 <span data-i18n="navProfile">My Profile</span></button>
+            <button type="button" class="nav-btn active" data-vpage="profile">👤 <span data-i18n="navProfile">ملفي الشخصي</span></button>
           </nav>
 
-          <div id="t-nav-work" class="nav-group-label">TEAM WORKSPACE</div>
+          <div id="t-nav-work" class="nav-group-label">مساحة الفريق</div>
           <nav class="nav-list">
-            <button type="button" class="nav-btn" data-vpage="tickets">📋 <span data-i18n="navTickets">Team Tasks</span></button>
+            <button type="button" class="nav-btn" data-vpage="tickets">📋 <span data-i18n="navTickets">المهام</span></button>
             <button type="button" class="nav-btn" data-vpage="timetable">🕒 <span data-i18n="navTimetable">Timetable</span></button>
-            <button type="button" class="nav-btn" data-vpage="teams">🎯 <span data-i18n="navTeams">Sub-teams & Members</span></button>
-            <button type="button" class="nav-btn" data-vpage="points">🏆 <span data-i18n="navPoints">Points & Leaderboard</span></button>
-            <button type="button" class="nav-btn" data-vpage="chat">💬 <span data-i18n="navChat">Team Chat</span></button>
+            <button type="button" class="nav-btn" data-vpage="teams">🎯 <span data-i18n="navTeams">التيمات والأعضاء</span></button>
+            <button type="button" class="nav-btn" data-vpage="points">🏆 <span data-i18n="navPoints">النقاط والترتيب</span></button>
+            <button type="button" class="nav-btn" data-vpage="chat">💬 <span data-i18n="navChat">شات الفريق</span></button>
           </nav>
 
           <div id="vortex-nav-admin-group" class="hidden">
-            <div id="t-nav-admin" class="nav-group-label">OWNER CONTROLS</div>
+            <div id="t-nav-admin" class="nav-group-label">إدارة الأونر</div>
             <nav class="nav-list">
-              <button type="button" class="nav-btn" data-vpage="owners">👑 <span data-i18n="navOwners">Owners & Roster</span></button>
+              <button type="button" class="nav-btn" data-vpage="owners">👑 <span data-i18n="navOwners">الملاك والحسابات</span></button>
             </nav>
           </div>
         </div>
@@ -723,8 +895,8 @@
 
       <div class="stack" style="margin-top:16px;">
         <span id="vortex-device-badge" class="badge">💻 Auto-Detected Device</span>
-        <span id="vortex-net-badge" class="badge ok">● Online</span>
-        <button id="vortex-logout-btn" type="button" class="secondary hidden">🚪 Sign Out</button>
+        <span id="vortex-net-badge" class="badge ok">● متصل بالشبكة</span>
+        <button id="vortex-logout-btn" type="button" class="secondary hidden">🚪 تسجيل الخروج</button>
       </div>
     </aside>
 
@@ -737,66 +909,63 @@
             <span class="badge">GUI • Vision • Control • Mechanical • Electrical</span>
           </div>
           <div class="row">
-            <button id="vortex-theme-btn" type="button" class="secondary">🌙 Dark Mode</button>
-            <button id="vortex-lang-btn" type="button" class="secondary">🌐 العربية</button>
+            <button id="vortex-theme-btn" type="button" class="secondary">🌙 الوضع الليلي</button>
+            <button id="vortex-lang-btn" type="button" class="secondary">🌐 English</button>
           </div>
         </div>
 
-        <!-- Auth Card -->
-        <section id="vortex-auth-card" class="card">
-          <div class="page-header" style="margin-bottom:12px;">
-            <h1 id="t-auth-title" class="page-title">🔐 Account & Sign In</h1>
-            <p id="t-choose-auth" class="page-subtitle">Choose your sub-team, then sign in with Google, verified Email & Password, or Mobile Number.</p>
-          </div>
-
-          <div id="vortex-status-box">⏳ Initializing workspace...</div>
-
-          <div class="card" style="margin-top:14px; margin-bottom:14px; background:var(--surface-2);">
-            <div class="row" style="justify-content:space-between;">
-              <div>
-                <strong id="t-signup-team-label">🎯 Select your sub-team:</strong>
-                <div class="hint" id="t-signup-team-hint">Used to link your profile with your sub-team across Timetable, Tasks, and Team Chat.</div>
+        <!-- Sign In UI matching reference screenshot with Vortex ROV theme -->
+        <section id="vortex-auth-card" class="card" style="padding:14px;">
+          <div class="signin-stage">
+            <div class="signin-blob-card">
+              <div class="signin-top-avatar" aria-hidden="true">
+                <svg viewBox="0 0 64 64" fill="none">
+                  <defs>
+                    <linearGradient id="vortexAvatarGrad" x1="12" y1="8" x2="52" y2="56" gradientUnits="userSpaceOnUse">
+                      <stop offset="0%" stop-color="#38bdf8" />
+                      <stop offset="55%" stop-color="#0284c7" />
+                      <stop offset="100%" stop-color="#06b6d4" />
+                    </linearGradient>
+                  </defs>
+                  <circle cx="32" cy="21" r="10.5" fill="url(#vortexAvatarGrad)" />
+                  <path d="M12 52C12 41.5066 20.9543 34 32 34C43.0457 34 52 41.5066 52 52C52 54.2091 50.2091 56 48 56H16C13.7909 56 12 54.2091 12 52Z" fill="url(#vortexAvatarGrad)" />
+                </svg>
               </div>
-              <select id="vortex-auth-team-select" style="min-width:190px;">
-                <option value="GUI">GUI</option>
-                <option value="Vision">Vision</option>
-                <option value="Control">Control</option>
-                <option value="Mechanical">Mechanical</option>
-                <option value="Electrical">Electrical</option>
-              </select>
-            </div>
-          </div>
 
-          <div class="auth-grid">
-            <div class="auth-panel">
-              <h3 id="t-google-title">🔑 Continue with Google</h3>
-              <p id="t-google-desc" class="hint" style="margin:0;">Seamless Google sign-in across Android, iOS, macOS, and Windows.</p>
-              <button id="vortex-google-popup-btn" type="button">🚀 Continue with Google</button>
-              <button id="vortex-google-redirect-btn" type="button" class="secondary">↪ Continue with Google (Redirect)</button>
-            </div>
+              <h1 id="t-auth-title" class="signin-heading-txt">Sign In</h1>
 
-            <div class="auth-panel">
-              <h3 id="t-email-title">✉️ Email & Password</h3>
-              <input id="vortex-email-input" type="email" dir="ltr" autocomplete="email" placeholder="name@gmail.com" />
-              <input id="vortex-pass-input" type="password" dir="ltr" autocomplete="current-password" placeholder="Password (6+ characters)" />
-              <div class="row">
-                <button id="vortex-email-signin-btn" type="button">✅ Sign In</button>
-                <button id="vortex-email-signup-btn" type="button" class="secondary">➕ Create Account</button>
+              <div class="signin-field-row">
+                <span class="signin-side-badge" aria-hidden="true">👤</span>
+                <div class="signin-pill-input-wrap">
+                  <input id="vortex-login-identifier" type="text" dir="ltr" autocomplete="username" placeholder="Username" />
+                </div>
               </div>
-              <button id="vortex-reset-pass-btn" type="button" class="secondary">🔄 Forgot Password?</button>
+
+              <div class="signin-field-row">
+                <span class="signin-side-badge" aria-hidden="true">🔒</span>
+                <div class="signin-pill-input-wrap">
+                  <input id="vortex-login-pass" type="password" dir="ltr" autocomplete="current-password" placeholder="••••••••••••" />
+                  <button id="vortex-toggle-login-pass-btn" type="button" class="signin-eye-btn" aria-label="Toggle password visibility">👁</button>
+                </div>
+              </div>
+
+              <div class="signin-meta-line">
+                <label class="signin-remember-lbl">
+                  <input id="vortex-remember-me-chk" type="checkbox" checked />
+                  <span id="t-remember-me">Remember me</span>
+                </label>
+                <button id="vortex-forgot-pass-btn" type="button" class="signin-forgot-link">Forgot password?</button>
+              </div>
+
+              <button id="vortex-login-submit-btn" type="button" class="signin-login-btn">LOGIN</button>
+
+              <div class="signin-bottom-note">
+                <span id="t-no-acc-prefix">Don't have account?</span>
+                <button id="vortex-signup-owner-hint-btn" type="button" class="signin-signup-trigger">Sign up!</button>
+              </div>
             </div>
 
-            <div class="auth-panel">
-              <h3 id="t-phone-title">📱 Mobile Number (SMS)</h3>
-              <div class="hint" id="t-sms-note" style="margin:0;">Requires Phone Auth & Authorized Domains enabled in Firebase Console.</div>
-              <input id="vortex-phone-input" type="tel" dir="ltr" autocomplete="tel" placeholder="+201012345678" />
-              <button id="vortex-send-otp-btn" type="button">📲 Send Verification Code</button>
-              <div id="vortex-otp-box" class="stack hidden">
-                <input id="vortex-otp-input" type="text" dir="ltr" inputmode="numeric" autocomplete="one-time-code" placeholder="Enter 6-digit code" />
-                <button id="vortex-verify-otp-btn" type="button" class="ok">✔ Verify Code & Sign In</button>
-              </div>
-              <div id="vortex-recaptcha-box"></div>
-            </div>
+            <div id="vortex-status-box" class="signin-status-pill">⏳ جاري تحميل بيانات الحسابات...</div>
           </div>
         </section>
 
@@ -806,19 +975,19 @@
 
           <div class="stats-row">
             <div class="stat-card">
-              <div id="t-stat-total" class="stat-label">📌 Total Tasks</div>
+              <div id="t-stat-total" class="stat-label">📌 إجمالي المهام</div>
               <div id="stat-total-tasks" class="stat-value">0</div>
             </div>
             <div class="stat-card">
-              <div id="t-stat-pending" class="stat-label">⏳ In Progress</div>
+              <div id="t-stat-pending" class="stat-label">⏳ قيد التنفيذ</div>
               <div id="stat-pending-tasks" class="stat-value">0</div>
             </div>
             <div class="stat-card">
-              <div id="t-stat-done" class="stat-label">✅ Completed</div>
+              <div id="t-stat-done" class="stat-label">✅ مهام مكتملة</div>
               <div id="stat-done-tasks" class="stat-value">0</div>
             </div>
             <div class="stat-card">
-              <div id="t-stat-points" class="stat-label">⭐ Points</div>
+              <div id="t-stat-points" class="stat-label">⭐ النقاط</div>
               <div id="stat-user-points" class="stat-value">0</div>
             </div>
           </div>
@@ -826,47 +995,47 @@
           <!-- 1. My Profile -->
           <section id="vpage-profile">
             <div class="page-header">
-              <h1 id="t-profile-heading" class="page-title">My Profile</h1>
-              <p id="t-profile-sub" class="page-subtitle">Your profile photo, username, sub-team, site passcode, and account details.</p>
+              <h1 id="t-profile-heading" class="page-title">ملفي الشخصي</h1>
+              <p id="t-profile-sub" class="page-subtitle">صورة البروفايل، اليوزر نيم، التيم، باسورد الموقع، وتفاصيل الحساب.</p>
             </div>
 
             <div class="card">
-              <h3 id="t-acc-details" class="card-title">Account details</h3>
+              <h3 id="t-acc-details" class="card-title">تفاصيل الحساب</h3>
 
               <div class="field-box" style="margin-bottom:14px;">
                 <div class="row" style="gap:14px;">
                   <div id="vortex-prof-photo-box" class="profile-photo-box">V</div>
                   <div>
-                    <div id="t-lbl-photo" class="field-label">Profile Photo</div>
+                    <div id="t-lbl-photo" class="field-label">صورة البروفايل</div>
                     <div id="vortex-prof-name" class="field-value">—</div>
-                    <div class="hint" id="t-photo-hint">Upload a profile picture from your device.</div>
+                    <div class="hint" id="t-photo-hint">ارفع صورة بروفايل من جهازك.</div>
                   </div>
                 </div>
                 <div class="row">
                   <input id="vortex-photo-file-input" type="file" accept="image/*" class="hidden" />
-                  <button id="vortex-upload-photo-btn" type="button">📷 Choose Photo</button>
-                  <button id="vortex-remove-photo-btn" type="button" class="secondary">✖ Remove</button>
+                  <button id="vortex-upload-photo-btn" type="button">📷 اختيار صورة</button>
+                  <button id="vortex-remove-photo-btn" type="button" class="secondary">✖ إزالة</button>
                 </div>
               </div>
 
               <div class="field-grid-2">
                 <div class="field-box">
                   <div>
-                    <div id="t-lbl-username" class="field-label">Username</div>
+                    <div id="t-lbl-username" class="field-label">اسم المستخدم (Username)</div>
                     <div id="vortex-prof-username" class="field-value">—</div>
                   </div>
                   <span id="vortex-prof-role" class="badge ok">Member</span>
                 </div>
                 <div class="field-box">
                   <div>
-                    <div id="t-lbl-email" class="field-label">Email / Phone</div>
+                    <div id="t-lbl-email" class="field-label">البريد الإلكتروني</div>
                     <div id="vortex-prof-contact" class="field-value">—</div>
                   </div>
                   <span id="vortex-prof-points-badge" class="badge warn">⭐ 0 pts</span>
                 </div>
                 <div class="field-box">
                   <div style="flex:1;">
-                    <div id="t-lbl-my-team" class="field-label">My Team</div>
+                    <div id="t-lbl-my-team" class="field-label">التيم الخاص بي</div>
                     <div class="row" style="margin-top:6px;">
                       <select id="vortex-profile-team-select">
                         <option value="GUI">GUI</option>
@@ -875,42 +1044,34 @@
                         <option value="Mechanical">Mechanical</option>
                         <option value="Electrical">Electrical</option>
                       </select>
-                      <button id="vortex-save-team-btn" type="button">💾 Save Team</button>
+                      <button id="vortex-save-team-btn" type="button">💾 حفظ التيم</button>
                     </div>
                   </div>
                 </div>
                 <div class="field-box">
                   <div style="min-width:0; flex:1;">
-                    <div id="t-lbl-site-pass" class="field-label">Site Passcode (Platform Password)</div>
+                    <div id="t-lbl-site-pass" class="field-label">كلمة سر الموقع (Site Passcode)</div>
                     <div id="vortex-prof-site-pass" class="field-value" style="font-size:14px;">••••••</div>
                   </div>
-                  <button id="vortex-toggle-site-pass-btn" type="button" class="secondary">👁 Show</button>
+                  <button id="vortex-toggle-site-pass-btn" type="button" class="secondary">👁 إظهار</button>
                 </div>
                 <div class="field-box" style="grid-column: 1 / -1;">
                   <div style="min-width:0; flex:1;">
-                    <div id="t-lbl-uid" class="field-label">Unique Member ID (UID)</div>
+                    <div id="t-lbl-uid" class="field-label">المعرف الخاص بالحساب (UID)</div>
                     <div id="vortex-prof-uid" class="field-value" style="font-size:13px;">—</div>
                   </div>
-                  <button id="vortex-copy-uid-btn" type="button" class="secondary">📋 Copy ID</button>
+                  <button id="vortex-copy-uid-btn" type="button" class="secondary">📋 نسخ المعرف</button>
                 </div>
               </div>
             </div>
 
             <div class="card">
-              <h3 id="t-pass-security-title" class="card-title">🔑 Site Passcode & Password Recovery</h3>
-              <div class="field-grid-2">
-                <div class="auth-panel">
-                  <h3 id="t-change-site-pass-title">Update Site Passcode</h3>
-                  <div class="hint" id="t-change-site-pass-hint">Change your platform-only site passcode (4+ chars).</div>
-                  <input id="vortex-new-site-pass-input" type="text" dir="ltr" placeholder="New site passcode (4+ chars)" />
-                  <button id="vortex-save-own-site-pass-btn" type="button">🔑 Save Site Passcode</button>
-                </div>
-                <div class="auth-panel">
-                  <h3 id="t-forgot-pass-inapp-title">Email Password Reset</h3>
-                  <div class="hint" id="t-forgot-pass-inapp-hint">Send a Firebase password reset link to your email address.</div>
-                  <input id="vortex-forgot-email-input" type="email" dir="ltr" autocomplete="email" placeholder="name@gmail.com" />
-                  <button id="vortex-send-forgot-inapp-btn" type="button" class="secondary">🔄 Send Reset Link</button>
-                </div>
+              <h3 id="t-pass-security-title" class="card-title">🔑 باسورد الموقع</h3>
+              <div class="auth-panel">
+                <h3 id="t-change-site-pass-title">تغيير باسورد الموقع الخاص بك</h3>
+                <div class="hint" id="t-change-site-pass-hint">تغيير كلمة السر الخاصة بالموقع (4 أحرف فأكثر).</div>
+                <input id="vortex-new-site-pass-input" type="text" dir="ltr" placeholder="باسورد الموقع الجديد (4 أحرف فأكثر)" />
+                <button id="vortex-save-own-site-pass-btn" type="button">🔑 حفظ الباسورد</button>
               </div>
             </div>
           </section>
@@ -918,23 +1079,23 @@
           <!-- 2. Team Tasks -->
           <section id="vpage-tickets" class="hidden">
             <div class="page-header">
-              <h1 id="t-tickets-heading" class="page-title">Team Tasks</h1>
-              <p id="t-tickets-sub" class="page-subtitle">View all sub-team tasks; complete tasks in your sub-team assigned to you or open to your team.</p>
+              <h1 id="t-tickets-heading" class="page-title">المهام</h1>
+              <p id="t-tickets-sub" class="page-subtitle">تابع مهام كل التيمات، ونفّذ المهام الخاصة بتيمك المعينة لك أو المفتوحة للتيم.</p>
             </div>
 
             <div class="card">
               <div class="card-title">
-                <span id="t-task-filter-title">🔎 Filter & Search Tasks</span>
+                <span id="t-task-filter-title">🔎 تصفية وبحث المهام</span>
               </div>
               <div class="row">
-                <input id="vortex-task-search" type="text" placeholder="Search task, team, or email..." style="flex:1; min-width:200px;" />
+                <input id="vortex-task-search" type="text" placeholder="ابحث باسم المهمة أو التيم أو الإيميل..." style="flex:1; min-width:200px;" />
                 <select id="vortex-task-filter">
-                  <option value="all" data-i18n="filterAll">All</option>
-                  <option value="pending" data-i18n="stPending">In Progress</option>
-                  <option value="done" data-i18n="stDone">Completed</option>
+                  <option value="all" data-i18n="filterAll">الكل</option>
+                  <option value="pending" data-i18n="stPending">قيد التنفيذ</option>
+                  <option value="done" data-i18n="stDone">مكتملة</option>
                 </select>
                 <select id="vortex-task-team-filter">
-                  <option value="all" data-i18n="teamAll">All Teams</option>
+                  <option value="all" data-i18n="teamAll">كل التيمات</option>
                   <option value="GUI">GUI</option>
                   <option value="Vision">Vision</option>
                   <option value="Control">Control</option>
@@ -942,20 +1103,20 @@
                   <option value="Electrical">Electrical</option>
                 </select>
                 <select id="vortex-task-assignee-filter">
-                  <option value="all" data-i18n="assigneeAll">All Assignees</option>
+                  <option value="all" data-i18n="assigneeAll">كل المسؤولين</option>
                 </select>
               </div>
             </div>
 
             <div class="card">
               <div class="card-title">
-                <span id="t-tasks-list-heading">📋 Team Tasks</span>
+                <span id="t-tasks-list-heading">📋 قائمة المهام</span>
                 <span id="vortex-tasks-count-badge" class="badge">0</span>
               </div>
 
               <div id="vortex-owner-task-controls">
                 <div class="row">
-                  <input id="vortex-task-title" type="text" placeholder="New task title..." style="flex:1; min-width:200px;" />
+                  <input id="vortex-task-title" type="text" placeholder="عنوان المهمة الجديدة..." style="flex:1; min-width:200px;" />
                   <select id="vortex-task-team">
                     <option value="GUI">GUI</option>
                     <option value="Vision">Vision</option>
@@ -964,21 +1125,21 @@
                     <option value="Electrical">Electrical</option>
                   </select>
                   <select id="vortex-task-priority">
-                    <option value="normal" data-i18n="prioNormal">Normal Priority (+10 pts)</option>
-                    <option value="high" data-i18n="prioHigh">High Priority (+20 pts)</option>
-                    <option value="urgent" data-i18n="prioUrgent">Urgent (+30 pts)</option>
+                    <option value="normal" data-i18n="prioNormal">أولوية عادية (+10 pts)</option>
+                    <option value="high" data-i18n="prioHigh">أولوية عالية (+20 pts)</option>
+                    <option value="urgent" data-i18n="prioUrgent">عاجلة (+30 pts)</option>
                   </select>
-                  <button id="vortex-pick-assignee-btn" type="button" class="secondary">👤 Select Assignee</button>
-                  <button id="vortex-add-task-btn" type="button">➕ Add Task</button>
+                  <button id="vortex-pick-assignee-btn" type="button" class="secondary">👤 اختيار الشخص المسؤول</button>
+                  <button id="vortex-add-task-btn" type="button">➕ إضافة مهمة</button>
                 </div>
 
                 <div id="vortex-assignee-picker" class="assignee-picker hidden">
                   <div class="row" style="justify-content:space-between; margin-bottom:10px;">
-                    <strong id="t-pick-assignee-title" style="font-size:13.5px;">✉ Select task assignee in the selected team:</strong>
+                    <strong id="t-pick-assignee-title" style="font-size:13.5px;">✉ اختر الشخص المسؤول في التيم المختار:</strong>
                     <span id="vortex-selected-assignee-label" class="badge picked"></span>
                   </div>
                   <select id="vortex-task-assignee-select" style="width:100%; margin-bottom:10px;">
-                    <option value="" data-i18n="unassignedOption">Unassigned (Anyone in team)</option>
+                    <option value="" data-i18n="unassignedOption">بدون تعيين محدد (أي حد في التيم)</option>
                   </select>
                   <div id="vortex-assignee-chips" class="row"></div>
                   <div id="vortex-team-assignee-hint" class="hint" style="margin-top:10px;"></div>
@@ -993,21 +1154,21 @@
           <section id="vpage-timetable" class="hidden">
             <div class="page-header">
               <h1 id="t-timetable-heading" class="page-title">🕒 Timetable</h1>
-              <p id="t-timetable-sub" class="page-subtitle">Add your busy slots from Saturday to Friday. Regular members view only their own schedule; Owners view everyone's schedule.</p>
+              <p id="t-timetable-sub" class="page-subtitle">أضف مواعيد انشغالك من السبت للجمعة؛ العضو يرى مواعيده فقط والأونر يرى مواعيد الجميع.</p>
             </div>
 
             <div id="vortex-availability-card" class="card hidden">
               <div class="card-title">
-                <span id="t-common-free-title">🤝 Free Windows & Schedule Summary</span>
+                <span id="t-common-free-title">🤝 ملخص الأوقات الفاضية والمواعيد</span>
                 <div class="row">
                   <select id="vortex-overlap-day">
-                    <option value="Saturday">Saturday / السبت</option>
-                    <option value="Sunday">Sunday / الأحد</option>
-                    <option value="Monday">Monday / الاثنين</option>
-                    <option value="Tuesday">Tuesday / الثلاثاء</option>
-                    <option value="Wednesday">Wednesday / الأربعاء</option>
-                    <option value="Thursday">Thursday / الخميس</option>
-                    <option value="Friday">Friday / الجمعة</option>
+                    <option value="Saturday">السبت / Saturday</option>
+                    <option value="Sunday">الأحد / Sunday</option>
+                    <option value="Monday">الاثنين / Monday</option>
+                    <option value="Tuesday">الثلاثاء / Tuesday</option>
+                    <option value="Wednesday">الأربعاء / Wednesday</option>
+                    <option value="Thursday">الخميس / Thursday</option>
+                    <option value="Friday">الجمعة / Friday</option>
                   </select>
                   <select id="vortex-overlap-scope" class="hidden">
                     <option value="ALL">All Teams</option>
@@ -1017,7 +1178,7 @@
                     <option value="Control">Control</option>
                     <option value="Mechanical">Mechanical</option>
                   </select>
-                  <button id="vortex-copy-free-btn" type="button" class="secondary">📋 Copy Summary</button>
+                  <button id="vortex-copy-free-btn" type="button" class="secondary">📋 نسخ الملخص</button>
                 </div>
               </div>
               <div id="vortex-overlap-summary"></div>
@@ -1026,28 +1187,28 @@
 
             <div class="card">
               <div class="card-title">
-                <span id="t-days-grid-title">📆 Add Busy Commitments (Saturday → Friday)</span>
-                <span id="vortex-my-weekly-hours" class="badge ok">⏱ Weekly total: 0.0 hrs</span>
+                <span id="t-days-grid-title">📆 إضافة المواعيد (السبت ← الجمعة)</span>
+                <span id="vortex-my-weekly-hours" class="badge ok">⏱ إجمالي الأسبوع: 0.0 ساعة</span>
               </div>
               <div id="vortex-days-grid" class="days-grid"></div>
             </div>
 
             <div class="card">
               <div class="card-title">
-                <span id="t-busy-list-title">📋 Recorded Commitments & Hours</span>
+                <span id="t-busy-list-title">📋 سجل مواعيدك وساعاتك</span>
                 <div class="row">
                   <select id="vortex-busy-day-filter">
-                    <option value="all">All Days</option>
-                    <option value="Saturday">Saturday / السبت</option>
-                    <option value="Sunday">Sunday / الأحد</option>
-                    <option value="Monday">Monday / الاثنين</option>
-                    <option value="Tuesday">Tuesday / الثلاثاء</option>
-                    <option value="Wednesday">Wednesday / الأربعاء</option>
-                    <option value="Thursday">Thursday / الخميس</option>
-                    <option value="Friday">Friday / الجمعة</option>
+                    <option value="all">كل الأيام</option>
+                    <option value="Saturday">السبت / Saturday</option>
+                    <option value="Sunday">الأحد / Sunday</option>
+                    <option value="Monday">الاثنين / Monday</option>
+                    <option value="Tuesday">الثلاثاء / Tuesday</option>
+                    <option value="Wednesday">الأربعاء / Wednesday</option>
+                    <option value="Thursday">الخميس / Thursday</option>
+                    <option value="Friday">الجمعة / Friday</option>
                   </select>
                   <select id="vortex-busy-team-filter" class="hidden">
-                    <option value="all">All Teams</option>
+                    <option value="all">كل التيمات</option>
                     <option value="GUI">GUI</option>
                     <option value="Vision">Vision</option>
                     <option value="Control">Control</option>
@@ -1063,13 +1224,13 @@
           <!-- 4. Sub-teams & Members -->
           <section id="vpage-teams" class="hidden">
             <div class="page-header">
-              <h1 id="t-teams-page-heading" class="page-title">Sub-teams & Members</h1>
-              <p id="t-teams-page-sub" class="page-subtitle">See members in each sub-team and task completion rate.</p>
+              <h1 id="t-teams-page-heading" class="page-title">التيمات والأعضاء</h1>
+              <p id="t-teams-page-sub" class="page-subtitle">تعرف على أعضاء كل تيم ونسبة إنجاز المهام.</p>
             </div>
 
             <div class="card">
               <div class="card-title">
-                <span id="t-teams-filter-lbl">🎯 Filter by sub-team:</span>
+                <span id="t-teams-filter-lbl">🎯 اختر التيم لعرض أعضائه ومهامه:</span>
                 <div id="vortex-team-tabs" class="row">
                   <button type="button" class="email-chip-btn selected" data-view-team="ALL">ALL</button>
                   <button type="button" class="email-chip-btn" data-view-team="GUI">GUI</button>
@@ -1086,13 +1247,13 @@
           <!-- 5. Points & Leaderboard -->
           <section id="vpage-points" class="hidden">
             <div class="page-header">
-              <h1 id="t-points-heading" class="page-title">Points & Leaderboard</h1>
-              <p id="t-points-sub" class="page-subtitle">Points calculated by task priority plus speed & completion rank bonus (#1 +15, #2 +10, #3 +5, others +2).</p>
+              <h1 id="t-points-heading" class="page-title">النقاط والترتيب</h1>
+              <p id="t-points-sub" class="page-subtitle">النقاط تُحسب من أولوية المهمة + مكافأة السرعة والترتيب (#1 +15، #2 +10، #3 +5، والباقي +2).</p>
             </div>
 
             <div class="card">
               <div class="card-title">
-                <span id="t-lb-members-title">🏆 Members Points & Speed Leaderboard</span>
+                <span id="t-lb-members-title">🏆 ترتيب الأعضاء بالنقاط والسرعة</span>
                 <span class="badge warn">⚡ Speed Bonus: #1 +15 • #2 +10 • #3 +5</span>
               </div>
               <div id="vortex-points-list"></div>
@@ -1102,19 +1263,19 @@
           <!-- 6. Team Chat -->
           <section id="vpage-chat" class="hidden">
             <div class="page-header">
-              <h1 id="t-chat-heading" class="page-title">Team Chat</h1>
-              <p id="t-chat-sub" class="page-subtitle">Direct team communication space for all members and owners.</p>
+              <h1 id="t-chat-heading" class="page-title">شات الفريق</h1>
+              <p id="t-chat-sub" class="page-subtitle">مساحة تواصل مباشرة لجميع أعضاء التيم والأونر.</p>
             </div>
 
             <div class="card">
               <div class="card-title">
-                <span>💬 <span data-i18n="navChat">Team Chat</span></span>
-                <button id="vortex-scroll-chat-btn" type="button" class="secondary">⬇ Latest Messages</button>
+                <span>💬 <span data-i18n="navChat">شات الفريق</span></span>
+                <button id="vortex-scroll-chat-btn" type="button" class="secondary">⬇ آخر الرسائل</button>
               </div>
               <div id="vortex-chat-box" class="chat-box"></div>
               <div class="row">
-                <input id="vortex-chat-input" type="text" placeholder="Write a message to the team..." style="flex:1; min-width:200px;" />
-                <button id="vortex-send-chat-btn" type="button">📨 Send</button>
+                <input id="vortex-chat-input" type="text" placeholder="اكتب رسالة للفريق..." style="flex:1; min-width:200px;" />
+                <button id="vortex-send-chat-btn" type="button">📨 إرسال</button>
               </div>
             </div>
           </section>
@@ -1122,18 +1283,18 @@
           <!-- 7. Owners & Roster (Owner Only) -->
           <section id="vpage-owners" class="hidden">
             <div class="page-header">
-              <h1 id="t-owners-page-title" class="page-title">Owners & Accounts Directory</h1>
-              <p id="t-owners-page-sub" class="page-subtitle">Owner-only controls: create verified member accounts, delete member accounts, and manage owners.</p>
+              <h1 id="t-owners-page-title" class="page-title">الملاك والحسابات</h1>
+              <p id="t-owners-page-sub" class="page-subtitle">صلاحيات الأونر: إنشاء حساب عضو، حذف الحسابات، وإدارة الملاك (أي أونر يمكنه حذف أي أونر).</p>
             </div>
 
             <!-- Create Member Account (Owner Only) -->
             <div class="card">
               <div class="card-title">
-                <span id="t-create-member-title">➕ Create Member Account (Owner Only)</span>
-                <span class="badge ok">Verified Email Required</span>
+                <span id="t-create-member-title">➕ إنشاء حساب عضو جديد (للأونر فقط)</span>
+                <span class="badge ok">Owner Account Creator</span>
               </div>
               <div class="row">
-                <input id="vortex-new-member-name" type="text" placeholder="Full Name (e.g. Omar Ali)" style="flex:1; min-width:170px;" />
+                <input id="vortex-new-member-name" type="text" placeholder="اسم العضو الكامل (مثال: عمر علي)" style="flex:1; min-width:170px;" />
                 <input id="vortex-new-member-email" type="email" dir="ltr" placeholder="member@gmail.com" style="flex:1; min-width:190px;" />
                 <select id="vortex-new-member-team">
                   <option value="GUI">GUI</option>
@@ -1144,11 +1305,11 @@
                 </select>
               </div>
               <div class="row" style="margin-top:10px;">
-                <input id="vortex-new-member-username" type="text" dir="ltr" placeholder="Auto username" style="min-width:180px; flex:1;" />
-                <button id="vortex-regen-username-btn" type="button" class="secondary">🎲 Gen Username</button>
-                <input id="vortex-new-member-pass" type="text" dir="ltr" placeholder="Site passcode (or random)" style="min-width:170px; flex:1;" />
-                <button id="vortex-regen-pass-btn" type="button" class="secondary">🎲 Gen Pass</button>
-                <button id="vortex-create-member-btn" type="button">✅ Create Member Account</button>
+                <input id="vortex-new-member-username" type="text" dir="ltr" placeholder="يوزر نيم تلقائي" style="min-width:180px; flex:1;" />
+                <button id="vortex-regen-username-btn" type="button" class="secondary">🎲 توليد يوزر</button>
+                <input id="vortex-new-member-pass" type="text" dir="ltr" placeholder="باسورد الحساب (أو عشوائي)" style="min-width:170px; flex:1;" />
+                <button id="vortex-regen-pass-btn" type="button" class="secondary">🎲 توليد باسورد</button>
+                <button id="vortex-create-member-btn" type="button">✅ إنشاء حساب العضو</button>
               </div>
             </div>
 
@@ -1159,8 +1320,8 @@
               </div>
               <div class="row">
                 <input id="vortex-owner-email-input" type="email" dir="ltr" placeholder="owner@gmail.com" style="flex:1; min-width:200px;" />
-                <button id="vortex-add-owner-btn" type="button">➕ Add Owner</button>
-                <button id="vortex-remove-owner-btn" type="button" class="danger">✖ Remove Owner</button>
+                <button id="vortex-add-owner-btn" type="button">➕ إضافة Owner</button>
+                <button id="vortex-remove-owner-btn" type="button" class="danger">✖ إزالة Owner</button>
               </div>
               <div id="vortex-owners-list" class="row" style="margin-top:12px;"></div>
 
@@ -1173,17 +1334,17 @@
                   <option value="Mechanical">Mechanical</option>
                   <option value="Electrical">Electrical</option>
                 </select>
-                <button id="vortex-add-roster-btn" type="button" class="secondary">✉ Assign Member Email</button>
+                <button id="vortex-add-roster-btn" type="button" class="secondary">✉ ربط إيميل بتيم</button>
               </div>
               <div id="vortex-roster-list" class="row" style="margin-top:10px;"></div>
             </div>
 
             <div class="card">
               <div class="card-title">
-                <span id="t-all-accounts-title">🗂 All Accounts, Usernames & Site Passcodes</span>
+                <span id="t-all-accounts-title">🗂 جميع الحسابات واليوزر نيم والباسوردات</span>
                 <span id="vortex-accounts-count-badge" class="badge ok">0</span>
               </div>
-              <div class="hint" id="t-pass-note-owner">Owner can view/change any member's site passcode, update team, or delete a member account.</div>
+              <div class="hint" id="t-pass-note-owner">للأونر: رؤية وتغيير باسورد أي حساب، تعديل التيم، أو حذف أي حساب (بما في ذلك أي أونر).</div>
               <div id="vortex-owner-accounts-directory"></div>
             </div>
           </section>
@@ -1198,16 +1359,7 @@
       getAuth,
       setPersistence,
       browserLocalPersistence,
-      GoogleAuthProvider,
       signInWithEmailAndPassword,
-      createUserWithEmailAndPassword,
-      sendEmailVerification,
-      sendPasswordResetEmail,
-      RecaptchaVerifier,
-      signInWithPhoneNumber,
-      signInWithPopup,
-      signInWithRedirect,
-      getRedirectResult,
       signOut,
       onAuthStateChanged
     } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
@@ -1220,6 +1372,7 @@
       doc,
       setDoc,
       getDoc,
+      getDocs,
       onSnapshot,
       query,
       orderBy,
@@ -1239,34 +1392,8 @@
     ];
     const PRIMARY_OWNER_EMAIL = "bilalmnam7@gmail.com";
     const INITIAL_OWNERS = [PRIMARY_OWNER_EMAIL];
-
-    const TRUSTED_EMAIL_DOMAINS = new Set([
-      "gmail.com",
-      "googlemail.com",
-      "outlook.com",
-      "hotmail.com",
-      "live.com",
-      "msn.com",
-      "yahoo.com",
-      "ymail.com",
-      "icloud.com",
-      "me.com",
-      "proton.me",
-      "protonmail.com",
-      "aol.com",
-      "zoho.com"
-    ]);
-
-    const BLOCKED_TEMP_DOMAINS = new Set([
-      "tempmail.com",
-      "10minutemail.com",
-      "guerrillamail.com",
-      "mailinator.com",
-      "trashmail.com",
-      "yopmail.com",
-      "fakeinbox.com",
-      "getnada.com"
-    ]);
+    const MEMBER_SESSION_KEY = "vortex_member_session_v1";
+    const REMEMBERED_ID_KEY = "vortex_remembered_id_v1";
 
     const firebaseConfig = {
       apiKey: "AIzaSyCTb6fawE3ltI6A06lBVrx_5zre4Ei4N8g",
@@ -1290,218 +1417,26 @@
         navTeams: "Sub-teams & Members",
         navPoints: "Points & Leaderboard",
         navChat: "Team Chat",
-        navOwners: "Owners & Roster",
+        navOwners: "Owners & Accounts",
         online: "● Online",
         offline: "○ Offline",
         darkMode: "🌙 Dark Mode",
         lightMode: "☀ Light Mode",
         langSwitch: "🌐 العربية",
-        authTitle: "🔐 Account & Sign In",
-        chooseAuth: "Choose your sub-team, then sign in with Google, verified Email & Password, or Mobile Number.",
-        signupTeamLabel: "🎯 Select your sub-team:",
-        signupTeamHint: "Used to link your profile with your sub-team across Timetable, Tasks, and Team Chat.",
-        logout: "🚪 Sign Out",
-        googleTitle: "🔑 Continue with Google",
-        googleDesc: "Seamless Google sign-in across Android, iOS, macOS, and Windows.",
-        googlePopup: "🚀 Continue with Google",
-        googleRedirect: "↪ Continue with Google (Redirect)",
-        emailTitle: "✉️ Email & Password",
-        emailPh: "name@gmail.com",
-        passPh: "Password (6+ characters)",
-        emailSignIn: "✅ Sign In",
-        emailSignUp: "➕ Create Account",
-        resetPass: "🔄 Forgot Password?",
-        phoneTitle: "📱 Mobile Number (SMS)",
-        smsNote: "Requires Phone Auth & Authorized Domains enabled in Firebase Console.",
-        phonePh: "+201012345678",
-        sendOtp: "📲 Send Verification Code",
-        otpPh: "Enter 6-digit code",
-        verifyOtp: "✔ Verify Code & Sign In",
-        missingEmail: "Please enter a valid email address first.",
-        invalidRealEmail: "Please enter a real, valid email address (trusted provider, no random/temp email).",
-        emailVerifySent: "✔ Verification email sent! Check your inbox/spam and verify before full access.",
-        emailNotVerifiedErr: "Your email is not verified yet. Please check your inbox and click the verification link.",
-        missingEmailAndPass: "Please enter both email and password.",
-        weakPassError: "Password must be at least 6 characters.",
-        accountCreatedOk: "✔ Account created! Verification email sent to your inbox.",
+        authTitle: "Sign In",
+        loginIdPh: "Username",
+        loginPassPh: "••••••••••••",
+        rememberMe: "Remember me",
+        forgotPass: "Forgot password?",
+        forgotPassMsg: "Contact the Owner to view or reset your account password.",
+        loginSubmitBtn: "LOGIN",
+        noAccPrefix: "Don't have account?",
+        signupTrigger: "Sign up!",
+        signupOwnerOnlyMsg: "Accounts are created by the Owner only. Use the username or email and password given by the Owner.",
+        missingLoginCreds: "Please enter your username or email and password.",
+        invalidLoginCreds: "Invalid username/email or password, or account was not created by Owner.",
         signedInOk: "✔ Signed in successfully.",
-        resetSentOk: "✔ Password reset email sent.",
-        profileHeading: "My Profile",
-        profileSub: "Your profile photo, username, sub-team, site passcode, and account details.",
-        accDetails: "Account details",
-        lblPhoto: "Profile Photo",
-        photoHint: "Upload a profile picture from your device.",
-        uploadPhotoBtn: "📷 Choose Photo",
-        removePhotoBtn: "✖ Remove",
-        photoUpdatedOk: "✔ Profile photo updated.",
-        photoRemovedOk: "✔ Profile photo removed.",
-        lblUsername: "Username",
-        lblEmail: "Email / Phone",
-        lblMyTeam: "My Team",
-        lblSitePass: "Site Passcode (Platform Password)",
-        showBtn: "👁 Show",
-        hideBtn: "🙈 Hide",
-        saveTeam: "💾 Save Team",
-        teamSaved: "Team saved successfully.",
-        lblUid: "Unique Member ID (UID)",
-        copyUid: "📋 Copy ID",
-        copiedUidOk: "✔ Unique ID copied.",
-        passSecurityTitle: "🔑 Site Passcode & Password Recovery",
-        changeSitePassTitle: "Update Site Passcode",
-        changeSitePassHint: "Change your platform-only site passcode (4+ chars).",
-        newSitePassPh: "New site passcode (4+ chars)",
-        saveOwnSitePassBtn: "🔑 Save Site Passcode",
-        sitePassSavedOk: "✔ Site passcode updated successfully.",
-        sitePassMinErr: "Site passcode must be at least 4 characters.",
-        forgotPassInAppTitle: "Email Password Reset",
-        forgotPassInAppHint: "Send a Firebase password reset link to your email address.",
-        sendForgotInAppBtn: "🔄 Send Reset Link",
-        ticketsHeading: "Team Tasks",
-        ticketsSub: "View all sub-team tasks; complete tasks in your sub-team assigned to you or open to your team.",
-        taskFilterTitle: "🔎 Filter & Search Tasks",
-        searchPh: "Search task, team, or email...",
-        filterAll: "All",
-        teamAll: "All Teams",
-        assigneeAll: "All Assignees",
-        unassignedOption: "Unassigned (Anyone in team)",
-        pickAssigneeBtn: "👤 Select Assignee",
-        pickAssigneeTitle: "✉ Select task assignee in the selected team:",
-        noTeamMemberHint: "No members linked to {team} yet — choose Unassigned or add a member to {team}.",
-        assignedTo: "Assignee",
-        openForTeam: "Open to team members",
-        tasksListHeading: "📋 Team Tasks",
-        taskPh: "New task title...",
-        prioNormal: "Normal Priority (+10 pts)",
-        prioHigh: "High Priority (+20 pts)",
-        prioUrgent: "Urgent (+30 pts)",
-        stPending: "In Progress",
-        stDone: "Completed",
-        addTask: "➕ Add Task",
-        noTasks: "No matching tasks found.",
-        reopen: "↩ Reopen",
-        complete: "✔ Complete",
-        markDoneMember: "✔ Done",
-        deleteBtn: "🗑 Delete",
-        deleteAccountBtn: "🗑 Delete Account",
-        confirmDeleteMsg: "Permanently delete account ({name})?",
-        untitled: "Untitled",
-        member: "Member",
-        by: "By",
-        timetableHeading: "🕒 Timetable",
-        timetableSub: "Add your busy slots from Saturday to Friday. Regular members view only their own schedule; Owners view everyone's schedule.",
-        commonFreeTitle: "🤝 Free Windows & Schedule Summary",
-        copyFreeBtn: "📋 Copy Summary",
-        copiedFreeOk: "✔ Summary copied to clipboard.",
-        daysGridTitle: "📆 Add Busy Commitments (Saturday → Friday)",
-        busyListTitle: "📋 Recorded Commitments & Hours",
-        busyListOwnerTitle: "📋 All Members Recorded Commitments & Hours",
-        activityNamePh: "Activity (lesson, training, school...)",
-        noteOptionalPh: "Note (optional)",
-        repeatWeeklyLbl: "Repeat weekly",
-        oneTimeLbl: "One-time",
-        saveBusyBtn: "➕ Save Slot",
-        fromLbl: "From",
-        toLbl: "To",
-        amLbl: "AM",
-        pmLbl: "PM",
-        invalidTimeRange: "End time must be after start time.",
-        missingActivityName: "Please enter the activity name.",
-        noBusyEntries: "No commitments recorded yet.",
-        freeWindowsPrefix: "Free windows (08:00 AM – 10:00 PM)",
-        noFreeInWindow: "No free window of 30+ mins inside 08:00 AM – 10:00 PM.",
-        weeklyHoursPrefix: "Weekly total",
-        dayHoursPrefix: "Day hours",
-        memberWeeklyHours: "Weekly",
-        hoursUnit: "hrs",
-        teamsPageHeading: "Sub-teams & Members",
-        teamsPageSub: "See members in each sub-team and task completion rate.",
-        teamsFilterLbl: "🎯 Filter by sub-team:",
-        noTeamMembers: "No members registered in this sub-team yet.",
-        pointsHeading: "Points & Leaderboard",
-        pointsSub: "Points calculated by task priority plus speed & completion rank bonus (#1 +15, #2 +10, #3 +5, others +2).",
-        lbMembersTitle: "🏆 Members Points & Speed Leaderboard",
-        basePtsLbl: "Tasks",
-        speedBonusLbl: "Speed Bonus",
-        noPointsData: "No points recorded yet.",
-        chatHeading: "Team Chat",
-        chatSub: "Direct team communication space for all members and owners.",
-        scrollChat: "⬇ Latest Messages",
-        chatPh: "Write a message to the team...",
-        sendChat: "📨 Send",
-        noChat: "No chat messages yet.",
-        ownersPageTitle: "Owners & Accounts Directory",
-        ownersPageSub: "Owner-only controls: create verified member accounts, delete member accounts, and manage owners.",
-        createMemberTitle: "➕ Create Member Account (Owner Only)",
-        newMemberNamePh: "Full Name (e.g. Omar Ali)",
-        newMemberEmailPh: "member@gmail.com",
-        newMemberUsernamePh: "Auto username",
-        regenUsernameBtn: "🎲 Gen Username",
-        newMemberPassPh: "Site passcode (or random)",
-        regenPassBtn: "🎲 Gen Pass",
-        createMemberBtn: "✅ Create Member Account",
-        memberCreatedOk: "✔ Member account created.",
-        memberDeletedOk: "✔ Member account deleted.",
-        allAccountsTitle: "🗂 All Accounts, Usernames & Site Passcodes",
-        passNoteOwner: "Owner can view/change any member's site passcode, update team, or delete a member account.",
-        sitePassFieldPh: "New site passcode",
-        setSitePassBtn: "🔑 Set Site Pass",
-        genPassBtn: "🎲 Random",
-        updateMemberTeamBtn: "💾 Save Team",
-        statTotal: "📌 Total Tasks",
-        statPending: "⏳ In Progress",
-        statDone: "✅ Completed",
-        statPoints: "⭐ Points",
-        maxOwnersReached: "Maximum limit reached (4 Owner accounts).",
-        cannotRemovePrimary: "Primary owner account cannot be removed.",
-        ownerOnlyError: "This action is restricted to Owner only."
-      },
-      ar: {
-        greeting: "مساء الخير",
-        navAcc: "الحساب",
-        navWork: "مساحة الفريق",
-        navAdmin: "إدارة الأونر",
-        navProfile: "ملفي الشخصي",
-        navTickets: "المهام",
-        navTimetable: "Timetable",
-        navTeams: "التيمات والأعضاء",
-        navPoints: "النقاط والترتيب",
-        navChat: "شات الفريق",
-        navOwners: "الملاك والحسابات",
-        online: "● متصل بالشبكة",
-        offline: "○ غير متصل بالشبكة",
-        darkMode: "🌙 الوضع الليلي",
-        lightMode: "☀ الوضع النهاري",
-        langSwitch: "🌐 English",
-        authTitle: "🔐 الحساب وتسجيل الدخول",
-        chooseAuth: "اختر التيم الخاص بك ثم سجل دخولك عبر Google أو بريد حقيقي موثق أو رقم الموبايل.",
-        signupTeamLabel: "🎯 اختر التيم الخاص بك:",
-        signupTeamHint: "يُستخدم لربط حسابك بالتيم في جدول المواعيد والمهام والشات.",
         logout: "🚪 تسجيل الخروج",
-        googleTitle: "🔑 تسجيل الدخول بحساب Google",
-        googleDesc: "دخول سريع عبر Google على أندرويد، آي أو إس، ماك، وويندوز.",
-        googlePopup: "🚀 الدخول عبر Google",
-        googleRedirect: "↪ الدخول عبر Google (Redirect)",
-        emailTitle: "✉️ البريد الإلكتروني وكلمة المرور",
-        emailPh: "name@gmail.com",
-        passPh: "كلمة المرور (6 أحرف فأكثر)",
-        emailSignIn: "✅ دخول بالبريد",
-        emailSignUp: "➕ إنشاء حساب",
-        resetPass: "🔄 نسيت كلمة المرور؟",
-        phoneTitle: "📱 تسجيل الدخول برقم الموبايل",
-        smsNote: "يتطلب تفعيل Phone Auth و Authorized Domains في Firebase Console.",
-        phonePh: "+201012345678",
-        sendOtp: "📲 إرسال كود التحقق",
-        otpPh: "أدخل كود التحقق (6 أرقام)",
-        verifyOtp: "✔ تأكيد الكود وتسجيل الدخول",
-        missingEmail: "من فضلك اكتب بريدًا إلكترونيًا صحيحًا أولاً.",
-        invalidRealEmail: "ممنوع إدخال إيميل وهمي أو عشوائي؛ اكتب إيميل حقيقي معروف (مثل Gmail أو Outlook أو Yahoo أو بريد رسمي).",
-        emailVerifySent: "✔ تم إرسال رسالة تحقق على الإيميل؛ افتح البريد (أو Spam) واضغط رابط التأكيد لتفعيل الحساب.",
-        emailNotVerifiedErr: "الإيميل ده لسه مش متأكد؛ افتح صندوق الوارد واضغط على رابط التفعيل اللي اتبعت لك.",
-        missingEmailAndPass: "من فضلك اكتب البريد الإلكتروني وكلمة المرور.",
-        weakPassError: "كلمة المرور لازم تكون 6 أحرف أو أرقام على الأقل.",
-        accountCreatedOk: "✔ تم إنشاء الحساب وإرسال رابط التحقق إلى البريد الإلكتروني.",
-        signedInOk: "✔ تم تسجيل الدخول بنجاح.",
-        resetSentOk: "✔ تم إرسال رابط استعادة كلمة المرور إلى بريدك الإلكتروني.",
         profileHeading: "ملفي الشخصي",
         profileSub: "صورة البروفايل، اليوزر نيم، التيم، باسورد الموقع، وتفاصيل الحساب.",
         accDetails: "تفاصيل الحساب",
@@ -1512,7 +1447,7 @@
         photoUpdatedOk: "✔ تم تحديث صورة البروفايل.",
         photoRemovedOk: "✔ تم إزالة صورة البروفايل.",
         lblUsername: "اسم المستخدم (Username)",
-        lblEmail: "البريد / رقم الهاتف",
+        lblEmail: "البريد الإلكتروني",
         lblMyTeam: "التيم الخاص بي",
         lblSitePass: "كلمة سر الموقع (Site Passcode)",
         showBtn: "👁 إظهار",
@@ -1522,16 +1457,13 @@
         lblUid: "المعرف الخاص بالحساب (UID)",
         copyUid: "📋 نسخ المعرف",
         copiedUidOk: "✔ تم نسخ المعرف الخاص بك.",
-        passSecurityTitle: "🔑 باسورد الموقع واستعادة الإيميل",
+        passSecurityTitle: "🔑 باسورد الموقع",
         changeSitePassTitle: "تغيير باسورد الموقع الخاص بك",
-        changeSitePassHint: "تغيير كلمة السر الخاصة بالمنصة فقط (4 أحرف فأكثر).",
+        changeSitePassHint: "تغيير كلمة السر الخاصة بالموقع (4 أحرف فأكثر).",
         newSitePassPh: "باسورد الموقع الجديد (4 أحرف فأكثر)",
-        saveOwnSitePassBtn: "🔑 حفظ باسورد الموقع",
-        sitePassSavedOk: "✔ تم تحديث باسورد الموقع بنجاح.",
-        sitePassMinErr: "باسورد الموقع لازم يكون 4 أحرف أو أرقام على الأقل.",
-        forgotPassInAppTitle: "استعادة كلمة سر الإيميل",
-        forgotPassInAppHint: "إرسال رابط استعادة كلمة سر البريد الإلكتروني عبر Firebase.",
-        sendForgotInAppBtn: "🔄 إرسال رابط الاستعادة",
+        saveOwnSitePassBtn: "🔑 حفظ الباسورد",
+        sitePassSavedOk: "✔ تم تحديث الباسورد بنجاح.",
+        sitePassMinErr: "الباسورد لازم يكون 4 أحرف أو أرقام على الأقل.",
         ticketsHeading: "المهام",
         ticketsSub: "تابع مهام كل التيمات، ونفّذ المهام الخاصة بتيمك المعينة لك أو المفتوحة للتيم.",
         taskFilterTitle: "🔎 تصفية وبحث المهام",
@@ -1605,22 +1537,23 @@
         chatPh: "اكتب رسالة للفريق...",
         sendChat: "📨 إرسال",
         noChat: "لا توجد رسائل بعد.",
-        ownersPageTitle: "Owners & Accounts Directory",
-        ownersPageSub: "صلاحيات الأونر فقط: إنشاء حساب عضو بإيميل حقيقي، حذف حسابات الأعضاء، وإدارة الملاك.",
+        ownersPageTitle: "الملاك والحسابات",
+        ownersPageSub: "صلاحيات الأونر: إنشاء حساب عضو، حذف الحسابات، وإدارة الملاك (أي أونر يمكنه حذف أي أونر).",
         createMemberTitle: "➕ إنشاء حساب عضو جديد (للأونر فقط)",
         newMemberNamePh: "اسم العضو الكامل (مثال: عمر علي)",
         newMemberEmailPh: "member@gmail.com",
         newMemberUsernamePh: "يوزر نيم تلقائي",
         regenUsernameBtn: "🎲 توليد يوزر",
-        newMemberPassPh: "باسورد الموقع (أو عشوائي)",
+        newMemberPassPh: "باسورد الحساب (أو عشوائي)",
         regenPassBtn: "🎲 توليد باسورد",
         createMemberBtn: "✅ إنشاء حساب العضو",
         memberCreatedOk: "✔ تم إنشاء حساب العضو بنجاح.",
         memberDeletedOk: "✔ تم حذف الحساب بنجاح.",
-        allAccountsTitle: "🗂 جميع الحسابات واليوزر نيم وباسوردات الموقع",
-        passNoteOwner: "للأونر فقط: رؤية وتغيير باسورد الموقع لأي عضو، تعديل التيم، أو حذف حساب عضو.",
-        sitePassFieldPh: "باسورد موقع جديد للعضو",
-        setSitePassBtn: "🔑 تغيير باسورد الموقع",
+        missingEmailOrPass: "من فضلك اكتب إيميل صحيح وباسورد (4 أحرف فأكثر).",
+        allAccountsTitle: "🗂 جميع الحسابات واليوزر نيم والباسوردات",
+        passNoteOwner: "للأونر: رؤية وتغيير باسورد أي حساب، تعديل التيم، أو حذف أي حساب (بما في ذلك أي أونر).",
+        sitePassFieldPh: "باسورد جديد",
+        setSitePassBtn: "🔑 تغيير الباسورد",
         genPassBtn: "🎲 توليد",
         updateMemberTeamBtn: "💾 حفظ التيم",
         statTotal: "📌 إجمالي المهام",
@@ -1628,7 +1561,165 @@
         statDone: "✅ مهام مكتملة",
         statPoints: "⭐ النقاط",
         maxOwnersReached: "وصلت إلى الحد الأقصى المسموح به (4 حسابات Owner).",
-        cannotRemovePrimary: "لا يمكن إزالة حساب المالك الأساسي.",
+        ownerRemovedOk: "✔ تم إزالة حساب الأونر بنجاح.",
+        ownerOnlyError: "هذا الإجراء متاح للـ Owner فقط."
+      },
+      ar: {
+        greeting: "مساء الخير",
+        navAcc: "الحساب",
+        navWork: "مساحة الفريق",
+        navAdmin: "إدارة الأونر",
+        navProfile: "ملفي الشخصي",
+        navTickets: "المهام",
+        navTimetable: "Timetable",
+        navTeams: "التيمات والأعضاء",
+        navPoints: "النقاط والترتيب",
+        navChat: "شات الفريق",
+        navOwners: "الملاك والحسابات",
+        online: "● متصل بالشبكة",
+        offline: "○ غير متصل بالشبكة",
+        darkMode: "🌙 الوضع الليلي",
+        lightMode: "☀ الوضع النهاري",
+        langSwitch: "🌐 English",
+        authTitle: "Sign In",
+        loginIdPh: "Username",
+        loginPassPh: "••••••••••••",
+        rememberMe: "Remember me",
+        forgotPass: "Forgot password?",
+        forgotPassMsg: "تواصل مع الأونر لمعرفة أو إعادة تعيين باسورد حسابك.",
+        loginSubmitBtn: "LOGIN",
+        noAccPrefix: "Don't have account?",
+        signupTrigger: "Sign up!",
+        signupOwnerOnlyMsg: "إنشاء الحسابات يتم عن طريق الأونر فقط؛ سجل دخولك باليوزر نيم أو الإيميل والباسورد اللي أنشأهم الأونر.",
+        missingLoginCreds: "من فضلك اكتب اليوزر نيم أو الإيميل والباسورد.",
+        invalidLoginCreds: "اليوزر نيم أو الإيميل أو الباسورد غير صحيح، أو الحساب لم يتم إنشاؤه بواسطة الأونر.",
+        signedInOk: "✔ تم تسجيل الدخول بنجاح.",
+        logout: "🚪 تسجيل الخروج",
+        profileHeading: "ملفي الشخصي",
+        profileSub: "صورة البروفايل، اليوزر نيم، التيم، باسورد الموقع، وتفاصيل الحساب.",
+        accDetails: "تفاصيل الحساب",
+        lblPhoto: "صورة البروفايل",
+        photoHint: "ارفع صورة بروفايل من جهازك.",
+        uploadPhotoBtn: "📷 اختيار صورة",
+        removePhotoBtn: "✖ إزالة",
+        photoUpdatedOk: "✔ تم تحديث صورة البروفايل.",
+        photoRemovedOk: "✔ تم إزالة صورة البروفايل.",
+        lblUsername: "اسم المستخدم (Username)",
+        lblEmail: "البريد الإلكتروني",
+        lblMyTeam: "التيم الخاص بي",
+        lblSitePass: "كلمة سر الموقع (Site Passcode)",
+        showBtn: "👁 إظهار",
+        hideBtn: "🙈 إخفاء",
+        saveTeam: "💾 حفظ التيم",
+        teamSaved: "تم حفظ التيم بنجاح.",
+        lblUid: "المعرف الخاص بالحساب (UID)",
+        copyUid: "📋 نسخ المعرف",
+        copiedUidOk: "✔ تم نسخ المعرف الخاص بك.",
+        passSecurityTitle: "🔑 باسورد الموقع",
+        changeSitePassTitle: "تغيير باسورد الموقع الخاص بك",
+        changeSitePassHint: "تغيير كلمة السر الخاصة بالموقع (4 أحرف فأكثر).",
+        newSitePassPh: "باسورد الموقع الجديد (4 أحرف فأكثر)",
+        saveOwnSitePassBtn: "🔑 حفظ الباسورد",
+        sitePassSavedOk: "✔ تم تحديث الباسورد بنجاح.",
+        sitePassMinErr: "الباسورد لازم يكون 4 أحرف أو أرقام على الأقل.",
+        ticketsHeading: "المهام",
+        ticketsSub: "تابع مهام كل التيمات، ونفّذ المهام الخاصة بتيمك المعينة لك أو المفتوحة للتيم.",
+        taskFilterTitle: "🔎 تصفية وبحث المهام",
+        searchPh: "ابحث باسم المهمة أو التيم أو الإيميل...",
+        filterAll: "الكل",
+        teamAll: "كل التيمات",
+        assigneeAll: "كل المسؤولين",
+        unassignedOption: "بدون تعيين محدد (أي حد في التيم)",
+        pickAssigneeBtn: "👤 اختيار الشخص المسؤول",
+        pickAssigneeTitle: "✉ اختر الشخص المسؤول في التيم المختار:",
+        noTeamMemberHint: "لا يوجد أعضاء مرتبطون بتيم {team} حاليًا — يمكنك اختيار «بدون تعيين محدد» أو إضافة عضو لتيم {team}.",
+        assignedTo: "المسؤول",
+        openForTeam: "متاحة لأي عضو في التيم",
+        tasksListHeading: "📋 قائمة المهام",
+        taskPh: "عنوان المهمة الجديدة...",
+        prioNormal: "أولوية عادية (+10 pts)",
+        prioHigh: "أولوية عالية (+20 pts)",
+        prioUrgent: "عاجلة (+30 pts)",
+        stPending: "قيد التنفيذ",
+        stDone: "مكتملة",
+        addTask: "➕ إضافة مهمة",
+        noTasks: "لا توجد مهام مطابقة.",
+        reopen: "↩ إعادة فتح",
+        complete: "✔ إتمام",
+        markDoneMember: "✔ تم التنفيذ",
+        deleteBtn: "🗑 حذف",
+        deleteAccountBtn: "🗑 حذف الحساب",
+        confirmDeleteMsg: "هل أنت متأكد من حذف حساب ({name}) نهائيًا؟",
+        untitled: "بدون عنوان",
+        member: "عضو",
+        by: "بواسطة",
+        timetableHeading: "🕒 Timetable",
+        timetableSub: "أضف مواعيد انشغالك من السبت للجمعة؛ العضو يرى مواعيده فقط والأونر يرى مواعيد الجميع.",
+        commonFreeTitle: "🤝 ملخص الأوقات الفاضية والمواعيد",
+        copyFreeBtn: "📋 نسخ الملخص",
+        copiedFreeOk: "✔ تم نسخ الملخص بنجاح.",
+        daysGridTitle: "📆 إضافة المواعيد (السبت ← الجمعة)",
+        busyListTitle: "📋 سجل مواعيدك وساعاتك",
+        busyListOwnerTitle: "📋 سجل مواعيد وساعات كل الأعضاء",
+        activityNamePh: "النشاط (درس، تدريب، مدرسة...)",
+        noteOptionalPh: "ملاحظة (اختياري)",
+        repeatWeeklyLbl: "تكرار أسبوعي",
+        oneTimeLbl: "مرة واحدة",
+        saveBusyBtn: "➕ حفظ الموعد",
+        fromLbl: "من",
+        toLbl: "إلى",
+        amLbl: "AM",
+        pmLbl: "PM",
+        invalidTimeRange: "يجب أن يكون وقت النهاية بعد وقت البداية.",
+        missingActivityName: "من فضلك اكتب اسم النشاط أو الموعد.",
+        noBusyEntries: "لا توجد مواعيد مسجلة بعد.",
+        freeWindowsPrefix: "الأوقات الفاضية (08:00 AM – 10:00 PM)",
+        noFreeInWindow: "لا توجد فترة فاضية (30 دقيقة فأكثر) بين 08:00 AM و 10:00 PM.",
+        weeklyHoursPrefix: "إجمالي الأسبوع",
+        dayHoursPrefix: "ساعات اليوم",
+        memberWeeklyHours: "أسبوعيًا",
+        hoursUnit: "ساعة",
+        teamsPageHeading: "التيمات والأعضاء",
+        teamsPageSub: "تعرف على أعضاء كل تيم ونسبة إنجاز المهام.",
+        teamsFilterLbl: "🎯 اختر التيم لعرض أعضائه ومهامه:",
+        noTeamMembers: "لا يوجد أعضاء مسجلون في هذا التيم بعد.",
+        pointsHeading: "النقاط والترتيب",
+        pointsSub: "النقاط تُحسب من أولوية المهمة + مكافأة السرعة والترتيب (#1 +15، #2 +10، #3 +5، والباقي +2).",
+        lbMembersTitle: "🏆 ترتيب الأعضاء بالنقاط والسرعة",
+        basePtsLbl: "مهام",
+        speedBonusLbl: "مكافأة السرعة",
+        noPointsData: "لا توجد نقاط مسجلة بعد.",
+        chatHeading: "شات الفريق",
+        chatSub: "مساحة تواصل مباشرة لجميع أعضاء التيم والأونر.",
+        scrollChat: "⬇ آخر الرسائل",
+        chatPh: "اكتب رسالة للفريق...",
+        sendChat: "📨 إرسال",
+        noChat: "لا توجد رسائل بعد.",
+        ownersPageTitle: "الملاك والحسابات",
+        ownersPageSub: "صلاحيات الأونر: إنشاء حساب عضو، حذف الحسابات، وإدارة الملاك (أي أونر يمكنه حذف أي أونر).",
+        createMemberTitle: "➕ إنشاء حساب عضو جديد (للأونر فقط)",
+        newMemberNamePh: "اسم العضو الكامل (مثال: عمر علي)",
+        newMemberEmailPh: "member@gmail.com",
+        newMemberUsernamePh: "يوزر نيم تلقائي",
+        regenUsernameBtn: "🎲 توليد يوزر",
+        newMemberPassPh: "باسورد الحساب (أو عشوائي)",
+        regenPassBtn: "🎲 توليد باسورد",
+        createMemberBtn: "✅ إنشاء حساب العضو",
+        memberCreatedOk: "✔ تم إنشاء حساب العضو بنجاح.",
+        memberDeletedOk: "✔ تم حذف الحساب بنجاح.",
+        missingEmailOrPass: "من فضلك اكتب إيميل صحيح وباسورد (4 أحرف فأكثر).",
+        allAccountsTitle: "🗂 جميع الحسابات واليوزر نيم والباسوردات",
+        passNoteOwner: "للأونر: رؤية وتغيير باسورد أي حساب، تعديل التيم، أو حذف أي حساب (بما في ذلك أي أونر).",
+        sitePassFieldPh: "باسورد جديد",
+        setSitePassBtn: "🔑 تغيير الباسورد",
+        genPassBtn: "🎲 توليد",
+        updateMemberTeamBtn: "💾 حفظ التيم",
+        statTotal: "📌 إجمالي المهام",
+        statPending: "⏳ قيد التنفيذ",
+        statDone: "✅ مهام مكتملة",
+        statPoints: "⭐ النقاط",
+        maxOwnersReached: "وصلت إلى الحد الأقصى المسموح به (4 حسابات Owner).",
+        ownerRemovedOk: "✔ تم إزالة حساب الأونر بنجاح.",
         ownerOnlyError: "هذا الإجراء متاح للـ Owner فقط."
       }
     };
@@ -1642,28 +1733,8 @@
         .replace(/'/g, "&#39;");
     }
 
-    function isLikelyRealEmail(rawEmail) {
-      const email = String(rawEmail || "").trim().toLowerCase();
-      const match = email.match(/^([a-z0-9._%+-]+)@([a-z0-9.-]+\.[a-z]{2,})$/);
-      if (!match) return false;
-      const localPart = match[1];
-      const domain = match[2];
-
-      if (localPart.length < 2) return false;
-      if (BLOCKED_TEMP_DOMAINS.has(domain)) return false;
-
-      const alphaOnly = localPart.replace(/[^a-z]/g, "");
-      if (alphaOnly.length >= 5) {
-        const hasVowel = /[aeiou]/.test(alphaOnly);
-        const maxConsonants = Math.max(...alphaOnly.split(/[aeiou]/).map((s) => s.length));
-        if (!hasVowel || maxConsonants >= 5) return false;
-      }
-
-      const isTrusted =
-        TRUSTED_EMAIL_DOMAINS.has(domain) ||
-        /\.(edu|edu\.eg|org|gov|ac\.[a-z]{2,})$/i.test(domain);
-
-      return isTrusted;
+    function isValidEmailFormat(rawEmail) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(String(rawEmail || "").trim());
     }
 
     function generateRandomPasscode(len = 8) {
@@ -1691,7 +1762,7 @@
       return `${base}_${suffix}`;
     }
 
-    function makePendingUidFromEmail(email) {
+    function makeMemberDocIdFromEmail(email) {
       const clean = String(email || "").trim().toLowerCase().replace(/[^a-z0-9]/g, "_");
       return `member_${clean}`;
     }
@@ -1750,7 +1821,7 @@
     const detectedDevice = detectPlatform();
     document.body.setAttribute("data-platform", detectedDevice.id);
 
-    let lang = localStorage.getItem("vortex_lang") === "ar" ? "ar" : "en";
+    let lang = localStorage.getItem("vortex_lang") === "en" ? "en" : "ar";
     let theme = localStorage.getItem("vortex_theme") === "dark" ? "dark" : "light";
     let activePage = "profile";
     let viewedTeam = "ALL";
@@ -1764,7 +1835,34 @@
     const langBtn = document.getElementById("vortex-lang-btn");
 
     const authCard = document.getElementById("vortex-auth-card");
-    const authTeamSelect = document.getElementById("vortex-auth-team-select");
+    const loginIdInput = document.getElementById("vortex-login-identifier");
+    const loginPassInput = document.getElementById("vortex-login-pass");
+    const toggleLoginPassBtn = document.getElementById("vortex-toggle-login-pass-btn");
+    const rememberMeChk = document.getElementById("vortex-remember-me-chk");
+    const forgotPassBtn = document.getElementById("vortex-forgot-pass-btn");
+    const loginSubmitBtn = document.getElementById("vortex-login-submit-btn");
+    const signupOwnerHintBtn = document.getElementById("vortex-signup-owner-hint-btn");
+
+    const savedRememberedId = localStorage.getItem(REMEMBERED_ID_KEY);
+    if (savedRememberedId) {
+      loginIdInput.value = savedRememberedId;
+      rememberMeChk.checked = true;
+    }
+
+    toggleLoginPassBtn.addEventListener("click", () => {
+      const isPwd = loginPassInput.type === "password";
+      loginPassInput.type = isPwd ? "text" : "password";
+      toggleLoginPassBtn.textContent = isPwd ? "🙈" : "👁";
+    });
+
+    forgotPassBtn.addEventListener("click", () => {
+      setStatus(t("forgotPassMsg"), "normal");
+    });
+
+    signupOwnerHintBtn.addEventListener("click", () => {
+      setStatus(t("signupOwnerOnlyMsg"), "normal");
+    });
+
     const profileTeamSelect = document.getElementById("vortex-profile-team-select");
     const saveTeamBtn = document.getElementById("vortex-save-team-btn");
     const copyUidBtn = document.getElementById("vortex-copy-uid-btn");
@@ -1776,8 +1874,6 @@
 
     const newSitePassInput = document.getElementById("vortex-new-site-pass-input");
     const saveOwnSitePassBtn = document.getElementById("vortex-save-own-site-pass-btn");
-    const forgotEmailInput = document.getElementById("vortex-forgot-email-input");
-    const sendForgotInAppBtn = document.getElementById("vortex-send-forgot-inapp-btn");
 
     const newMemberNameInp = document.getElementById("vortex-new-member-name");
     const newMemberEmailInp = document.getElementById("vortex-new-member-email");
@@ -1796,20 +1892,6 @@
     const miniAvatar = document.getElementById("vortex-mini-avatar");
     const miniName = document.getElementById("vortex-mini-name");
     const miniRole = document.getElementById("vortex-mini-role");
-
-    const googlePopupBtn = document.getElementById("vortex-google-popup-btn");
-    const googleRedirectBtn = document.getElementById("vortex-google-redirect-btn");
-    const emailInput = document.getElementById("vortex-email-input");
-    const passInput = document.getElementById("vortex-pass-input");
-    const emailSignInBtn = document.getElementById("vortex-email-signin-btn");
-    const emailSignUpBtn = document.getElementById("vortex-email-signup-btn");
-    const resetPassBtn = document.getElementById("vortex-reset-pass-btn");
-
-    const phoneInput = document.getElementById("vortex-phone-input");
-    const sendOtpBtn = document.getElementById("vortex-send-otp-btn");
-    const otpBox = document.getElementById("vortex-otp-box");
-    const otpInput = document.getElementById("vortex-otp-input");
-    const verifyOtpBtn = document.getElementById("vortex-verify-otp-btn");
 
     const ownerTaskControls = document.getElementById("vortex-owner-task-controls");
     const taskTeamSelect = document.getElementById("vortex-task-team");
@@ -1859,11 +1941,15 @@
       if (type === "error") statusBox.classList.add("error");
       if (type === "ok") statusBox.classList.add("ok");
 
-      if (currentUser && text) {
-        workspaceBanner.classList.remove("hidden", "error", "ok");
-        workspaceBanner.textContent = text;
-        if (type === "error") workspaceBanner.classList.add("error");
-        if (type === "ok") workspaceBanner.classList.add("ok");
+      if (currentUser || memberSession) {
+        if (text) {
+          workspaceBanner.classList.remove("hidden", "error", "ok");
+          workspaceBanner.textContent = text;
+          if (type === "error") workspaceBanner.classList.add("error");
+          if (type === "ok") workspaceBanner.classList.add("ok");
+        } else {
+          workspaceBanner.classList.add("hidden");
+        }
       } else {
         workspaceBanner.classList.add("hidden");
       }
@@ -1877,8 +1963,6 @@
         "auth/user-not-found": "No account found with this email.",
         "auth/wrong-password": "Current password is incorrect.",
         "auth/invalid-credential": "Invalid credentials.",
-        "auth/email-already-in-use": "Email is already registered; sign in instead.",
-        "auth/weak-password": "Password must be at least 6 characters.",
         "auth/too-many-requests": "Too many attempts. Please try again later.",
         "auth/network-request-failed": "Network connection error."
       };
@@ -1887,25 +1971,11 @@
         "auth/user-not-found": "لا يوجد حساب مسجل بهذا البريد الإلكتروني.",
         "auth/wrong-password": "كلمة المرور الحالية غير صحيحة.",
         "auth/invalid-credential": "بيانات الدخول غير صحيحة.",
-        "auth/email-already-in-use": "هذا البريد الإلكتروني مسجل من قبل؛ استخدم تسجيل الدخول.",
-        "auth/weak-password": "كلمة المرور ضعيفة، يجب أن تكون 6 أحرف أو أرقام على الأقل.",
         "auth/too-many-requests": "محاولات كثيرة جدًا، انتظر قليلًا ثم حاول مرة أخرى.",
         "auth/network-request-failed": "مشكلة في الاتصال بالإنترنت."
       };
       const mapped = lang === "ar" ? friendlyAr[code] : friendlyEn[code];
       return mapped || msg;
-    }
-
-    function isMobileOrIOS() {
-      return detectedDevice.id === "android" || detectedDevice.id === "ios";
-    }
-
-    function normalizePhone(raw) {
-      const cleaned = raw.trim().replace(/\s+/g, "");
-      if (!cleaned) return "";
-      if (cleaned.startsWith("+")) return cleaned;
-      if (/^0?1\d{9}$/.test(cleaned)) return "+2" + cleaned.replace(/^0/, "0");
-      return "+" + cleaned;
     }
 
     function syncNetBadge() {
@@ -1958,25 +2028,13 @@
       document.getElementById("t-nav-admin").textContent = t("navAdmin");
 
       document.getElementById("t-auth-title").textContent = t("authTitle");
-      document.getElementById("t-choose-auth").textContent = t("chooseAuth");
-      document.getElementById("t-signup-team-label").textContent = t("signupTeamLabel");
-      document.getElementById("t-signup-team-hint").textContent = t("signupTeamHint");
-      document.getElementById("t-google-title").textContent = t("googleTitle");
-      document.getElementById("t-google-desc").textContent = t("googleDesc");
-      googlePopupBtn.textContent = t("googlePopup");
-      googleRedirectBtn.textContent = t("googleRedirect");
-      document.getElementById("t-email-title").textContent = t("emailTitle");
-      emailInput.placeholder = t("emailPh");
-      passInput.placeholder = t("passPh");
-      emailSignInBtn.textContent = t("emailSignIn");
-      emailSignUpBtn.textContent = t("emailSignUp");
-      resetPassBtn.textContent = t("resetPass");
-      document.getElementById("t-phone-title").textContent = t("phoneTitle");
-      document.getElementById("t-sms-note").textContent = t("smsNote");
-      phoneInput.placeholder = t("phonePh");
-      sendOtpBtn.textContent = t("sendOtp");
-      otpInput.placeholder = t("otpPh");
-      verifyOtpBtn.textContent = t("verifyOtp");
+      loginIdInput.placeholder = t("loginIdPh");
+      loginPassInput.placeholder = t("loginPassPh");
+      document.getElementById("t-remember-me").textContent = t("rememberMe");
+      forgotPassBtn.textContent = t("forgotPass");
+      loginSubmitBtn.textContent = t("loginSubmitBtn");
+      document.getElementById("t-no-acc-prefix").textContent = t("noAccPrefix");
+      signupOwnerHintBtn.textContent = t("signupTrigger");
       logoutBtn.textContent = t("logout");
 
       document.getElementById("t-profile-heading").textContent = t("profileHeading");
@@ -1999,10 +2057,6 @@
       document.getElementById("t-change-site-pass-hint").textContent = t("changeSitePassHint");
       newSitePassInput.placeholder = t("newSitePassPh");
       saveOwnSitePassBtn.textContent = t("saveOwnSitePassBtn");
-      document.getElementById("t-forgot-pass-inapp-title").textContent = t("forgotPassInAppTitle");
-      document.getElementById("t-forgot-pass-inapp-hint").textContent = t("forgotPassInAppHint");
-      forgotEmailInput.placeholder = t("emailPh");
-      sendForgotInAppBtn.textContent = t("sendForgotInAppBtn");
 
       document.getElementById("t-tickets-heading").textContent = t("ticketsHeading");
       document.getElementById("t-tickets-sub").textContent = t("ticketsSub");
@@ -2083,28 +2137,18 @@
 
     let auth = null;
     let db = null;
-    let provider = null;
-    let confirmationResult = null;
-    let recaptchaVerifier = null;
 
     try {
       const app = initializeApp(firebaseConfig);
       auth = getAuth(app);
       db = getFirestore(app);
-      provider = new GoogleAuthProvider();
-      provider.setCustomParameters({ prompt: "select_account" });
       setPersistence(auth, browserLocalPersistence).catch(() => {});
     } catch (err) {
       setStatus(formatErr(err), "error");
     }
 
-    function ensureRecaptcha() {
-      if (!auth || recaptchaVerifier) return recaptchaVerifier;
-      recaptchaVerifier = new RecaptchaVerifier(auth, "vortex-recaptcha-box", { size: "invisible" });
-      return recaptchaVerifier;
-    }
-
     let currentUser = null;
+    let memberSession = null;
     let currentRole = "Member";
     let ownersSet = new Set(INITIAL_OWNERS.map((e) => e.toLowerCase()));
     let knownEmailsMap = new Map();
@@ -2114,15 +2158,48 @@
     let allChat = [];
     let unsubs = [];
 
+    function getEffectiveUser() {
+      if (currentUser) {
+        return {
+          uid: currentUser.uid,
+          email: (currentUser.email || "").toLowerCase(),
+          displayName: currentUser.displayName || (currentUser.email ? currentUser.email.split("@")[0] : currentUser.uid),
+          isFirebaseOwner: true
+        };
+      }
+      if (memberSession && memberSession.uid) {
+        return {
+          uid: memberSession.uid,
+          email: (memberSession.email || "").toLowerCase(),
+          displayName: memberSession.fullName || memberSession.username || memberSession.email || memberSession.uid,
+          isFirebaseOwner: false
+        };
+      }
+      return null;
+    }
+
     function isOwner() {
+      const u = getEffectiveUser();
+      if (!u) return false;
+      if (u.isFirebaseOwner) return true;
       return currentRole === "Owner";
     }
 
     function getCurrentUserTeam() {
-      if (!currentUser) return authTeamSelect.value || "GUI";
-      const savedProf = membersMap.get(currentUser.uid);
+      const u = getEffectiveUser();
+      if (!u) return "GUI";
+      const savedProf = membersMap.get(u.uid);
       if (savedProf && TEAMS.includes(savedProf.team)) return savedProf.team;
-      return TEAMS.includes(authTeamSelect.value) ? authTeamSelect.value : "GUI";
+      if (memberSession && TEAMS.includes(memberSession.team)) return memberSession.team;
+      return "GUI";
+    }
+
+    async function removeOwnerEmail(emailLower) {
+      if (!isOwner() || !db || !emailLower) return;
+      const clean = emailLower.trim().toLowerCase();
+      await deleteDoc(doc(db, "owners", encodeURIComponent(clean))).catch(() => {});
+      ownersSet.delete(clean);
+      renderUI();
     }
 
     async function deleteMemberAccount(memberObj) {
@@ -2132,7 +2209,9 @@
 
       await deleteDoc(doc(db, "members_profiles", targetUid)).catch(() => {});
       if (targetEmail) {
+        await deleteDoc(doc(db, "owners", encodeURIComponent(targetEmail))).catch(() => {});
         await deleteDoc(doc(db, "team_roster", encodeURIComponent(targetEmail))).catch(() => {});
+        ownersSet.delete(targetEmail);
         knownEmailsMap.delete(targetEmail);
       }
 
@@ -2185,14 +2264,16 @@
     }
 
     function getVisibleBusySlots() {
-      if (!currentUser) return [];
+      const u = getEffectiveUser();
+      if (!u) return [];
       if (isOwner()) return allBusySlots;
-      return allBusySlots.filter((sl) => sl.uid === currentUser.uid);
+      return allBusySlots.filter((sl) => sl.uid === u.uid);
     }
 
     function computeMinutesForUid(uid, dayFilter = null) {
-      if (!currentUser) return 0;
-      if (!isOwner() && uid !== currentUser.uid) return 0;
+      const u = getEffectiveUser();
+      if (!u) return 0;
+      if (!isOwner() && uid !== u.uid) return 0;
       let totalMins = 0;
       allBusySlots.forEach((sl) => {
         if (sl.uid !== uid) return;
@@ -2260,12 +2341,13 @@
     function renderDaysGrid() {
       if (!daysGrid) return;
       daysGrid.innerHTML = "";
+      const u = getEffectiveUser();
 
       DAYS_OF_WEEK.forEach((dObj) => {
-        const daySlotsForMe = currentUser
-          ? allBusySlots.filter((s) => s.uid === currentUser.uid && s.day === dObj.key)
+        const daySlotsForMe = u
+          ? allBusySlots.filter((s) => s.uid === u.uid && s.day === dObj.key)
           : [];
-        const dayMinsForMe = currentUser ? computeMinutesForUid(currentUser.uid, dObj.key) : 0;
+        const dayMinsForMe = u ? computeMinutesForUid(u.uid, dObj.key) : 0;
 
         const card = document.createElement("div");
         card.className = `day-card ${daySlotsForMe.length ? "active-day" : ""}`;
@@ -2320,7 +2402,8 @@
         const saveBtn = card.querySelector(".day-save-btn");
 
         saveBtn.addEventListener("click", async () => {
-          if (!currentUser || !db) return;
+          const activeU = getEffectiveUser();
+          if (!activeU || !db) return;
           const titleVal = titleInp.value.trim();
           if (!titleVal) {
             setStatus(t("missingActivityName"), "error");
@@ -2351,8 +2434,8 @@
               repeatWeekly: Boolean(repeatChk.checked),
               note: noteInp.value.trim(),
               team: getCurrentUserTeam(),
-              uid: currentUser.uid,
-              userLabel: currentUser.displayName || currentUser.email || currentUser.phoneNumber || currentUser.uid,
+              uid: activeU.uid,
+              userLabel: activeU.displayName || activeU.email || activeU.uid,
               createdAt: serverTimestamp()
             });
             titleInp.value = "";
@@ -2371,13 +2454,14 @@
 
     function buildAvailabilityTextForDay(dayKey, scopeTeam) {
       const ownerMode = isOwner();
+      const activeU = getEffectiveUser();
       const chosenDaySlots = ownerMode
         ? allBusySlots.filter((sl) => {
             if (sl.day !== dayKey) return false;
             if (scopeTeam && scopeTeam !== "ALL") return (sl.team || "GUI") === scopeTeam;
             return true;
           })
-        : allBusySlots.filter((sl) => currentUser && sl.uid === currentUser.uid && sl.day === dayKey);
+        : allBusySlots.filter((sl) => activeU && sl.uid === activeU.uid && sl.day === dayKey);
 
       if (!chosenDaySlots.length) return null;
 
@@ -2401,12 +2485,13 @@
 
     function renderTimetableSection() {
       const ownerMode = isOwner();
+      const activeU = getEffectiveUser();
       overlapScopeSel.classList.toggle("hidden", !ownerMode);
       busyTeamFilter.classList.toggle("hidden", !ownerMode);
       document.getElementById("t-busy-list-title").textContent = ownerMode ? t("busyListOwnerTitle") : t("busyListTitle");
 
-      if (currentUser) {
-        const wkMins = computeMinutesForUid(currentUser.uid, null);
+      if (activeU) {
+        const wkMins = computeMinutesForUid(activeU.uid, null);
         myWeeklyHoursBadge.textContent = `⏱ ${t("weeklyHoursPrefix")}: ${formatHoursFromMinutes(wkMins)} ${t("hoursUnit")}`;
       }
 
@@ -2429,7 +2514,7 @@
           availabilityCard.classList.remove("hidden");
           const scopeTitle = ownerMode
             ? (chosenScope === "ALL" ? (lang === "ar" ? "كل التيمات" : "All Teams") : chosenScope)
-            : (currentUser ? (currentUser.displayName || currentUser.email || t("member")) : "");
+            : (activeU ? activeU.displayName : "");
 
           overlapSummaryBox.innerHTML = `
             <div class="list-item" style="margin-top:0;">
@@ -2509,7 +2594,7 @@
         `;
         row.appendChild(left);
 
-        const canDelete = currentUser && (ownerMode || sl.uid === currentUser.uid);
+        const canDelete = activeU && (ownerMode || sl.uid === activeU.uid);
         if (canDelete) {
           const delBtn = document.createElement("button");
           delBtn.type = "button";
@@ -2553,7 +2638,8 @@
     });
 
     function canMemberCompleteTask(task) {
-      if (!currentUser || task.status === "done") return false;
+      const u = getEffectiveUser();
+      if (!u || task.status === "done") return false;
       const myTeam = getCurrentUserTeam();
       const taskTeam = task.team || "GUI";
       if (myTeam !== taskTeam) return false;
@@ -2561,8 +2647,8 @@
       const assignee = String(task.assignedTo || "").trim().toLowerCase();
       if (!assignee) return true;
 
-      const myEmail = String(currentUser.email || "").trim().toLowerCase();
-      const myLabel = String(currentUser.displayName || currentUser.phoneNumber || currentUser.uid || "").trim().toLowerCase();
+      const myEmail = String(u.email || "").trim().toLowerCase();
+      const myLabel = String(u.displayName || u.uid || "").trim().toLowerCase();
       return (myEmail && assignee === myEmail) || (myLabel && assignee === myLabel);
     }
 
@@ -2631,71 +2717,29 @@
       return { base: 0, speed: 0, total: 0, doneCount: 0 };
     }
 
-    async function persistMemberProfile(user, chosenTeam) {
-      if (!db || !user) return;
-      const teamVal = TEAMS.includes(chosenTeam) ? chosenTeam : "GUI";
-      const emailLower = (user.email || "").trim().toLowerCase();
-      const pendingDocId = emailLower ? makePendingUidFromEmail(emailLower) : "";
-
-      let pendingData = null;
-      if (pendingDocId && pendingDocId !== user.uid) {
-        try {
-          const pSnap = await getDoc(doc(db, "members_profiles", pendingDocId));
-          if (pSnap && pSnap.exists()) pendingData = pSnap.data();
-        } catch (_) {}
-      }
-
-      let existingData = {};
+    async function ensureOwnerProfile(user) {
+      if (!db || !user || !user.email) return;
+      const emailLower = user.email.trim().toLowerCase();
       try {
-        const exSnap = await getDoc(doc(db, "members_profiles", user.uid));
-        if (exSnap && exSnap.exists()) existingData = exSnap.data();
-      } catch (_) {}
-
-      const mergedName =
-        existingData.fullName ||
-        (pendingData && pendingData.fullName) ||
-        user.displayName ||
-        (emailLower ? emailLower.split("@")[0] : "") ||
-        user.phoneNumber ||
-        user.uid;
-
-      const mergedUsername =
-        existingData.username ||
-        (pendingData && pendingData.username) ||
-        generateRandomUsername(mergedName, emailLower);
-
-      const mergedTeam =
-        (pendingData && TEAMS.includes(pendingData.team) ? pendingData.team : null) ||
-        (TEAMS.includes(existingData.team) ? existingData.team : null) ||
-        teamVal;
-
-      const mergedSitePass =
-        existingData.sitePasscode ||
-        (pendingData && pendingData.sitePasscode) ||
-        generateRandomPasscode(8);
-
-      const mergedPhoto = existingData.photoUrl || (pendingData && pendingData.photoUrl) || "";
-
-      try {
-        await setDoc(
-          doc(db, "members_profiles", user.uid),
-          {
-            uid: user.uid,
-            fullName: mergedName,
-            username: mergedUsername,
-            email: emailLower,
-            label: mergedName,
-            team: mergedTeam,
-            sitePasscode: mergedSitePass,
-            photoUrl: mergedPhoto,
-            emailVerified: Boolean(user.emailVerified || !emailLower),
-            platform: detectedDevice.id,
-            updatedAt: serverTimestamp()
-          },
-          { merge: true }
-        );
-        if (pendingData && pendingDocId && pendingDocId !== user.uid) {
-          await deleteDoc(doc(db, "members_profiles", pendingDocId)).catch(() => {});
+        const snap = await getDoc(doc(db, "members_profiles", user.uid));
+        if (!snap.exists()) {
+          const nameVal = user.displayName || emailLower.split("@")[0];
+          await setDoc(
+            doc(db, "members_profiles", user.uid),
+            {
+              uid: user.uid,
+              fullName: nameVal,
+              username: generateRandomUsername(nameVal, emailLower),
+              email: emailLower,
+              label: nameVal,
+              team: "GUI",
+              sitePasscode: generateRandomPasscode(8),
+              photoUrl: "",
+              platform: detectedDevice.id,
+              updatedAt: serverTimestamp()
+            },
+            { merge: true }
+          );
         }
       } catch (_) {}
     }
@@ -2704,15 +2748,20 @@
 
     photoFileInput.addEventListener("change", async () => {
       const file = photoFileInput.files && photoFileInput.files[0];
-      if (!file || !currentUser || !db) return;
+      const u = getEffectiveUser();
+      if (!file || !u || !db) return;
       uploadPhotoBtn.disabled = true;
       try {
         const dataUrl = await compressImageToDataUrl(file);
         await setDoc(
-          doc(db, "members_profiles", currentUser.uid),
+          doc(db, "members_profiles", u.uid),
           { photoUrl: dataUrl, updatedAt: serverTimestamp() },
           { merge: true }
         );
+        if (memberSession && memberSession.uid === u.uid) {
+          memberSession.photoUrl = dataUrl;
+          localStorage.setItem(MEMBER_SESSION_KEY, JSON.stringify(memberSession));
+        }
         photoFileInput.value = "";
         setStatus(t("photoUpdatedOk"), "ok");
       } catch (err) {
@@ -2723,13 +2772,18 @@
     });
 
     removePhotoBtn.addEventListener("click", async () => {
-      if (!currentUser || !db) return;
+      const u = getEffectiveUser();
+      if (!u || !db) return;
       try {
         await setDoc(
-          doc(db, "members_profiles", currentUser.uid),
+          doc(db, "members_profiles", u.uid),
           { photoUrl: "", updatedAt: serverTimestamp() },
           { merge: true }
         );
+        if (memberSession && memberSession.uid === u.uid) {
+          memberSession.photoUrl = "";
+          localStorage.setItem(MEMBER_SESSION_KEY, JSON.stringify(memberSession));
+        }
         setStatus(t("photoRemovedOk"), "ok");
       } catch (err) {
         setStatus(formatErr(err), "error");
@@ -2737,21 +2791,35 @@
     });
 
     saveTeamBtn.addEventListener("click", async () => {
-      if (!currentUser) return;
+      const u = getEffectiveUser();
+      if (!u || !db) return;
       const chosen = profileTeamSelect.value || "GUI";
-      await persistMemberProfile(currentUser, chosen);
-      setStatus(t("teamSaved"), "ok");
+      try {
+        await setDoc(
+          doc(db, "members_profiles", u.uid),
+          { team: chosen, updatedAt: serverTimestamp() },
+          { merge: true }
+        );
+        if (memberSession && memberSession.uid === u.uid) {
+          memberSession.team = chosen;
+          localStorage.setItem(MEMBER_SESSION_KEY, JSON.stringify(memberSession));
+        }
+        setStatus(t("teamSaved"), "ok");
+      } catch (err) {
+        setStatus(formatErr(err), "error");
+      }
     });
 
     copyUidBtn.addEventListener("click", async () => {
-      if (!currentUser) return;
+      const u = getEffectiveUser();
+      if (!u) return;
       try {
         if (navigator.clipboard && navigator.clipboard.writeText) {
-          await navigator.clipboard.writeText(currentUser.uid);
+          await navigator.clipboard.writeText(u.uid);
         }
-        setStatus(`${t("copiedUidOk")} (${currentUser.uid})`, "ok");
+        setStatus(`${t("copiedUidOk")} (${u.uid})`, "ok");
       } catch (_) {
-        setStatus(currentUser.uid, "ok");
+        setStatus(u.uid, "ok");
       }
     });
 
@@ -2761,7 +2829,8 @@
     });
 
     saveOwnSitePassBtn.addEventListener("click", async () => {
-      if (!currentUser || !db) return;
+      const u = getEffectiveUser();
+      if (!u || !db) return;
       const nextPass = newSitePassInput.value.trim();
       if (nextPass.length < 4) {
         setStatus(t("sitePassMinErr"), "error");
@@ -2770,34 +2839,20 @@
       saveOwnSitePassBtn.disabled = true;
       try {
         await setDoc(
-          doc(db, "members_profiles", currentUser.uid),
+          doc(db, "members_profiles", u.uid),
           { sitePasscode: nextPass, updatedAt: serverTimestamp() },
           { merge: true }
         );
+        if (memberSession && memberSession.uid === u.uid) {
+          memberSession.sitePasscode = nextPass;
+          localStorage.setItem(MEMBER_SESSION_KEY, JSON.stringify(memberSession));
+        }
         newSitePassInput.value = "";
         setStatus(t("sitePassSavedOk"), "ok");
       } catch (err) {
         setStatus(formatErr(err), "error");
       } finally {
         saveOwnSitePassBtn.disabled = false;
-      }
-    });
-
-    sendForgotInAppBtn.addEventListener("click", async () => {
-      if (!auth) return;
-      const targetEmail = (forgotEmailInput.value || (currentUser && currentUser.email) || "").trim();
-      if (!isLikelyRealEmail(targetEmail)) {
-        setStatus(t("invalidRealEmail"), "error");
-        return;
-      }
-      sendForgotInAppBtn.disabled = true;
-      try {
-        await sendPasswordResetEmail(auth, targetEmail);
-        setStatus(`${t("resetSentOk")} (${targetEmail})`, "ok");
-      } catch (err) {
-        setStatus(formatErr(err), "error");
-      } finally {
-        sendForgotInAppBtn.disabled = false;
       }
     });
 
@@ -2815,51 +2870,45 @@
         return;
       }
       const email = newMemberEmailInp.value.trim().toLowerCase();
-      if (!isLikelyRealEmail(email)) {
-        setStatus(t("invalidRealEmail"), "error");
+      const passVal = newMemberPassInp.value.trim() || generateRandomPasscode(8);
+      if (!isValidEmailFormat(email) || passVal.length < 4) {
+        setStatus(t("missingEmailOrPass"), "error");
         return;
       }
       const fullName = newMemberNameInp.value.trim() || email.split("@")[0];
       const teamVal = TEAMS.includes(newMemberTeamSel.value) ? newMemberTeamSel.value : "GUI";
       const usernameVal = (newMemberUsernameInp.value.trim() || generateRandomUsername(fullName, email)).toLowerCase();
-      const sitePassVal = newMemberPassInp.value.trim() || generateRandomPasscode(8);
-      if (sitePassVal.length < 4) {
-        setStatus(t("sitePassMinErr"), "error");
-        return;
-      }
 
       createMemberBtn.disabled = true;
       try {
-        const docId = makePendingUidFromEmail(email);
-        await setDoc(
-          doc(db, "members_profiles", docId),
-          {
-            uid: docId,
-            fullName,
-            username: usernameVal,
-            email,
-            label: fullName,
-            team: teamVal,
-            sitePasscode: sitePassVal,
-            photoUrl: "",
-            emailVerified: false,
-            platform: "assigned-by-owner",
-            createdAt: serverTimestamp(),
-            updatedAt: serverTimestamp()
-          },
-          { merge: true }
-        );
+        const docId = makeMemberDocIdFromEmail(email);
+        const newAccountObj = {
+          uid: docId,
+          fullName,
+          username: usernameVal,
+          email,
+          label: fullName,
+          team: teamVal,
+          sitePasscode: passVal,
+          photoUrl: "",
+          platform: "created-by-owner",
+          createdAt: serverTimestamp(),
+          updatedAt: serverTimestamp()
+        };
+        await setDoc(doc(db, "members_profiles", docId), newAccountObj, { merge: true });
         await setDoc(
           doc(db, "team_roster", encodeURIComponent(email)),
           { email, team: teamVal, updatedAt: serverTimestamp() },
           { merge: true }
         );
         knownEmailsMap.set(email, teamVal);
+        membersMap.set(docId, { ...newAccountObj });
+        renderUI();
         newMemberNameInp.value = "";
         newMemberEmailInp.value = "";
         newMemberUsernameInp.value = "";
         newMemberPassInp.value = "";
-        setStatus(`${t("memberCreatedOk")} (${fullName} • @${usernameVal} • Pass: ${sitePassVal})`, "ok");
+        setStatus(`${t("memberCreatedOk")} (${fullName} • @${usernameVal} • ${email} • Pass: ${passVal})`, "ok");
       } catch (err) {
         setStatus(formatErr(err), "error");
       } finally {
@@ -2868,9 +2917,7 @@
     });
 
     function getEffectiveOwnersSet() {
-      const merged = new Set(INITIAL_OWNERS.map((e) => e.toLowerCase()));
-      ownersSet.forEach((e) => merged.add(e.toLowerCase()));
-      return Array.from(merged).slice(0, MAX_OWNERS);
+      return Array.from(ownersSet).map((e) => e.toLowerCase()).slice(0, MAX_OWNERS);
     }
 
     function getEmailTeamMap() {
@@ -2889,7 +2936,8 @@
     function getAllKnownEmails() {
       const emails = new Set(getEffectiveOwnersSet());
       knownEmailsMap.forEach((_, em) => { if (em) emails.add(em.toLowerCase()); });
-      if (currentUser && currentUser.email) emails.add(currentUser.email.toLowerCase());
+      const u = getEffectiveUser();
+      if (u && u.email) emails.add(u.email.toLowerCase());
       membersMap.forEach((m) => { if (m.email && m.email.includes("@")) emails.add(m.email.toLowerCase()); });
       allTasks.forEach((tk) => {
         if (tk.createdByLabel && tk.createdByLabel.includes("@")) emails.add(tk.createdByLabel.toLowerCase());
@@ -2998,10 +3046,10 @@
       renderAssigneeOptions();
     });
 
-    function computeRole(user) {
-      if (!user || !user.email) return "Member";
-      const email = user.email.toLowerCase();
-      if (getEffectiveOwnersSet().includes(email)) return "Owner";
+    function computeRole(userObj) {
+      if (!userObj) return "Member";
+      if (userObj.email && getEffectiveOwnersSet().includes(userObj.email.toLowerCase())) return "Owner";
+      if (userObj.isFirebaseOwner && (!userObj.email || ownersSet.size === 0)) return "Owner";
       return "Member";
     }
 
@@ -3009,10 +3057,11 @@
       const total = allTasks.length;
       const done = allTasks.filter((item) => item.status === "done").length;
       const pending = total - done;
-      const myBreakdown = currentUser
+      const u = getEffectiveUser();
+      const myBreakdown = u
         ? getUserPointsBreakdown({
-            email: currentUser.email,
-            label: currentUser.displayName || currentUser.email || currentUser.phoneNumber
+            email: u.email,
+            label: u.displayName
           })
         : { total: 0 };
 
@@ -3140,7 +3189,27 @@
       activeOwners.forEach((email) => {
         const chip = document.createElement("span");
         chip.className = "badge ok";
-        chip.textContent = `👑 ${email}`;
+        chip.style.gap = "8px";
+        chip.innerHTML = `<span>👑 ${escapeHtml(email)}</span>`;
+
+        const rmBtn = document.createElement("button");
+        rmBtn.type = "button";
+        rmBtn.className = "danger";
+        rmBtn.style.padding = "2px 8px";
+        rmBtn.style.minHeight = "24px";
+        rmBtn.style.fontSize = "11px";
+        rmBtn.style.borderRadius = "999px";
+        rmBtn.textContent = "✖";
+        rmBtn.title = "حذف الأونر";
+        rmBtn.addEventListener("click", async () => {
+          try {
+            await removeOwnerEmail(email);
+            setStatus(`${t("ownerRemovedOk")} (${email})`, "ok");
+          } catch (err) {
+            setStatus(formatErr(err), "error");
+          }
+        });
+        chip.appendChild(rmBtn);
         ownersList.appendChild(chip);
       });
 
@@ -3166,14 +3235,10 @@
         item.className = "list-item";
         const emLower = String(m.email || "").toLowerCase();
         const isAccOwner = activeOwners.includes(emLower);
-        const isPrimary = emLower === PRIMARY_OWNER_EMAIL.toLowerCase();
         const fullNameVal = m.fullName || m.label || (m.email ? m.email.split("@")[0] : m.uid);
         const usernameVal = m.username || generateRandomUsername(fullNameVal, emLower);
         const sitePassVal = m.sitePasscode || "—";
         const initialChar = String(fullNameVal || "U").trim().charAt(0).toUpperCase() || "U";
-        const verifiedBadgeHtml = m.emailVerified
-          ? `<span class="badge ok">✔ Verified</span>`
-          : `<span class="badge warn">⏳ Pending Verify</span>`;
 
         const left = document.createElement("div");
         left.style.flex = "1";
@@ -3192,7 +3257,6 @@
           <strong>👤 ${escapeHtml(fullNameVal)}</strong> <span class="badge">@${escapeHtml(usernameVal)}</span>
           <div class="task-badges">
             <span class="badge ${isAccOwner ? "ok" : ""}">${isAccOwner ? "👑 Owner" : "👤 Member"}</span>
-            ${verifiedBadgeHtml}
             <span class="badge">✉ ${escapeHtml(m.email || "—")}</span>
             <span class="badge">🎯 ${escapeHtml(m.team || "GUI")}</span>
             <span class="badge warn">🔑 ${escapeHtml(t("lblSitePass"))}: ${escapeHtml(sitePassVal)}</span>
@@ -3234,7 +3298,9 @@
               { sitePasscode: val, updatedAt: serverTimestamp() },
               { merge: true }
             );
+            m.sitePasscode = val;
             passInp.value = "";
+            renderOwnersList();
             setStatus(`${t("sitePassSavedOk")} (${fullNameVal}: ${val})`, "ok");
           } catch (err) {
             setStatus(formatErr(err), "error");
@@ -3257,9 +3323,30 @@
         updBtn.addEventListener("click", async () => {
           try {
             await setDoc(doc(db, "members_profiles", m.uid), { team: teamSel.value }, { merge: true });
+            m.team = teamSel.value;
+            renderOwnersList();
             setStatus(`${t("teamSaved")} (${fullNameVal} → ${teamSel.value})`, "ok");
           } catch (err) {
             setStatus(formatErr(err), "error");
+          }
+        });
+
+        const delAccBtn = document.createElement("button");
+        delAccBtn.type = "button";
+        delAccBtn.className = "danger";
+        delAccBtn.textContent = t("deleteAccountBtn");
+        delAccBtn.addEventListener("click", async () => {
+          const msg = t("confirmDeleteMsg").replaceAll("{name}", fullNameVal);
+          if (!window.confirm(msg)) return;
+          delAccBtn.disabled = true;
+          try {
+            await deleteMemberAccount(m);
+            renderUI();
+            setStatus(`${t("memberDeletedOk")} (${fullNameVal})`, "ok");
+          } catch (err) {
+            setStatus(formatErr(err), "error");
+          } finally {
+            delAccBtn.disabled = false;
           }
         });
 
@@ -3268,28 +3355,7 @@
         right.appendChild(setPassBtn);
         right.appendChild(teamSel);
         right.appendChild(updBtn);
-
-        if (!isPrimary) {
-          const delAccBtn = document.createElement("button");
-          delAccBtn.type = "button";
-          delAccBtn.className = "danger";
-          delAccBtn.textContent = t("deleteAccountBtn");
-          delAccBtn.addEventListener("click", async () => {
-            const msg = t("confirmDeleteMsg").replaceAll("{name}", fullNameVal);
-            if (!window.confirm(msg)) return;
-            delAccBtn.disabled = true;
-            try {
-              await deleteMemberAccount(m);
-              renderUI();
-              setStatus(`${t("memberDeletedOk")} (${fullNameVal})`, "ok");
-            } catch (err) {
-              setStatus(formatErr(err), "error");
-            } finally {
-              delAccBtn.disabled = false;
-            }
-          });
-          right.appendChild(delAccBtn);
-        }
+        right.appendChild(delAccBtn);
 
         item.appendChild(left);
         item.appendChild(right);
@@ -3298,39 +3364,34 @@
     }
 
     function renderUI() {
-      if (!currentUser) {
+      const u = getEffectiveUser();
+      if (!u) {
         authCard.classList.remove("hidden");
         workspace.classList.add("hidden");
         workspaceBanner.classList.add("hidden");
         navSection.classList.add("hidden");
         logoutBtn.classList.add("hidden");
-        otpBox.classList.add("hidden");
         renderAvatarContent(miniAvatar, "", "V");
         miniName.textContent = "Vortex Guest";
         miniRole.textContent = "Member";
         return;
       }
 
-      currentRole = computeRole(currentUser);
+      currentRole = computeRole(u);
       const ownerMode = isOwner();
       const activeTeam = getCurrentUserTeam();
-      const savedProf = membersMap.get(currentUser.uid) || {};
-      const identity = currentUser.email || currentUser.phoneNumber || currentUser.uid;
-      const fullNameVal = savedProf.fullName || savedProf.label || currentUser.displayName || (currentUser.email ? currentUser.email.split("@")[0] : "") || identity;
-      const usernameVal = savedProf.username || generateRandomUsername(fullNameVal, currentUser.email || "");
+      const savedProf = membersMap.get(u.uid) || memberSession || {};
+      const fullNameVal = savedProf.fullName || savedProf.label || u.displayName || u.email || u.uid;
+      const usernameVal = savedProf.username || generateRandomUsername(fullNameVal, u.email || "");
       const initials = String(fullNameVal || "V").trim().charAt(0).toUpperCase() || "V";
 
       profileTeamSelect.value = activeTeam;
-      if (currentUser.email && !forgotEmailInput.value) {
-        forgotEmailInput.value = currentUser.email;
-      }
 
       const sitePassVal = savedProf.sitePasscode || "••••••";
       document.getElementById("vortex-prof-site-pass").textContent = showOwnSitePass ? sitePassVal : "••••••";
       toggleSitePassBtn.textContent = showOwnSitePass ? t("hideBtn") : t("showBtn");
 
       authCard.classList.add("hidden");
-      otpBox.classList.add("hidden");
       workspace.classList.remove("hidden");
       navSection.classList.remove("hidden");
       logoutBtn.classList.remove("hidden");
@@ -3345,8 +3406,8 @@
       document.getElementById("vortex-prof-name").textContent = fullNameVal;
       document.getElementById("vortex-prof-username").textContent = `@${usernameVal}`;
       document.getElementById("vortex-prof-role").textContent = currentRole;
-      document.getElementById("vortex-prof-contact").textContent = identity;
-      document.getElementById("vortex-prof-uid").textContent = currentUser.uid;
+      document.getElementById("vortex-prof-contact").textContent = u.email || "—";
+      document.getElementById("vortex-prof-uid").textContent = u.uid;
 
       ownerTaskControls.classList.toggle("hidden", !ownerMode);
       if (!ownerMode) assigneePicker.classList.add("hidden");
@@ -3440,6 +3501,8 @@
         const actions = document.createElement("div");
         actions.className = "row";
 
+        const u = getEffectiveUser();
+
         if (isOwner()) {
           const toggleBtn = document.createElement("button");
           toggleBtn.type = "button";
@@ -3448,7 +3511,7 @@
           toggleBtn.addEventListener("click", async () => {
             try {
               const nextStatus = task.status === "done" ? "pending" : "done";
-              const actor = currentUser.email || currentUser.displayName || currentUser.uid;
+              const actor = (u && (u.email || u.displayName || u.uid)) || "Owner";
               await updateDoc(doc(db, "tasks", task.id), {
                 status: nextStatus,
                 completedBy: nextStatus === "done" ? (task.assignedTo || actor) : "",
@@ -3480,7 +3543,7 @@
           doneBtn.addEventListener("click", async () => {
             if (!canMemberCompleteTask(task)) return;
             try {
-              const actor = currentUser.email || currentUser.displayName || currentUser.phoneNumber || currentUser.uid;
+              const actor = (u && (u.email || u.displayName || u.uid)) || t("member");
               await updateDoc(doc(db, "tasks", task.id), {
                 status: "done",
                 completedBy: actor,
@@ -3506,9 +3569,11 @@
         return;
       }
 
+      const u = getEffectiveUser();
+
       allChat.forEach((msg) => {
         const bubble = document.createElement("div");
-        const isMine = currentUser && msg.createdByUid === currentUser.uid;
+        const isMine = u && msg.createdByUid === u.uid;
         bubble.className = `chat-msg ${isMine ? "mine" : ""}`;
 
         const topRow = document.createElement("div");
@@ -3549,183 +3614,221 @@
       });
     }
 
-    if (auth) {
-      getRedirectResult(auth)
-        .then((res) => {
-          if (res && res.user) {
-            persistMemberProfile(res.user, authTeamSelect.value || "GUI");
-            setStatus(t("signedInOk"), "ok");
-          }
-        })
-        .catch((err) => setStatus(formatErr(err), "error"));
+    function clearWorkspaceListeners() {
+      unsubs.forEach((fn) => { if (typeof fn === "function") fn(); });
+      unsubs = [];
     }
 
-    async function handleGoogleSignIn(forceRedirect = false) {
-      if (!auth || !provider) return;
+    function startWorkspaceListeners() {
+      clearWorkspaceListeners();
+      if (!db || !getEffectiveUser()) return;
+
+      unsubs.push(
+        onSnapshot(
+          collection(db, "members_profiles"),
+          (snap) => {
+            const nextMap = new Map();
+            snap.forEach((d) => {
+              const data = d.data();
+              if (data && data.uid) {
+                nextMap.set(data.uid, {
+                  uid: data.uid,
+                  fullName: data.fullName || data.label || data.username || (data.email ? data.email.split("@")[0] : data.uid),
+                  username: data.username || generateRandomUsername(data.fullName || data.label || "", data.email || ""),
+                  email: data.email || "",
+                  label: data.fullName || data.label || data.username || data.email || data.uid,
+                  team: TEAMS.includes(data.team) ? data.team : "GUI",
+                  sitePasscode: data.sitePasscode || "",
+                  photoUrl: data.photoUrl || "",
+                  platform: data.platform || "web"
+                });
+              }
+            });
+            membersMap = nextMap;
+            renderUI();
+          },
+          () => renderUI()
+        )
+      );
+
+      unsubs.push(
+        onSnapshot(
+          collection(db, "owners"),
+          (snap) => {
+            const nextSet = new Set();
+            snap.forEach((d) => {
+              const data = d.data();
+              if (data && data.email) {
+                const em = String(data.email).toLowerCase();
+                nextSet.add(em);
+                if (!knownEmailsMap.has(em)) knownEmailsMap.set(em, "GUI");
+              }
+            });
+            if (nextSet.size === 0 && currentUser && currentUser.email) {
+              nextSet.add(String(currentUser.email).toLowerCase());
+            }
+            ownersSet = nextSet;
+            renderUI();
+          },
+          () => renderUI()
+        )
+      );
+
+      unsubs.push(
+        onSnapshot(
+          collection(db, "team_roster"),
+          (snap) => {
+            snap.forEach((d) => {
+              const data = d.data();
+              if (data && data.email) {
+                const em = String(data.email).toLowerCase();
+                const tm = TEAMS.includes(data.team) ? data.team : "GUI";
+                knownEmailsMap.set(em, tm);
+              }
+            });
+            renderOwnersList();
+            renderAssigneeOptions();
+          },
+          () => {}
+        )
+      );
+
+      unsubs.push(
+        onSnapshot(
+          query(collection(db, "tasks"), orderBy("createdAt", "desc")),
+          (snap) => {
+            allTasks = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+            updateStats();
+            renderTasks();
+            renderAssigneeOptions();
+          },
+          (err) => setStatus(formatErr(err), "error")
+        )
+      );
+
+      unsubs.push(
+        onSnapshot(
+          query(collection(db, "busy_schedule"), orderBy("createdAt", "desc")),
+          (snap) => {
+            allBusySlots = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+            renderDaysGrid();
+            renderTimetableSection();
+            renderSubteamsAndMembers();
+          },
+          (err) => setStatus(formatErr(err), "error")
+        )
+      );
+
+      unsubs.push(
+        onSnapshot(
+          query(collection(db, "chat_messages"), orderBy("createdAt", "asc")),
+          (snap) => {
+            allChat = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+            updateStats();
+            renderChat();
+          },
+          (err) => setStatus(formatErr(err), "error")
+        )
+      );
+    }
+
+    async function tryMemberSignIn(identifierRaw, passwordRaw) {
+      const idVal = String(identifierRaw || "").trim().toLowerCase().replace(/^@/, "");
+      const passVal = String(passwordRaw || "").trim();
+      if (!idVal || !passVal || !db) {
+        setStatus(t("missingLoginCreds"), "error");
+        return false;
+      }
+
+      const snap = await getDocs(collection(db, "members_profiles"));
+      let matched = null;
+      snap.forEach((d) => {
+        const data = d.data() || {};
+        const docEmail = String(data.email || "").trim().toLowerCase();
+        const docUser = String(data.username || "").trim().toLowerCase();
+        const docPass = String(data.sitePasscode || "").trim();
+        if ((docEmail === idVal || docUser === idVal) && docPass && docPass === passVal) {
+          matched = {
+            uid: data.uid || d.id,
+            fullName: data.fullName || data.label || docUser || docEmail,
+            username: docUser,
+            email: docEmail,
+            team: TEAMS.includes(data.team) ? data.team : "GUI",
+            sitePasscode: docPass,
+            photoUrl: data.photoUrl || ""
+          };
+        }
+      });
+
+      if (!matched) {
+        setStatus(t("invalidLoginCreds"), "error");
+        return false;
+      }
+
+      if (rememberMeChk.checked) {
+        localStorage.setItem(REMEMBERED_ID_KEY, identifierRaw.trim());
+      } else {
+        localStorage.removeItem(REMEMBERED_ID_KEY);
+      }
+
+      memberSession = matched;
+      localStorage.setItem(MEMBER_SESSION_KEY, JSON.stringify(matched));
+      membersMap.set(matched.uid, matched);
+      startWorkspaceListeners();
+      renderUI();
+      setStatus(`${t("signedInOk")} (${matched.fullName})`, "ok");
+      return true;
+    }
+
+    loginSubmitBtn.addEventListener("click", async () => {
+      const idVal = loginIdInput.value.trim();
+      const passVal = loginPassInput.value.trim();
+      if (!idVal || !passVal) {
+        setStatus(t("missingLoginCreds"), "error");
+        return;
+      }
+
+      loginSubmitBtn.disabled = true;
       try {
-        if (forceRedirect || isMobileOrIOS()) {
-          await signInWithRedirect(auth, provider);
-          return;
-        }
-        const cred = await signInWithPopup(auth, provider);
-        if (cred && cred.user) {
-          await persistMemberProfile(cred.user, authTeamSelect.value || "GUI");
-          setStatus(t("signedInOk"), "ok");
-        }
-      } catch (err) {
-        const code = err && err.code ? err.code : "";
-        if (
-          code === "auth/popup-blocked" ||
-          code === "auth/operation-not-supported-in-this-environment" ||
-          code === "auth/cancelled-popup-request"
-        ) {
+        if (auth && idVal.toLowerCase() === PRIMARY_OWNER_EMAIL.toLowerCase()) {
           try {
-            await signInWithRedirect(auth, provider);
+            await signInWithEmailAndPassword(auth, idVal.toLowerCase(), passVal);
+            if (rememberMeChk.checked) {
+              localStorage.setItem(REMEMBERED_ID_KEY, idVal);
+            } else {
+              localStorage.removeItem(REMEMBERED_ID_KEY);
+            }
+            setStatus(t("signedInOk"), "ok");
             return;
-          } catch (redirErr) {
-            setStatus(formatErr(redirErr), "error");
-            return;
-          }
+          } catch (_) {}
         }
-        setStatus(formatErr(err), "error");
-      }
-    }
-
-    googlePopupBtn.addEventListener("click", () => handleGoogleSignIn(false));
-    googleRedirectBtn.addEventListener("click", () => handleGoogleSignIn(true));
-
-    emailSignInBtn.addEventListener("click", async () => {
-      if (!auth) return;
-      const email = emailInput.value.trim().toLowerCase();
-      const pass = passInput.value;
-      if (!email || !pass) {
-        setStatus(t("missingEmailAndPass"), "error");
-        return;
-      }
-      if (!isLikelyRealEmail(email)) {
-        setStatus(t("invalidRealEmail"), "error");
-        return;
-      }
-      emailSignInBtn.disabled = true;
-      try {
-        const cred = await signInWithEmailAndPassword(auth, email, pass);
-        if (cred && cred.user) {
-          if (!cred.user.emailVerified) {
-            await sendEmailVerification(cred.user).catch(() => {});
-            await signOut(auth);
-            setStatus(t("emailNotVerifiedErr"), "error");
-            return;
-          }
-          await persistMemberProfile(cred.user, authTeamSelect.value || "GUI");
-          setStatus(t("signedInOk"), "ok");
-        }
-      } catch (err) {
-        setStatus(formatErr(err), "error");
+        await tryMemberSignIn(idVal, passVal);
       } finally {
-        emailSignInBtn.disabled = false;
+        loginSubmitBtn.disabled = false;
       }
     });
 
-    emailSignUpBtn.addEventListener("click", async () => {
-      if (!auth) return;
-      const email = emailInput.value.trim().toLowerCase();
-      const pass = passInput.value;
-      if (!email || !pass) {
-        setStatus(t("missingEmailAndPass"), "error");
-        return;
-      }
-      if (!isLikelyRealEmail(email)) {
-        setStatus(t("invalidRealEmail"), "error");
-        return;
-      }
-      if (pass.length < 6) {
-        setStatus(t("weakPassError"), "error");
-        return;
-      }
-      emailSignUpBtn.disabled = true;
-      try {
-        const cred = await createUserWithEmailAndPassword(auth, email, pass);
-        if (cred && cred.user) {
-          await sendEmailVerification(cred.user).catch(() => {});
-          await persistMemberProfile(cred.user, authTeamSelect.value || "GUI");
-          await signOut(auth);
-          setStatus(t("accountCreatedOk"), "ok");
-        }
-      } catch (err) {
-        setStatus(formatErr(err), "error");
-      } finally {
-        emailSignUpBtn.disabled = false;
-      }
-    });
-
-    resetPassBtn.addEventListener("click", async () => {
-      if (!auth) return;
-      const email = emailInput.value.trim().toLowerCase();
-      if (!isLikelyRealEmail(email)) {
-        setStatus(t("invalidRealEmail"), "error");
-        return;
-      }
-      resetPassBtn.disabled = true;
-      try {
-        await sendPasswordResetEmail(auth, email);
-        setStatus(`${t("resetSentOk")} (${email})`, "ok");
-      } catch (err) {
-        setStatus(formatErr(err), "error");
-      } finally {
-        resetPassBtn.disabled = false;
-      }
-    });
-
-    sendOtpBtn.addEventListener("click", async () => {
-      if (!auth) return;
-      const phone = normalizePhone(phoneInput.value);
-      if (!/^\+\d{8,15}$/.test(phone)) {
-        setStatus("Invalid phone format (+201012345678)", "error");
-        return;
-      }
-      sendOtpBtn.disabled = true;
-      try {
-        const verifier = ensureRecaptcha();
-        confirmationResult = await signInWithPhoneNumber(auth, phone, verifier);
-        otpBox.classList.remove("hidden");
-        setStatus(`SMS sent to ${phone}`, "ok");
-      } catch (err) {
-        setStatus(`${formatErr(err)} — Check Phone Auth & Authorized Domains in Firebase Console.`, "error");
-        if (recaptchaVerifier) {
-          try { recaptchaVerifier.clear(); } catch (_) {}
-          recaptchaVerifier = null;
-        }
-      } finally {
-        sendOtpBtn.disabled = false;
-      }
-    });
-
-    verifyOtpBtn.addEventListener("click", async () => {
-      const code = otpInput.value.trim();
-      if (!confirmationResult || !code) return;
-      verifyOtpBtn.disabled = true;
-      try {
-        const cred = await confirmationResult.confirm(code);
-        if (cred && cred.user) {
-          await persistMemberProfile(cred.user, authTeamSelect.value || "GUI");
-        }
-        otpInput.value = "";
-        phoneInput.value = "";
-        confirmationResult = null;
-        setStatus(t("signedInOk"), "ok");
-      } catch (err) {
-        setStatus(formatErr(err), "error");
-      } finally {
-        verifyOtpBtn.disabled = false;
-      }
+    loginPassInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") loginSubmitBtn.click();
     });
 
     logoutBtn.addEventListener("click", async () => {
-      try {
-        await signOut(auth);
-      } catch (err) {
-        setStatus(formatErr(err), "error");
+      memberSession = null;
+      localStorage.removeItem(MEMBER_SESSION_KEY);
+      clearWorkspaceListeners();
+      allTasks = [];
+      allBusySlots = [];
+      allChat = [];
+      membersMap = new Map();
+      ownersSet = new Set(INITIAL_OWNERS.map((e) => e.toLowerCase()));
+      knownEmailsMap = new Map();
+
+      if (auth && auth.currentUser) {
+        try {
+          await signOut(auth);
+        } catch (_) {}
       }
+      renderUI();
     });
 
     overlapDaySel.addEventListener("change", renderTimetableSection);
@@ -3741,7 +3844,8 @@
       const titleInput = document.getElementById("vortex-task-title");
       const prioSel = document.getElementById("vortex-task-priority");
       const title = titleInput.value.trim();
-      if (!title || !currentUser) return;
+      const u = getEffectiveUser();
+      if (!title || !u) return;
 
       try {
         await addDoc(collection(db, "tasks"), {
@@ -3752,8 +3856,8 @@
           assignedTo: taskAssigneeSelect.value || "",
           completedBy: "",
           completedAt: null,
-          createdByUid: currentUser.uid,
-          createdByLabel: currentUser.email || currentUser.phoneNumber || currentUser.uid,
+          createdByUid: u.uid,
+          createdByLabel: u.email || u.displayName || u.uid,
           createdAt: serverTimestamp()
         });
         titleInput.value = "";
@@ -3764,7 +3868,8 @@
 
     async function sendChatMessage() {
       const text = chatInput.value.trim();
-      if (!text || !currentUser) return;
+      const u = getEffectiveUser();
+      if (!text || !u) return;
       const senderTeam = getCurrentUserTeam();
 
       sendChatBtn.disabled = true;
@@ -3772,8 +3877,8 @@
         await addDoc(collection(db, "chat_messages"), {
           text,
           senderTeam,
-          createdByUid: currentUser.uid,
-          createdByLabel: currentUser.displayName || currentUser.email || currentUser.phoneNumber || currentUser.uid,
+          createdByUid: u.uid,
+          createdByLabel: u.displayName || u.email || u.uid,
           createdAt: serverTimestamp()
         });
         chatInput.value = "";
@@ -3796,8 +3901,8 @@
     document.getElementById("vortex-add-owner-btn").addEventListener("click", async () => {
       const input = document.getElementById("vortex-owner-email-input");
       const email = input.value.trim().toLowerCase();
-      if (!isLikelyRealEmail(email)) {
-        setStatus(t("invalidRealEmail"), "error");
+      if (!isValidEmailFormat(email)) {
+        setStatus(t("missingEmailOrPass"), "error");
         return;
       }
       if (!isOwner()) return;
@@ -3814,8 +3919,10 @@
           role: "Owner",
           updatedAt: serverTimestamp()
         });
+        ownersSet.add(email);
         if (!knownEmailsMap.has(email)) knownEmailsMap.set(email, "GUI");
         input.value = "";
+        renderUI();
       } catch (err) {
         setStatus(formatErr(err), "error");
       }
@@ -3826,14 +3933,10 @@
       const email = input.value.trim().toLowerCase();
       if (!email || !isOwner()) return;
 
-      if (email === PRIMARY_OWNER_EMAIL.toLowerCase()) {
-        setStatus(t("cannotRemovePrimary"), "error");
-        return;
-      }
-
       try {
-        await deleteDoc(doc(db, "owners", encodeURIComponent(email)));
+        await removeOwnerEmail(email);
         input.value = "";
+        setStatus(`${t("ownerRemovedOk")} (${email})`, "ok");
       } catch (err) {
         setStatus(formatErr(err), "error");
       }
@@ -3844,8 +3947,8 @@
       const tmSel = document.getElementById("vortex-roster-team-select");
       const email = input.value.trim().toLowerCase();
       const chosenTeam = TEAMS.includes(tmSel.value) ? tmSel.value : "GUI";
-      if (!isLikelyRealEmail(email)) {
-        setStatus(t("invalidRealEmail"), "error");
+      if (!isValidEmailFormat(email)) {
+        setStatus(t("missingEmailOrPass"), "error");
         return;
       }
       if (!isOwner()) return;
@@ -3869,144 +3972,41 @@
     taskAssigneeFilter.addEventListener("change", renderTasks);
     taskSearch.addEventListener("input", renderTasks);
 
+    try {
+      const rawSession = localStorage.getItem(MEMBER_SESSION_KEY);
+      if (rawSession) {
+        memberSession = JSON.parse(rawSession);
+      }
+    } catch (_) {
+      memberSession = null;
+    }
+
     if (auth && db) {
       onAuthStateChanged(auth, async (user) => {
-        if (user && user.email && !user.emailVerified && user.providerData.some((p) => p.providerId === "password")) {
-          currentUser = null;
-          renderUI();
-          return;
-        }
-
         currentUser = user;
-        unsubs.forEach((fn) => { if (typeof fn === "function") fn(); });
-        unsubs = [];
-
-        if (!user) {
-          allTasks = [];
-          allBusySlots = [];
-          allChat = [];
-          membersMap = new Map();
-          ownersSet = new Set(INITIAL_OWNERS.map((e) => e.toLowerCase()));
-          knownEmailsMap = new Map();
+        if (user) {
+          memberSession = null;
+          localStorage.removeItem(MEMBER_SESSION_KEY);
+          await ensureOwnerProfile(user);
+          startWorkspaceListeners();
           renderUI();
           return;
         }
 
+        if (memberSession && memberSession.uid) {
+          startWorkspaceListeners();
+          renderUI();
+          return;
+        }
+
+        clearWorkspaceListeners();
+        allTasks = [];
+        allBusySlots = [];
+        allChat = [];
+        membersMap = new Map();
+        ownersSet = new Set(INITIAL_OWNERS.map((e) => e.toLowerCase()));
+        knownEmailsMap = new Map();
         renderUI();
-
-        getDoc(doc(db, "members_profiles", user.uid))
-          .then((snap) => {
-            if (!snap || !snap.exists()) {
-              persistMemberProfile(user, authTeamSelect.value || "GUI");
-            }
-          })
-          .catch(() => {});
-
-        unsubs.push(
-          onSnapshot(
-            collection(db, "members_profiles"),
-            (snap) => {
-              const nextMap = new Map();
-              snap.forEach((d) => {
-                const data = d.data();
-                if (data && data.uid) {
-                  nextMap.set(data.uid, {
-                    uid: data.uid,
-                    fullName: data.fullName || data.label || data.username || (data.email ? data.email.split("@")[0] : data.uid),
-                    username: data.username || generateRandomUsername(data.fullName || data.label || "", data.email || ""),
-                    email: data.email || "",
-                    label: data.fullName || data.label || data.username || data.email || data.uid,
-                    team: TEAMS.includes(data.team) ? data.team : "GUI",
-                    sitePasscode: data.sitePasscode || "",
-                    photoUrl: data.photoUrl || "",
-                    emailVerified: Boolean(data.emailVerified),
-                    platform: data.platform || "web"
-                  });
-                }
-              });
-              membersMap = nextMap;
-              renderUI();
-            },
-            () => renderUI()
-          )
-        );
-
-        unsubs.push(
-          onSnapshot(
-            collection(db, "owners"),
-            (snap) => {
-              const nextSet = new Set(INITIAL_OWNERS.map((e) => e.toLowerCase()));
-              snap.forEach((d) => {
-                const data = d.data();
-                if (data && data.email) {
-                  const em = String(data.email).toLowerCase();
-                  nextSet.add(em);
-                  if (!knownEmailsMap.has(em)) knownEmailsMap.set(em, "GUI");
-                }
-              });
-              ownersSet = nextSet;
-              renderUI();
-            },
-            () => renderUI()
-          )
-        );
-
-        unsubs.push(
-          onSnapshot(
-            collection(db, "team_roster"),
-            (snap) => {
-              snap.forEach((d) => {
-                const data = d.data();
-                if (data && data.email) {
-                  const em = String(data.email).toLowerCase();
-                  const tm = TEAMS.includes(data.team) ? data.team : "GUI";
-                  knownEmailsMap.set(em, tm);
-                }
-              });
-              renderOwnersList();
-              renderAssigneeOptions();
-            },
-            () => {}
-          )
-        );
-
-        unsubs.push(
-          onSnapshot(
-            query(collection(db, "tasks"), orderBy("createdAt", "desc")),
-            (snap) => {
-              allTasks = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
-              updateStats();
-              renderTasks();
-              renderAssigneeOptions();
-            },
-            (err) => setStatus(formatErr(err), "error")
-          )
-        );
-
-        unsubs.push(
-          onSnapshot(
-            query(collection(db, "busy_schedule"), orderBy("createdAt", "desc")),
-            (snap) => {
-              allBusySlots = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
-              renderDaysGrid();
-              renderTimetableSection();
-              renderSubteamsAndMembers();
-            },
-            (err) => setStatus(formatErr(err), "error")
-          )
-        );
-
-        unsubs.push(
-          onSnapshot(
-            query(collection(db, "chat_messages"), orderBy("createdAt", "asc")),
-            (snap) => {
-              allChat = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
-              updateStats();
-              renderChat();
-            },
-            (err) => setStatus(formatErr(err), "error")
-          )
-        );
       });
     }
 
