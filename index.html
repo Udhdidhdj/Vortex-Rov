@@ -98,9 +98,22 @@
           <span id="userInfo" class="badge hidden"></span>
         </div>
 
-        <div id="phoneAuthSection" class="stack">
+        <div id="authMethodsSection" class="stack">
+          <!-- البريد الإلكتروني وكلمة المرور -->
           <div class="divider"></div>
-          <div class="hint">أو تسجيل الدخول برقم التليفون (مثال: +201012345678):</div>
+          <div class="hint">تسجيل الدخول أو إنشاء حساب بالبريد الإلكتروني وكلمة المرور:</div>
+          <div class="row">
+            <input id="emailInput" type="email" dir="ltr" placeholder="name@example.com" style="flex:1; min-width:190px;" />
+            <input id="passwordInput" type="password" dir="ltr" placeholder="كلمة المرور (6 أحرف فأكثر)" style="flex:1; min-width:190px;" />
+          </div>
+          <div class="row">
+            <button id="emailSignInBtn" type="button">دخول بالبريد</button>
+            <button id="emailSignUpBtn" type="button" class="secondary">إنشاء حساب جديد</button>
+          </div>
+
+          <!-- رقم التليفون -->
+          <div class="divider"></div>
+          <div class="hint">تسجيل الدخول برقم التليفون (مثال: +201012345678):</div>
           <div class="row">
             <input id="phoneInput" type="tel" dir="ltr" placeholder="+201xxxxxxxxx" style="flex:1; min-width:190px;" />
             <button id="sendOtpBtn" type="button" class="secondary">إرسال كود التحقق</button>
@@ -154,6 +167,8 @@
     import {
       getAuth,
       GoogleAuthProvider,
+      signInWithEmailAndPassword,
+      createUserWithEmailAndPassword,
       RecaptchaVerifier,
       signInWithPhoneNumber,
       signInWithPopup,
@@ -191,7 +206,11 @@
     const statusMsg = document.getElementById("statusMsg");
     const loginGoogleBtn = document.getElementById("loginGoogleBtn");
     const logoutBtn = document.getElementById("logoutBtn");
-    const phoneAuthSection = document.getElementById("phoneAuthSection");
+    const authMethodsSection = document.getElementById("authMethodsSection");
+    const emailInput = document.getElementById("emailInput");
+    const passwordInput = document.getElementById("passwordInput");
+    const emailSignInBtn = document.getElementById("emailSignInBtn");
+    const emailSignUpBtn = document.getElementById("emailSignUpBtn");
     const phoneInput = document.getElementById("phoneInput");
     const sendOtpBtn = document.getElementById("sendOtpBtn");
     const otpRow = document.getElementById("otpRow");
@@ -220,7 +239,6 @@
       const cleaned = raw.trim().replace(/\s+/g, "");
       if (!cleaned) return "";
       if (cleaned.startsWith("+")) return cleaned;
-      // افتراض كود مصر (+20) إذا بدأ بـ 01 أو 1
       if (/^0?1\d{9}$/.test(cleaned)) {
         return "+2" + cleaned.replace(/^0/, "0");
       }
@@ -282,12 +300,12 @@
     function renderUI() {
       if (!currentUser) {
         loginGoogleBtn.classList.remove("hidden");
-        phoneAuthSection.classList.remove("hidden");
+        authMethodsSection.classList.remove("hidden");
         logoutBtn.classList.add("hidden");
         userInfo.classList.add("hidden");
         adminBox.classList.add("hidden");
         appBox.classList.add("hidden");
-        setStatus("سجّل الدخول بحساب Google أو برقم التليفون للوصول إلى مهام الفريق.");
+        setStatus("سجّل الدخول بحساب Google أو البريد الإلكتروني أو رقم التليفون.");
         return;
       }
 
@@ -295,7 +313,7 @@
       const identityLabel = currentUser.email || currentUser.phoneNumber || currentUser.uid;
 
       loginGoogleBtn.classList.add("hidden");
-      phoneAuthSection.classList.add("hidden");
+      authMethodsSection.classList.add("hidden");
       otpRow.classList.add("hidden");
       logoutBtn.classList.remove("hidden");
       userInfo.classList.remove("hidden");
@@ -413,6 +431,44 @@
           }
         }
         setStatus(formatError(err, "حدث خطأ أثناء تسجيل الدخول"));
+      }
+    });
+
+    emailSignInBtn.addEventListener("click", async () => {
+      if (!auth) return;
+      const email = emailInput.value.trim();
+      const password = passwordInput.value;
+      if (!email || !password) {
+        setStatus("أدخل البريد الإلكتروني وكلمة المرور.");
+        return;
+      }
+      emailSignInBtn.disabled = true;
+      setStatus("جاري تسجيل الدخول بالبريد الإلكتروني...");
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+      } catch (err) {
+        setStatus(formatError(err, "تعذر تسجيل الدخول بالبريد"));
+      } finally {
+        emailSignInBtn.disabled = false;
+      }
+    });
+
+    emailSignUpBtn.addEventListener("click", async () => {
+      if (!auth) return;
+      const email = emailInput.value.trim();
+      const password = passwordInput.value;
+      if (!email || !password) {
+        setStatus("أدخل البريد الإلكتروني وكلمة المرور لإنشاء الحساب.");
+        return;
+      }
+      emailSignUpBtn.disabled = true;
+      setStatus("جاري إنشاء الحساب...");
+      try {
+        await createUserWithEmailAndPassword(auth, email, password);
+      } catch (err) {
+        setStatus(formatError(err, "تعذر إنشاء الحساب"));
+      } finally {
+        emailSignUpBtn.disabled = false;
       }
     });
 
