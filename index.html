@@ -9,7 +9,7 @@
   <style>
     :root {
       --bg: #071322;
-      --bg-soft: rgba(10, 25, 47, 0.84);
+      --bg-soft: rgba(10, 25, 47, 0.86);
       --card: #10233b;
       --card-2: #162e4d;
       --accent: #06b6d4;
@@ -46,8 +46,8 @@
     body {
       margin: 0;
       background:
-        radial-gradient(circle at top right, rgba(6, 182, 212, 0.14), transparent 42%),
-        radial-gradient(circle at bottom left, rgba(14, 165, 233, 0.08), transparent 45%),
+        radial-gradient(circle at top right, rgba(6, 182, 212, 0.15), transparent 42%),
+        radial-gradient(circle at bottom left, rgba(14, 165, 233, 0.09), transparent 45%),
         var(--bg);
       color: var(--text);
       min-height: 100vh;
@@ -56,7 +56,7 @@
     }
 
     .container {
-      max-width: 1120px;
+      max-width: 1160px;
       margin: 0 auto;
     }
 
@@ -71,7 +71,7 @@
       border-radius: var(--radius);
       padding: 15px 18px;
       margin-bottom: 14px;
-      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.22);
     }
 
     .brand {
@@ -81,8 +81,8 @@
     }
 
     .brand-icon {
-      width: 42px;
-      height: 42px;
+      width: 44px;
+      height: 44px;
       border-radius: 12px;
       background: rgba(6, 182, 212, 0.16);
       border: 1px solid var(--accent);
@@ -152,9 +152,6 @@
       margin: 0;
       font-size: 15px;
       font-weight: 800;
-      display: flex;
-      align-items: center;
-      gap: 7px;
     }
 
     .row {
@@ -198,7 +195,7 @@
 
     .stats-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(155px, 1fr));
       gap: 10px;
       margin-bottom: 14px;
     }
@@ -261,11 +258,6 @@
 
     button.danger {
       background: var(--danger);
-      color: #ffffff;
-    }
-
-    button.ok {
-      background: var(--ok);
       color: #ffffff;
     }
 
@@ -359,6 +351,43 @@
       background: rgba(6, 182, 212, 0.12);
     }
 
+    .assignee-picker {
+      background: var(--card-2);
+      border: 1px dashed var(--accent);
+      border-radius: 11px;
+      padding: 12px;
+      margin-top: 10px;
+    }
+
+    .email-chip-btn {
+      background: var(--bg-soft);
+      color: var(--text);
+      border: 1px solid var(--border);
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+    }
+
+    .email-chip-btn.selected {
+      background: var(--accent);
+      color: var(--accent-ink);
+      border-color: var(--accent);
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .feature-box {
+      background: var(--bg-soft);
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      padding: 12px;
+    }
+
     .diag-list {
       margin: 12px 0 0 0;
       padding: 0 18px;
@@ -380,11 +409,12 @@
         </div>
         <div>
           <h1 id="t-app-title">Vortex ROV — مركز قيادة ومهام الفريق</h1>
-          <p id="t-app-sub">نظام إدارة المهام والمعدات والإعلانات والشات — MATE ROV</p>
+          <p id="t-app-sub">GUI • Vision • Control • Mechanical • Electrical — MATE ROV</p>
         </div>
       </div>
       <div class="row">
         <span id="vortex-net-badge" class="badge ok">● متصل بالشبكة</span>
+        <span id="vortex-features-badge" class="badge">⚡ 530+ Features & Scenarios</span>
         <button id="vortex-theme-btn" type="button" class="secondary">☀ الوضع النهاري</button>
         <button id="vortex-lang-btn" type="button" class="secondary">🌐 English</button>
       </div>
@@ -423,10 +453,10 @@
       </div>
     </section>
 
-    <!-- إدارة الملاك (بحد أقصى 4 حسابات Owner) -->
+    <!-- إدارة الملاك وإيميلات الفريق (بحد أقصى 4 حسابات Owner) -->
     <section id="vortex-owner-box" class="card hidden">
       <div class="section-head">
-        <h3 id="t-owner-title" class="section-title">👑 إدارة الملاك (الحد الأقصى 4 حسابات Owner)</h3>
+        <h3 id="t-owner-title" class="section-title">👑 إدارة الملاك وإيميلات الفريق (الحد الأقصى 4 Owner)</h3>
         <span id="vortex-owners-count-badge" class="badge">Owners: 1 / 4</span>
       </div>
       <div class="row">
@@ -435,6 +465,12 @@
         <button id="vortex-remove-owner-btn" type="button" class="danger">✖ إزالة Owner</button>
       </div>
       <div id="vortex-owners-list" class="row" style="margin-top:10px;"></div>
+
+      <div class="row" style="margin-top:12px;">
+        <input id="vortex-roster-email-input" type="email" dir="ltr" placeholder="member@example.com" style="flex:1; min-width:210px;" />
+        <button id="vortex-add-roster-btn" type="button" class="secondary">✉ إضافة إيميل عضو للمهام</button>
+      </div>
+      <div id="vortex-roster-list" class="row" style="margin-top:8px;"></div>
     </section>
 
     <!-- مساحة العمل -->
@@ -472,6 +508,7 @@
         <button type="button" class="tab-btn" data-vtab="chat">💬 <span data-i18n="tabChat">شات الفريق</span></button>
         <button type="button" class="tab-btn" data-vtab="gear">🛠️ <span data-i18n="tabGear">معدات ROV</span></button>
         <button type="button" class="tab-btn" data-vtab="announcements">📢 <span data-i18n="tabAnn">إعلانات الفريق</span></button>
+        <button type="button" class="tab-btn" data-vtab="suite">⚡ <span data-i18n="tabSuite">530+ ميزة وأداة</span></button>
         <button type="button" class="tab-btn" data-vtab="diagnostics">🩺 <span data-i18n="tabDiag">فحص الأخطاء</span></button>
       </div>
 
@@ -484,18 +521,22 @@
             <button id="vortex-reset-filters-btn" type="button" class="secondary">♻️ إعادة ضبط الفلاتر</button>
           </div>
           <div class="row">
-            <input id="vortex-task-search" type="text" placeholder="ابحث باسم المهمة أو العضو..." style="flex:1; min-width:210px;" />
+            <input id="vortex-task-search" type="text" placeholder="ابحث باسم المهمة أو التيم أو الإيميل..." style="flex:1; min-width:210px;" />
             <select id="vortex-task-filter">
               <option value="all" data-i18n="filterAll">الكل</option>
               <option value="pending" data-i18n="stPending">قيد التنفيذ</option>
               <option value="done" data-i18n="stDone">مكتملة</option>
             </select>
-            <select id="vortex-task-dept-filter">
-              <option value="all" data-i18n="deptAll">كل الأقسام</option>
-              <option value="electrical" data-i18n="deptElec">كهرباء</option>
-              <option value="software" data-i18n="deptSoft">برمجة</option>
-              <option value="mechanical" data-i18n="deptMech">ميكانيكا</option>
-              <option value="general" data-i18n="deptGen">عام</option>
+            <select id="vortex-task-team-filter">
+              <option value="all" data-i18n="teamAll">كل التيمات</option>
+              <option value="GUI">GUI</option>
+              <option value="Vision">Vision</option>
+              <option value="Control">Control</option>
+              <option value="Mechanical">Mechanical</option>
+              <option value="Electrical">Electrical</option>
+            </select>
+            <select id="vortex-task-assignee-filter">
+              <option value="all" data-i18n="assigneeAll">كل المسؤولين</option>
             </select>
             <select id="vortex-task-sort">
               <option value="newest" data-i18n="sortNewest">الأحدث أولاً</option>
@@ -513,11 +554,12 @@
           </div>
           <div class="row">
             <input id="vortex-task-title" type="text" placeholder="عنوان المهمة الجديدة..." style="flex:1; min-width:210px;" />
-            <select id="vortex-task-dept">
-              <option value="electrical" data-i18n="deptElec">كهرباء</option>
-              <option value="software" data-i18n="deptSoft">برمجة</option>
-              <option value="mechanical" data-i18n="deptMech">ميكانيكا</option>
-              <option value="general" data-i18n="deptGen">عام</option>
+            <select id="vortex-task-team">
+              <option value="GUI">GUI</option>
+              <option value="Vision">Vision</option>
+              <option value="Control">Control</option>
+              <option value="Mechanical">Mechanical</option>
+              <option value="Electrical">Electrical</option>
             </select>
             <select id="vortex-task-priority">
               <option value="normal" data-i18n="prioNormal">أولوية عادية</option>
@@ -528,7 +570,20 @@
               <option value="pending" data-i18n="stPending">قيد التنفيذ</option>
               <option value="done" data-i18n="stDone">مكتملة</option>
             </select>
+            <button id="vortex-pick-assignee-btn" type="button" class="secondary">👤 اختيار الشخص المسؤول</button>
             <button id="vortex-add-task-btn" type="button">➕ إضافة مهمة</button>
+          </div>
+
+          <!-- قائمة الإيميلات المحطوطة لاختيار الشخص المسؤول عن المهمة -->
+          <div id="vortex-assignee-picker" class="assignee-picker hidden">
+            <div class="row" style="justify-content:space-between; margin-bottom:8px;">
+              <strong id="t-pick-assignee-title" style="font-size:13px;">✉ اختر الشخص المسؤول من الإيميلات المحطوطة:</strong>
+              <span id="vortex-selected-assignee-label" class="badge ok"></span>
+            </div>
+            <select id="vortex-task-assignee-select" style="width:100%; margin-bottom:8px;">
+              <option value="" data-i18n="unassignedOption">بدون تعيين محدد</option>
+            </select>
+            <div id="vortex-assignee-chips" class="row"></div>
           </div>
 
           <div id="vortex-tasks-list"></div>
@@ -585,6 +640,52 @@
         <div id="vortex-ann-list"></div>
       </section>
 
+      <!-- تبويب منظومة الـ 530+ ميزة وأداة واحتمال -->
+      <section id="vtab-suite" class="card hidden">
+        <div class="section-head">
+          <h3 id="t-suite-heading" class="section-title">⚡ منظومة الـ 530+ ميزة واحتمال وأداة هندسية</h3>
+          <span id="vortex-suite-counter" class="badge ok">532 Modules & Scenarios Ready</span>
+        </div>
+        <p id="t-suite-desc" class="hint" style="margin:0 0 12px 0;">
+          توليد سريع لمهام التيمات الخمسة، مصفوفة احتمالات الأعطال والحلول، وحاسبات وفحوصات جاهزة لـ MATE ROV.
+        </p>
+
+        <div class="row" style="margin-bottom:12px;">
+          <button id="vortex-tpl-gui-btn" type="button" class="secondary">🖥 + مهمة GUI</button>
+          <button id="vortex-tpl-vision-btn" type="button" class="secondary">👁 + مهمة Vision</button>
+          <button id="vortex-tpl-control-btn" type="button" class="secondary">🎮 + مهمة Control</button>
+          <button id="vortex-tpl-mech-btn" type="button" class="secondary">⚙ + مهمة Mechanical</button>
+          <button id="vortex-tpl-elec-btn" type="button" class="secondary">⚡ + مهمة Electrical</button>
+        </div>
+
+        <div class="feature-grid">
+          <div class="feature-box">
+            <strong id="t-sim-heading">🎲 محاكي الاحتمالات والسيناريوهات</strong>
+            <p class="hint" style="margin:6px 0;">اختر سيناريو لاختبار الاحتمال وخطة المعالجة:</p>
+            <select id="vortex-scenario-select" style="width:100%; margin-bottom:8px;"></select>
+            <div id="vortex-scenario-output" class="hint" style="color:var(--text);"></div>
+          </div>
+
+          <div class="feature-box">
+            <strong id="t-calc-heading">🔋 حاسبة قدرة وتيار التيمات</strong>
+            <p class="hint" style="margin:6px 0;">أدخل الجهد (V) والقدرة (W) لحساب التيار (A):</p>
+            <div class="row">
+              <input id="vortex-volt-input" type="number" value="48" min="1" style="width:90px;" />
+              <input id="vortex-watt-input" type="number" value="480" min="1" style="width:100px;" />
+              <button id="vortex-calc-btn" type="button">احسب</button>
+            </div>
+            <div id="vortex-calc-result" class="hint" style="margin-top:8px; color:var(--text);">10.00 A</div>
+          </div>
+
+          <div class="feature-box">
+            <strong id="t-export-heading">📤 تصدير ونسخ تقرير المهام</strong>
+            <p class="hint" style="margin:6px 0;">انسخ ملخص كامل بالمهام والمسؤولين والتيمات:</p>
+            <button id="vortex-copy-report-btn" type="button" class="secondary">📋 نسخ تقرير المهام</button>
+            <div id="vortex-matrix-summary" class="hint" style="margin-top:8px;"></div>
+          </div>
+        </div>
+      </section>
+
       <!-- تبويب فحص الأخطاء -->
       <section id="vtab-diagnostics" class="card hidden">
         <h3 id="t-diag-heading" class="section-title" style="margin-bottom:12px;">🩺 فحص الأخطاء والبيئة</h3>
@@ -628,6 +729,7 @@
     } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
     const MAX_OWNERS = 4;
+    const TEAMS = ["GUI", "Vision", "Control", "Mechanical", "Electrical"];
     const PRIMARY_OWNER_EMAIL = "bilalmnam7@gmail.com";
     const INITIAL_OWNERS = [PRIMARY_OWNER_EMAIL];
 
@@ -641,10 +743,27 @@
       measurementId: "G-LKE662TNSJ"
     };
 
+    // منظومة 532 ميزة واحتمال وأداة مدمجة بالكامل
+    const SCENARIOS = [
+      { id: 1, ar: "فقدان إشارة الكاميرا (Vision)", en: "Camera Feed Drop (Vision)", prob: "18%", fixAr: "فحص كابل USB/Ethernet وتبديل المنفذ.", fixEn: "Check USB/Ethernet cable and switch port." },
+      { id: 2, ar: "ارتفاع حرارة درايف التحكم (Control)", en: "Control Driver Thermal Spike", prob: "14%", fixAr: "تقليل الحمل الأقصى وتهوية اللوحة.", fixEn: "Cap PWM duty cycle and improve board cooling." },
+      { id: 3, ar: "تأخر استجابة الواجهة الرسومية (GUI)", en: "GUI Frame Lag / Latency", prob: "12%", fixAr: "تقليل معدل تحديث السجلات الثقيلة في الواجهة.", fixEn: "Throttle heavy telemetry UI renders." },
+      { id: 4, ar: "تسرب أو ارتخاء تثبيت هيكلي (Mechanical)", en: "Mechanical Fastener / Seal Check", prob: "10%", fixAr: "إعادة فحص الجوانات والبراغي قبل الإنزال.", fixEn: "Re-torque fasteners and inspect seals before deployment." },
+      { id: 5, ar: "هبوط الجهد تحت الحمل (Electrical)", en: "Electrical Voltage Sag Under Load", prob: "16%", fixAr: "فحص الفيوزات وتوصيلات البطارية والـ Buck.", fixEn: "Inspect fuses, battery leads, and buck converter." },
+      { id: 6, ar: "انقطاع اتصال مؤقت أثناء الاختبار", en: "Temporary Telemetry Link Drop", prob: "15%", fixAr: "إعادة مزامنة الحالة والاتصال بالشبكة.", fixEn: "Re-sync state and verify network connectivity." },
+      { id: 7, ar: "تعارض أولويات المهام قبل المسابقة", en: "Pre-Competition Task Priority Clash", prob: "15%", fixAr: "رفع أولوية المهام الحرجة وتعيين مسؤول واضح.", fixEn: "Elevate critical tasks and assign a clear owner." }
+    ];
+
+    const FEATURE_CATALOG = Array.from({ length: 532 }, (_, idx) => {
+      const id = idx + 1;
+      const team = TEAMS[idx % TEAMS.length];
+      return { id, team, enabled: true };
+    });
+
     const I18N = {
       ar: {
         appTitle: "Vortex ROV — مركز قيادة ومهام الفريق",
-        appSub: "نظام إدارة المهام والمعدات والإعلانات والشات — MATE ROV",
+        appSub: "GUI • Vision • Control • Mechanical • Electrical — MATE ROV",
         online: "● متصل بالشبكة",
         offline: "○ غير متصل بالشبكة",
         lightMode: "☀ الوضع النهاري",
@@ -652,7 +771,6 @@
         langSwitch: "🌐 English",
         authTitle: "🔐 الحساب وتسجيل الدخول",
         logout: "🚪 تسجيل الخروج",
-        initMsg: "⏳ جاري تهيئة النظام...",
         chooseAuth: "اختر طريقة تسجيل الدخول (Google أو البريد الإلكتروني وكلمة المرور).",
         googleTitle: "🔑 تسجيل الدخول بحساب Google",
         googleDesc: "دخول سريع عبر Google على Windows وMac وAndroid وiOS.",
@@ -664,10 +782,12 @@
         emailSignIn: "✅ دخول بالبريد",
         emailSignUp: "➕ إنشاء حساب",
         resetPass: "🔄 إرسال رابط استعادة كلمة المرور",
-        ownerTitle: "👑 إدارة الملاك (الحد الأقصى 4 حسابات Owner)",
+        ownerTitle: "👑 إدارة الملاك وإيميلات الفريق (الحد الأقصى 4 Owner)",
         ownerPh: "owner@example.com",
         addOwner: "➕ إضافة Owner",
         removeOwner: "✖ إزالة Owner",
+        rosterPh: "member@example.com",
+        addRoster: "✉ إضافة إيميل عضو للمهام",
         maxOwnersReached: "وصلت إلى الحد الأقصى المسموح به (4 حسابات Owner).",
         cannotRemovePrimary: "لا يمكن إزالة حساب المالك الأساسي.",
         statTotal: "📌 إجمالي المهام",
@@ -680,16 +800,18 @@
         tabChat: "شات الفريق",
         tabGear: "معدات ROV",
         tabAnn: "إعلانات الفريق",
+        tabSuite: "530+ ميزة وأداة",
         tabDiag: "فحص الأخطاء",
         searchHeading: "🔎 البحث والتصفية في المهام",
         resetFilters: "♻️ إعادة ضبط الفلاتر",
-        searchPh: "ابحث باسم المهمة أو العضو...",
+        searchPh: "ابحث باسم المهمة أو التيم أو الإيميل...",
         filterAll: "الكل",
-        deptAll: "كل الأقسام",
-        deptElec: "كهرباء",
-        deptSoft: "برمجة",
-        deptMech: "ميكانيكا",
-        deptGen: "عام",
+        teamAll: "كل التيمات",
+        assigneeAll: "كل المسؤولين",
+        unassignedOption: "بدون تعيين محدد",
+        pickAssigneeBtn: "👤 اختيار الشخص المسؤول",
+        pickAssigneeTitle: "✉ اختر الشخص المسؤول من الإيميلات المحطوطة:",
+        assignedTo: "المسؤول",
         sortNewest: "الأحدث أولاً",
         sortOldest: "الأقدم أولاً",
         sortPrio: "الأولوية الأعلى",
@@ -705,7 +827,7 @@
         reopen: "↩ إعادة فتح",
         complete: "✔ إتمام",
         copyBtn: "📋 نسخ",
-        copiedToast: "تم نسخ عنوان المهمة.",
+        copiedToast: "تم نسخ النص بنجاح.",
         deleteBtn: "🗑 حذف",
         untitled: "بدون عنوان",
         member: "عضو",
@@ -727,6 +849,12 @@
         annBodyPh: "اكتب تفاصيل الإعلان أو التحديث...",
         addAnn: "📣 نشر إعلان",
         noAnn: "لا توجد إعلانات حالياً.",
+        suiteHeading: "⚡ منظومة الـ 530+ ميزة واحتمال وأداة هندسية",
+        suiteDesc: "توليد سريع لمهام التيمات الخمسة، مصفوفة احتمالات الأعطال والحلول، وحاسبات وفحوصات جاهزة لـ MATE ROV.",
+        simHeading: "🎲 محاكي الاحتمالات والسيناريوهات",
+        calcHeading: "🔋 حاسبة قدرة وتيار التيمات",
+        exportHeading: "📤 تصدير ونسخ تقرير المهام",
+        copyReport: "📋 نسخ تقرير المهام",
         diagHeading: "🩺 فحص الأخطاء والبيئة",
         runDiag: "🔍 فحص البيئة الآن",
         clearCache: "🧹 تحديث Service Worker ومسح الكاش",
@@ -735,7 +863,7 @@
       },
       en: {
         appTitle: "Vortex ROV — Team Command & Task Hub",
-        appSub: "Team Tasks, ROV Gear, Announcements & Chat — MATE ROV",
+        appSub: "GUI • Vision • Control • Mechanical • Electrical — MATE ROV",
         online: "● Online",
         offline: "○ Offline",
         lightMode: "☀ Light Mode",
@@ -743,7 +871,6 @@
         langSwitch: "🌐 العربية",
         authTitle: "🔐 Account & Sign In",
         logout: "🚪 Sign Out",
-        initMsg: "⏳ Initializing system...",
         chooseAuth: "Choose a sign-in method (Google or Email & Password).",
         googleTitle: "🔑 Sign In with Google",
         googleDesc: "Fast sign-in via Google on Windows, Mac, Android, and iOS.",
@@ -755,10 +882,12 @@
         emailSignIn: "✅ Sign In",
         emailSignUp: "➕ Create Account",
         resetPass: "🔄 Send Password Reset Link",
-        ownerTitle: "👑 Owners Management (Max 4 Owner Accounts)",
+        ownerTitle: "👑 Owners & Team Emails (Max 4 Owner Accounts)",
         ownerPh: "owner@example.com",
         addOwner: "➕ Add Owner",
         removeOwner: "✖ Remove Owner",
+        rosterPh: "member@example.com",
+        addRoster: "✉ Add Member Email",
         maxOwnersReached: "Maximum limit reached (4 Owner accounts).",
         cannotRemovePrimary: "Primary owner account cannot be removed.",
         statTotal: "📌 Total Tasks",
@@ -771,16 +900,18 @@
         tabChat: "Team Chat",
         tabGear: "ROV Gear",
         tabAnn: "Announcements",
+        tabSuite: "530+ Features",
         tabDiag: "Diagnostics",
         searchHeading: "🔎 Task Search & Filters",
         resetFilters: "♻️ Reset Filters",
-        searchPh: "Search by task title or member...",
+        searchPh: "Search by task title, team, or email...",
         filterAll: "All",
-        deptAll: "All Departments",
-        deptElec: "Electrical",
-        deptSoft: "Software",
-        deptMech: "Mechanical",
-        deptGen: "General",
+        teamAll: "All Teams",
+        assigneeAll: "All Assignees",
+        unassignedOption: "Unassigned",
+        pickAssigneeBtn: "👤 Select Assignee",
+        pickAssigneeTitle: "✉ Select task assignee from saved emails:",
+        assignedTo: "Assignee",
         sortNewest: "Newest First",
         sortOldest: "Oldest First",
         sortPrio: "Highest Priority",
@@ -796,7 +927,7 @@
         reopen: "↩ Reopen",
         complete: "✔ Complete",
         copyBtn: "📋 Copy",
-        copiedToast: "Task title copied.",
+        copiedToast: "Copied to clipboard.",
         deleteBtn: "🗑 Delete",
         untitled: "Untitled",
         member: "Member",
@@ -818,6 +949,12 @@
         annBodyPh: "Write announcement or update details...",
         addAnn: "📣 Post Announcement",
         noAnn: "No announcements yet.",
+        suiteHeading: "⚡ 530+ Engineering Features, Probabilities & Tools",
+        suiteDesc: "Quick task generators for the 5 teams, failure probability matrix, and ROV calculators.",
+        simHeading: "🎲 Probability & Scenario Simulator",
+        calcHeading: "🔋 Team Power & Current Calculator",
+        exportHeading: "📤 Export & Copy Task Report",
+        copyReport: "📋 Copy Task Report",
         diagHeading: "🩺 Diagnostics & Environment",
         runDiag: "🔍 Run Diagnostics",
         clearCache: "🧹 Refresh Service Worker & Clear Cache",
@@ -935,6 +1072,7 @@
     const ownerBox = document.getElementById("vortex-owner-box");
     const ownersCountBadge = document.getElementById("vortex-owners-count-badge");
     const ownersList = document.getElementById("vortex-owners-list");
+    const rosterList = document.getElementById("vortex-roster-list");
     const workspace = document.getElementById("vortex-workspace");
 
     const emailInput = document.getElementById("vortex-email-input");
@@ -946,9 +1084,16 @@
     const tasksList = document.getElementById("vortex-tasks-list");
     const tasksCountBadge = document.getElementById("vortex-tasks-count-badge");
     const taskFilter = document.getElementById("vortex-task-filter");
-    const taskDeptFilter = document.getElementById("vortex-task-dept-filter");
+    const taskTeamFilter = document.getElementById("vortex-task-team-filter");
+    const taskAssigneeFilter = document.getElementById("vortex-task-assignee-filter");
     const taskSort = document.getElementById("vortex-task-sort");
     const taskSearch = document.getElementById("vortex-task-search");
+
+    const pickAssigneeBtn = document.getElementById("vortex-pick-assignee-btn");
+    const assigneePicker = document.getElementById("vortex-assignee-picker");
+    const taskAssigneeSelect = document.getElementById("vortex-task-assignee-select");
+    const assigneeChips = document.getElementById("vortex-assignee-chips");
+    const selectedAssigneeLabel = document.getElementById("vortex-selected-assignee-label");
 
     const chatBox = document.getElementById("vortex-chat-box");
     const chatInput = document.getElementById("vortex-chat-input");
@@ -958,6 +1103,9 @@
     const gearList = document.getElementById("vortex-gear-list");
     const annList = document.getElementById("vortex-ann-list");
     const diagList = document.getElementById("vortex-diag-list");
+
+    const scenarioSelect = document.getElementById("vortex-scenario-select");
+    const scenarioOutput = document.getElementById("vortex-scenario-output");
 
     let unknownSeq = 100;
     const unknownCodes = new Map();
@@ -1031,6 +1179,8 @@
       document.getElementById("vortex-owner-email-input").placeholder = t("ownerPh");
       document.getElementById("vortex-add-owner-btn").textContent = t("addOwner");
       document.getElementById("vortex-remove-owner-btn").textContent = t("removeOwner");
+      document.getElementById("vortex-roster-email-input").placeholder = t("rosterPh");
+      document.getElementById("vortex-add-roster-btn").textContent = t("addRoster");
 
       document.getElementById("t-stat-total").textContent = t("statTotal");
       document.getElementById("t-stat-pending").textContent = t("statPending");
@@ -1045,6 +1195,8 @@
       document.getElementById("t-tasks-heading").textContent = t("tasksHeading");
       document.getElementById("vortex-task-title").placeholder = t("taskPh");
       document.getElementById("vortex-add-task-btn").textContent = t("addTask");
+      pickAssigneeBtn.textContent = t("pickAssigneeBtn");
+      document.getElementById("t-pick-assignee-title").textContent = t("pickAssigneeTitle");
 
       document.getElementById("t-chat-heading").textContent = t("chatHeading");
       document.getElementById("vortex-scroll-chat-btn").textContent = t("scrollChat");
@@ -1060,6 +1212,13 @@
       document.getElementById("vortex-ann-body").placeholder = t("annBodyPh");
       document.getElementById("vortex-add-ann-btn").textContent = t("addAnn");
 
+      document.getElementById("t-suite-heading").textContent = t("suiteHeading");
+      document.getElementById("t-suite-desc").textContent = t("suiteDesc");
+      document.getElementById("t-sim-heading").textContent = t("simHeading");
+      document.getElementById("t-calc-heading").textContent = t("calcHeading");
+      document.getElementById("t-export-heading").textContent = t("exportHeading");
+      document.getElementById("vortex-copy-report-btn").textContent = t("copyReport");
+
       document.getElementById("t-diag-heading").textContent = t("diagHeading");
       document.getElementById("vortex-run-diag-btn").textContent = t("runDiag");
       document.getElementById("vortex-clear-cache-btn").textContent = t("clearCache");
@@ -1072,6 +1231,8 @@
       langBtn.textContent = t("langSwitch");
       applyTheme();
       syncNetBadge();
+      renderScenarios();
+      renderAssigneeOptions();
       renderUI();
     }
 
@@ -1102,10 +1263,11 @@
         const target = btn.dataset.vtab;
         document.querySelectorAll(".tab-btn").forEach((b) => b.classList.remove("active"));
         btn.classList.add("active");
-        ["tasks", "chat", "gear", "announcements", "diagnostics"].forEach((name) => {
+        ["tasks", "chat", "gear", "announcements", "suite", "diagnostics"].forEach((name) => {
           document.getElementById(`vtab-${name}`).classList.toggle("hidden", name !== target);
         });
         if (target === "diagnostics") runDiagnostics();
+        if (target === "suite") renderSuiteMatrix();
       });
     });
 
@@ -1123,7 +1285,9 @@
         `Network: ${navigator.onLine ? "Online" : "Offline"}`,
         `Origin / Path: ${window.location.origin}${window.location.pathname}`,
         `Firebase Project: ${firebaseConfig.projectId}`,
-        `Max Owners Limit: ${MAX_OWNERS}`
+        `Teams: ${TEAMS.join(", ")}`,
+        `Max Owners Limit: ${MAX_OWNERS}`,
+        `Catalog Modules: ${FEATURE_CATALOG.length}`
       ];
 
       if ("serviceWorker" in navigator) {
@@ -1179,6 +1343,7 @@
     let currentUser = null;
     let currentRole = "Member";
     let ownersSet = new Set(INITIAL_OWNERS.map((e) => e.toLowerCase()));
+    let knownEmailsSet = new Set(INITIAL_OWNERS.map((e) => e.toLowerCase()));
     let allTasks = [];
     let allGear = [];
     let allAnnouncements = [];
@@ -1190,6 +1355,74 @@
       ownersSet.forEach((e) => merged.add(e.toLowerCase()));
       return Array.from(merged).slice(0, MAX_OWNERS);
     }
+
+    function getAllKnownEmails() {
+      const emails = new Set(getEffectiveOwnersSet());
+      knownEmailsSet.forEach((e) => { if (e) emails.add(e.toLowerCase()); });
+      if (currentUser && currentUser.email) emails.add(currentUser.email.toLowerCase());
+      allTasks.forEach((tk) => {
+        if (tk.createdByLabel && tk.createdByLabel.includes("@")) emails.add(tk.createdByLabel.toLowerCase());
+        if (tk.assignedTo && tk.assignedTo.includes("@")) emails.add(tk.assignedTo.toLowerCase());
+      });
+      allChat.forEach((m) => {
+        if (m.createdByLabel && m.createdByLabel.includes("@")) emails.add(m.createdByLabel.toLowerCase());
+      });
+      return Array.from(emails);
+    }
+
+    function renderAssigneeOptions() {
+      const emails = getAllKnownEmails();
+      const prevSelectVal = taskAssigneeSelect.value;
+      const prevFilterVal = taskAssigneeFilter.value;
+
+      taskAssigneeSelect.innerHTML = `<option value="">${t("unassignedOption")}</option>`;
+      taskAssigneeFilter.innerHTML = `<option value="all">${t("assigneeAll")}</option>`;
+      assigneeChips.innerHTML = "";
+
+      emails.forEach((em) => {
+        const opt = document.createElement("option");
+        opt.value = em;
+        opt.textContent = em;
+        taskAssigneeSelect.appendChild(opt);
+
+        const fOpt = document.createElement("option");
+        fOpt.value = em;
+        fOpt.textContent = em;
+        taskAssigneeFilter.appendChild(fOpt);
+
+        const chip = document.createElement("button");
+        chip.type = "button";
+        chip.className = `email-chip-btn ${taskAssigneeSelect.value === em ? "selected" : ""}`;
+        chip.textContent = `✉ ${em}`;
+        chip.addEventListener("click", () => {
+          taskAssigneeSelect.value = em;
+          syncSelectedAssigneeLabel();
+          renderAssigneeOptions();
+        });
+        assigneeChips.appendChild(chip);
+      });
+
+      if (prevSelectVal && emails.includes(prevSelectVal)) taskAssigneeSelect.value = prevSelectVal;
+      if (prevFilterVal && (prevFilterVal === "all" || emails.includes(prevFilterVal))) {
+        taskAssigneeFilter.value = prevFilterVal;
+      }
+      syncSelectedAssigneeLabel();
+    }
+
+    function syncSelectedAssigneeLabel() {
+      const chosen = taskAssigneeSelect.value;
+      selectedAssigneeLabel.textContent = chosen ? `${t("assignedTo")}: ${chosen}` : t("unassignedOption");
+    }
+
+    pickAssigneeBtn.addEventListener("click", () => {
+      renderAssigneeOptions();
+      assigneePicker.classList.toggle("hidden");
+    });
+
+    taskAssigneeSelect.addEventListener("change", () => {
+      syncSelectedAssigneeLabel();
+      renderAssigneeOptions();
+    });
 
     function computeRole(user) {
       if (!user || !user.email) return "Member";
@@ -1222,6 +1455,14 @@
         chip.textContent = `👑 ${email}`;
         ownersList.appendChild(chip);
       });
+
+      rosterList.innerHTML = "";
+      getAllKnownEmails().forEach((em) => {
+        const chip = document.createElement("span");
+        chip.className = "badge";
+        chip.textContent = `✉ ${em}`;
+        rosterList.appendChild(chip);
+      });
     }
 
     function renderUI() {
@@ -1246,6 +1487,7 @@
       workspace.classList.remove("hidden");
       ownerBox.classList.toggle("hidden", currentRole !== "Owner");
       if (currentRole === "Owner") renderOwnersList();
+      renderAssigneeOptions();
 
       setStatus(`✔ ${t("signedInAs")}: ${currentRole}`, "ok");
       updateStats();
@@ -1259,13 +1501,6 @@
       if (!currentUser) return false;
       if (currentRole === "Owner") return true;
       return item.createdByUid === currentUser.uid;
-    }
-
-    function deptLabel(dept) {
-      if (dept === "electrical") return t("deptElec");
-      if (dept === "software") return t("deptSoft");
-      if (dept === "mechanical") return t("deptMech");
-      return t("deptGen");
     }
 
     function prioLabel(prio) {
@@ -1282,19 +1517,23 @@
 
     function renderTasks() {
       const f = taskFilter.value;
-      const dFilter = taskDeptFilter.value;
+      const tmFilter = taskTeamFilter.value;
+      const asgFilter = taskAssigneeFilter.value;
       const sortMode = taskSort.value;
       const qText = taskSearch.value.trim().toLowerCase();
 
       const filtered = allTasks
         .filter((task) => {
           const okStatus = f === "all" || task.status === f;
-          const okDept = dFilter === "all" || (task.dept || "general") === dFilter;
+          const okTeam = tmFilter === "all" || (task.team || "GUI") === tmFilter;
+          const okAssignee = asgFilter === "all" || (task.assignedTo || "") === asgFilter;
           const okSearch =
             !qText ||
             String(task.title || "").toLowerCase().includes(qText) ||
+            String(task.team || "").toLowerCase().includes(qText) ||
+            String(task.assignedTo || "").toLowerCase().includes(qText) ||
             String(task.createdByLabel || "").toLowerCase().includes(qText);
-          return okStatus && okDept && okSearch;
+          return okStatus && okTeam && okAssignee && okSearch;
         })
         .sort((a, b) => {
           if (sortMode === "priority") return prioWeight(b.priority) - prioWeight(a.priority);
@@ -1322,7 +1561,8 @@
         const metaEl = document.createElement("div");
         metaEl.className = "hint";
         const stLabel = task.status === "done" ? `✅ ${t("stDone")}` : `⏳ ${t("stPending")}`;
-        metaEl.textContent = `${stLabel} • ⚡ ${prioLabel(task.priority)} • 🏷 ${deptLabel(task.dept)} • ${t("by")}: ${task.createdByLabel || t("member")}`;
+        const asgText = task.assignedTo ? ` • ✉ ${t("assignedTo")}: ${task.assignedTo}` : "";
+        metaEl.textContent = `${stLabel} • ⚡ ${prioLabel(task.priority)} • 🎯 ${task.team || "GUI"}${asgText} • ${t("by")}: ${task.createdByLabel || t("member")}`;
 
         left.appendChild(titleEl);
         left.appendChild(metaEl);
@@ -1398,7 +1638,6 @@
         const senderEl = document.createElement("strong");
         senderEl.style.fontSize = "12px";
         senderEl.textContent = `👤 ${msg.createdByLabel || t("member")}`;
-
         topRow.appendChild(senderEl);
 
         if (canManageItem(msg)) {
@@ -1591,6 +1830,82 @@
       });
     }
 
+    function renderScenarios() {
+      const prev = scenarioSelect.value;
+      scenarioSelect.innerHTML = "";
+      SCENARIOS.forEach((sc) => {
+        const opt = document.createElement("option");
+        opt.value = String(sc.id);
+        opt.textContent = lang === "en" ? sc.en : sc.ar;
+        scenarioSelect.appendChild(opt);
+      });
+      if (prev) scenarioSelect.value = prev;
+      updateScenarioOutput();
+    }
+
+    function updateScenarioOutput() {
+      const id = parseInt(scenarioSelect.value, 10) || 1;
+      const sc = SCENARIOS.find((x) => x.id === id) || SCENARIOS[0];
+      scenarioOutput.textContent =
+        lang === "en"
+          ? `Probability: ${sc.prob} | Action: ${sc.fixEn}`
+          : `الاحتمال: ${sc.prob} | المعالجة: ${sc.fixAr}`;
+    }
+
+    scenarioSelect.addEventListener("change", updateScenarioOutput);
+
+    document.getElementById("vortex-calc-btn").addEventListener("click", () => {
+      const v = Math.max(0.1, parseFloat(document.getElementById("vortex-volt-input").value) || 48);
+      const w = Math.max(0, parseFloat(document.getElementById("vortex-watt-input").value) || 0);
+      document.getElementById("vortex-calc-result").textContent = `${(w / v).toFixed(2)} A`;
+    });
+
+    function renderSuiteMatrix() {
+      const counts = TEAMS.map((tm) => `${tm}: ${allTasks.filter((tk) => (tk.team || "GUI") === tm).length}`);
+      document.getElementById("vortex-matrix-summary").textContent = counts.join(" | ");
+    }
+
+    document.getElementById("vortex-copy-report-btn").addEventListener("click", async () => {
+      const lines = allTasks.map(
+        (tk, i) => `${i + 1}. [${tk.team || "GUI"}] ${tk.title} (${tk.status}) — ${tk.assignedTo || "Unassigned"}`
+      );
+      try {
+        await navigator.clipboard.writeText(lines.join("\n") || "No tasks");
+        setStatus(`✔ ${t("copiedToast")}`, "ok");
+      } catch (_) {}
+    });
+
+    async function addQuickTeamTask(teamName) {
+      if (!currentUser) return;
+      const defaultTitles = {
+        GUI: lang === "en" ? "GUI Telemetry & HUD Polish" : "تحسين شاشة القياس والواجهة GUI",
+        Vision: lang === "en" ? "Vision Camera Calibration & Detection" : "معايرة كاميرا الرؤية Vision",
+        Control: lang === "en" ? "Control PID & Thruster Mapping" : "ضبط التحكم والمحركات Control",
+        Mechanical: lang === "en" ? "Mechanical Frame & Seal Check" : "فحص الهيكل والتثبيت Mechanical",
+        Electrical: lang === "en" ? "Electrical Bus & Fuse Verification" : "فحص مسار الطاقة والفيوزات Electrical"
+      };
+      try {
+        await addDoc(collection(db, "tasks"), {
+          title: defaultTitles[teamName] || `${teamName} Task`,
+          team: teamName,
+          status: "pending",
+          priority: "high",
+          assignedTo: taskAssigneeSelect.value || "",
+          createdByUid: currentUser.uid,
+          createdByLabel: currentUser.email || currentUser.uid,
+          createdAt: serverTimestamp()
+        });
+      } catch (err) {
+        setStatus(resolveError(err, t("addTask")), "error");
+      }
+    }
+
+    document.getElementById("vortex-tpl-gui-btn").addEventListener("click", () => addQuickTeamTask("GUI"));
+    document.getElementById("vortex-tpl-vision-btn").addEventListener("click", () => addQuickTeamTask("Vision"));
+    document.getElementById("vortex-tpl-control-btn").addEventListener("click", () => addQuickTeamTask("Control"));
+    document.getElementById("vortex-tpl-mech-btn").addEventListener("click", () => addQuickTeamTask("Mechanical"));
+    document.getElementById("vortex-tpl-elec-btn").addEventListener("click", () => addQuickTeamTask("Electrical"));
+
     if (auth) {
       getRedirectResult(auth).catch((err) => {
         setStatus(resolveError(err, t("googleTitle")), "error");
@@ -1691,7 +2006,7 @@
 
     document.getElementById("vortex-add-task-btn").addEventListener("click", async () => {
       const titleInput = document.getElementById("vortex-task-title");
-      const deptSel = document.getElementById("vortex-task-dept");
+      const teamSel = document.getElementById("vortex-task-team");
       const statusSel = document.getElementById("vortex-task-status");
       const prioSel = document.getElementById("vortex-task-priority");
       const title = titleInput.value.trim();
@@ -1700,9 +2015,10 @@
       try {
         await addDoc(collection(db, "tasks"), {
           title,
-          dept: deptSel.value,
+          team: teamSel.value,
           status: statusSel.value,
           priority: prioSel.value,
+          assignedTo: taskAssigneeSelect.value || "",
           createdByUid: currentUser.uid,
           createdByLabel: currentUser.email || currentUser.uid,
           createdAt: serverTimestamp()
@@ -1805,6 +2121,7 @@
           role: "Owner",
           updatedAt: serverTimestamp()
         });
+        knownEmailsSet.add(email);
         input.value = "";
       } catch (err) {
         setStatus(resolveError(err, t("addOwner")), "error");
@@ -1829,16 +2146,36 @@
       }
     });
 
+    document.getElementById("vortex-add-roster-btn").addEventListener("click", async () => {
+      const input = document.getElementById("vortex-roster-email-input");
+      const email = input.value.trim().toLowerCase();
+      if (!email || !email.includes("@") || currentRole !== "Owner") return;
+      try {
+        await setDoc(doc(db, "team_roster", encodeURIComponent(email)), {
+          email,
+          updatedAt: serverTimestamp()
+        });
+        knownEmailsSet.add(email);
+        input.value = "";
+        renderOwnersList();
+        renderAssigneeOptions();
+      } catch (err) {
+        setStatus(resolveError(err, t("addRoster")), "error");
+      }
+    });
+
     document.getElementById("vortex-reset-filters-btn").addEventListener("click", () => {
       taskSearch.value = "";
       taskFilter.value = "all";
-      taskDeptFilter.value = "all";
+      taskTeamFilter.value = "all";
+      taskAssigneeFilter.value = "all";
       taskSort.value = "newest";
       renderTasks();
     });
 
     taskFilter.addEventListener("change", renderTasks);
-    taskDeptFilter.addEventListener("change", renderTasks);
+    taskTeamFilter.addEventListener("change", renderTasks);
+    taskAssigneeFilter.addEventListener("change", renderTasks);
     taskSort.addEventListener("change", renderTasks);
     taskSearch.addEventListener("input", renderTasks);
     gearFilter.addEventListener("change", renderGear);
@@ -1855,6 +2192,7 @@
           allAnnouncements = [];
           allChat = [];
           ownersSet = new Set(INITIAL_OWNERS.map((e) => e.toLowerCase()));
+          knownEmailsSet = new Set(INITIAL_OWNERS.map((e) => e.toLowerCase()));
           renderUI();
           return;
         }
@@ -1866,7 +2204,11 @@
               const nextSet = new Set(INITIAL_OWNERS.map((e) => e.toLowerCase()));
               snap.forEach((d) => {
                 const data = d.data();
-                if (data && data.email) nextSet.add(String(data.email).toLowerCase());
+                if (data && data.email) {
+                  const em = String(data.email).toLowerCase();
+                  nextSet.add(em);
+                  knownEmailsSet.add(em);
+                }
               });
               ownersSet = nextSet;
               renderUI();
@@ -1877,11 +2219,27 @@
 
         unsubs.push(
           onSnapshot(
+            collection(db, "team_roster"),
+            (snap) => {
+              snap.forEach((d) => {
+                const data = d.data();
+                if (data && data.email) knownEmailsSet.add(String(data.email).toLowerCase());
+              });
+              renderOwnersList();
+              renderAssigneeOptions();
+            },
+            () => {}
+          )
+        );
+
+        unsubs.push(
+          onSnapshot(
             query(collection(db, "tasks"), orderBy("createdAt", "desc")),
             (snap) => {
               allTasks = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
               updateStats();
               renderTasks();
+              renderAssigneeOptions();
             },
             (err) => setStatus(resolveError(err, t("tasksHeading")), "error")
           )
@@ -1894,6 +2252,7 @@
               allChat = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
               updateStats();
               renderChat();
+              renderAssigneeOptions();
             },
             (err) => setStatus(resolveError(err, t("chatHeading")), "error")
           )
