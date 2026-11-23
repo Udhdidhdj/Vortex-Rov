@@ -3,28 +3,29 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vortex ROV — مركز قيادة ومهام الفريق</title>
+  <title>Vortex ROV — Command & Tasks</title>
   <link rel="manifest" href="/Vortex-Rov/manifest.json" />
   <meta name="theme-color" content="#0b192c" />
   <style>
     :root {
-      --bg: #0b192c;
-      --bg-soft: rgba(11, 25, 44, 0.75);
-      --card: #13263f;
-      --card-2: #18304f;
-      --accent: #00b4d8;
-      --accent-ink: #04101d;
-      --text: #f1f5f9;
+      --bg: #071322;
+      --bg-soft: rgba(10, 25, 47, 0.82);
+      --card: #10233b;
+      --card-2: #162e4d;
+      --accent: #06b6d4;
+      --accent-ink: #03131c;
+      --text: #f8fafc;
       --muted: #94a3b8;
       --border: #1e3a5f;
       --danger: #ef4444;
       --ok: #22c55e;
       --warn: #f59e0b;
+      --radius: 14px;
     }
 
     body.light {
       --bg: #f1f5f9;
-      --bg-soft: rgba(255, 255, 255, 0.9);
+      --bg-soft: rgba(255, 255, 255, 0.92);
       --card: #ffffff;
       --card-2: #f8fafc;
       --accent: #0284c7;
@@ -37,68 +38,114 @@
       --warn: #d97706;
     }
 
-    * { box-sizing: border-box; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; }
+    * {
+      box-sizing: border-box;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    }
 
     body {
       margin: 0;
-      background: var(--bg);
+      background:
+        radial-gradient(circle at top right, rgba(6, 182, 212, 0.12), transparent 42%),
+        radial-gradient(circle at bottom left, rgba(14, 165, 233, 0.08), transparent 45%),
+        var(--bg);
       color: var(--text);
       min-height: 100vh;
-      padding: 16px;
+      padding: 18px;
       transition: background-color 0.2s ease, color 0.2s ease;
     }
 
-    .container { max-width: 1080px; margin: 0 auto; }
+    .container {
+      max-width: 1080px;
+      margin: 0 auto;
+    }
 
     .topbar {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
       flex-wrap: wrap;
       background: var(--card);
       border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 14px 18px;
-      margin-bottom: 14px;
+      border-radius: var(--radius);
+      padding: 16px 20px;
+      margin-bottom: 16px;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.22);
     }
 
-    .brand h1 { margin: 0; font-size: 20px; }
-    .brand p { margin: 4px 0 0 0; font-size: 12px; color: var(--muted); }
+    .brand h1 {
+      margin: 0;
+      font-size: 21px;
+      font-weight: 800;
+      letter-spacing: 0.2px;
+    }
+
+    .brand p {
+      margin: 4px 0 0 0;
+      font-size: 12.5px;
+      color: var(--muted);
+    }
 
     .card {
       background: var(--card);
       border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 16px;
-      margin-bottom: 14px;
+      border-radius: var(--radius);
+      padding: 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.14);
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 800;
     }
 
     .auth-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
-      gap: 12px;
-      margin-top: 12px;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 14px;
+      margin-top: 14px;
     }
 
-    .auth-box-card {
+    .auth-panel {
       background: var(--card-2);
       border: 1px solid var(--border);
       border-radius: 12px;
-      padding: 14px;
+      padding: 16px;
       display: flex;
       flex-direction: column;
       gap: 10px;
     }
 
-    .auth-box-title {
-      font-weight: 800;
-      font-size: 15px;
+    .auth-panel h3 {
       margin: 0;
+      font-size: 15px;
+      font-weight: 800;
     }
 
-    .row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
-    .stack { display: flex; flex-direction: column; gap: 10px; }
+    .row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .stack {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
 
     .tabs {
       display: flex;
@@ -111,7 +158,7 @@
       background: var(--card);
       color: var(--text);
       border: 1px solid var(--border);
-      padding: 9px 14px;
+      padding: 10px 16px;
       border-radius: 10px;
       font-weight: 700;
       cursor: pointer;
@@ -125,31 +172,44 @@
 
     .stats-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-      gap: 10px;
-      margin-bottom: 14px;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      margin-bottom: 16px;
     }
 
     .stat-box {
-      background: var(--card-2);
+      background: var(--card);
       border: 1px solid var(--border);
       border-radius: 12px;
-      padding: 12px;
+      padding: 14px;
     }
 
-    .stat-label { font-size: 12px; color: var(--muted); }
-    .stat-val { font-size: 22px; font-weight: 800; margin-top: 4px; }
+    .stat-label {
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .stat-val {
+      font-size: 24px;
+      font-weight: 800;
+      margin-top: 4px;
+    }
 
     input, select, textarea, button {
       padding: 10px 12px;
-      border-radius: 9px;
+      border-radius: 10px;
       border: 1px solid var(--border);
       background: var(--bg-soft);
       color: var(--text);
       font-size: 14px;
     }
 
-    textarea { resize: vertical; min-height: 74px; width: 100%; }
+    textarea {
+      resize: vertical;
+      min-height: 76px;
+      width: 100%;
+    }
 
     button {
       background: var(--accent);
@@ -159,44 +219,61 @@
       cursor: pointer;
     }
 
-    button:disabled { opacity: 0.55; cursor: not-allowed; }
-    button.secondary { background: var(--bg-soft); color: var(--text); border: 1px solid var(--border); }
-    button.danger { background: var(--danger); color: #fff; }
-    button.ok { background: var(--ok); color: #fff; }
+    button:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+    }
+
+    button.secondary {
+      background: var(--bg-soft);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    button.danger {
+      background: var(--danger);
+      color: #ffffff;
+    }
 
     .item-card {
       display: flex;
       justify-content: space-between;
       align-items: center;
       gap: 12px;
-      padding: 12px 14px;
+      padding: 13px 15px;
       border: 1px solid var(--border);
-      border-radius: 11px;
+      border-radius: 12px;
       margin-top: 10px;
       background: var(--bg-soft);
       flex-wrap: wrap;
     }
 
     .badge {
-      padding: 4px 9px;
+      padding: 5px 10px;
       border-radius: 999px;
       font-size: 12px;
       background: var(--card-2);
       color: var(--text);
       border: 1px solid var(--border);
-      font-weight: 600;
+      font-weight: 700;
     }
 
     .badge.ok { border-color: var(--ok); color: var(--ok); }
     .badge.warn { border-color: var(--warn); color: var(--warn); }
     .badge.danger { border-color: var(--danger); color: var(--danger); }
 
-    .hint { font-size: 12px; color: var(--muted); }
-    .hidden { display: none !important; }
+    .hint {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .hidden {
+      display: none !important;
+    }
 
     #vortex-status-box {
-      margin-top: 10px;
-      padding: 11px 13px;
+      margin-top: 8px;
+      padding: 11px 14px;
       border-radius: 10px;
       border: 1px solid var(--border);
       background: var(--bg-soft);
@@ -216,8 +293,8 @@
     }
 
     .diag-list {
-      margin: 10px 0 0 0;
-      padding: 0 18px 0 0;
+      margin: 12px 0 0 0;
+      padding: 0 18px;
       font-size: 13px;
       line-height: 1.85;
     }
@@ -226,43 +303,42 @@
 <body>
   <div class="container">
     <!-- الشريط العلوي -->
-    <div class="topbar">
+    <header class="topbar">
       <div class="brand">
-        <h1 id="vortex-app-title">Vortex ROV — مركز قيادة ومهام الفريق</h1>
-        <p id="vortex-app-sub">نظام متكامل للفريق والمعدات والإعلانات والمهام — MATE ROV</p>
+        <h1 id="t-app-title">Vortex ROV — مركز قيادة ومهام الفريق</h1>
+        <p id="t-app-sub">نظام إدارة المهام والمعدات والإعلانات — MATE ROV</p>
       </div>
       <div class="row">
         <span id="vortex-net-badge" class="badge ok">متصل بالشبكة</span>
         <button id="vortex-theme-btn" type="button" class="secondary">الوضع النهاري</button>
         <button id="vortex-lang-btn" type="button" class="secondary">English</button>
       </div>
-    </div>
+    </header>
 
-    <!-- بطاقة تسجيل الدخول والحساب -->
-    <div class="card">
-      <div class="row" style="justify-content:space-between;">
-        <h2 style="margin:0; font-size:18px;">الحساب وطرق تسجيل الدخول</h2>
+    <!-- بطاقة الحساب وتسجيل الدخول -->
+    <section class="card">
+      <div class="section-head">
+        <h2 id="t-auth-title" class="section-title">الحساب وتسجيل الدخول</h2>
         <div class="row">
           <span id="vortex-user-badge" class="badge hidden"></span>
           <button id="vortex-logout-btn" type="button" class="secondary hidden">تسجيل الخروج</button>
         </div>
       </div>
 
-      <div id="vortex-status-box">جاري تهيئة النظام وفحص البيئة...</div>
+      <div id="vortex-status-box">جاري تهيئة النظام...</div>
 
-      <!-- خيارات تسجيل الدخول الثلاثة -->
-      <div id="vortex-auth-panel" class="auth-grid">
-        <!-- 1. Google -->
-        <div class="auth-box-card">
-          <h3 class="auth-box-title">1. تسجيل الدخول بحساب Google</h3>
-          <p class="hint" style="margin:0;">دخول سريع عبر حساب Google على Windows وMac وAndroid وiOS.</p>
-          <button id="vortex-google-btn" type="button">الدخول عبر Google</button>
-          <button id="vortex-google-force-redirect-btn" type="button" class="secondary">دخول Google بإعادة التوجيه (Redirect)</button>
+      <div id="vortex-auth-grid" class="auth-grid">
+        <!-- Google -->
+        <div class="auth-panel">
+          <h3 id="t-google-title">تسجيل الدخول بحساب Google</h3>
+          <p id="t-google-desc" class="hint" style="margin:0;">دخول سريع عبر Google على Windows وMac وAndroid وiOS.</p>
+          <button id="vortex-google-popup-btn" type="button">الدخول عبر Google</button>
+          <button id="vortex-google-redirect-btn" type="button" class="secondary">الدخول عبر Google (Redirect)</button>
         </div>
 
-        <!-- 2. البريد الإلكتروني وكلمة المرور -->
-        <div id="vortex-email-box" class="auth-box-card">
-          <h3 class="auth-box-title">2. البريد الإلكتروني وكلمة المرور</h3>
+        <!-- البريد الإلكتروني وكلمة المرور -->
+        <div class="auth-panel">
+          <h3 id="t-email-title">البريد الإلكتروني وكلمة المرور</h3>
           <input id="vortex-email-input" type="email" dir="ltr" placeholder="name@example.com" />
           <input id="vortex-pass-input" type="password" dir="ltr" placeholder="كلمة المرور (6 أحرف فأكثر)" />
           <div class="row">
@@ -271,127 +347,119 @@
           </div>
           <button id="vortex-reset-pass-btn" type="button" class="secondary">إرسال رابط استعادة كلمة المرور</button>
         </div>
-
-        <!-- 3. رقم التليفون -->
-        <div id="vortex-phone-box" class="auth-box-card">
-          <h3 class="auth-box-title">3. تسجيل الدخول برقم التليفون</h3>
-          <input id="vortex-phone-input" type="tel" dir="ltr" placeholder="+201012345678" />
-          <button id="vortex-send-otp-btn" type="button">إرسال كود التحقق (SMS)</button>
-          <div id="vortex-otp-box" class="stack hidden">
-            <input id="vortex-otp-input" type="text" dir="ltr" inputmode="numeric" placeholder="أدخل كود التحقق (6 أرقام)" />
-            <button id="vortex-verify-otp-btn" type="button" class="ok">تأكيد الكود وتسجيل الدخول</button>
-          </div>
-          <div id="vortex-recaptcha-box"></div>
-        </div>
       </div>
-    </div>
+    </section>
 
-    <!-- إدارة المشرفين للمالك -->
-    <div id="vortex-admin-box" class="card hidden">
-      <h3 style="margin:0 0 10px 0;">إدارة المشرفين (Owner)</h3>
+    <!-- إدارة الملاك (بحد أقصى 4 حسابات Owner) -->
+    <section id="vortex-owner-box" class="card hidden">
+      <div class="section-head">
+        <h3 id="t-owner-title" class="section-title">إدارة الملاك (الحد الأقصى 4 حسابات Owner)</h3>
+        <span id="vortex-owners-count-badge" class="badge">Owners: 0 / 4</span>
+      </div>
       <div class="row">
-        <input id="vortex-admin-email-input" type="email" dir="ltr" placeholder="admin@example.com" style="flex:1; min-width:200px;" />
-        <button id="vortex-add-admin-btn" type="button">إضافة Admin</button>
-        <button id="vortex-remove-admin-btn" type="button" class="danger">إزالة Admin</button>
+        <input id="vortex-owner-email-input" type="email" dir="ltr" placeholder="owner@example.com" style="flex:1; min-width:210px;" />
+        <button id="vortex-add-owner-btn" type="button">إضافة Owner</button>
+        <button id="vortex-remove-owner-btn" type="button" class="danger">إزالة Owner</button>
       </div>
-    </div>
+      <div id="vortex-owners-list" class="row" style="margin-top:10px;"></div>
+    </section>
 
-    <!-- مساحة العمل الاحترافية بعد تسجيل الدخول -->
-    <div id="vortex-workspace" class="hidden">
+    <!-- مساحة العمل -->
+    <main id="vortex-workspace" class="hidden">
       <div class="stats-grid">
         <div class="stat-box">
-          <div class="stat-label">إجمالي المهام</div>
+          <div id="t-stat-total" class="stat-label">إجمالي المهام</div>
           <div id="stat-total-tasks" class="stat-val">0</div>
         </div>
         <div class="stat-box">
-          <div class="stat-label">قيد التنفيذ</div>
+          <div id="t-stat-pending" class="stat-label">قيد التنفيذ</div>
           <div id="stat-pending-tasks" class="stat-val">0</div>
         </div>
         <div class="stat-box">
-          <div class="stat-label">مهام مكتملة</div>
+          <div id="t-stat-done" class="stat-label">مهام مكتملة</div>
           <div id="stat-done-tasks" class="stat-val">0</div>
         </div>
         <div class="stat-box">
-          <div class="stat-label">معدات ROV المسجلة</div>
+          <div id="t-stat-gear" class="stat-label">معدات ROV</div>
           <div id="stat-total-gear" class="stat-val">0</div>
         </div>
       </div>
 
       <div class="tabs">
-        <button type="button" class="tab-btn active" data-vtab="tasks">مهام الفريق</button>
-        <button type="button" class="tab-btn" data-vtab="gear">معدات ROV</button>
-        <button type="button" class="tab-btn" data-vtab="announcements">إعلانات الفريق</button>
-        <button type="button" class="tab-btn" data-vtab="diagnostics">فحص الأخطاء والبيئة</button>
+        <button type="button" class="tab-btn active" data-vtab="tasks" data-i18n="tabTasks">المهام</button>
+        <button type="button" class="tab-btn" data-vtab="gear" data-i18n="tabGear">معدات ROV</button>
+        <button type="button" class="tab-btn" data-vtab="announcements" data-i18n="tabAnn">إعلانات الفريق</button>
+        <button type="button" class="tab-btn" data-vtab="diagnostics" data-i18n="tabDiag">فحص الأخطاء</button>
       </div>
 
-      <!-- تبويب المهام -->
-      <div id="vtab-tasks" class="card">
-        <h3 style="margin:0 0 10px 0;">مهام الفريق</h3>
+      <!-- تبويب المهام (متاح بالكامل لـ Member والجميع) -->
+      <section id="vtab-tasks" class="card">
+        <h3 id="t-tasks-heading" style="margin:0 0 12px 0;">مهام الفريق</h3>
         <div class="row">
-          <input id="vortex-task-title" type="text" placeholder="عنوان المهمة الجديدة..." style="flex:1; min-width:200px;" />
+          <input id="vortex-task-title" type="text" placeholder="عنوان المهمة الجديدة..." style="flex:1; min-width:210px;" />
           <select id="vortex-task-priority">
-            <option value="normal">أولوية عادية</option>
-            <option value="high">أولوية عالية</option>
+            <option value="normal" data-i18n="prioNormal">أولوية عادية</option>
+            <option value="high" data-i18n="prioHigh">أولوية عالية</option>
           </select>
           <select id="vortex-task-status">
-            <option value="pending">قيد التنفيذ</option>
-            <option value="done">مكتملة</option>
+            <option value="pending" data-i18n="stPending">قيد التنفيذ</option>
+            <option value="done" data-i18n="stDone">مكتملة</option>
           </select>
           <button id="vortex-add-task-btn" type="button">إضافة مهمة</button>
         </div>
 
         <div class="row" style="margin-top:12px;">
-          <input id="vortex-task-search" type="text" placeholder="بحث في المهام..." style="flex:1; min-width:180px;" />
-          <label for="vortex-task-filter">تصفية:</label>
+          <input id="vortex-task-search" type="text" placeholder="بحث في المهام..." style="flex:1; min-width:190px;" />
+          <label id="t-filter-label" for="vortex-task-filter">تصفية:</label>
           <select id="vortex-task-filter">
-            <option value="all">الكل</option>
-            <option value="pending">قيد التنفيذ</option>
-            <option value="done">مكتملة</option>
+            <option value="all" data-i18n="filterAll">الكل</option>
+            <option value="pending" data-i18n="stPending">قيد التنفيذ</option>
+            <option value="done" data-i18n="stDone">مكتملة</option>
           </select>
         </div>
 
         <div id="vortex-tasks-list"></div>
-      </div>
+      </section>
 
       <!-- تبويب معدات ROV -->
-      <div id="vtab-gear" class="card hidden">
-        <h3 style="margin:0 0 10px 0;">معدات وقطع ROV</h3>
+      <section id="vtab-gear" class="card hidden">
+        <h3 id="t-gear-heading" style="margin:0 0 12px 0;">معدات وقطع ROV</h3>
         <div class="row">
-          <input id="vortex-gear-name" type="text" placeholder="اسم القطعة أو الجهاز (مثلاً: Thruster / Sensor)" style="flex:1; min-width:200px;" />
-          <input id="vortex-gear-qty" type="number" min="1" value="1" style="width:90px;" />
+          <input id="vortex-gear-name" type="text" placeholder="اسم القطعة أو الجهاز..." style="flex:1; min-width:210px;" />
+          <input id="vortex-gear-qty" type="number" min="1" value="1" style="width:92px;" />
           <select id="vortex-gear-state">
-            <option value="ready">جاهز</option>
-            <option value="maintenance">صيانة / فحص</option>
-            <option value="missing">ناقص / مطلوب</option>
+            <option value="ready" data-i18n="gearReady">جاهز</option>
+            <option value="maintenance" data-i18n="gearMaint">صيانة / فحص</option>
+            <option value="missing" data-i18n="gearMissing">ناقص / مطلوب</option>
           </select>
           <button id="vortex-add-gear-btn" type="button">إضافة قطعة</button>
         </div>
         <div id="vortex-gear-list"></div>
-      </div>
+      </section>
 
       <!-- تبويب الإعلانات -->
-      <div id="vtab-announcements" class="card hidden">
-        <h3 style="margin:0 0 10px 0;">إعلانات وتنبيهات الفريق</h3>
+      <section id="vtab-announcements" class="card hidden">
+        <h3 id="t-ann-heading" style="margin:0 0 12px 0;">إعلانات الفريق</h3>
         <div class="stack">
           <input id="vortex-ann-title" type="text" placeholder="عنوان الإعلان..." />
-          <textarea id="vortex-ann-body" placeholder="اكتب تفاصيل الاجتماع أو الاختبار أو التنبيه..."></textarea>
+          <textarea id="vortex-ann-body" placeholder="اكتب تفاصيل الإعلان أو التحديث..."></textarea>
           <div class="row">
             <button id="vortex-add-ann-btn" type="button">نشر إعلان</button>
           </div>
         </div>
         <div id="vortex-ann-list"></div>
-      </div>
+      </section>
 
-      <!-- تبويب الفحص والتشخيص -->
-      <div id="vtab-diagnostics" class="card hidden">
-        <h3 style="margin:0 0 8px 0;">فحص الأخطاء والبيئة (Diagnostics)</h3>
+      <!-- تبويب فحص الأخطاء -->
+      <section id="vtab-diagnostics" class="card hidden">
+        <h3 id="t-diag-heading" style="margin:0 0 10px 0;">فحص الأخطاء والبيئة</h3>
         <div class="row">
-          <button id="vortex-run-diag-btn" type="button">إعادة فحص البيئة الآن</button>
+          <button id="vortex-run-diag-btn" type="button">فحص البيئة الآن</button>
           <button id="vortex-clear-cache-btn" type="button" class="secondary">تحديث Service Worker ومسح الكاش</button>
         </div>
         <ul id="vortex-diag-list" class="diag-list"></ul>
-      </div>
-    </div>
+      </section>
+    </main>
   </div>
 
   <script type="module">
@@ -404,8 +472,6 @@
       signInWithEmailAndPassword,
       createUserWithEmailAndPassword,
       sendPasswordResetEmail,
-      RecaptchaVerifier,
-      signInWithPhoneNumber,
       signInWithPopup,
       signInWithRedirect,
       getRedirectResult,
@@ -426,7 +492,9 @@
       serverTimestamp
     } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-    const OWNER_EMAIL = "";
+    const MAX_OWNERS = 4;
+    const PRIMARY_OWNER_EMAIL = "bilalmnam7@gmail.com";
+    const INITIAL_OWNERS = [PRIMARY_OWNER_EMAIL];
 
     const firebaseConfig = {
       apiKey: "AIzaSyCTb6fawE3ltI6A06lBVrx_5zre4Ei4N8g",
@@ -438,129 +506,260 @@
       measurementId: "G-LKE662TNSJ"
     };
 
+    const I18N = {
+      ar: {
+        appTitle: "Vortex ROV — مركز قيادة ومهام الفريق",
+        appSub: "نظام إدارة المهام والمعدات والإعلانات — MATE ROV",
+        online: "متصل بالشبكة",
+        offline: "غير متصل بالشبكة",
+        lightMode: "الوضع النهاري",
+        darkMode: "الوضع الليلي",
+        langSwitch: "English",
+        authTitle: "الحساب وتسجيل الدخول",
+        logout: "تسجيل الخروج",
+        initMsg: "جاري تهيئة النظام...",
+        chooseAuth: "اختر طريقة تسجيل الدخول (Google أو البريد الإلكتروني وكلمة المرور).",
+        googleTitle: "تسجيل الدخول بحساب Google",
+        googleDesc: "دخول سريع عبر Google على Windows وMac وAndroid وiOS.",
+        googlePopup: "الدخول عبر Google",
+        googleRedirect: "الدخول عبر Google (Redirect)",
+        emailTitle: "البريد الإلكتروني وكلمة المرور",
+        emailPh: "name@example.com",
+        passPh: "كلمة المرور (6 أحرف فأكثر)",
+        emailSignIn: "دخول بالبريد",
+        emailSignUp: "إنشاء حساب",
+        resetPass: "إرسال رابط استعادة كلمة المرور",
+        ownerTitle: "إدارة الملاك (الحد الأقصى 4 حسابات Owner)",
+        ownerPh: "owner@example.com",
+        addOwner: "إضافة Owner",
+        removeOwner: "إزالة Owner",
+        maxOwnersReached: "وصلت إلى الحد الأقصى المسموح به (4 حسابات Owner).",
+        cannotRemovePrimary: "لا يمكن إزالة حساب المالك الأساسي.",
+        statTotal: "إجمالي المهام",
+        statPending: "قيد التنفيذ",
+        statDone: "مهام مكتملة",
+        statGear: "معدات ROV",
+        tabTasks: "المهام",
+        tabGear: "معدات ROV",
+        tabAnn: "إعلانات الفريق",
+        tabDiag: "فحص الأخطاء",
+        tasksHeading: "مهام الفريق",
+        taskPh: "عنوان المهمة الجديدة...",
+        prioNormal: "أولوية عادية",
+        prioHigh: "أولوية عالية",
+        stPending: "قيد التنفيذ",
+        stDone: "مكتملة",
+        addTask: "إضافة مهمة",
+        searchPh: "بحث في المهام...",
+        filterLabel: "تصفية:",
+        filterAll: "الكل",
+        noTasks: "لا توجد مهام مطابقة.",
+        reopen: "إعادة فتح",
+        complete: "إتمام",
+        deleteBtn: "حذف",
+        untitled: "بدون عنوان",
+        member: "عضو",
+        by: "بواسطة",
+        gearHeading: "معدات وقطع ROV",
+        gearPh: "اسم القطعة أو الجهاز...",
+        gearReady: "جاهز",
+        gearMaint: "صيانة / فحص",
+        gearMissing: "ناقص / مطلوب",
+        addGear: "إضافة قطعة",
+        noGear: "لا توجد معدات مسجلة بعد.",
+        annHeading: "إعلانات الفريق",
+        annTitlePh: "عنوان الإعلان...",
+        annBodyPh: "اكتب تفاصيل الإعلان أو التحديث...",
+        addAnn: "نشر إعلان",
+        noAnn: "لا توجد إعلانات حالياً.",
+        diagHeading: "فحص الأخطاء والبيئة",
+        runDiag: "فحص البيئة الآن",
+        clearCache: "تحديث Service Worker ومسح الكاش",
+        signedInAs: "تم تسجيل الدخول بنجاح — الصلاحية",
+        fixPrefix: "الحل"
+      },
+      en: {
+        appTitle: "Vortex ROV — Team Command & Task Hub",
+        appSub: "Team Tasks, ROV Gear & Announcements — MATE ROV",
+        online: "Online",
+        offline: "Offline",
+        lightMode: "Light Mode",
+        darkMode: "Dark Mode",
+        langSwitch: "العربية",
+        authTitle: "Account & Sign In",
+        logout: "Sign Out",
+        initMsg: "Initializing system...",
+        chooseAuth: "Choose a sign-in method (Google or Email & Password).",
+        googleTitle: "Sign In with Google",
+        googleDesc: "Fast sign-in via Google on Windows, Mac, Android, and iOS.",
+        googlePopup: "Continue with Google",
+        googleRedirect: "Continue with Google (Redirect)",
+        emailTitle: "Email & Password",
+        emailPh: "name@example.com",
+        passPh: "Password (6+ characters)",
+        emailSignIn: "Sign In",
+        emailSignUp: "Create Account",
+        resetPass: "Send Password Reset Link",
+        ownerTitle: "Owners Management (Max 4 Owner Accounts)",
+        ownerPh: "owner@example.com",
+        addOwner: "Add Owner",
+        removeOwner: "Remove Owner",
+        maxOwnersReached: "Maximum limit reached (4 Owner accounts).",
+        cannotRemovePrimary: "Primary owner account cannot be removed.",
+        statTotal: "Total Tasks",
+        statPending: "In Progress",
+        statDone: "Completed",
+        statGear: "ROV Gear",
+        tabTasks: "Tasks",
+        tabGear: "ROV Gear",
+        tabAnn: "Announcements",
+        tabDiag: "Diagnostics",
+        tasksHeading: "Team Tasks",
+        taskPh: "New task title...",
+        prioNormal: "Normal Priority",
+        prioHigh: "High Priority",
+        stPending: "In Progress",
+        stDone: "Completed",
+        addTask: "Add Task",
+        searchPh: "Search tasks...",
+        filterLabel: "Filter:",
+        filterAll: "All",
+        noTasks: "No matching tasks found.",
+        reopen: "Reopen",
+        complete: "Complete",
+        deleteBtn: "Delete",
+        untitled: "Untitled",
+        member: "Member",
+        by: "By",
+        gearHeading: "ROV Equipment & Parts",
+        gearPh: "Part or device name...",
+        gearReady: "Ready",
+        gearMaint: "Maintenance",
+        gearMissing: "Missing / Needed",
+        addGear: "Add Part",
+        noGear: "No equipment added yet.",
+        annHeading: "Team Announcements",
+        annTitlePh: "Announcement title...",
+        annBodyPh: "Write announcement or update details...",
+        addAnn: "Post Announcement",
+        noAnn: "No announcements yet.",
+        diagHeading: "Diagnostics & Environment",
+        runDiag: "Run Diagnostics",
+        clearCache: "Refresh Service Worker & Clear Cache",
+        signedInAs: "Signed in successfully — Role",
+        fixPrefix: "Fix"
+      }
+    };
+
     const ERROR_CATALOG = {
       "auth/invalid-api-key": {
         num: "ERR-01",
-        msg: "مفتاح Firebase API Key غير صحيح.",
-        fix: "تأكد من مطابقة apiKey مع مشروع vortex-rov في Firebase Console."
+        ar: "مفتاح Firebase API Key غير صحيح.",
+        arFix: "تأكد من مطابقة apiKey مع مشروع vortex-rov.",
+        en: "Invalid Firebase API key.",
+        enFix: "Verify apiKey matches project vortex-rov."
       },
       "auth/unauthorized-domain": {
         num: "ERR-02",
-        msg: "الدومين الحالي غير مضاف في Authorized domains.",
-        fix: "أضف udhdidhdj.github.io في Authentication ← Settings ← Authorized domains."
+        ar: "الدومين الحالي غير مضاف في Authorized domains.",
+        arFix: "أضف udhdidhdj.github.io في Authentication ← Settings ← Authorized domains.",
+        en: "Current domain is not in Authorized domains.",
+        enFix: "Add udhdidhdj.github.io in Authentication -> Settings -> Authorized domains."
       },
       "auth/operation-not-allowed": {
         num: "ERR-03",
-        msg: "طريقة تسجيل الدخول هذه غير مفعّلة في Firebase.",
-        fix: "فعّل Google / Phone / Email-Password في Authentication ← Sign-in method."
+        ar: "طريقة تسجيل الدخول هذه غير مفعّلة في Firebase.",
+        arFix: "فعّل Google أو Email/Password في Authentication ← Sign-in method.",
+        en: "This sign-in provider is not enabled in Firebase.",
+        enFix: "Enable Google or Email/Password in Authentication -> Sign-in method."
       },
       "auth/popup-blocked": {
         num: "ERR-04",
-        msg: "المتصفح منع نافذة الدخول المنبثقة.",
-        fix: "استخدم زر «دخول Google بإعادة التوجيه (Redirect)» أو اسمح بالـ Pop-ups."
+        ar: "المتصفح منع نافذة الدخول المنبثقة.",
+        arFix: "استخدم زر Redirect أو اسمح بالـ Pop-ups.",
+        en: "Sign-in popup was blocked by the browser.",
+        enFix: "Use the Redirect button or allow pop-ups."
       },
       "auth/popup-closed-by-user": {
         num: "ERR-05",
-        msg: "تم إغلاق نافذة الدخول قبل إتمام العملية.",
-        fix: "أعد المحاولة وأكمل اختيار الحساب."
+        ar: "تم إغلاق نافذة الدخول قبل إتمام العملية.",
+        arFix: "أعد المحاولة وأكمل اختيار الحساب.",
+        en: "Sign-in popup was closed before completion.",
+        enFix: "Try again and complete account selection."
       },
       "auth/cancelled-popup-request": {
         num: "ERR-06",
-        msg: "تم إلغاء طلب نافذة الدخول بسبب ضغط متكرر أو تحويل.",
-        fix: "اضغط مرة واحدة فقط وانتظر فتح النافذة."
+        ar: "تم إلغاء طلب النافذة بسبب ضغط متكرر أو تحويل.",
+        arFix: "اضغط مرة واحدة فقط وانتظر.",
+        en: "Popup request was cancelled by another request or redirect.",
+        enFix: "Click once and wait for the auth flow."
       },
       "auth/operation-not-supported-in-this-environment": {
         num: "ERR-07",
-        msg: "البيئة الحالية (WebView أو متصفح مدمج) لا تدعم هذه الخطوة.",
-        fix: "افتح الرابط في Chrome أو Safari وتأكد من تفعيل الكوكيز والتخزين."
+        ar: "البيئة الحالية لا تدعم هذه العملية.",
+        arFix: "افتح في Chrome أو Safari وتأكد من تفعيل التخزين والكوكيز.",
+        en: "Operation is not supported in this environment.",
+        enFix: "Open in Chrome or Safari and ensure storage/cookies are enabled."
       },
       "auth/network-request-failed": {
         num: "ERR-08",
-        msg: "مشكلة في الاتصال بالإنترنت أو حجب طلب الشبكة.",
-        fix: "افحص الإنترنت أو أوقف أي مانع إعلانات/VPN/Proxy."
+        ar: "مشكلة في الاتصال بالإنترنت أو حجب الشبكة.",
+        arFix: "تحقق من الإنترنت وأوقف أي مانع إعلانات أو VPN.",
+        en: "Network request failed or connection was blocked.",
+        enFix: "Check internet connection or disable ad-blockers/VPN."
       },
       "auth/invalid-email": {
         num: "ERR-09",
-        msg: "صيغة البريد الإلكتروني غير صحيحة.",
-        fix: "اكتب بريداً صحيحاً مثل name@example.com."
+        ar: "صيغة البريد الإلكتروني غير صحيحة.",
+        arFix: "اكتب بريداً صحيحاً مثل name@example.com.",
+        en: "Invalid email address format.",
+        enFix: "Enter a valid email such as name@example.com."
       },
       "auth/weak-password": {
         num: "ERR-10",
-        msg: "كلمة المرور ضعيفة أو أقل من 6 أحرف.",
-        fix: "استخدم كلمة مرور من 6 أحرف أو أرقام على الأقل."
+        ar: "كلمة المرور ضعيفة أو أقل من 6 أحرف.",
+        arFix: "استخدم كلمة مرور من 6 أحرف على الأقل.",
+        en: "Password is too weak (minimum 6 characters).",
+        enFix: "Use at least 6 characters."
       },
       "auth/email-already-in-use": {
         num: "ERR-11",
-        msg: "هذا البريد الإلكتروني مسجل من قبل.",
-        fix: "اضغط «دخول بالبريد» بدلاً من «إنشاء حساب»."
+        ar: "هذا البريد الإلكتروني مسجل مسبقاً.",
+        arFix: "اضغط دخول بالبريد بدلاً من إنشاء حساب.",
+        en: "Email is already registered.",
+        enFix: "Use Sign In instead of Create Account."
       },
       "auth/invalid-credential": {
         num: "ERR-12",
-        msg: "البريد الإلكتروني أو كلمة المرور غير صحيحة.",
-        fix: "راجع البريد وكلمة المرور أو أنشئ حساباً جديداً."
-      },
-      "auth/user-not-found": {
-        num: "ERR-13",
-        msg: "لا يوجد مستخدم بهذا البريد الإلكتروني.",
-        fix: "اضغط «إنشاء حساب» أولاً."
-      },
-      "auth/wrong-password": {
-        num: "ERR-14",
-        msg: "كلمة المرور غير صحيحة.",
-        fix: "أدخل كلمة المرور الصحيحة."
-      },
-      "auth/invalid-phone-number": {
-        num: "ERR-15",
-        msg: "رقم التليفون غير صحيح.",
-        fix: "اكتب الرقم بصيغة دولية صحيحة تبدأ بـ + مثل +201012345678."
-      },
-      "auth/too-many-requests": {
-        num: "ERR-16",
-        msg: "تم إرسال طلبات كثيرة جداً في وقت قصير.",
-        fix: "انتظر قليلاً ثم أعد المحاولة أو استخدم أرقام اختبار في Firebase Phone Auth."
-      },
-      "auth/captcha-check-failed": {
-        num: "ERR-17",
-        msg: "فشل التحقق من reCAPTCHA الخاص برقم التليفون.",
-        fix: "تأكد من إضافة الدومين في Authorized domains وأعد تحميل الصفحة."
-      },
-      "auth/invalid-verification-code": {
-        num: "ERR-18",
-        msg: "كود التحقق المكون من 6 أرقام غير صحيح.",
-        fix: "تأكد من كتابة الكود الصحيح."
-      },
-      "auth/code-expired": {
-        num: "ERR-19",
-        msg: "انتهت صلاحية كود التحقق.",
-        fix: "اضغط «إرسال كود التحقق (SMS)» مرة أخرى."
-      },
-      "auth/web-storage-unsupported": {
-        num: "ERR-22",
-        msg: "تخزين المتصفح غير مدعوم أو معطل في هذا الوضع.",
-        fix: "أوقف التصفح الخاص/المقيد واسمح بالكوكيز وLocal Storage."
+        ar: "البريد الإلكتروني أو كلمة المرور غير صحيحة.",
+        arFix: "راجع بيانات الدخول أو أنشئ حساباً جديداً.",
+        en: "Invalid email or password.",
+        enFix: "Check credentials or create a new account."
       },
       "permission-denied": {
         num: "ERR-20",
-        msg: "الصلاحيات مرفوضة من قاعدة بيانات Firestore.",
-        fix: "راجع قواعد Firestore واسمح للمستخدم المسجل."
-      },
-      "unavailable": {
-        num: "ERR-21",
-        msg: "خدمة Firestore غير متاحة مؤقتاً أو الاتصال منقطع.",
-        fix: "تحقق من اتصال الإنترنت وأعد المحاولة."
+        ar: "الصلاحيات مرفوضة من قاعدة بيانات Firestore.",
+        arFix: "راجع قواعد Firestore واسمح للمستخدم المسجل.",
+        en: "Permission denied by Firestore rules.",
+        enFix: "Update Firestore rules to allow authenticated users."
       }
     };
+
+    let lang = localStorage.getItem("vortex_lang") === "en" ? "en" : "ar";
+    let theme = localStorage.getItem("vortex_theme") === "light" ? "light" : "dark";
 
     const statusBox = document.getElementById("vortex-status-box");
     const netBadge = document.getElementById("vortex-net-badge");
     const themeBtn = document.getElementById("vortex-theme-btn");
     const langBtn = document.getElementById("vortex-lang-btn");
-    const authPanel = document.getElementById("vortex-auth-panel");
-    const googleBtn = document.getElementById("vortex-google-btn");
-    const googleRedirectBtn = document.getElementById("vortex-google-force-redirect-btn");
+    const authGrid = document.getElementById("vortex-auth-grid");
+    const googlePopupBtn = document.getElementById("vortex-google-popup-btn");
+    const googleRedirectBtn = document.getElementById("vortex-google-redirect-btn");
     const logoutBtn = document.getElementById("vortex-logout-btn");
     const userBadge = document.getElementById("vortex-user-badge");
-    const adminBox = document.getElementById("vortex-admin-box");
+    const ownerBox = document.getElementById("vortex-owner-box");
+    const ownersCountBadge = document.getElementById("vortex-owners-count-badge");
+    const ownersList = document.getElementById("vortex-owners-list");
     const workspace = document.getElementById("vortex-workspace");
 
     const emailInput = document.getElementById("vortex-email-input");
@@ -568,12 +767,6 @@
     const emailSignInBtn = document.getElementById("vortex-email-signin-btn");
     const emailSignUpBtn = document.getElementById("vortex-email-signup-btn");
     const resetPassBtn = document.getElementById("vortex-reset-pass-btn");
-
-    const phoneInput = document.getElementById("vortex-phone-input");
-    const sendOtpBtn = document.getElementById("vortex-send-otp-btn");
-    const otpBox = document.getElementById("vortex-otp-box");
-    const otpInput = document.getElementById("vortex-otp-input");
-    const verifyOtpBtn = document.getElementById("vortex-verify-otp-btn");
 
     const tasksList = document.getElementById("vortex-tasks-list");
     const taskFilter = document.getElementById("vortex-task-filter");
@@ -584,21 +777,29 @@
 
     let unknownSeq = 100;
     const unknownCodes = new Map();
+    let lastStatusState = { key: "init", type: "normal", extra: "" };
 
-    function setStatus(text, type = "normal") {
+    function t(key) {
+      return (I18N[lang] && I18N[lang][key]) || I18N.ar[key] || key;
+    }
+
+    function setStatus(text, type = "normal", meta = null) {
+      if (meta) lastStatusState = meta;
       statusBox.textContent = text;
       statusBox.classList.remove("error", "ok");
       if (type === "error") statusBox.classList.add("error");
       if (type === "ok") statusBox.classList.add("ok");
     }
 
-    function resolveError(err, title = "حدث خطأ") {
+    function resolveError(err, fallbackTitle = "Error") {
       const raw = err && (err.code || err.message) ? String(err.code || err.message) : "unknown";
       const clean = raw.replace(/^Firebase:\s*/i, "").replace(/\(.*\)\.?$/, "").trim();
 
       if (ERROR_CATALOG[clean]) {
         const e = ERROR_CATALOG[clean];
-        return `[${e.num}] ${title}: ${e.msg}\nالحل: ${e.fix} (${clean})`;
+        const msg = lang === "en" ? e.en : e.ar;
+        const fix = lang === "en" ? e.enFix : e.arFix;
+        return `[${e.num}] ${fallbackTitle}: ${msg}\n${t("fixPrefix")}: ${fix} (${clean})`;
       }
 
       if (!unknownCodes.has(raw)) {
@@ -606,56 +807,101 @@
         unknownCodes.set(raw, `ERR-${unknownSeq}`);
       }
       const codeNum = unknownCodes.get(raw);
-      return `[${codeNum}] ${title} — خطأ غير مصنف: ${raw}\nالحل: راجع إعدادات Firebase وتبويب «فحص الأخطاء والبيئة».`;
+      return `[${codeNum}] ${fallbackTitle}: ${raw}`;
     }
 
     function isMobileOrIOS() {
       return /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
     }
 
-    function normalizePhone(raw) {
-      const cleaned = raw.trim().replace(/\s+/g, "");
-      if (!cleaned) return "";
-      if (cleaned.startsWith("+")) return cleaned;
-      if (/^0?1\d{9}$/.test(cleaned)) {
-        return "+2" + cleaned.replace(/^0/, "0");
-      }
-      return "+" + cleaned;
-    }
-
     function syncNetBadge() {
       const online = navigator.onLine;
-      netBadge.textContent = online ? "متصل بالشبكة" : "غير متصل بالشبكة";
+      netBadge.textContent = online ? t("online") : t("offline");
       netBadge.classList.toggle("ok", online);
       netBadge.classList.toggle("danger", !online);
     }
-    window.addEventListener("online", () => { syncNetBadge(); setStatus("عاد الاتصال بالشبكة.", "ok"); });
-    window.addEventListener("offline", () => { syncNetBadge(); setStatus("[ERR-08] الاتصال بالإنترنت مقطوع.", "error"); });
-    syncNetBadge();
 
-    const savedTheme = localStorage.getItem("vortex_theme") || "dark";
-    if (savedTheme === "light") {
-      document.body.classList.add("light");
-      themeBtn.textContent = "الوضع الليلي";
+    function applyTheme() {
+      document.body.classList.toggle("light", theme === "light");
+      themeBtn.textContent = theme === "light" ? t("darkMode") : t("lightMode");
     }
+
+    function applyLanguage() {
+      document.documentElement.lang = lang;
+      document.documentElement.dir = lang === "en" ? "ltr" : "rtl";
+
+      document.getElementById("t-app-title").textContent = t("appTitle");
+      document.getElementById("t-app-sub").textContent = t("appSub");
+      document.getElementById("t-auth-title").textContent = t("authTitle");
+      document.getElementById("t-google-title").textContent = t("googleTitle");
+      document.getElementById("t-google-desc").textContent = t("googleDesc");
+      googlePopupBtn.textContent = t("googlePopup");
+      googleRedirectBtn.textContent = t("googleRedirect");
+      document.getElementById("t-email-title").textContent = t("emailTitle");
+      emailInput.placeholder = t("emailPh");
+      passInput.placeholder = t("passPh");
+      emailSignInBtn.textContent = t("emailSignIn");
+      emailSignUpBtn.textContent = t("emailSignUp");
+      resetPassBtn.textContent = t("resetPass");
+      logoutBtn.textContent = t("logout");
+
+      document.getElementById("t-owner-title").textContent = t("ownerTitle");
+      document.getElementById("vortex-owner-email-input").placeholder = t("ownerPh");
+      document.getElementById("vortex-add-owner-btn").textContent = t("addOwner");
+      document.getElementById("vortex-remove-owner-btn").textContent = t("removeOwner");
+
+      document.getElementById("t-stat-total").textContent = t("statTotal");
+      document.getElementById("t-stat-pending").textContent = t("statPending");
+      document.getElementById("t-stat-done").textContent = t("statDone");
+      document.getElementById("t-stat-gear").textContent = t("statGear");
+
+      document.getElementById("t-tasks-heading").textContent = t("tasksHeading");
+      document.getElementById("vortex-task-title").placeholder = t("taskPh");
+      document.getElementById("vortex-add-task-btn").textContent = t("addTask");
+      document.getElementById("vortex-task-search").placeholder = t("searchPh");
+      document.getElementById("t-filter-label").textContent = t("filterLabel");
+      document.getElementById("t-gear-heading").textContent = t("gearHeading");
+      document.getElementById("vortex-gear-name").placeholder = t("gearPh");
+      document.getElementById("vortex-add-gear-btn").textContent = t("addGear");
+      document.getElementById("t-ann-heading").textContent = t("annHeading");
+      document.getElementById("vortex-ann-title").placeholder = t("annTitlePh");
+      document.getElementById("vortex-ann-body").placeholder = t("annBodyPh");
+      document.getElementById("vortex-add-ann-btn").textContent = t("addAnn");
+      document.getElementById("t-diag-heading").textContent = t("diagHeading");
+      document.getElementById("vortex-run-diag-btn").textContent = t("runDiag");
+      document.getElementById("vortex-clear-cache-btn").textContent = t("clearCache");
+
+      document.querySelectorAll("[data-i18n]").forEach((el) => {
+        const k = el.getAttribute("data-i18n");
+        if (I18N[lang][k]) el.textContent = I18N[lang][k];
+      });
+
+      langBtn.textContent = t("langSwitch");
+      applyTheme();
+      syncNetBadge();
+      renderUI();
+    }
+
     themeBtn.addEventListener("click", () => {
-      const light = document.body.classList.toggle("light");
-      localStorage.setItem("vortex_theme", light ? "light" : "dark");
-      themeBtn.textContent = light ? "الوضع الليلي" : "الوضع النهاري";
+      theme = theme === "light" ? "dark" : "light";
+      localStorage.setItem("vortex_theme", theme);
+      applyTheme();
     });
 
-    let isEn = false;
     langBtn.addEventListener("click", () => {
-      isEn = !isEn;
-      document.documentElement.lang = isEn ? "en" : "ar";
-      document.documentElement.dir = isEn ? "ltr" : "rtl";
-      document.getElementById("vortex-app-title").textContent = isEn
-        ? "Vortex ROV — Team Command & Task Hub"
-        : "Vortex ROV — مركز قيادة ومهام الفريق";
-      document.getElementById("vortex-app-sub").textContent = isEn
-        ? "Team Tasks, ROV Gear, Announcements & Diagnostics — MATE ROV"
-        : "نظام متكامل للفريق والمعدات والإعلانات والمهام — MATE ROV";
-      langBtn.textContent = isEn ? "العربية" : "English";
+      lang = lang === "ar" ? "en" : "ar";
+      localStorage.setItem("vortex_lang", lang);
+      applyLanguage();
+    });
+
+    window.addEventListener("online", () => {
+      syncNetBadge();
+      setStatus(t("online"), "ok");
+    });
+
+    window.addEventListener("offline", () => {
+      syncNetBadge();
+      setStatus(resolveError({ code: "auth/network-request-failed" }, t("offline")), "error");
     });
 
     document.querySelectorAll(".tab-btn").forEach((btn) => {
@@ -679,31 +925,25 @@
     }
 
     async function runDiagnostics() {
-      const items = [];
-      items.push(`الجهاز / المتصفح: ${navigator.userAgent}`);
-      items.push(`الشبكة: ${navigator.onLine ? "متصل (Online)" : "غير متصل (Offline)"}`);
-      items.push(`الدومين / المسار: ${window.location.origin}${window.location.pathname}`);
-      items.push(`Firebase Project: ${firebaseConfig.projectId} (API Key مضاف ✓)`);
-
-      let lsOk = false;
-      try {
-        localStorage.setItem("_vx_t", "1");
-        localStorage.removeItem("_vx_t");
-        lsOk = true;
-      } catch (_) {}
-      items.push(`Local Storage: ${lsOk ? "متاح ✓" : "محجوب أو مقيد"}`);
+      const lines = [
+        `User Agent: ${navigator.userAgent}`,
+        `Network: ${navigator.onLine ? "Online" : "Offline"}`,
+        `Origin / Path: ${window.location.origin}${window.location.pathname}`,
+        `Firebase Project: ${firebaseConfig.projectId}`,
+        `Max Owners Limit: ${MAX_OWNERS}`
+      ];
 
       if ("serviceWorker" in navigator) {
         try {
           const regs = await navigator.serviceWorker.getRegistrations();
-          items.push(`Service Worker: ${regs.length} تسجيل نشط`);
+          lines.push(`Service Workers: ${regs.length}`);
         } catch (e) {
-          items.push(`Service Worker: تعذر الفحص (${e.message || e})`);
+          lines.push(`Service Workers Error: ${e.message || e}`);
         }
       }
 
       diagList.innerHTML = "";
-      items.forEach((txt) => {
+      lines.forEach((txt) => {
         const li = document.createElement("li");
         li.textContent = txt;
         diagList.appendChild(li);
@@ -722,18 +962,15 @@
           const keys = await caches.keys();
           for (const k of keys) await caches.delete(k);
         }
-        setStatus("تم تحديث Service Worker ومسح الكاش. جاري إعادة التحميل...", "ok");
-        setTimeout(() => window.location.reload(true), 700);
+        window.location.reload(true);
       } catch (err) {
-        setStatus(resolveError(err, "تعذر مسح الكاش"), "error");
+        setStatus(resolveError(err, t("clearCache")), "error");
       }
     });
 
     let auth = null;
     let db = null;
     let provider = null;
-    let confirmationResult = null;
-    let recaptchaVerifier = null;
 
     try {
       const app = initializeApp(firebaseConfig);
@@ -743,91 +980,103 @@
       provider.setCustomParameters({ prompt: "select_account" });
       setPersistence(auth, browserLocalPersistence).catch(() => {});
     } catch (err) {
-      setStatus(resolveError(err, "فشل تهيئة Firebase"), "error");
-      console.error(err);
-    }
-
-    function ensureRecaptcha() {
-      if (!auth || recaptchaVerifier) return recaptchaVerifier;
-      recaptchaVerifier = new RecaptchaVerifier(auth, "vortex-recaptcha-box", {
-        size: "invisible"
-      });
-      return recaptchaVerifier;
+      setStatus(resolveError(err, "Firebase Init"), "error");
     }
 
     let currentUser = null;
     let currentRole = "Member";
-    let adminEmails = new Set();
+    let ownersSet = new Set(INITIAL_OWNERS.map((e) => e.toLowerCase()));
     let allTasks = [];
     let allGear = [];
     let allAnnouncements = [];
     let unsubs = [];
 
+    function getEffectiveOwnersSet() {
+      const merged = new Set(INITIAL_OWNERS.map((e) => e.toLowerCase()));
+      ownersSet.forEach((e) => merged.add(e.toLowerCase()));
+      return Array.from(merged).slice(0, MAX_OWNERS);
+    }
+
     function computeRole(user) {
-      if (!user) return "Member";
-      const email = (user.email || "").toLowerCase();
-      if (email && OWNER_EMAIL && email === OWNER_EMAIL.toLowerCase()) return "Owner";
-      if (email && adminEmails.has(email)) return "Admin";
+      if (!user || !user.email) return "Member";
+      const email = user.email.toLowerCase();
+      const activeOwners = getEffectiveOwnersSet();
+      if (activeOwners.includes(email)) return "Owner";
       return "Member";
     }
 
     function updateStats() {
       document.getElementById("stat-total-tasks").textContent = String(allTasks.length);
       document.getElementById("stat-pending-tasks").textContent = String(
-        allTasks.filter((t) => t.status !== "done").length
+        allTasks.filter((item) => item.status !== "done").length
       );
       document.getElementById("stat-done-tasks").textContent = String(
-        allTasks.filter((t) => t.status === "done").length
+        allTasks.filter((item) => item.status === "done").length
       );
       document.getElementById("stat-total-gear").textContent = String(allGear.length);
     }
 
+    function renderOwnersList() {
+      const activeOwners = getEffectiveOwnersSet();
+      ownersCountBadge.textContent = `Owners: ${activeOwners.length} / ${MAX_OWNERS}`;
+      ownersList.innerHTML = "";
+      activeOwners.forEach((email) => {
+        const chip = document.createElement("span");
+        chip.className = "badge ok";
+        chip.textContent = email;
+        ownersList.appendChild(chip);
+      });
+    }
+
     function renderUI() {
       if (!currentUser) {
-        authPanel.classList.remove("hidden");
+        authGrid.classList.remove("hidden");
         logoutBtn.classList.add("hidden");
         userBadge.classList.add("hidden");
-        adminBox.classList.add("hidden");
+        ownerBox.classList.add("hidden");
         workspace.classList.add("hidden");
-        setStatus("اختر طريقة تسجيل الدخول (Google، البريد الإلكتروني، أو رقم التليفون).", "normal");
+        setStatus(t("chooseAuth"), "normal", { key: "chooseAuth", type: "normal" });
         return;
       }
 
       currentRole = computeRole(currentUser);
-      const idText = currentUser.email || currentUser.phoneNumber || currentUser.uid;
+      const identity = currentUser.email || currentUser.uid;
 
-      authPanel.classList.add("hidden");
-      otpBox.classList.add("hidden");
+      authGrid.classList.add("hidden");
       logoutBtn.classList.remove("hidden");
       userBadge.classList.remove("hidden");
-      userBadge.textContent = `${idText} (${currentRole})`;
+      userBadge.textContent = `${identity} (${currentRole})`;
+
+      // Member يمتلك الوصول الكامل لقسم المهام وإضافتها؛ Owner فقط يملك إدارة الملاك (حتى 4)
       workspace.classList.remove("hidden");
-      adminBox.classList.toggle("hidden", currentRole !== "Owner");
-      setStatus(`تم تسجيل الدخول بنجاح — الصلاحية: ${currentRole}`, "ok");
+      ownerBox.classList.toggle("hidden", currentRole !== "Owner");
+      if (currentRole === "Owner") renderOwnersList();
+
+      setStatus(`${t("signedInAs")}: ${currentRole}`, "ok", { key: "signedInAs", type: "ok" });
       updateStats();
       renderTasks();
       renderGear();
       renderAnnouncements();
     }
 
-    function canManage(item) {
+    function canManageItem(item) {
       if (!currentUser) return false;
-      if (currentRole === "Owner" || currentRole === "Admin") return true;
+      if (currentRole === "Owner") return true;
       return item.createdByUid === currentUser.uid;
     }
 
     function renderTasks() {
       const f = taskFilter.value;
       const qText = taskSearch.value.trim().toLowerCase();
-      const filtered = allTasks.filter((t) => {
-        const okStatus = f === "all" || t.status === f;
-        const okSearch = !qText || String(t.title || "").toLowerCase().includes(qText);
+      const filtered = allTasks.filter((task) => {
+        const okStatus = f === "all" || task.status === f;
+        const okSearch = !qText || String(task.title || "").toLowerCase().includes(qText);
         return okStatus && okSearch;
       });
 
       tasksList.innerHTML = "";
       if (filtered.length === 0) {
-        tasksList.innerHTML = `<p class="hint" style="margin-top:12px;">لا توجد مهام مطابقة.</p>`;
+        tasksList.innerHTML = `<p class="hint" style="margin-top:12px;">${t("noTasks")}</p>`;
         return;
       }
 
@@ -837,14 +1086,14 @@
 
         const left = document.createElement("div");
         const titleEl = document.createElement("div");
-        titleEl.textContent = task.title || "بدون عنوان";
+        titleEl.textContent = task.title || t("untitled");
         titleEl.style.fontWeight = "700";
 
         const metaEl = document.createElement("div");
         metaEl.className = "hint";
-        metaEl.textContent = `${task.status === "done" ? "مكتملة" : "قيد التنفيذ"} • ${
-          task.priority === "high" ? "أولوية عالية" : "أولوية عادية"
-        } • بواسطة: ${task.createdByLabel || "عضو"}`;
+        const stLabel = task.status === "done" ? t("stDone") : t("stPending");
+        const prLabel = task.priority === "high" ? t("prioHigh") : t("prioNormal");
+        metaEl.textContent = `${stLabel} • ${prLabel} • ${t("by")}: ${task.createdByLabel || t("member")}`;
 
         left.appendChild(titleEl);
         left.appendChild(metaEl);
@@ -852,30 +1101,30 @@
         const actions = document.createElement("div");
         actions.className = "row";
 
-        if (canManage(task)) {
+        if (canManageItem(task)) {
           const toggleBtn = document.createElement("button");
           toggleBtn.type = "button";
           toggleBtn.className = "secondary";
-          toggleBtn.textContent = task.status === "done" ? "إعادة فتح" : "إتمام";
+          toggleBtn.textContent = task.status === "done" ? t("reopen") : t("complete");
           toggleBtn.addEventListener("click", async () => {
             try {
               await updateDoc(doc(db, "tasks", task.id), {
                 status: task.status === "done" ? "pending" : "done"
               });
             } catch (err) {
-              setStatus(resolveError(err, "تعذر تحديث المهمة"), "error");
+              setStatus(resolveError(err, t("tasksHeading")), "error");
             }
           });
 
           const delBtn = document.createElement("button");
           delBtn.type = "button";
           delBtn.className = "danger";
-          delBtn.textContent = "حذف";
+          delBtn.textContent = t("deleteBtn");
           delBtn.addEventListener("click", async () => {
             try {
               await deleteDoc(doc(db, "tasks", task.id));
             } catch (err) {
-              setStatus(resolveError(err, "تعذر حذف المهمة"), "error");
+              setStatus(resolveError(err, t("tasksHeading")), "error");
             }
           });
 
@@ -892,7 +1141,7 @@
     function renderGear() {
       gearList.innerHTML = "";
       if (allGear.length === 0) {
-        gearList.innerHTML = `<p class="hint" style="margin-top:12px;">لا توجد معدات مسجلة بعد.</p>`;
+        gearList.innerHTML = `<p class="hint" style="margin-top:12px;">${t("noGear")}</p>`;
         return;
       }
 
@@ -902,12 +1151,12 @@
 
         const left = document.createElement("div");
         const titleEl = document.createElement("div");
-        titleEl.textContent = `${item.name || "قطعة"} × ${item.qty || 1}`;
+        titleEl.textContent = `${item.name || t("untitled")} × ${item.qty || 1}`;
         titleEl.style.fontWeight = "700";
 
         const metaEl = document.createElement("div");
         metaEl.className = "hint";
-        metaEl.textContent = `بواسطة: ${item.createdByLabel || "عضو"}`;
+        metaEl.textContent = `${t("by")}: ${item.createdByLabel || t("member")}`;
 
         left.appendChild(titleEl);
         left.appendChild(metaEl);
@@ -918,27 +1167,27 @@
         const badge = document.createElement("span");
         badge.className = "badge";
         if (item.state === "ready") {
-          badge.textContent = "جاهز";
+          badge.textContent = t("gearReady");
           badge.classList.add("ok");
         } else if (item.state === "maintenance") {
-          badge.textContent = "صيانة / فحص";
+          badge.textContent = t("gearMaint");
           badge.classList.add("warn");
         } else {
-          badge.textContent = "ناقص / مطلوب";
+          badge.textContent = t("gearMissing");
           badge.classList.add("danger");
         }
         right.appendChild(badge);
 
-        if (canManage(item)) {
+        if (canManageItem(item)) {
           const delBtn = document.createElement("button");
           delBtn.type = "button";
           delBtn.className = "danger";
-          delBtn.textContent = "حذف";
+          delBtn.textContent = t("deleteBtn");
           delBtn.addEventListener("click", async () => {
             try {
               await deleteDoc(doc(db, "gear", item.id));
             } catch (err) {
-              setStatus(resolveError(err, "تعذر حذف القطعة"), "error");
+              setStatus(resolveError(err, t("gearHeading")), "error");
             }
           });
           right.appendChild(delBtn);
@@ -953,7 +1202,7 @@
     function renderAnnouncements() {
       annList.innerHTML = "";
       if (allAnnouncements.length === 0) {
-        annList.innerHTML = `<p class="hint" style="margin-top:12px;">لا توجد إعلانات حالياً.</p>`;
+        annList.innerHTML = `<p class="hint" style="margin-top:12px;">${t("noAnn")}</p>`;
         return;
       }
 
@@ -965,7 +1214,7 @@
         left.style.flex = "1";
 
         const titleEl = document.createElement("div");
-        titleEl.textContent = ann.title || "إعلان";
+        titleEl.textContent = ann.title || t("untitled");
         titleEl.style.fontWeight = "700";
 
         const bodyEl = document.createElement("div");
@@ -976,23 +1225,23 @@
         const metaEl = document.createElement("div");
         metaEl.className = "hint";
         metaEl.style.marginTop = "4px";
-        metaEl.textContent = `نشره: ${ann.createdByLabel || "عضو"}`;
+        metaEl.textContent = `${t("by")}: ${ann.createdByLabel || t("member")}`;
 
         left.appendChild(titleEl);
         left.appendChild(bodyEl);
         left.appendChild(metaEl);
         div.appendChild(left);
 
-        if (canManage(ann)) {
+        if (canManageItem(ann)) {
           const delBtn = document.createElement("button");
           delBtn.type = "button";
           delBtn.className = "danger";
-          delBtn.textContent = "حذف";
+          delBtn.textContent = t("deleteBtn");
           delBtn.addEventListener("click", async () => {
             try {
               await deleteDoc(doc(db, "announcements", ann.id));
             } catch (err) {
-              setStatus(resolveError(err, "تعذر حذف الإعلان"), "error");
+              setStatus(resolveError(err, t("annHeading")), "error");
             }
           });
           div.appendChild(delBtn);
@@ -1004,16 +1253,15 @@
 
     if (auth) {
       getRedirectResult(auth).catch((err) => {
-        setStatus(resolveError(err, "تعذر إتمام تسجيل الدخول بعد إعادة التوجيه"), "error");
+        setStatus(resolveError(err, t("googleTitle")), "error");
       });
     }
 
-    async function startGoogleLogin(forceRedirect = false) {
+    async function handleGoogleSignIn(forceRedirect = false) {
       if (!auth || !provider) {
-        setStatus("[ERR-01] Firebase غير مهيأ.", "error");
+        setStatus(resolveError({ code: "auth/invalid-api-key" }, t("googleTitle")), "error");
         return;
       }
-      setStatus("جاري فتح تسجيل الدخول بحساب Google...", "normal");
       try {
         if (forceRedirect || isMobileOrIOS()) {
           await signInWithRedirect(auth, provider);
@@ -1031,31 +1279,30 @@
             await signInWithRedirect(auth, provider);
             return;
           } catch (redirErr) {
-            setStatus(resolveError(redirErr, "فشل تسجيل الدخول بحساب Google"), "error");
+            setStatus(resolveError(redirErr, t("googleTitle")), "error");
             return;
           }
         }
-        setStatus(resolveError(err, "فشل تسجيل الدخول بحساب Google"), "error");
+        setStatus(resolveError(err, t("googleTitle")), "error");
       }
     }
 
-    googleBtn.addEventListener("click", () => startGoogleLogin(false));
-    googleRedirectBtn.addEventListener("click", () => startGoogleLogin(true));
+    googlePopupBtn.addEventListener("click", () => handleGoogleSignIn(false));
+    googleRedirectBtn.addEventListener("click", () => handleGoogleSignIn(true));
 
     emailSignInBtn.addEventListener("click", async () => {
       if (!auth) return;
       const email = emailInput.value.trim();
       const pass = passInput.value;
       if (!email || !pass) {
-        setStatus("[ERR-09] أدخل البريد الإلكتروني وكلمة المرور.", "error");
+        setStatus(resolveError({ code: "auth/invalid-email" }, t("emailSignIn")), "error");
         return;
       }
       emailSignInBtn.disabled = true;
-      setStatus("جاري تسجيل الدخول بالبريد...", "normal");
       try {
         await signInWithEmailAndPassword(auth, email, pass);
       } catch (err) {
-        setStatus(resolveError(err, "فشل الدخول بالبريد"), "error");
+        setStatus(resolveError(err, t("emailSignIn")), "error");
       } finally {
         emailSignInBtn.disabled = false;
       }
@@ -1066,15 +1313,14 @@
       const email = emailInput.value.trim();
       const pass = passInput.value;
       if (!email || !pass) {
-        setStatus("[ERR-09] أدخل البريد الإلكتروني وكلمة المرور لإنشاء الحساب.", "error");
+        setStatus(resolveError({ code: "auth/invalid-email" }, t("emailSignUp")), "error");
         return;
       }
       emailSignUpBtn.disabled = true;
-      setStatus("جاري إنشاء الحساب...", "normal");
       try {
         await createUserWithEmailAndPassword(auth, email, pass);
       } catch (err) {
-        setStatus(resolveError(err, "فشل إنشاء الحساب"), "error");
+        setStatus(resolveError(err, t("emailSignUp")), "error");
       } finally {
         emailSignUpBtn.disabled = false;
       }
@@ -1084,59 +1330,14 @@
       if (!auth) return;
       const email = emailInput.value.trim();
       if (!email) {
-        setStatus("[ERR-09] اكتب البريد الإلكتروني أولاً لإرسال رابط الاستعادة.", "error");
+        setStatus(resolveError({ code: "auth/invalid-email" }, t("resetPass")), "error");
         return;
       }
       try {
         await sendPasswordResetEmail(auth, email);
-        setStatus(`تم إرسال رابط استعادة كلمة المرور إلى ${email}.`, "ok");
+        setStatus(`${t("resetPass")}: ${email}`, "ok");
       } catch (err) {
-        setStatus(resolveError(err, "تعذر إرسال رابط الاستعادة"), "error");
-      }
-    });
-
-    sendOtpBtn.addEventListener("click", async () => {
-      if (!auth) return;
-      const phone = normalizePhone(phoneInput.value);
-      if (!/^\+\d{8,15}$/.test(phone)) {
-        setStatus("[ERR-15] اكتب رقم التليفون بصيغة دولية مثل +201012345678.", "error");
-        return;
-      }
-      sendOtpBtn.disabled = true;
-      setStatus("جاري إرسال كود التحقق...", "normal");
-      try {
-        const verifier = ensureRecaptcha();
-        confirmationResult = await signInWithPhoneNumber(auth, phone, verifier);
-        otpBox.classList.remove("hidden");
-        setStatus(`تم إرسال كود التحقق إلى ${phone}.`, "ok");
-      } catch (err) {
-        setStatus(resolveError(err, "تعذر إرسال كود التحقق"), "error");
-        if (recaptchaVerifier) {
-          try { recaptchaVerifier.clear(); } catch (_) {}
-          recaptchaVerifier = null;
-        }
-      } finally {
-        sendOtpBtn.disabled = false;
-      }
-    });
-
-    verifyOtpBtn.addEventListener("click", async () => {
-      const code = otpInput.value.trim();
-      if (!confirmationResult || !code) {
-        setStatus("[ERR-18] أدخل كود التحقق أولاً.", "error");
-        return;
-      }
-      verifyOtpBtn.disabled = true;
-      setStatus("جاري التحقق من الكود...", "normal");
-      try {
-        await confirmationResult.confirm(code);
-        otpInput.value = "";
-        phoneInput.value = "";
-        confirmationResult = null;
-      } catch (err) {
-        setStatus(resolveError(err, "تعذر تأكيد كود التحقق"), "error");
-      } finally {
-        verifyOtpBtn.disabled = false;
+        setStatus(resolveError(err, t("resetPass")), "error");
       }
     });
 
@@ -1144,7 +1345,7 @@
       try {
         await signOut(auth);
       } catch (err) {
-        setStatus(resolveError(err, "تعذر تسجيل الخروج"), "error");
+        setStatus(resolveError(err, t("logout")), "error");
       }
     });
 
@@ -1154,18 +1355,19 @@
       const prioSel = document.getElementById("vortex-task-priority");
       const title = titleInput.value.trim();
       if (!title || !currentUser) return;
+
       try {
         await addDoc(collection(db, "tasks"), {
           title,
           status: statusSel.value,
           priority: prioSel.value,
           createdByUid: currentUser.uid,
-          createdByLabel: currentUser.email || currentUser.phoneNumber || "عضو",
+          createdByLabel: currentUser.email || currentUser.uid,
           createdAt: serverTimestamp()
         });
         titleInput.value = "";
       } catch (err) {
-        setStatus(resolveError(err, "تعذر إضافة المهمة"), "error");
+        setStatus(resolveError(err, t("addTask")), "error");
       }
     });
 
@@ -1176,19 +1378,20 @@
       const name = nameInput.value.trim();
       const qty = Math.max(1, parseInt(qtyInput.value, 10) || 1);
       if (!name || !currentUser) return;
+
       try {
         await addDoc(collection(db, "gear"), {
           name,
           qty,
           state: stateSel.value,
           createdByUid: currentUser.uid,
-          createdByLabel: currentUser.email || currentUser.phoneNumber || "عضو",
+          createdByLabel: currentUser.email || currentUser.uid,
           createdAt: serverTimestamp()
         });
         nameInput.value = "";
         qtyInput.value = "1";
       } catch (err) {
-        setStatus(resolveError(err, "تعذر إضافة القطعة"), "error");
+        setStatus(resolveError(err, t("addGear")), "error");
       }
     });
 
@@ -1198,46 +1401,60 @@
       const title = titleInput.value.trim();
       const body = bodyInput.value.trim();
       if (!title || !body || !currentUser) return;
+
       try {
         await addDoc(collection(db, "announcements"), {
           title,
           body,
           createdByUid: currentUser.uid,
-          createdByLabel: currentUser.email || currentUser.phoneNumber || "عضو",
+          createdByLabel: currentUser.email || currentUser.uid,
           createdAt: serverTimestamp()
         });
         titleInput.value = "";
         bodyInput.value = "";
       } catch (err) {
-        setStatus(resolveError(err, "تعذر نشر الإعلان"), "error");
+        setStatus(resolveError(err, t("addAnn")), "error");
       }
     });
 
-    document.getElementById("vortex-add-admin-btn").addEventListener("click", async () => {
-      const input = document.getElementById("vortex-admin-email-input");
+    document.getElementById("vortex-add-owner-btn").addEventListener("click", async () => {
+      const input = document.getElementById("vortex-owner-email-input");
       const email = input.value.trim().toLowerCase();
       if (!email || currentRole !== "Owner") return;
+
+      const currentOwners = getEffectiveOwnersSet();
+      if (!currentOwners.includes(email) && currentOwners.length >= MAX_OWNERS) {
+        setStatus(t("maxOwnersReached"), "error");
+        return;
+      }
+
       try {
-        await setDoc(doc(db, "admins", encodeURIComponent(email)), {
+        await setDoc(doc(db, "owners", encodeURIComponent(email)), {
           email,
-          role: "Admin",
+          role: "Owner",
           updatedAt: serverTimestamp()
         });
         input.value = "";
       } catch (err) {
-        setStatus(resolveError(err, "تعذر إضافة المشرف"), "error");
+        setStatus(resolveError(err, t("addOwner")), "error");
       }
     });
 
-    document.getElementById("vortex-remove-admin-btn").addEventListener("click", async () => {
-      const input = document.getElementById("vortex-admin-email-input");
+    document.getElementById("vortex-remove-owner-btn").addEventListener("click", async () => {
+      const input = document.getElementById("vortex-owner-email-input");
       const email = input.value.trim().toLowerCase();
       if (!email || currentRole !== "Owner") return;
+
+      if (email === PRIMARY_OWNER_EMAIL.toLowerCase()) {
+        setStatus(t("cannotRemovePrimary"), "error");
+        return;
+      }
+
       try {
-        await deleteDoc(doc(db, "admins", encodeURIComponent(email)));
+        await deleteDoc(doc(db, "owners", encodeURIComponent(email)));
         input.value = "";
       } catch (err) {
-        setStatus(resolveError(err, "تعذر إزالة المشرف"), "error");
+        setStatus(resolveError(err, t("removeOwner")), "error");
       }
     });
 
@@ -1254,21 +1471,21 @@
           allTasks = [];
           allGear = [];
           allAnnouncements = [];
-          adminEmails = new Set();
+          ownersSet = new Set(INITIAL_OWNERS.map((e) => e.toLowerCase()));
           renderUI();
           return;
         }
 
         unsubs.push(
           onSnapshot(
-            collection(db, "admins"),
+            collection(db, "owners"),
             (snap) => {
-              const nextSet = new Set();
+              const nextSet = new Set(INITIAL_OWNERS.map((e) => e.toLowerCase()));
               snap.forEach((d) => {
                 const data = d.data();
                 if (data && data.email) nextSet.add(String(data.email).toLowerCase());
               });
-              adminEmails = nextSet;
+              ownersSet = nextSet;
               renderUI();
             },
             () => renderUI()
@@ -1283,7 +1500,7 @@
               updateStats();
               renderTasks();
             },
-            (err) => setStatus(resolveError(err, "تعذر تحميل المهام"), "error")
+            (err) => setStatus(resolveError(err, t("tasksHeading")), "error")
           )
         );
 
@@ -1295,7 +1512,7 @@
               updateStats();
               renderGear();
             },
-            (err) => setStatus(resolveError(err, "تعذر تحميل المعدات"), "error")
+            (err) => setStatus(resolveError(err, t("gearHeading")), "error")
           )
         );
 
@@ -1306,13 +1523,15 @@
               allAnnouncements = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
               renderAnnouncements();
             },
-            (err) => setStatus(resolveError(err, "تعذر تحميل الإعلانات"), "error")
+            (err) => setStatus(resolveError(err, t("annHeading")), "error")
           )
         );
 
         renderUI();
       });
     }
+
+    applyLanguage();
   </script>
 </body>
 </html>
