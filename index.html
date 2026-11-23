@@ -9,7 +9,7 @@
   <style>
     :root {
       --bg: #071322;
-      --bg-soft: rgba(10, 25, 47, 0.86);
+      --bg-soft: rgba(10, 25, 47, 0.88);
       --card: #10233b;
       --card-2: #162e4d;
       --accent: #06b6d4;
@@ -20,12 +20,12 @@
       --danger: #ef4444;
       --ok: #22c55e;
       --warn: #f59e0b;
-      --radius: 14px;
+      --radius: 16px;
     }
 
     body.light {
       --bg: #f1f5f9;
-      --bg-soft: rgba(255, 255, 255, 0.94);
+      --bg-soft: rgba(255, 255, 255, 0.96);
       --card: #ffffff;
       --card-2: #f8fafc;
       --accent: #0284c7;
@@ -46,17 +46,18 @@
     body {
       margin: 0;
       background:
-        radial-gradient(circle at top right, rgba(6, 182, 212, 0.15), transparent 42%),
-        radial-gradient(circle at bottom left, rgba(14, 165, 233, 0.09), transparent 45%),
+        radial-gradient(circle at top right, rgba(6, 182, 212, 0.16), transparent 44%),
+        radial-gradient(circle at bottom left, rgba(14, 165, 233, 0.1), transparent 46%),
         var(--bg);
       color: var(--text);
       min-height: 100vh;
-      padding: 16px;
+      padding: 24px;
+      font-size: 16px;
       transition: background-color 0.2s ease, color 0.2s ease;
     }
 
     .container {
-      max-width: 1160px;
+      max-width: 1360px;
       margin: 0 auto;
     }
 
@@ -64,26 +65,26 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 12px;
+      gap: 16px;
       flex-wrap: wrap;
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 15px 18px;
-      margin-bottom: 14px;
-      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.22);
+      padding: 20px 24px;
+      margin-bottom: 18px;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.24);
     }
 
     .brand {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
     }
 
     .brand-icon {
-      width: 44px;
-      height: 44px;
-      border-radius: 12px;
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
       background: rgba(6, 182, 212, 0.16);
       border: 1px solid var(--accent);
       display: grid;
@@ -94,13 +95,13 @@
 
     .brand h1 {
       margin: 0;
-      font-size: 20px;
+      font-size: 24px;
       font-weight: 800;
     }
 
     .brand p {
-      margin: 3px 0 0 0;
-      font-size: 12px;
+      margin: 4px 0 0 0;
+      font-size: 14px;
       color: var(--muted);
     }
 
@@ -108,23 +109,23 @@
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 16px;
-      margin-bottom: 14px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+      padding: 22px;
+      margin-bottom: 18px;
+      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.16);
     }
 
     .section-head {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
       flex-wrap: wrap;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
     }
 
     .section-title {
       margin: 0;
-      font-size: 17px;
+      font-size: 20px;
       font-weight: 800;
       display: flex;
       align-items: center;
@@ -133,30 +134,30 @@
 
     .auth-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(295px, 1fr));
-      gap: 12px;
-      margin-top: 12px;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 16px;
+      margin-top: 14px;
     }
 
     .auth-panel {
       background: var(--card-2);
       border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 15px;
+      border-radius: 14px;
+      padding: 20px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 12px;
     }
 
     .auth-panel h3 {
       margin: 0;
-      font-size: 15px;
+      font-size: 17px;
       font-weight: 800;
     }
 
     .row {
       display: flex;
-      gap: 9px;
+      gap: 12px;
       flex-wrap: wrap;
       align-items: center;
     }
@@ -164,27 +165,28 @@
     .stack {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 12px;
     }
 
     .tabs {
       display: flex;
-      gap: 8px;
+      gap: 12px;
       flex-wrap: wrap;
-      margin-bottom: 14px;
+      margin-bottom: 18px;
     }
 
     .tab-btn {
       background: var(--card);
       color: var(--text);
       border: 1px solid var(--border);
-      padding: 10px 15px;
-      border-radius: 10px;
+      padding: 13px 22px;
+      border-radius: 12px;
       font-weight: 700;
+      font-size: 15px;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 7px;
+      gap: 8px;
     }
 
     .tab-btn.active {
@@ -195,43 +197,37 @@
 
     .stats-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(155px, 1fr));
-      gap: 10px;
-      margin-bottom: 14px;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 14px;
+      margin-bottom: 18px;
     }
 
     .stat-box {
       background: var(--card);
       border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 13px;
+      border-radius: 14px;
+      padding: 18px;
     }
 
     .stat-label {
-      font-size: 12px;
+      font-size: 14px;
       color: var(--muted);
       font-weight: 600;
     }
 
     .stat-val {
-      font-size: 22px;
+      font-size: 28px;
       font-weight: 800;
-      margin-top: 4px;
+      margin-top: 6px;
     }
 
-    input, select, textarea, button {
-      padding: 10px 12px;
-      border-radius: 9px;
+    input, select, button {
+      padding: 12px 15px;
+      border-radius: 11px;
       border: 1px solid var(--border);
       background: var(--bg-soft);
       color: var(--text);
-      font-size: 14px;
-    }
-
-    textarea {
-      resize: vertical;
-      min-height: 74px;
-      width: 100%;
+      font-size: 15px;
     }
 
     button {
@@ -242,7 +238,7 @@
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 7px;
     }
 
     button:disabled {
@@ -261,35 +257,35 @@
       color: #ffffff;
     }
 
+    button.ok {
+      background: var(--ok);
+      color: #ffffff;
+    }
+
     .item-card {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 12px;
-      padding: 12px 14px;
+      gap: 14px;
+      padding: 16px 18px;
       border: 1px solid var(--border);
-      border-radius: 11px;
-      margin-top: 10px;
+      border-radius: 13px;
+      margin-top: 12px;
       background: var(--bg-soft);
       flex-wrap: wrap;
     }
 
-    .item-card.pinned {
-      border-color: var(--warn);
-      background: rgba(245, 158, 11, 0.08);
-    }
-
     .badge {
-      padding: 4px 10px;
+      padding: 6px 12px;
       border-radius: 999px;
-      font-size: 12px;
+      font-size: 13px;
       background: var(--card-2);
       color: var(--text);
       border: 1px solid var(--border);
       font-weight: 700;
       display: inline-flex;
       align-items: center;
-      gap: 5px;
+      gap: 6px;
     }
 
     .badge.ok { border-color: var(--ok); color: var(--ok); }
@@ -297,7 +293,7 @@
     .badge.danger { border-color: var(--danger); color: var(--danger); }
 
     .hint {
-      font-size: 12px;
+      font-size: 13px;
       color: var(--muted);
     }
 
@@ -306,13 +302,13 @@
     }
 
     #vortex-status-box {
-      margin-top: 8px;
-      padding: 10px 13px;
-      border-radius: 10px;
+      margin-top: 10px;
+      padding: 13px 16px;
+      border-radius: 12px;
       border: 1px solid var(--border);
       background: var(--bg-soft);
-      font-size: 13px;
-      line-height: 1.65;
+      font-size: 14px;
+      line-height: 1.7;
       white-space: pre-line;
     }
 
@@ -327,21 +323,22 @@
     }
 
     .chat-box {
-      max-height: 360px;
+      min-height: 300px;
+      max-height: 460px;
       overflow-y: auto;
       display: flex;
       flex-direction: column;
-      gap: 8px;
-      padding: 10px;
-      border-radius: 11px;
+      gap: 10px;
+      padding: 14px;
+      border-radius: 13px;
       border: 1px solid var(--border);
       background: var(--bg-soft);
-      margin-bottom: 10px;
+      margin-bottom: 14px;
     }
 
     .chat-msg {
-      padding: 10px 12px;
-      border-radius: 10px;
+      padding: 12px 15px;
+      border-radius: 12px;
       border: 1px solid var(--border);
       background: var(--card-2);
     }
@@ -354,17 +351,17 @@
     .assignee-picker {
       background: var(--card-2);
       border: 1px dashed var(--accent);
-      border-radius: 11px;
-      padding: 12px;
-      margin-top: 10px;
+      border-radius: 12px;
+      padding: 14px;
+      margin-top: 12px;
     }
 
     .email-chip-btn {
       background: var(--bg-soft);
       color: var(--text);
       border: 1px solid var(--border);
-      font-size: 12px;
-      padding: 6px 10px;
+      font-size: 13px;
+      padding: 7px 12px;
       border-radius: 999px;
     }
 
@@ -372,27 +369,6 @@
       background: var(--accent);
       color: var(--accent-ink);
       border-color: var(--accent);
-    }
-
-    .feature-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 10px;
-      margin-top: 10px;
-    }
-
-    .feature-box {
-      background: var(--bg-soft);
-      border: 1px solid var(--border);
-      border-radius: 11px;
-      padding: 12px;
-    }
-
-    .diag-list {
-      margin: 12px 0 0 0;
-      padding: 0 18px;
-      font-size: 13px;
-      line-height: 1.85;
     }
   </style>
 </head>
@@ -402,7 +378,7 @@
     <header class="topbar">
       <div class="brand">
         <div class="brand-icon" aria-hidden="true">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <circle cx="12" cy="12" r="9"></circle>
             <path d="M12 3v18M3 12h18"></path>
           </svg>
@@ -414,7 +390,6 @@
       </div>
       <div class="row">
         <span id="vortex-net-badge" class="badge ok">● متصل بالشبكة</span>
-        <span id="vortex-features-badge" class="badge">⚡ 530+ Features & Scenarios</span>
         <button id="vortex-theme-btn" type="button" class="secondary">☀ الوضع النهاري</button>
         <button id="vortex-lang-btn" type="button" class="secondary">🌐 English</button>
       </div>
@@ -433,6 +408,7 @@
       <div id="vortex-status-box">⏳ جاري تهيئة النظام...</div>
 
       <div id="vortex-auth-grid" class="auth-grid">
+        <!-- 1. Google -->
         <div class="auth-panel">
           <h3 id="t-google-title">🔑 تسجيل الدخول بحساب Google</h3>
           <p id="t-google-desc" class="hint" style="margin:0;">دخول سريع عبر Google على Windows وMac وAndroid وiOS.</p>
@@ -440,6 +416,7 @@
           <button id="vortex-google-redirect-btn" type="button" class="secondary">↪ الدخول عبر Google (Redirect)</button>
         </div>
 
+        <!-- 2. البريد الإلكتروني وكلمة المرور -->
         <div class="auth-panel">
           <h3 id="t-email-title">✉️ البريد الإلكتروني وكلمة المرور</h3>
           <input id="vortex-email-input" type="email" dir="ltr" placeholder="name@example.com" />
@@ -450,27 +427,39 @@
           </div>
           <button id="vortex-reset-pass-btn" type="button" class="secondary">🔄 إرسال رابط استعادة كلمة المرور</button>
         </div>
+
+        <!-- 3. رقم الموبايل -->
+        <div class="auth-panel">
+          <h3 id="t-phone-title">📱 تسجيل الدخول برقم الموبايل</h3>
+          <input id="vortex-phone-input" type="tel" dir="ltr" placeholder="+201012345678" />
+          <button id="vortex-send-otp-btn" type="button">📲 إرسال كود التحقق (SMS)</button>
+          <div id="vortex-otp-box" class="stack hidden">
+            <input id="vortex-otp-input" type="text" dir="ltr" inputmode="numeric" placeholder="أدخل كود التحقق (6 أرقام)" />
+            <button id="vortex-verify-otp-btn" type="button" class="ok">✔ تأكيد الكود وتسجيل الدخول</button>
+          </div>
+          <div id="vortex-recaptcha-box"></div>
+        </div>
       </div>
     </section>
 
-    <!-- إدارة الملاك وإيميلات الفريق (بحد أقصى 4 حسابات Owner) -->
+    <!-- إدارة الملاك وإيميلات الفريق (الـ Owner فقط) -->
     <section id="vortex-owner-box" class="card hidden">
       <div class="section-head">
         <h3 id="t-owner-title" class="section-title">👑 إدارة الملاك وإيميلات الفريق (الحد الأقصى 4 Owner)</h3>
         <span id="vortex-owners-count-badge" class="badge">Owners: 1 / 4</span>
       </div>
       <div class="row">
-        <input id="vortex-owner-email-input" type="email" dir="ltr" placeholder="owner@example.com" style="flex:1; min-width:210px;" />
+        <input id="vortex-owner-email-input" type="email" dir="ltr" placeholder="owner@example.com" style="flex:1; min-width:220px;" />
         <button id="vortex-add-owner-btn" type="button">➕ إضافة Owner</button>
         <button id="vortex-remove-owner-btn" type="button" class="danger">✖ إزالة Owner</button>
       </div>
-      <div id="vortex-owners-list" class="row" style="margin-top:10px;"></div>
+      <div id="vortex-owners-list" class="row" style="margin-top:12px;"></div>
 
-      <div class="row" style="margin-top:12px;">
-        <input id="vortex-roster-email-input" type="email" dir="ltr" placeholder="member@example.com" style="flex:1; min-width:210px;" />
+      <div class="row" style="margin-top:14px;">
+        <input id="vortex-roster-email-input" type="email" dir="ltr" placeholder="member@example.com" style="flex:1; min-width:220px;" />
         <button id="vortex-add-roster-btn" type="button" class="secondary">✉ إضافة إيميل عضو للمهام</button>
       </div>
-      <div id="vortex-roster-list" class="row" style="margin-top:8px;"></div>
+      <div id="vortex-roster-list" class="row" style="margin-top:10px;"></div>
     </section>
 
     <!-- مساحة العمل -->
@@ -489,14 +478,6 @@
           <div id="stat-done-tasks" class="stat-val">0</div>
         </div>
         <div class="stat-box">
-          <div id="t-stat-rate" class="stat-label">📊 نسبة الإنجاز</div>
-          <div id="stat-completion-rate" class="stat-val">0%</div>
-        </div>
-        <div class="stat-box">
-          <div id="t-stat-gear" class="stat-label">🛠️ معدات ROV</div>
-          <div id="stat-total-gear" class="stat-val">0</div>
-        </div>
-        <div class="stat-box">
           <div id="t-stat-chat" class="stat-label">💬 رسائل الشات</div>
           <div id="stat-total-chat" class="stat-val">0</div>
         </div>
@@ -506,22 +487,18 @@
       <div class="tabs">
         <button type="button" class="tab-btn active" data-vtab="tasks">📋 <span data-i18n="tabTasks">المهام</span></button>
         <button type="button" class="tab-btn" data-vtab="chat">💬 <span data-i18n="tabChat">شات الفريق</span></button>
-        <button type="button" class="tab-btn" data-vtab="gear">🛠️ <span data-i18n="tabGear">معدات ROV</span></button>
-        <button type="button" class="tab-btn" data-vtab="announcements">📢 <span data-i18n="tabAnn">إعلانات الفريق</span></button>
-        <button type="button" class="tab-btn" data-vtab="suite">⚡ <span data-i18n="tabSuite">530+ ميزة وأداة</span></button>
-        <button type="button" class="tab-btn" data-vtab="diagnostics">🩺 <span data-i18n="tabDiag">فحص الأخطاء</span></button>
       </div>
 
-      <!-- تبويب المهام: البحث والتصفية في بطاقة مستقلة تماماً عن مهام الفريق -->
+      <!-- تبويب المهام -->
       <div id="vtab-tasks">
-        <!-- بطاقة البحث والتصفية والفرز المستقلة -->
+        <!-- بطاقة البحث والتصفية المستقلة -->
         <section class="card">
           <div class="section-head">
             <h3 id="t-search-heading" class="section-title">🔎 البحث والتصفية في المهام</h3>
             <button id="vortex-reset-filters-btn" type="button" class="secondary">♻️ إعادة ضبط الفلاتر</button>
           </div>
           <div class="row">
-            <input id="vortex-task-search" type="text" placeholder="ابحث باسم المهمة أو التيم أو الإيميل..." style="flex:1; min-width:210px;" />
+            <input id="vortex-task-search" type="text" placeholder="ابحث باسم المهمة أو التيم أو الإيميل..." style="flex:1; min-width:220px;" />
             <select id="vortex-task-filter">
               <option value="all" data-i18n="filterAll">الكل</option>
               <option value="pending" data-i18n="stPending">قيد التنفيذ</option>
@@ -538,162 +515,66 @@
             <select id="vortex-task-assignee-filter">
               <option value="all" data-i18n="assigneeAll">كل المسؤولين</option>
             </select>
-            <select id="vortex-task-sort">
-              <option value="newest" data-i18n="sortNewest">الأحدث أولاً</option>
-              <option value="oldest" data-i18n="sortOldest">الأقدم أولاً</option>
-              <option value="priority" data-i18n="sortPrio">الأولوية الأعلى</option>
-            </select>
           </div>
         </section>
 
-        <!-- بطاقة إضافة وعرض مهام الفريق المستقلة -->
+        <!-- بطاقة مهام الفريق (الإضافة والتحكم للـ Owner فقط) -->
         <section class="card">
           <div class="section-head">
             <h3 id="t-tasks-heading" class="section-title">📋 مهام الفريق</h3>
             <span id="vortex-tasks-count-badge" class="badge">0</span>
           </div>
-          <div class="row">
-            <input id="vortex-task-title" type="text" placeholder="عنوان المهمة الجديدة..." style="flex:1; min-width:210px;" />
-            <select id="vortex-task-team">
-              <option value="GUI">GUI</option>
-              <option value="Vision">Vision</option>
-              <option value="Control">Control</option>
-              <option value="Mechanical">Mechanical</option>
-              <option value="Electrical">Electrical</option>
-            </select>
-            <select id="vortex-task-priority">
-              <option value="normal" data-i18n="prioNormal">أولوية عادية</option>
-              <option value="high" data-i18n="prioHigh">أولوية عالية</option>
-              <option value="urgent" data-i18n="prioUrgent">عاجلة</option>
-            </select>
-            <select id="vortex-task-status">
-              <option value="pending" data-i18n="stPending">قيد التنفيذ</option>
-              <option value="done" data-i18n="stDone">مكتملة</option>
-            </select>
-            <button id="vortex-pick-assignee-btn" type="button" class="secondary">👤 اختيار الشخص المسؤول</button>
-            <button id="vortex-add-task-btn" type="button">➕ إضافة مهمة</button>
-          </div>
 
-          <!-- قائمة الإيميلات المحطوطة لاختيار الشخص المسؤول عن المهمة -->
-          <div id="vortex-assignee-picker" class="assignee-picker hidden">
-            <div class="row" style="justify-content:space-between; margin-bottom:8px;">
-              <strong id="t-pick-assignee-title" style="font-size:13px;">✉ اختر الشخص المسؤول من الإيميلات المحطوطة:</strong>
-              <span id="vortex-selected-assignee-label" class="badge ok"></span>
+          <div id="vortex-owner-task-controls">
+            <div class="row">
+              <input id="vortex-task-title" type="text" placeholder="عنوان المهمة الجديدة..." style="flex:1; min-width:220px;" />
+              <select id="vortex-task-team">
+                <option value="GUI">GUI</option>
+                <option value="Vision">Vision</option>
+                <option value="Control">Control</option>
+                <option value="Mechanical">Mechanical</option>
+                <option value="Electrical">Electrical</option>
+              </select>
+              <select id="vortex-task-priority">
+                <option value="normal" data-i18n="prioNormal">أولوية عادية</option>
+                <option value="high" data-i18n="prioHigh">أولوية عالية</option>
+                <option value="urgent" data-i18n="prioUrgent">عاجلة</option>
+              </select>
+              <select id="vortex-task-status">
+                <option value="pending" data-i18n="stPending">قيد التنفيذ</option>
+                <option value="done" data-i18n="stDone">مكتملة</option>
+              </select>
+              <button id="vortex-pick-assignee-btn" type="button" class="secondary">👤 اختيار الشخص المسؤول</button>
+              <button id="vortex-add-task-btn" type="button">➕ إضافة مهمة</button>
             </div>
-            <select id="vortex-task-assignee-select" style="width:100%; margin-bottom:8px;">
-              <option value="" data-i18n="unassignedOption">بدون تعيين محدد</option>
-            </select>
-            <div id="vortex-assignee-chips" class="row"></div>
+
+            <div id="vortex-assignee-picker" class="assignee-picker hidden">
+              <div class="row" style="justify-content:space-between; margin-bottom:10px;">
+                <strong id="t-pick-assignee-title" style="font-size:14px;">✉ اختر الشخص المسؤول من الإيميلات المحطوطة:</strong>
+                <span id="vortex-selected-assignee-label" class="badge ok"></span>
+              </div>
+              <select id="vortex-task-assignee-select" style="width:100%; margin-bottom:10px;">
+                <option value="" data-i18n="unassignedOption">بدون تعيين محدد</option>
+              </select>
+              <div id="vortex-assignee-chips" class="row"></div>
+            </div>
           </div>
 
           <div id="vortex-tasks-list"></div>
         </section>
       </div>
 
-      <!-- تبويب شات الفريق -->
+      <!-- تبويب شات الفريق (الإرسال والحذف للـ Owner فقط) -->
       <section id="vtab-chat" class="card hidden">
         <div class="section-head">
           <h3 id="t-chat-heading" class="section-title">💬 شات الفريق المباشر</h3>
           <button id="vortex-scroll-chat-btn" type="button" class="secondary">⬇ آخر الرسائل</button>
         </div>
         <div id="vortex-chat-box" class="chat-box"></div>
-        <div class="row">
-          <input id="vortex-chat-input" type="text" placeholder="اكتب رسالة للفريق..." style="flex:1; min-width:220px;" />
+        <div id="vortex-owner-chat-controls" class="row">
+          <input id="vortex-chat-input" type="text" placeholder="اكتب رسالة للفريق..." style="flex:1; min-width:240px;" />
           <button id="vortex-send-chat-btn" type="button">📨 إرسال</button>
         </div>
-      </section>
-
-      <!-- تبويب معدات ROV -->
-      <section id="vtab-gear" class="card hidden">
-        <div class="section-head">
-          <h3 id="t-gear-heading" class="section-title">🛠️ معدات وقطع ROV</h3>
-          <select id="vortex-gear-filter">
-            <option value="all" data-i18n="filterAll">الكل</option>
-            <option value="ready" data-i18n="gearReady">جاهز</option>
-            <option value="maintenance" data-i18n="gearMaint">صيانة / فحص</option>
-            <option value="missing" data-i18n="gearMissing">ناقص / مطلوب</option>
-          </select>
-        </div>
-        <div class="row">
-          <input id="vortex-gear-name" type="text" placeholder="اسم القطعة أو الجهاز..." style="flex:1; min-width:210px;" />
-          <input id="vortex-gear-qty" type="number" min="1" value="1" style="width:92px;" />
-          <select id="vortex-gear-state">
-            <option value="ready" data-i18n="gearReady">جاهز</option>
-            <option value="maintenance" data-i18n="gearMaint">صيانة / فحص</option>
-            <option value="missing" data-i18n="gearMissing">ناقص / مطلوب</option>
-          </select>
-          <button id="vortex-add-gear-btn" type="button">➕ إضافة قطعة</button>
-        </div>
-        <div id="vortex-gear-list"></div>
-      </section>
-
-      <!-- تبويب الإعلانات -->
-      <section id="vtab-announcements" class="card hidden">
-        <h3 id="t-ann-heading" class="section-title" style="margin-bottom:12px;">📢 إعلانات الفريق</h3>
-        <div class="stack">
-          <input id="vortex-ann-title" type="text" placeholder="عنوان الإعلان..." />
-          <textarea id="vortex-ann-body" placeholder="اكتب تفاصيل الإعلان أو التحديث..."></textarea>
-          <div class="row">
-            <button id="vortex-add-ann-btn" type="button">📣 نشر إعلان</button>
-          </div>
-        </div>
-        <div id="vortex-ann-list"></div>
-      </section>
-
-      <!-- تبويب منظومة الـ 530+ ميزة وأداة واحتمال -->
-      <section id="vtab-suite" class="card hidden">
-        <div class="section-head">
-          <h3 id="t-suite-heading" class="section-title">⚡ منظومة الـ 530+ ميزة واحتمال وأداة هندسية</h3>
-          <span id="vortex-suite-counter" class="badge ok">532 Modules & Scenarios Ready</span>
-        </div>
-        <p id="t-suite-desc" class="hint" style="margin:0 0 12px 0;">
-          توليد سريع لمهام التيمات الخمسة، مصفوفة احتمالات الأعطال والحلول، وحاسبات وفحوصات جاهزة لـ MATE ROV.
-        </p>
-
-        <div class="row" style="margin-bottom:12px;">
-          <button id="vortex-tpl-gui-btn" type="button" class="secondary">🖥 + مهمة GUI</button>
-          <button id="vortex-tpl-vision-btn" type="button" class="secondary">👁 + مهمة Vision</button>
-          <button id="vortex-tpl-control-btn" type="button" class="secondary">🎮 + مهمة Control</button>
-          <button id="vortex-tpl-mech-btn" type="button" class="secondary">⚙ + مهمة Mechanical</button>
-          <button id="vortex-tpl-elec-btn" type="button" class="secondary">⚡ + مهمة Electrical</button>
-        </div>
-
-        <div class="feature-grid">
-          <div class="feature-box">
-            <strong id="t-sim-heading">🎲 محاكي الاحتمالات والسيناريوهات</strong>
-            <p class="hint" style="margin:6px 0;">اختر سيناريو لاختبار الاحتمال وخطة المعالجة:</p>
-            <select id="vortex-scenario-select" style="width:100%; margin-bottom:8px;"></select>
-            <div id="vortex-scenario-output" class="hint" style="color:var(--text);"></div>
-          </div>
-
-          <div class="feature-box">
-            <strong id="t-calc-heading">🔋 حاسبة قدرة وتيار التيمات</strong>
-            <p class="hint" style="margin:6px 0;">أدخل الجهد (V) والقدرة (W) لحساب التيار (A):</p>
-            <div class="row">
-              <input id="vortex-volt-input" type="number" value="48" min="1" style="width:90px;" />
-              <input id="vortex-watt-input" type="number" value="480" min="1" style="width:100px;" />
-              <button id="vortex-calc-btn" type="button">احسب</button>
-            </div>
-            <div id="vortex-calc-result" class="hint" style="margin-top:8px; color:var(--text);">10.00 A</div>
-          </div>
-
-          <div class="feature-box">
-            <strong id="t-export-heading">📤 تصدير ونسخ تقرير المهام</strong>
-            <p class="hint" style="margin:6px 0;">انسخ ملخص كامل بالمهام والمسؤولين والتيمات:</p>
-            <button id="vortex-copy-report-btn" type="button" class="secondary">📋 نسخ تقرير المهام</button>
-            <div id="vortex-matrix-summary" class="hint" style="margin-top:8px;"></div>
-          </div>
-        </div>
-      </section>
-
-      <!-- تبويب فحص الأخطاء -->
-      <section id="vtab-diagnostics" class="card hidden">
-        <h3 id="t-diag-heading" class="section-title" style="margin-bottom:12px;">🩺 فحص الأخطاء والبيئة</h3>
-        <div class="row">
-          <button id="vortex-run-diag-btn" type="button">🔍 فحص البيئة الآن</button>
-          <button id="vortex-clear-cache-btn" type="button" class="secondary">🧹 تحديث Service Worker ومسح الكاش</button>
-        </div>
-        <ul id="vortex-diag-list" class="diag-list"></ul>
       </section>
     </main>
   </div>
@@ -708,6 +589,8 @@
       signInWithEmailAndPassword,
       createUserWithEmailAndPassword,
       sendPasswordResetEmail,
+      RecaptchaVerifier,
+      signInWithPhoneNumber,
       signInWithPopup,
       signInWithRedirect,
       getRedirectResult,
@@ -743,23 +626,6 @@
       measurementId: "G-LKE662TNSJ"
     };
 
-    // منظومة 532 ميزة واحتمال وأداة مدمجة بالكامل
-    const SCENARIOS = [
-      { id: 1, ar: "فقدان إشارة الكاميرا (Vision)", en: "Camera Feed Drop (Vision)", prob: "18%", fixAr: "فحص كابل USB/Ethernet وتبديل المنفذ.", fixEn: "Check USB/Ethernet cable and switch port." },
-      { id: 2, ar: "ارتفاع حرارة درايف التحكم (Control)", en: "Control Driver Thermal Spike", prob: "14%", fixAr: "تقليل الحمل الأقصى وتهوية اللوحة.", fixEn: "Cap PWM duty cycle and improve board cooling." },
-      { id: 3, ar: "تأخر استجابة الواجهة الرسومية (GUI)", en: "GUI Frame Lag / Latency", prob: "12%", fixAr: "تقليل معدل تحديث السجلات الثقيلة في الواجهة.", fixEn: "Throttle heavy telemetry UI renders." },
-      { id: 4, ar: "تسرب أو ارتخاء تثبيت هيكلي (Mechanical)", en: "Mechanical Fastener / Seal Check", prob: "10%", fixAr: "إعادة فحص الجوانات والبراغي قبل الإنزال.", fixEn: "Re-torque fasteners and inspect seals before deployment." },
-      { id: 5, ar: "هبوط الجهد تحت الحمل (Electrical)", en: "Electrical Voltage Sag Under Load", prob: "16%", fixAr: "فحص الفيوزات وتوصيلات البطارية والـ Buck.", fixEn: "Inspect fuses, battery leads, and buck converter." },
-      { id: 6, ar: "انقطاع اتصال مؤقت أثناء الاختبار", en: "Temporary Telemetry Link Drop", prob: "15%", fixAr: "إعادة مزامنة الحالة والاتصال بالشبكة.", fixEn: "Re-sync state and verify network connectivity." },
-      { id: 7, ar: "تعارض أولويات المهام قبل المسابقة", en: "Pre-Competition Task Priority Clash", prob: "15%", fixAr: "رفع أولوية المهام الحرجة وتعيين مسؤول واضح.", fixEn: "Elevate critical tasks and assign a clear owner." }
-    ];
-
-    const FEATURE_CATALOG = Array.from({ length: 532 }, (_, idx) => {
-      const id = idx + 1;
-      const team = TEAMS[idx % TEAMS.length];
-      return { id, team, enabled: true };
-    });
-
     const I18N = {
       ar: {
         appTitle: "Vortex ROV — مركز قيادة ومهام الفريق",
@@ -771,7 +637,7 @@
         langSwitch: "🌐 English",
         authTitle: "🔐 الحساب وتسجيل الدخول",
         logout: "🚪 تسجيل الخروج",
-        chooseAuth: "اختر طريقة تسجيل الدخول (Google أو البريد الإلكتروني وكلمة المرور).",
+        chooseAuth: "اختر طريقة تسجيل الدخول (Google أو البريد الإلكتروني أو رقم الموبايل).",
         googleTitle: "🔑 تسجيل الدخول بحساب Google",
         googleDesc: "دخول سريع عبر Google على Windows وMac وAndroid وiOS.",
         googlePopup: "🚀 الدخول عبر Google",
@@ -782,6 +648,11 @@
         emailSignIn: "✅ دخول بالبريد",
         emailSignUp: "➕ إنشاء حساب",
         resetPass: "🔄 إرسال رابط استعادة كلمة المرور",
+        phoneTitle: "📱 تسجيل الدخول برقم الموبايل",
+        phonePh: "+201012345678",
+        sendOtp: "📲 إرسال كود التحقق (SMS)",
+        otpPh: "أدخل كود التحقق (6 أرقام)",
+        verifyOtp: "✔ تأكيد الكود وتسجيل الدخول",
         ownerTitle: "👑 إدارة الملاك وإيميلات الفريق (الحد الأقصى 4 Owner)",
         ownerPh: "owner@example.com",
         addOwner: "➕ إضافة Owner",
@@ -793,15 +664,9 @@
         statTotal: "📌 إجمالي المهام",
         statPending: "⏳ قيد التنفيذ",
         statDone: "✅ مهام مكتملة",
-        statRate: "📊 نسبة الإنجاز",
-        statGear: "🛠️ معدات ROV",
         statChat: "💬 رسائل الشات",
         tabTasks: "المهام",
         tabChat: "شات الفريق",
-        tabGear: "معدات ROV",
-        tabAnn: "إعلانات الفريق",
-        tabSuite: "530+ ميزة وأداة",
-        tabDiag: "فحص الأخطاء",
         searchHeading: "🔎 البحث والتصفية في المهام",
         resetFilters: "♻️ إعادة ضبط الفلاتر",
         searchPh: "ابحث باسم المهمة أو التيم أو الإيميل...",
@@ -812,9 +677,6 @@
         pickAssigneeBtn: "👤 اختيار الشخص المسؤول",
         pickAssigneeTitle: "✉ اختر الشخص المسؤول من الإيميلات المحطوطة:",
         assignedTo: "المسؤول",
-        sortNewest: "الأحدث أولاً",
-        sortOldest: "الأقدم أولاً",
-        sortPrio: "الأولوية الأعلى",
         tasksHeading: "📋 مهام الفريق",
         taskPh: "عنوان المهمة الجديدة...",
         prioNormal: "أولوية عادية",
@@ -826,8 +688,6 @@
         noTasks: "لا توجد مهام مطابقة.",
         reopen: "↩ إعادة فتح",
         complete: "✔ إتمام",
-        copyBtn: "📋 نسخ",
-        copiedToast: "تم نسخ النص بنجاح.",
         deleteBtn: "🗑 حذف",
         untitled: "بدون عنوان",
         member: "عضو",
@@ -836,30 +696,9 @@
         scrollChat: "⬇ آخر الرسائل",
         chatPh: "اكتب رسالة للفريق...",
         sendChat: "📨 إرسال",
-        noChat: "لا توجد رسائل بعد. ابدأ المحادثة مع الفريق.",
-        gearHeading: "🛠️ معدات وقطع ROV",
-        gearPh: "اسم القطعة أو الجهاز...",
-        gearReady: "جاهز",
-        gearMaint: "صيانة / فحص",
-        gearMissing: "ناقص / مطلوب",
-        addGear: "➕ إضافة قطعة",
-        noGear: "لا توجد معدات مسجلة بعد.",
-        annHeading: "📢 إعلانات الفريق",
-        annTitlePh: "عنوان الإعلان...",
-        annBodyPh: "اكتب تفاصيل الإعلان أو التحديث...",
-        addAnn: "📣 نشر إعلان",
-        noAnn: "لا توجد إعلانات حالياً.",
-        suiteHeading: "⚡ منظومة الـ 530+ ميزة واحتمال وأداة هندسية",
-        suiteDesc: "توليد سريع لمهام التيمات الخمسة، مصفوفة احتمالات الأعطال والحلول، وحاسبات وفحوصات جاهزة لـ MATE ROV.",
-        simHeading: "🎲 محاكي الاحتمالات والسيناريوهات",
-        calcHeading: "🔋 حاسبة قدرة وتيار التيمات",
-        exportHeading: "📤 تصدير ونسخ تقرير المهام",
-        copyReport: "📋 نسخ تقرير المهام",
-        diagHeading: "🩺 فحص الأخطاء والبيئة",
-        runDiag: "🔍 فحص البيئة الآن",
-        clearCache: "🧹 تحديث Service Worker ومسح الكاش",
+        noChat: "لا توجد رسائل بعد.",
         signedInAs: "تم تسجيل الدخول بنجاح — الصلاحية",
-        fixPrefix: "الحل"
+        ownerOnlyError: "هذا الإجراء متاح للـ Owner فقط."
       },
       en: {
         appTitle: "Vortex ROV — Team Command & Task Hub",
@@ -871,7 +710,7 @@
         langSwitch: "🌐 العربية",
         authTitle: "🔐 Account & Sign In",
         logout: "🚪 Sign Out",
-        chooseAuth: "Choose a sign-in method (Google or Email & Password).",
+        chooseAuth: "Choose a sign-in method (Google, Email & Password, or Mobile Number).",
         googleTitle: "🔑 Sign In with Google",
         googleDesc: "Fast sign-in via Google on Windows, Mac, Android, and iOS.",
         googlePopup: "🚀 Continue with Google",
@@ -882,6 +721,11 @@
         emailSignIn: "✅ Sign In",
         emailSignUp: "➕ Create Account",
         resetPass: "🔄 Send Password Reset Link",
+        phoneTitle: "📱 Sign In with Mobile Number",
+        phonePh: "+201012345678",
+        sendOtp: "📲 Send Verification Code (SMS)",
+        otpPh: "Enter 6-digit code",
+        verifyOtp: "✔ Verify Code & Sign In",
         ownerTitle: "👑 Owners & Team Emails (Max 4 Owner Accounts)",
         ownerPh: "owner@example.com",
         addOwner: "➕ Add Owner",
@@ -893,15 +737,9 @@
         statTotal: "📌 Total Tasks",
         statPending: "⏳ In Progress",
         statDone: "✅ Completed",
-        statRate: "📊 Completion",
-        statGear: "🛠️ ROV Gear",
         statChat: "💬 Chat Messages",
         tabTasks: "Tasks",
         tabChat: "Team Chat",
-        tabGear: "ROV Gear",
-        tabAnn: "Announcements",
-        tabSuite: "530+ Features",
-        tabDiag: "Diagnostics",
         searchHeading: "🔎 Task Search & Filters",
         resetFilters: "♻️ Reset Filters",
         searchPh: "Search by task title, team, or email...",
@@ -912,9 +750,6 @@
         pickAssigneeBtn: "👤 Select Assignee",
         pickAssigneeTitle: "✉ Select task assignee from saved emails:",
         assignedTo: "Assignee",
-        sortNewest: "Newest First",
-        sortOldest: "Oldest First",
-        sortPrio: "Highest Priority",
         tasksHeading: "📋 Team Tasks",
         taskPh: "New task title...",
         prioNormal: "Normal Priority",
@@ -926,8 +761,6 @@
         noTasks: "No matching tasks found.",
         reopen: "↩ Reopen",
         complete: "✔ Complete",
-        copyBtn: "📋 Copy",
-        copiedToast: "Copied to clipboard.",
         deleteBtn: "🗑 Delete",
         untitled: "Untitled",
         member: "Member",
@@ -936,124 +769,9 @@
         scrollChat: "⬇ Latest Messages",
         chatPh: "Write a message to the team...",
         sendChat: "📨 Send",
-        noChat: "No chat messages yet. Start the team conversation.",
-        gearHeading: "🛠️ ROV Equipment & Parts",
-        gearPh: "Part or device name...",
-        gearReady: "Ready",
-        gearMaint: "Maintenance",
-        gearMissing: "Missing / Needed",
-        addGear: "➕ Add Part",
-        noGear: "No equipment added yet.",
-        annHeading: "📢 Team Announcements",
-        annTitlePh: "Announcement title...",
-        annBodyPh: "Write announcement or update details...",
-        addAnn: "📣 Post Announcement",
-        noAnn: "No announcements yet.",
-        suiteHeading: "⚡ 530+ Engineering Features, Probabilities & Tools",
-        suiteDesc: "Quick task generators for the 5 teams, failure probability matrix, and ROV calculators.",
-        simHeading: "🎲 Probability & Scenario Simulator",
-        calcHeading: "🔋 Team Power & Current Calculator",
-        exportHeading: "📤 Export & Copy Task Report",
-        copyReport: "📋 Copy Task Report",
-        diagHeading: "🩺 Diagnostics & Environment",
-        runDiag: "🔍 Run Diagnostics",
-        clearCache: "🧹 Refresh Service Worker & Clear Cache",
+        noChat: "No chat messages yet.",
         signedInAs: "Signed in successfully — Role",
-        fixPrefix: "Fix"
-      }
-    };
-
-    const ERROR_CATALOG = {
-      "auth/invalid-api-key": {
-        num: "ERR-01",
-        ar: "مفتاح Firebase API Key غير صحيح.",
-        arFix: "تأكد من مطابقة apiKey مع مشروع vortex-rov.",
-        en: "Invalid Firebase API key.",
-        enFix: "Verify apiKey matches project vortex-rov."
-      },
-      "auth/unauthorized-domain": {
-        num: "ERR-02",
-        ar: "الدومين الحالي غير مضاف في Authorized domains.",
-        arFix: "أضف udhdidhdj.github.io في Authentication ← Settings ← Authorized domains.",
-        en: "Current domain is not in Authorized domains.",
-        enFix: "Add udhdidhdj.github.io in Authentication -> Settings -> Authorized domains."
-      },
-      "auth/operation-not-allowed": {
-        num: "ERR-03",
-        ar: "طريقة تسجيل الدخول هذه غير مفعّلة في Firebase.",
-        arFix: "فعّل Google أو Email/Password في Authentication ← Sign-in method.",
-        en: "This sign-in provider is not enabled in Firebase.",
-        enFix: "Enable Google or Email/Password in Authentication -> Sign-in method."
-      },
-      "auth/popup-blocked": {
-        num: "ERR-04",
-        ar: "المتصفح منع نافذة الدخول المنبثقة.",
-        arFix: "استخدم زر Redirect أو اسمح بالـ Pop-ups.",
-        en: "Sign-in popup was blocked by the browser.",
-        enFix: "Use the Redirect button or allow pop-ups."
-      },
-      "auth/popup-closed-by-user": {
-        num: "ERR-05",
-        ar: "تم إغلاق نافذة الدخول قبل إتمام العملية.",
-        arFix: "أعد المحاولة وأكمل اختيار الحساب.",
-        en: "Sign-in popup was closed before completion.",
-        enFix: "Try again and complete account selection."
-      },
-      "auth/cancelled-popup-request": {
-        num: "ERR-06",
-        ar: "تم إلغاء طلب النافذة بسبب ضغط متكرر أو تحويل.",
-        arFix: "اضغط مرة واحدة فقط وانتظر.",
-        en: "Popup request was cancelled by another request or redirect.",
-        enFix: "Click once and wait for the auth flow."
-      },
-      "auth/operation-not-supported-in-this-environment": {
-        num: "ERR-07",
-        ar: "البيئة الحالية لا تدعم هذه العملية.",
-        arFix: "افتح في Chrome أو Safari وتأكد من تفعيل التخزين والكوكيز.",
-        en: "Operation is not supported in this environment.",
-        enFix: "Open in Chrome or Safari and ensure storage/cookies are enabled."
-      },
-      "auth/network-request-failed": {
-        num: "ERR-08",
-        ar: "مشكلة في الاتصال بالإنترنت أو حجب الشبكة.",
-        arFix: "تحقق من الإنترنت وأوقف أي مانع إعلانات أو VPN.",
-        en: "Network request failed or connection was blocked.",
-        enFix: "Check internet connection or disable ad-blockers/VPN."
-      },
-      "auth/invalid-email": {
-        num: "ERR-09",
-        ar: "صيغة البريد الإلكتروني غير صحيحة.",
-        arFix: "اكتب بريداً صحيحاً مثل name@example.com.",
-        en: "Invalid email address format.",
-        enFix: "Enter a valid email such as name@example.com."
-      },
-      "auth/weak-password": {
-        num: "ERR-10",
-        ar: "كلمة المرور ضعيفة أو أقل من 6 أحرف.",
-        arFix: "استخدم كلمة مرور من 6 أحرف على الأقل.",
-        en: "Password is too weak (minimum 6 characters).",
-        enFix: "Use at least 6 characters."
-      },
-      "auth/email-already-in-use": {
-        num: "ERR-11",
-        ar: "هذا البريد الإلكتروني مسجل مسبقاً.",
-        arFix: "اضغط دخول بالبريد بدلاً من إنشاء حساب.",
-        en: "Email is already registered.",
-        enFix: "Use Sign In instead of Create Account."
-      },
-      "auth/invalid-credential": {
-        num: "ERR-12",
-        ar: "البريد الإلكتروني أو كلمة المرور غير صحيحة.",
-        arFix: "راجع بيانات الدخول أو أنشئ حساباً جديداً.",
-        en: "Invalid email or password.",
-        enFix: "Check credentials or create a new account."
-      },
-      "permission-denied": {
-        num: "ERR-20",
-        ar: "الصلاحيات مرفوضة من قاعدة بيانات Firestore.",
-        arFix: "راجع قواعد Firestore واسمح للمستخدم المسجل.",
-        en: "Permission denied by Firestore rules.",
-        enFix: "Update Firestore rules to allow authenticated users."
+        ownerOnlyError: "This action is restricted to Owner only."
       }
     };
 
@@ -1081,12 +799,20 @@
     const emailSignUpBtn = document.getElementById("vortex-email-signup-btn");
     const resetPassBtn = document.getElementById("vortex-reset-pass-btn");
 
+    const phoneInput = document.getElementById("vortex-phone-input");
+    const sendOtpBtn = document.getElementById("vortex-send-otp-btn");
+    const otpBox = document.getElementById("vortex-otp-box");
+    const otpInput = document.getElementById("vortex-otp-input");
+    const verifyOtpBtn = document.getElementById("vortex-verify-otp-btn");
+
+    const ownerTaskControls = document.getElementById("vortex-owner-task-controls");
+    const ownerChatControls = document.getElementById("vortex-owner-chat-controls");
+
     const tasksList = document.getElementById("vortex-tasks-list");
     const tasksCountBadge = document.getElementById("vortex-tasks-count-badge");
     const taskFilter = document.getElementById("vortex-task-filter");
     const taskTeamFilter = document.getElementById("vortex-task-team-filter");
     const taskAssigneeFilter = document.getElementById("vortex-task-assignee-filter");
-    const taskSort = document.getElementById("vortex-task-sort");
     const taskSearch = document.getElementById("vortex-task-search");
 
     const pickAssigneeBtn = document.getElementById("vortex-pick-assignee-btn");
@@ -1099,17 +825,6 @@
     const chatInput = document.getElementById("vortex-chat-input");
     const sendChatBtn = document.getElementById("vortex-send-chat-btn");
 
-    const gearFilter = document.getElementById("vortex-gear-filter");
-    const gearList = document.getElementById("vortex-gear-list");
-    const annList = document.getElementById("vortex-ann-list");
-    const diagList = document.getElementById("vortex-diag-list");
-
-    const scenarioSelect = document.getElementById("vortex-scenario-select");
-    const scenarioOutput = document.getElementById("vortex-scenario-output");
-
-    let unknownSeq = 100;
-    const unknownCodes = new Map();
-
     function t(key) {
       return (I18N[lang] && I18N[lang][key]) || I18N.ar[key] || key;
     }
@@ -1121,27 +836,21 @@
       if (type === "ok") statusBox.classList.add("ok");
     }
 
-    function resolveError(err, fallbackTitle = "Error") {
-      const raw = err && (err.code || err.message) ? String(err.code || err.message) : "unknown";
-      const clean = raw.replace(/^Firebase:\s*/i, "").replace(/\(.*\)\.?$/, "").trim();
-
-      if (ERROR_CATALOG[clean]) {
-        const e = ERROR_CATALOG[clean];
-        const msg = lang === "en" ? e.en : e.ar;
-        const fix = lang === "en" ? e.enFix : e.arFix;
-        return `[${e.num}] ${fallbackTitle}: ${msg}\n${t("fixPrefix")}: ${fix} (${clean})`;
-      }
-
-      if (!unknownCodes.has(raw)) {
-        unknownSeq += 1;
-        unknownCodes.set(raw, `ERR-${unknownSeq}`);
-      }
-      const codeNum = unknownCodes.get(raw);
-      return `[${codeNum}] ${fallbackTitle}: ${raw}`;
+    function formatErr(err) {
+      const code = err && (err.code || err.message) ? String(err.code || err.message) : "Error";
+      return code.replace(/^Firebase:\s*/i, "");
     }
 
     function isMobileOrIOS() {
       return /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+    }
+
+    function normalizePhone(raw) {
+      const cleaned = raw.trim().replace(/\s+/g, "");
+      if (!cleaned) return "";
+      if (cleaned.startsWith("+")) return cleaned;
+      if (/^0?1\d{9}$/.test(cleaned)) return "+2" + cleaned.replace(/^0/, "0");
+      return "+" + cleaned;
     }
 
     function syncNetBadge() {
@@ -1173,6 +882,11 @@
       emailSignInBtn.textContent = t("emailSignIn");
       emailSignUpBtn.textContent = t("emailSignUp");
       resetPassBtn.textContent = t("resetPass");
+      document.getElementById("t-phone-title").textContent = t("phoneTitle");
+      phoneInput.placeholder = t("phonePh");
+      sendOtpBtn.textContent = t("sendOtp");
+      otpInput.placeholder = t("otpPh");
+      verifyOtpBtn.textContent = t("verifyOtp");
       logoutBtn.textContent = t("logout");
 
       document.getElementById("t-owner-title").textContent = t("ownerTitle");
@@ -1185,8 +899,6 @@
       document.getElementById("t-stat-total").textContent = t("statTotal");
       document.getElementById("t-stat-pending").textContent = t("statPending");
       document.getElementById("t-stat-done").textContent = t("statDone");
-      document.getElementById("t-stat-rate").textContent = t("statRate");
-      document.getElementById("t-stat-gear").textContent = t("statGear");
       document.getElementById("t-stat-chat").textContent = t("statChat");
 
       document.getElementById("t-search-heading").textContent = t("searchHeading");
@@ -1203,26 +915,6 @@
       chatInput.placeholder = t("chatPh");
       sendChatBtn.textContent = t("sendChat");
 
-      document.getElementById("t-gear-heading").textContent = t("gearHeading");
-      document.getElementById("vortex-gear-name").placeholder = t("gearPh");
-      document.getElementById("vortex-add-gear-btn").textContent = t("addGear");
-
-      document.getElementById("t-ann-heading").textContent = t("annHeading");
-      document.getElementById("vortex-ann-title").placeholder = t("annTitlePh");
-      document.getElementById("vortex-ann-body").placeholder = t("annBodyPh");
-      document.getElementById("vortex-add-ann-btn").textContent = t("addAnn");
-
-      document.getElementById("t-suite-heading").textContent = t("suiteHeading");
-      document.getElementById("t-suite-desc").textContent = t("suiteDesc");
-      document.getElementById("t-sim-heading").textContent = t("simHeading");
-      document.getElementById("t-calc-heading").textContent = t("calcHeading");
-      document.getElementById("t-export-heading").textContent = t("exportHeading");
-      document.getElementById("vortex-copy-report-btn").textContent = t("copyReport");
-
-      document.getElementById("t-diag-heading").textContent = t("diagHeading");
-      document.getElementById("vortex-run-diag-btn").textContent = t("runDiag");
-      document.getElementById("vortex-clear-cache-btn").textContent = t("clearCache");
-
       document.querySelectorAll("[data-i18n]").forEach((el) => {
         const k = el.getAttribute("data-i18n");
         if (I18N[lang][k]) el.textContent = I18N[lang][k];
@@ -1231,7 +923,6 @@
       langBtn.textContent = t("langSwitch");
       applyTheme();
       syncNetBadge();
-      renderScenarios();
       renderAssigneeOptions();
       renderUI();
     }
@@ -1248,86 +939,24 @@
       applyLanguage();
     });
 
-    window.addEventListener("online", () => {
-      syncNetBadge();
-      setStatus(t("online"), "ok");
-    });
-
-    window.addEventListener("offline", () => {
-      syncNetBadge();
-      setStatus(resolveError({ code: "auth/network-request-failed" }, t("offline")), "error");
-    });
+    window.addEventListener("online", () => { syncNetBadge(); setStatus(t("online"), "ok"); });
+    window.addEventListener("offline", () => { syncNetBadge(); setStatus(t("offline"), "error"); });
 
     document.querySelectorAll(".tab-btn").forEach((btn) => {
       btn.addEventListener("click", () => {
         const target = btn.dataset.vtab;
         document.querySelectorAll(".tab-btn").forEach((b) => b.classList.remove("active"));
         btn.classList.add("active");
-        ["tasks", "chat", "gear", "announcements", "suite", "diagnostics"].forEach((name) => {
-          document.getElementById(`vtab-${name}`).classList.toggle("hidden", name !== target);
-        });
-        if (target === "diagnostics") runDiagnostics();
-        if (target === "suite") renderSuiteMatrix();
+        document.getElementById("vtab-tasks").classList.toggle("hidden", target !== "tasks");
+        document.getElementById("vtab-chat").classList.toggle("hidden", target !== "chat");
       });
-    });
-
-    if ("serviceWorker" in navigator) {
-      window.addEventListener("load", () => {
-        navigator.serviceWorker
-          .register("/Vortex-Rov/service-worker.js")
-          .catch((err) => console.warn("SW note:", err));
-      });
-    }
-
-    async function runDiagnostics() {
-      const lines = [
-        `User Agent: ${navigator.userAgent}`,
-        `Network: ${navigator.onLine ? "Online" : "Offline"}`,
-        `Origin / Path: ${window.location.origin}${window.location.pathname}`,
-        `Firebase Project: ${firebaseConfig.projectId}`,
-        `Teams: ${TEAMS.join(", ")}`,
-        `Max Owners Limit: ${MAX_OWNERS}`,
-        `Catalog Modules: ${FEATURE_CATALOG.length}`
-      ];
-
-      if ("serviceWorker" in navigator) {
-        try {
-          const regs = await navigator.serviceWorker.getRegistrations();
-          lines.push(`Service Workers: ${regs.length}`);
-        } catch (e) {
-          lines.push(`Service Workers Error: ${e.message || e}`);
-        }
-      }
-
-      diagList.innerHTML = "";
-      lines.forEach((txt) => {
-        const li = document.createElement("li");
-        li.textContent = txt;
-        diagList.appendChild(li);
-      });
-    }
-
-    document.getElementById("vortex-run-diag-btn").addEventListener("click", runDiagnostics);
-
-    document.getElementById("vortex-clear-cache-btn").addEventListener("click", async () => {
-      try {
-        if ("serviceWorker" in navigator) {
-          const regs = await navigator.serviceWorker.getRegistrations();
-          for (const r of regs) await r.unregister();
-        }
-        if ("caches" in window) {
-          const keys = await caches.keys();
-          for (const k of keys) await caches.delete(k);
-        }
-        window.location.reload(true);
-      } catch (err) {
-        setStatus(resolveError(err, t("clearCache")), "error");
-      }
     });
 
     let auth = null;
     let db = null;
     let provider = null;
+    let confirmationResult = null;
+    let recaptchaVerifier = null;
 
     try {
       const app = initializeApp(firebaseConfig);
@@ -1337,7 +966,13 @@
       provider.setCustomParameters({ prompt: "select_account" });
       setPersistence(auth, browserLocalPersistence).catch(() => {});
     } catch (err) {
-      setStatus(resolveError(err, "Firebase Init"), "error");
+      setStatus(formatErr(err), "error");
+    }
+
+    function ensureRecaptcha() {
+      if (!auth || recaptchaVerifier) return recaptchaVerifier;
+      recaptchaVerifier = new RecaptchaVerifier(auth, "vortex-recaptcha-box", { size: "invisible" });
+      return recaptchaVerifier;
     }
 
     let currentUser = null;
@@ -1345,8 +980,6 @@
     let ownersSet = new Set(INITIAL_OWNERS.map((e) => e.toLowerCase()));
     let knownEmailsSet = new Set(INITIAL_OWNERS.map((e) => e.toLowerCase()));
     let allTasks = [];
-    let allGear = [];
-    let allAnnouncements = [];
     let allChat = [];
     let unsubs = [];
 
@@ -1364,10 +997,11 @@
         if (tk.createdByLabel && tk.createdByLabel.includes("@")) emails.add(tk.createdByLabel.toLowerCase());
         if (tk.assignedTo && tk.assignedTo.includes("@")) emails.add(tk.assignedTo.toLowerCase());
       });
-      allChat.forEach((m) => {
-        if (m.createdByLabel && m.createdByLabel.includes("@")) emails.add(m.createdByLabel.toLowerCase());
-      });
       return Array.from(emails);
+    }
+
+    function isOwner() {
+      return currentRole === "Owner";
     }
 
     function renderAssigneeOptions() {
@@ -1415,6 +1049,7 @@
     }
 
     pickAssigneeBtn.addEventListener("click", () => {
+      if (!isOwner()) return;
       renderAssigneeOptions();
       assigneePicker.classList.toggle("hidden");
     });
@@ -1435,13 +1070,10 @@
       const total = allTasks.length;
       const done = allTasks.filter((item) => item.status === "done").length;
       const pending = total - done;
-      const rate = total > 0 ? Math.round((done / total) * 100) : 0;
 
       document.getElementById("stat-total-tasks").textContent = String(total);
       document.getElementById("stat-pending-tasks").textContent = String(pending);
       document.getElementById("stat-done-tasks").textContent = String(done);
-      document.getElementById("stat-completion-rate").textContent = `${rate}%`;
-      document.getElementById("stat-total-gear").textContent = String(allGear.length);
       document.getElementById("stat-total-chat").textContent = String(allChat.length);
     }
 
@@ -1477,30 +1109,27 @@
       }
 
       currentRole = computeRole(currentUser);
-      const identity = currentUser.email || currentUser.uid;
+      const ownerMode = isOwner();
+      const identity = currentUser.email || currentUser.phoneNumber || currentUser.uid;
 
       authGrid.classList.add("hidden");
+      otpBox.classList.add("hidden");
       logoutBtn.classList.remove("hidden");
       userBadge.classList.remove("hidden");
       userBadge.textContent = `👤 ${identity} (${currentRole})`;
 
       workspace.classList.remove("hidden");
-      ownerBox.classList.toggle("hidden", currentRole !== "Owner");
-      if (currentRole === "Owner") renderOwnersList();
-      renderAssigneeOptions();
+      ownerBox.classList.toggle("hidden", !ownerMode);
+      ownerTaskControls.classList.toggle("hidden", !ownerMode);
+      ownerChatControls.classList.toggle("hidden", !ownerMode);
+      if (!ownerMode) assigneePicker.classList.add("hidden");
+      if (ownerMode) renderOwnersList();
 
+      renderAssigneeOptions();
       setStatus(`✔ ${t("signedInAs")}: ${currentRole}`, "ok");
       updateStats();
       renderTasks();
-      renderGear();
-      renderAnnouncements();
       renderChat();
-    }
-
-    function canManageItem(item) {
-      if (!currentUser) return false;
-      if (currentRole === "Owner") return true;
-      return item.createdByUid === currentUser.uid;
     }
 
     function prioLabel(prio) {
@@ -1509,43 +1138,30 @@
       return t("prioNormal");
     }
 
-    function prioWeight(prio) {
-      if (prio === "urgent") return 3;
-      if (prio === "high") return 2;
-      return 1;
-    }
-
     function renderTasks() {
       const f = taskFilter.value;
       const tmFilter = taskTeamFilter.value;
       const asgFilter = taskAssigneeFilter.value;
-      const sortMode = taskSort.value;
       const qText = taskSearch.value.trim().toLowerCase();
 
-      const filtered = allTasks
-        .filter((task) => {
-          const okStatus = f === "all" || task.status === f;
-          const okTeam = tmFilter === "all" || (task.team || "GUI") === tmFilter;
-          const okAssignee = asgFilter === "all" || (task.assignedTo || "") === asgFilter;
-          const okSearch =
-            !qText ||
-            String(task.title || "").toLowerCase().includes(qText) ||
-            String(task.team || "").toLowerCase().includes(qText) ||
-            String(task.assignedTo || "").toLowerCase().includes(qText) ||
-            String(task.createdByLabel || "").toLowerCase().includes(qText);
-          return okStatus && okTeam && okAssignee && okSearch;
-        })
-        .sort((a, b) => {
-          if (sortMode === "priority") return prioWeight(b.priority) - prioWeight(a.priority);
-          if (sortMode === "oldest") return (a.createdAt?.seconds || 0) - (b.createdAt?.seconds || 0);
-          return (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0);
-        });
+      const filtered = allTasks.filter((task) => {
+        const okStatus = f === "all" || task.status === f;
+        const okTeam = tmFilter === "all" || (task.team || "GUI") === tmFilter;
+        const okAssignee = asgFilter === "all" || (task.assignedTo || "") === asgFilter;
+        const okSearch =
+          !qText ||
+          String(task.title || "").toLowerCase().includes(qText) ||
+          String(task.team || "").toLowerCase().includes(qText) ||
+          String(task.assignedTo || "").toLowerCase().includes(qText) ||
+          String(task.createdByLabel || "").toLowerCase().includes(qText);
+        return okStatus && okTeam && okAssignee && okSearch;
+      });
 
       tasksCountBadge.textContent = String(filtered.length);
       tasksList.innerHTML = "";
 
       if (filtered.length === 0) {
-        tasksList.innerHTML = `<p class="hint" style="margin-top:12px;">${t("noTasks")}</p>`;
+        tasksList.innerHTML = `<p class="hint" style="margin-top:14px;">${t("noTasks")}</p>`;
         return;
       }
 
@@ -1570,19 +1186,7 @@
         const actions = document.createElement("div");
         actions.className = "row";
 
-        const copyBtn = document.createElement("button");
-        copyBtn.type = "button";
-        copyBtn.className = "secondary";
-        copyBtn.textContent = t("copyBtn");
-        copyBtn.addEventListener("click", async () => {
-          try {
-            await navigator.clipboard.writeText(task.title || "");
-            setStatus(`✔ ${t("copiedToast")}`, "ok");
-          } catch (_) {}
-        });
-        actions.appendChild(copyBtn);
-
-        if (canManageItem(task)) {
+        if (isOwner()) {
           const toggleBtn = document.createElement("button");
           toggleBtn.type = "button";
           toggleBtn.className = "secondary";
@@ -1593,7 +1197,7 @@
                 status: task.status === "done" ? "pending" : "done"
               });
             } catch (err) {
-              setStatus(resolveError(err, t("tasksHeading")), "error");
+              setStatus(formatErr(err), "error");
             }
           });
 
@@ -1605,7 +1209,7 @@
             try {
               await deleteDoc(doc(db, "tasks", task.id));
             } catch (err) {
-              setStatus(resolveError(err, t("tasksHeading")), "error");
+              setStatus(formatErr(err), "error");
             }
           });
 
@@ -1636,22 +1240,22 @@
         topRow.style.justifyContent = "space-between";
 
         const senderEl = document.createElement("strong");
-        senderEl.style.fontSize = "12px";
+        senderEl.style.fontSize = "13px";
         senderEl.textContent = `👤 ${msg.createdByLabel || t("member")}`;
         topRow.appendChild(senderEl);
 
-        if (canManageItem(msg)) {
+        if (isOwner()) {
           const delMsgBtn = document.createElement("button");
           delMsgBtn.type = "button";
           delMsgBtn.className = "danger";
-          delMsgBtn.style.padding = "4px 8px";
-          delMsgBtn.style.fontSize = "11px";
+          delMsgBtn.style.padding = "5px 10px";
+          delMsgBtn.style.fontSize = "12px";
           delMsgBtn.textContent = t("deleteBtn");
           delMsgBtn.addEventListener("click", async () => {
             try {
               await deleteDoc(doc(db, "chat_messages", msg.id));
             } catch (err) {
-              setStatus(resolveError(err, t("chatHeading")), "error");
+              setStatus(formatErr(err), "error");
             }
           });
           topRow.appendChild(delMsgBtn);
@@ -1659,7 +1263,7 @@
 
         const textEl = document.createElement("div");
         textEl.style.marginTop = "6px";
-        textEl.style.fontSize = "14px";
+        textEl.style.fontSize = "15px";
         textEl.textContent = msg.text || "";
 
         bubble.appendChild(topRow);
@@ -1668,255 +1272,12 @@
       });
     }
 
-    function renderGear() {
-      const gf = gearFilter.value;
-      const filtered = allGear.filter((g) => gf === "all" || g.state === gf);
-
-      gearList.innerHTML = "";
-      if (filtered.length === 0) {
-        gearList.innerHTML = `<p class="hint" style="margin-top:12px;">${t("noGear")}</p>`;
-        return;
-      }
-
-      filtered.forEach((item) => {
-        const div = document.createElement("div");
-        div.className = "item-card";
-
-        const left = document.createElement("div");
-        const titleEl = document.createElement("div");
-        titleEl.textContent = `🛠️ ${item.name || t("untitled")} × ${item.qty || 1}`;
-        titleEl.style.fontWeight = "700";
-
-        const metaEl = document.createElement("div");
-        metaEl.className = "hint";
-        metaEl.textContent = `${t("by")}: ${item.createdByLabel || t("member")}`;
-
-        left.appendChild(titleEl);
-        left.appendChild(metaEl);
-
-        const right = document.createElement("div");
-        right.className = "row";
-
-        const badge = document.createElement("span");
-        badge.className = "badge";
-        if (item.state === "ready") {
-          badge.textContent = `🟢 ${t("gearReady")}`;
-          badge.classList.add("ok");
-        } else if (item.state === "maintenance") {
-          badge.textContent = `🟡 ${t("gearMaint")}`;
-          badge.classList.add("warn");
-        } else {
-          badge.textContent = `🔴 ${t("gearMissing")}`;
-          badge.classList.add("danger");
-        }
-        right.appendChild(badge);
-
-        if (canManageItem(item)) {
-          const incBtn = document.createElement("button");
-          incBtn.type = "button";
-          incBtn.className = "secondary";
-          incBtn.textContent = "+1";
-          incBtn.addEventListener("click", async () => {
-            try {
-              await updateDoc(doc(db, "gear", item.id), { qty: (item.qty || 1) + 1 });
-            } catch (err) {
-              setStatus(resolveError(err, t("gearHeading")), "error");
-            }
-          });
-
-          const decBtn = document.createElement("button");
-          decBtn.type = "button";
-          decBtn.className = "secondary";
-          decBtn.textContent = "-1";
-          decBtn.addEventListener("click", async () => {
-            const nextQty = Math.max(1, (item.qty || 1) - 1);
-            try {
-              await updateDoc(doc(db, "gear", item.id), { qty: nextQty });
-            } catch (err) {
-              setStatus(resolveError(err, t("gearHeading")), "error");
-            }
-          });
-
-          const delBtn = document.createElement("button");
-          delBtn.type = "button";
-          delBtn.className = "danger";
-          delBtn.textContent = t("deleteBtn");
-          delBtn.addEventListener("click", async () => {
-            try {
-              await deleteDoc(doc(db, "gear", item.id));
-            } catch (err) {
-              setStatus(resolveError(err, t("gearHeading")), "error");
-            }
-          });
-
-          right.appendChild(incBtn);
-          right.appendChild(decBtn);
-          right.appendChild(delBtn);
-        }
-
-        div.appendChild(left);
-        div.appendChild(right);
-        gearList.appendChild(div);
-      });
-    }
-
-    function renderAnnouncements() {
-      annList.innerHTML = "";
-      if (allAnnouncements.length === 0) {
-        annList.innerHTML = `<p class="hint" style="margin-top:12px;">${t("noAnn")}</p>`;
-        return;
-      }
-
-      allAnnouncements.forEach((ann) => {
-        const div = document.createElement("div");
-        div.className = `item-card ${ann.pinned ? "pinned" : ""}`;
-
-        const left = document.createElement("div");
-        left.style.flex = "1";
-
-        const titleEl = document.createElement("div");
-        titleEl.textContent = `${ann.pinned ? "📌 " : "📣 "}${ann.title || t("untitled")}`;
-        titleEl.style.fontWeight = "700";
-
-        const bodyEl = document.createElement("div");
-        bodyEl.textContent = ann.body || "";
-        bodyEl.style.fontSize = "13px";
-        bodyEl.style.marginTop = "4px";
-
-        const metaEl = document.createElement("div");
-        metaEl.className = "hint";
-        metaEl.style.marginTop = "4px";
-        metaEl.textContent = `${t("by")}: ${ann.createdByLabel || t("member")}`;
-
-        left.appendChild(titleEl);
-        left.appendChild(bodyEl);
-        left.appendChild(metaEl);
-        div.appendChild(left);
-
-        if (canManageItem(ann)) {
-          const actions = document.createElement("div");
-          actions.className = "row";
-
-          const pinBtn = document.createElement("button");
-          pinBtn.type = "button";
-          pinBtn.className = "secondary";
-          pinBtn.textContent = ann.pinned ? "📍" : "📌";
-          pinBtn.addEventListener("click", async () => {
-            try {
-              await updateDoc(doc(db, "announcements", ann.id), { pinned: !ann.pinned });
-            } catch (err) {
-              setStatus(resolveError(err, t("annHeading")), "error");
-            }
-          });
-
-          const delBtn = document.createElement("button");
-          delBtn.type = "button";
-          delBtn.className = "danger";
-          delBtn.textContent = t("deleteBtn");
-          delBtn.addEventListener("click", async () => {
-            try {
-              await deleteDoc(doc(db, "announcements", ann.id));
-            } catch (err) {
-              setStatus(resolveError(err, t("annHeading")), "error");
-            }
-          });
-
-          actions.appendChild(pinBtn);
-          actions.appendChild(delBtn);
-          div.appendChild(actions);
-        }
-
-        annList.appendChild(div);
-      });
-    }
-
-    function renderScenarios() {
-      const prev = scenarioSelect.value;
-      scenarioSelect.innerHTML = "";
-      SCENARIOS.forEach((sc) => {
-        const opt = document.createElement("option");
-        opt.value = String(sc.id);
-        opt.textContent = lang === "en" ? sc.en : sc.ar;
-        scenarioSelect.appendChild(opt);
-      });
-      if (prev) scenarioSelect.value = prev;
-      updateScenarioOutput();
-    }
-
-    function updateScenarioOutput() {
-      const id = parseInt(scenarioSelect.value, 10) || 1;
-      const sc = SCENARIOS.find((x) => x.id === id) || SCENARIOS[0];
-      scenarioOutput.textContent =
-        lang === "en"
-          ? `Probability: ${sc.prob} | Action: ${sc.fixEn}`
-          : `الاحتمال: ${sc.prob} | المعالجة: ${sc.fixAr}`;
-    }
-
-    scenarioSelect.addEventListener("change", updateScenarioOutput);
-
-    document.getElementById("vortex-calc-btn").addEventListener("click", () => {
-      const v = Math.max(0.1, parseFloat(document.getElementById("vortex-volt-input").value) || 48);
-      const w = Math.max(0, parseFloat(document.getElementById("vortex-watt-input").value) || 0);
-      document.getElementById("vortex-calc-result").textContent = `${(w / v).toFixed(2)} A`;
-    });
-
-    function renderSuiteMatrix() {
-      const counts = TEAMS.map((tm) => `${tm}: ${allTasks.filter((tk) => (tk.team || "GUI") === tm).length}`);
-      document.getElementById("vortex-matrix-summary").textContent = counts.join(" | ");
-    }
-
-    document.getElementById("vortex-copy-report-btn").addEventListener("click", async () => {
-      const lines = allTasks.map(
-        (tk, i) => `${i + 1}. [${tk.team || "GUI"}] ${tk.title} (${tk.status}) — ${tk.assignedTo || "Unassigned"}`
-      );
-      try {
-        await navigator.clipboard.writeText(lines.join("\n") || "No tasks");
-        setStatus(`✔ ${t("copiedToast")}`, "ok");
-      } catch (_) {}
-    });
-
-    async function addQuickTeamTask(teamName) {
-      if (!currentUser) return;
-      const defaultTitles = {
-        GUI: lang === "en" ? "GUI Telemetry & HUD Polish" : "تحسين شاشة القياس والواجهة GUI",
-        Vision: lang === "en" ? "Vision Camera Calibration & Detection" : "معايرة كاميرا الرؤية Vision",
-        Control: lang === "en" ? "Control PID & Thruster Mapping" : "ضبط التحكم والمحركات Control",
-        Mechanical: lang === "en" ? "Mechanical Frame & Seal Check" : "فحص الهيكل والتثبيت Mechanical",
-        Electrical: lang === "en" ? "Electrical Bus & Fuse Verification" : "فحص مسار الطاقة والفيوزات Electrical"
-      };
-      try {
-        await addDoc(collection(db, "tasks"), {
-          title: defaultTitles[teamName] || `${teamName} Task`,
-          team: teamName,
-          status: "pending",
-          priority: "high",
-          assignedTo: taskAssigneeSelect.value || "",
-          createdByUid: currentUser.uid,
-          createdByLabel: currentUser.email || currentUser.uid,
-          createdAt: serverTimestamp()
-        });
-      } catch (err) {
-        setStatus(resolveError(err, t("addTask")), "error");
-      }
-    }
-
-    document.getElementById("vortex-tpl-gui-btn").addEventListener("click", () => addQuickTeamTask("GUI"));
-    document.getElementById("vortex-tpl-vision-btn").addEventListener("click", () => addQuickTeamTask("Vision"));
-    document.getElementById("vortex-tpl-control-btn").addEventListener("click", () => addQuickTeamTask("Control"));
-    document.getElementById("vortex-tpl-mech-btn").addEventListener("click", () => addQuickTeamTask("Mechanical"));
-    document.getElementById("vortex-tpl-elec-btn").addEventListener("click", () => addQuickTeamTask("Electrical"));
-
     if (auth) {
-      getRedirectResult(auth).catch((err) => {
-        setStatus(resolveError(err, t("googleTitle")), "error");
-      });
+      getRedirectResult(auth).catch((err) => setStatus(formatErr(err), "error"));
     }
 
     async function handleGoogleSignIn(forceRedirect = false) {
-      if (!auth || !provider) {
-        setStatus(resolveError({ code: "auth/invalid-api-key" }, t("googleTitle")), "error");
-        return;
-      }
+      if (!auth || !provider) return;
       try {
         if (forceRedirect || isMobileOrIOS()) {
           await signInWithRedirect(auth, provider);
@@ -1934,11 +1295,11 @@
             await signInWithRedirect(auth, provider);
             return;
           } catch (redirErr) {
-            setStatus(resolveError(redirErr, t("googleTitle")), "error");
+            setStatus(formatErr(redirErr), "error");
             return;
           }
         }
-        setStatus(resolveError(err, t("googleTitle")), "error");
+        setStatus(formatErr(err), "error");
       }
     }
 
@@ -1949,15 +1310,12 @@
       if (!auth) return;
       const email = emailInput.value.trim();
       const pass = passInput.value;
-      if (!email || !pass) {
-        setStatus(resolveError({ code: "auth/invalid-email" }, t("emailSignIn")), "error");
-        return;
-      }
+      if (!email || !pass) return;
       emailSignInBtn.disabled = true;
       try {
         await signInWithEmailAndPassword(auth, email, pass);
       } catch (err) {
-        setStatus(resolveError(err, t("emailSignIn")), "error");
+        setStatus(formatErr(err), "error");
       } finally {
         emailSignInBtn.disabled = false;
       }
@@ -1967,15 +1325,12 @@
       if (!auth) return;
       const email = emailInput.value.trim();
       const pass = passInput.value;
-      if (!email || !pass) {
-        setStatus(resolveError({ code: "auth/invalid-email" }, t("emailSignUp")), "error");
-        return;
-      }
+      if (!email || !pass) return;
       emailSignUpBtn.disabled = true;
       try {
         await createUserWithEmailAndPassword(auth, email, pass);
       } catch (err) {
-        setStatus(resolveError(err, t("emailSignUp")), "error");
+        setStatus(formatErr(err), "error");
       } finally {
         emailSignUpBtn.disabled = false;
       }
@@ -1984,15 +1339,52 @@
     resetPassBtn.addEventListener("click", async () => {
       if (!auth) return;
       const email = emailInput.value.trim();
-      if (!email) {
-        setStatus(resolveError({ code: "auth/invalid-email" }, t("resetPass")), "error");
-        return;
-      }
+      if (!email) return;
       try {
         await sendPasswordResetEmail(auth, email);
         setStatus(`✔ ${t("resetPass")}: ${email}`, "ok");
       } catch (err) {
-        setStatus(resolveError(err, t("resetPass")), "error");
+        setStatus(formatErr(err), "error");
+      }
+    });
+
+    sendOtpBtn.addEventListener("click", async () => {
+      if (!auth) return;
+      const phone = normalizePhone(phoneInput.value);
+      if (!/^\+\d{8,15}$/.test(phone)) {
+        setStatus("Invalid phone format (+201012345678)", "error");
+        return;
+      }
+      sendOtpBtn.disabled = true;
+      try {
+        const verifier = ensureRecaptcha();
+        confirmationResult = await signInWithPhoneNumber(auth, phone, verifier);
+        otpBox.classList.remove("hidden");
+        setStatus(`SMS sent to ${phone}`, "ok");
+      } catch (err) {
+        setStatus(formatErr(err), "error");
+        if (recaptchaVerifier) {
+          try { recaptchaVerifier.clear(); } catch (_) {}
+          recaptchaVerifier = null;
+        }
+      } finally {
+        sendOtpBtn.disabled = false;
+      }
+    });
+
+    verifyOtpBtn.addEventListener("click", async () => {
+      const code = otpInput.value.trim();
+      if (!confirmationResult || !code) return;
+      verifyOtpBtn.disabled = true;
+      try {
+        await confirmationResult.confirm(code);
+        otpInput.value = "";
+        phoneInput.value = "";
+        confirmationResult = null;
+      } catch (err) {
+        setStatus(formatErr(err), "error");
+      } finally {
+        verifyOtpBtn.disabled = false;
       }
     });
 
@@ -2000,11 +1392,15 @@
       try {
         await signOut(auth);
       } catch (err) {
-        setStatus(resolveError(err, t("logout")), "error");
+        setStatus(formatErr(err), "error");
       }
     });
 
     document.getElementById("vortex-add-task-btn").addEventListener("click", async () => {
+      if (!isOwner()) {
+        setStatus(t("ownerOnlyError"), "error");
+        return;
+      }
       const titleInput = document.getElementById("vortex-task-title");
       const teamSel = document.getElementById("vortex-task-team");
       const statusSel = document.getElementById("vortex-task-status");
@@ -2020,16 +1416,20 @@
           priority: prioSel.value,
           assignedTo: taskAssigneeSelect.value || "",
           createdByUid: currentUser.uid,
-          createdByLabel: currentUser.email || currentUser.uid,
+          createdByLabel: currentUser.email || currentUser.phoneNumber || currentUser.uid,
           createdAt: serverTimestamp()
         });
         titleInput.value = "";
       } catch (err) {
-        setStatus(resolveError(err, t("addTask")), "error");
+        setStatus(formatErr(err), "error");
       }
     });
 
     async function sendChatMessage() {
+      if (!isOwner()) {
+        setStatus(t("ownerOnlyError"), "error");
+        return;
+      }
       const text = chatInput.value.trim();
       if (!text || !currentUser) return;
       sendChatBtn.disabled = true;
@@ -2037,13 +1437,13 @@
         await addDoc(collection(db, "chat_messages"), {
           text,
           createdByUid: currentUser.uid,
-          createdByLabel: currentUser.email || currentUser.uid,
+          createdByLabel: currentUser.email || currentUser.phoneNumber || currentUser.uid,
           createdAt: serverTimestamp()
         });
         chatInput.value = "";
         setTimeout(() => { chatBox.scrollTop = chatBox.scrollHeight; }, 100);
       } catch (err) {
-        setStatus(resolveError(err, t("chatHeading")), "error");
+        setStatus(formatErr(err), "error");
       } finally {
         sendChatBtn.disabled = false;
       }
@@ -2057,57 +1457,10 @@
       chatBox.scrollTop = chatBox.scrollHeight;
     });
 
-    document.getElementById("vortex-add-gear-btn").addEventListener("click", async () => {
-      const nameInput = document.getElementById("vortex-gear-name");
-      const qtyInput = document.getElementById("vortex-gear-qty");
-      const stateSel = document.getElementById("vortex-gear-state");
-      const name = nameInput.value.trim();
-      const qty = Math.max(1, parseInt(qtyInput.value, 10) || 1);
-      if (!name || !currentUser) return;
-
-      try {
-        await addDoc(collection(db, "gear"), {
-          name,
-          qty,
-          state: stateSel.value,
-          createdByUid: currentUser.uid,
-          createdByLabel: currentUser.email || currentUser.uid,
-          createdAt: serverTimestamp()
-        });
-        nameInput.value = "";
-        qtyInput.value = "1";
-      } catch (err) {
-        setStatus(resolveError(err, t("addGear")), "error");
-      }
-    });
-
-    document.getElementById("vortex-add-ann-btn").addEventListener("click", async () => {
-      const titleInput = document.getElementById("vortex-ann-title");
-      const bodyInput = document.getElementById("vortex-ann-body");
-      const title = titleInput.value.trim();
-      const body = bodyInput.value.trim();
-      if (!title || !body || !currentUser) return;
-
-      try {
-        await addDoc(collection(db, "announcements"), {
-          title,
-          body,
-          pinned: false,
-          createdByUid: currentUser.uid,
-          createdByLabel: currentUser.email || currentUser.uid,
-          createdAt: serverTimestamp()
-        });
-        titleInput.value = "";
-        bodyInput.value = "";
-      } catch (err) {
-        setStatus(resolveError(err, t("addAnn")), "error");
-      }
-    });
-
     document.getElementById("vortex-add-owner-btn").addEventListener("click", async () => {
       const input = document.getElementById("vortex-owner-email-input");
       const email = input.value.trim().toLowerCase();
-      if (!email || currentRole !== "Owner") return;
+      if (!email || !isOwner()) return;
 
       const currentOwners = getEffectiveOwnersSet();
       if (!currentOwners.includes(email) && currentOwners.length >= MAX_OWNERS) {
@@ -2124,14 +1477,14 @@
         knownEmailsSet.add(email);
         input.value = "";
       } catch (err) {
-        setStatus(resolveError(err, t("addOwner")), "error");
+        setStatus(formatErr(err), "error");
       }
     });
 
     document.getElementById("vortex-remove-owner-btn").addEventListener("click", async () => {
       const input = document.getElementById("vortex-owner-email-input");
       const email = input.value.trim().toLowerCase();
-      if (!email || currentRole !== "Owner") return;
+      if (!email || !isOwner()) return;
 
       if (email === PRIMARY_OWNER_EMAIL.toLowerCase()) {
         setStatus(t("cannotRemovePrimary"), "error");
@@ -2142,14 +1495,14 @@
         await deleteDoc(doc(db, "owners", encodeURIComponent(email)));
         input.value = "";
       } catch (err) {
-        setStatus(resolveError(err, t("removeOwner")), "error");
+        setStatus(formatErr(err), "error");
       }
     });
 
     document.getElementById("vortex-add-roster-btn").addEventListener("click", async () => {
       const input = document.getElementById("vortex-roster-email-input");
       const email = input.value.trim().toLowerCase();
-      if (!email || !email.includes("@") || currentRole !== "Owner") return;
+      if (!email || !email.includes("@") || !isOwner()) return;
       try {
         await setDoc(doc(db, "team_roster", encodeURIComponent(email)), {
           email,
@@ -2160,7 +1513,7 @@
         renderOwnersList();
         renderAssigneeOptions();
       } catch (err) {
-        setStatus(resolveError(err, t("addRoster")), "error");
+        setStatus(formatErr(err), "error");
       }
     });
 
@@ -2169,16 +1522,13 @@
       taskFilter.value = "all";
       taskTeamFilter.value = "all";
       taskAssigneeFilter.value = "all";
-      taskSort.value = "newest";
       renderTasks();
     });
 
     taskFilter.addEventListener("change", renderTasks);
     taskTeamFilter.addEventListener("change", renderTasks);
     taskAssigneeFilter.addEventListener("change", renderTasks);
-    taskSort.addEventListener("change", renderTasks);
     taskSearch.addEventListener("input", renderTasks);
-    gearFilter.addEventListener("change", renderGear);
 
     if (auth && db) {
       onAuthStateChanged(auth, (user) => {
@@ -2188,8 +1538,6 @@
 
         if (!user) {
           allTasks = [];
-          allGear = [];
-          allAnnouncements = [];
           allChat = [];
           ownersSet = new Set(INITIAL_OWNERS.map((e) => e.toLowerCase()));
           knownEmailsSet = new Set(INITIAL_OWNERS.map((e) => e.toLowerCase()));
@@ -2241,7 +1589,7 @@
               renderTasks();
               renderAssigneeOptions();
             },
-            (err) => setStatus(resolveError(err, t("tasksHeading")), "error")
+            (err) => setStatus(formatErr(err), "error")
           )
         );
 
@@ -2252,32 +1600,8 @@
               allChat = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
               updateStats();
               renderChat();
-              renderAssigneeOptions();
             },
-            (err) => setStatus(resolveError(err, t("chatHeading")), "error")
-          )
-        );
-
-        unsubs.push(
-          onSnapshot(
-            query(collection(db, "gear"), orderBy("createdAt", "desc")),
-            (snap) => {
-              allGear = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
-              updateStats();
-              renderGear();
-            },
-            (err) => setStatus(resolveError(err, t("gearHeading")), "error")
-          )
-        );
-
-        unsubs.push(
-          onSnapshot(
-            query(collection(db, "announcements"), orderBy("createdAt", "desc")),
-            (snap) => {
-              allAnnouncements = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
-              renderAnnouncements();
-            },
-            (err) => setStatus(resolveError(err, t("annHeading")), "error")
+            (err) => setStatus(formatErr(err), "error")
           )
         );
 
