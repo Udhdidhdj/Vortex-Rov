@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vortex ROV - Task Manager</title>
+  <style>
+    :root {
+      --bg: #071324;
+      --panel: #0d1f38;
+      --panel-2: #12294a;
+      --border: rgba(125, 211, 252, 0.16);
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+      --accent: #0ea5e9;
+      --accent-2: #2563eb;
+      --danger: #ef4444;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", Tahoma, Arial, sans-serif;
+      background: radial-gradient(circle at top, #0f294a 0%, var(--bg) 65%);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 16px;
+      line-height: 1.5;
+    }
+    .container { max-width: 920px; margin: 0 auto; }
+    .topbar {
+      display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; align-items: center;
+      background: var(--panel); border: 1px solid var(--border); border-radius: 14px;
+      padding: 14px 18px; margin-bottom: 16px;
+    }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.1rem; }
+    .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 10px var(--accent); }
+    .badge {
+      display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: 0.8rem;
+      background: rgba(14, 165, 233, 0.16); border: 1px solid rgba(14, 165, 233, 0.35); color: #7dd3fc;
+    }
+    .card {
+      background: var(--panel); border: 1px solid var(--border); border-radius: 14px;
+      padding: 18px; margin-bottom: 16px;
+    }
+    h2 { font-size: 1.05rem; margin-bottom: 12px; }
+    .row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+    input, select, button {
+      border-radius: 10px; border: 1px solid var(--border); padding: 10px 14px;
+      font-size: 0.95rem; font-family: inherit;
+    }
+    input, select { background: var(--panel-2); color: var(--text); flex: 1; min-width: 180px; }
+    button {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #fff; border: none; font-weight: 600; cursor: pointer;
+    }
+    button:hover { opacity: 0.92; }
+    button.secondary { background: var(--panel-2); border: 1px solid var(--border); color: var(--text); }
+    button.danger { background: rgba(239, 68, 68, 0.2); border: 1px solid rgba(239, 68, 68, 0.45); color: #fca5a5; }
+    .task {
+      display: flex; flex-wrap: wrap; gap: 10px; justify-content: space-between; align-items: center;
+      background: var(--panel-2); border: 1px solid var(--border); border-radius: 12px;
+      padding: 12px 14px; margin-top: 10px;
+    }
+    .muted { color: var(--muted); font-size: 0.88rem; }
+    .status-msg { margin-top: 10px; font-size: 0.9rem; color: #7dd3fc; }
+    .list-item {
+      display: flex; justify-content: space-between; align-items: center; gap: 8px;
+      background: var(--panel-2); border: 1px solid var(--border); border-radius: 10px;
+      padding: 8px 12px; margin-top: 8px; font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="topbar">
+      <div class="brand">
+        <span class="dot"></span>
+        <span>Vortex ROV - إدارة مهام الفريق</span>
+      </div>
+      <div id="authBox" class="row">
+        <button id="loginBtn">الدخول عبر Google</button>
+      </div>
+    </div>
+
+    <div class="card" id="statusCard">
+      <div class="row" style="justify-content: space-between;">
+        <div>
+          <strong>حالة النظام:</strong> <span id="sysState">الواجهة جاهزة - اضغط الدخول عبر Google</span>
+        </div>
+        <span id="roleBadge" class="badge">زائر</span>
+      </div>
+      <div id="debugLog" class="status-msg"></div>
+    </div>
+
+    <div class="card" id="ownerSection" style="display: none;">
+      <h2>إدارة الأدمن (مالك النظام - الحد الأقصى 4)</h2>
+      <div class="row">
+        <input id="adminEmailInput" type="email" placeholder="اكتب بريد Google للأدمن الجديد" />
+        <button id="addAdminBtn">إضافة أدمن</button>
+      </div>
+      <div id="adminsList"></div>
+    </div>
+
+    <div class="card" id="taskCreatorSection" style="display: none;">
+      <h2>إضافة مهمة جديدة للفريق</h2>
+      <div class="row">
+        <input id="taskTitleInput" type="text" placeholder="عنوان المهمة (مثال: اختبار حساس العمق)" />
+        <input id="taskAssigneeInput" type="email" placeholder="بريد العضو المسؤول (اختياري)" />
+        <button id="addTaskBtn">إضافة مهمة</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>مهام الفريق</h2>
+      <div id="tasksList">
+        <p class="muted">سجّل دخولك لعرض المهام وتحديث حالتها.</p>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import {
+      getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    import {
+      getFirestore, doc, getDoc, setDoc, collection, addDoc, updateDoc, deleteDoc,
+      onSnapshot, query, orderBy, serverTimestamp
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCTb6fawE3ltI6A06lBVrx_5zre4Ei4N8g",
+      authDomain: "vortex-rov.firebaseapp.com",
+      projectId: "vortex-rov",
+      storageBucket: "vortex-rov.firebasestorage.app",
+      messagingSenderId: "764552928966",
+      appId: "1:764552928966:web:9051155f2f17de641301c7",
+      measurementId: "G-LKE662TNSJ"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+    const provider = new GoogleAuthProvider();
+
+    const authBox = document.getElementById("authBox");
+    const sysState = document.getElementById("sysState");
+    const roleBadge = document.getElementById("roleBadge");
+    const debugLog = document.getElementById("debugLog");
+    const ownerSection = document.getElementById("ownerSection");
+    const taskCreatorSection = document.getElementById("taskCreatorSection");
+    const adminsList = document.getElementById("adminsList");
+    const tasksList = document.getElementById("tasksList");
+
+    let currentUser = null;
+    let currentRole = "member";
+    let admins = [];
+    let ownerEmail = null;
+    let unsubTasks = null;
+    let unsubConfig = null;
+
+    function logMsg(msg) {
+      debugLog.textContent = msg;
+    }
+
+    async function claimOwnerIfNeeded() {
+      if (!currentUser) return;
+      const cfgRef = doc(db, "config", "roles");
+      const snap = await getDoc(cfgRef);
+      const email = (currentUser.email || "").toLowerCase();
+
+      if (!snap.exists() || !snap.data().ownerEmail) {
+        await setDoc(cfgRef, { ownerEmail: email, admins: [] }, { merge: true });
+        logMsg("تم تعيينك كمالك للنظام بنجاح.");
+      }
+    }
+
+    function watchRolesConfig() {
+      if (unsubConfig) unsubConfig();
+      const cfgRef = doc(db, "config", "roles");
+      unsubConfig = onSnapshot(cfgRef, (snap) => {
+        const data = snap.exists() ? snap.data() : {};
+        ownerEmail = (data.ownerEmail || "").toLowerCase() || null;
+        admins = Array.isArray(data.admins) ? data.admins.map(e => e.toLowerCase()) : [];
+
+        const email = (currentUser?.email || "").toLowerCase();
+        if (!currentUser) {
+          currentRole = "member";
+          roleBadge.textContent = "زائر";
+          ownerSection.style.display = "none";
+          taskCreatorSection.style.display = "none";
+        } else if (ownerEmail === email) {
+          currentRole = "owner";
+          roleBadge.textContent = "مالك النظام";
+          ownerSection.style.display = "block";
+          taskCreatorSection.style.display = "block";
+        } else if (admins.includes(email)) {
+          currentRole = "admin";
+          roleBadge.textContent = "أدمن";
+          ownerSection.style.display = "none";
+          taskCreatorSection.style.display = "block";
+        } else {
+          currentRole = "member";
+          roleBadge.textContent = "عضو فريق";
+          ownerSection.style.display = "none";
+          taskCreatorSection.style.display = "none";
+        }
+
+        renderAdmins();
+      }, (err) => {
+        logMsg("تنبيه صلاحيات قاعدة البيانات: " + err.message);
+      });
+    }
+
+    function renderAdmins() {
+      adminsList.innerHTML = "";
+      if (!ownerEmail) {
+        const btn = document.createElement("button");
+        btn.textContent = "تعييني كمالك للنظام";
+        btn.style.marginTop = "10px";
+        btn.onclick = claimOwnerIfNeeded;
+        adminsList.appendChild(btn);
+      } else {
+        const ownerRow = document.createElement("div");
+        ownerRow.className = "list-item";
+        ownerRow.innerHTML = `<span>المالك: <strong>${ownerEmail}</strong></span><span class="badge">Owner</span>`;
+        adminsList.appendChild(ownerRow);
+      }
+
+      admins.forEach((admEmail) => {
+        const item = document.createElement("div");
+        item.className = "list-item";
+        const span = document.createElement("span");
+        span.textContent = admEmail;
+        item.appendChild(span);
+
+        if (currentRole === "owner") {
+          const delBtn = document.createElement("button");
+          delBtn.className = "danger";
+          delBtn.textContent = "حذف";
+          delBtn.onclick = async () => {
+            const updated = admins.filter(e => e !== admEmail);
+            await setDoc(doc(db, "config", "roles"), { admins: updated }, { merge: true });
+          };
+          item.appendChild(delBtn);
+        }
+        adminsList.appendChild(item);
+      });
+    }
+
+    function watchTasks() {
+      if (unsubTasks) unsubTasks();
+      if (!currentUser) {
+        tasksList.innerHTML = '<p class="muted">سجّل دخولك لعرض المهام وتحديث حالتها.</p>';
+        return;
+      }
+
+      const q = query(collection(db, "tasks"), orderBy("createdAt", "desc"));
+      unsubTasks = onSnapshot(q, (snapshot) => {
+        tasksList.innerHTML = "";
+        if (snapshot.empty) {
+          tasksList.innerHTML = '<p class="muted">لا توجد مهام حالياً.</p>';
+          return;
+        }
+
+        snapshot.forEach((docSnap) => {
+          const task = docSnap.data();
+          const div = document.createElement("div");
+          div.className = "task";
+
+          const info = document.createElement("div");
+          info.innerHTML = `
+            <div><strong>${task.title || "مهمة بدون عنوان"}</strong></div>
+            <div class="muted">المسؤول: ${task.assignee || "غير محدد"}</div>
+          `;
+
+          const controls = document.createElement("div");
+          controls.className = "row";
+
+          const select = document.createElement("select");
+          ["قيد التنفيذ", "مراجعة", "مكتملة"].forEach((st) => {
+            const opt = document.createElement("option");
+            opt.value = st;
+            opt.textContent = st;
+            if (task.status === st) opt.selected = true;
+            select.appendChild(opt);
+          });
+          select.onchange = async () => {
+            await updateDoc(doc(db, "tasks", docSnap.id), { status: select.value });
+          };
+          controls.appendChild(select);
+
+          if (currentRole === "owner" || currentRole === "admin") {
+            const delBtn = document.createElement("button");
+            delBtn.className = "danger";
+            delBtn.textContent = "حذف";
+            delBtn.onclick = async () => {
+              await deleteDoc(doc(db, "tasks", docSnap.id));
+            };
+            controls.appendChild(delBtn);
+          }
+
+          div.appendChild(info);
+          div.appendChild(controls);
+          tasksList.appendChild(div);
+        });
+      }, (err) => {
+        logMsg("خطأ في تحميل المهام: " + err.message);
+      });
+    }
+
+    document.getElementById("loginBtn").onclick = async () => {
+      try {
+        await signInWithPopup(auth, provider);
+      } catch (err) {
+        logMsg("فشل تسجيل الدخول: " + err.message);
+      }
+    };
+
+    document.getElementById("addAdminBtn").onclick = async () => {
+      if (currentRole !== "owner") return;
+      const input = document.getElementById("adminEmailInput");
+      const newEmail = input.value.trim().toLowerCase();
+      if (!newEmail) return;
+      if (admins.length >= 4) {
+        logMsg("الحد الأقصى للأدمن هو 4 فقط.");
+        return;
+      }
+      if (!admins.includes(newEmail)) {
+        const updated = [...admins, newEmail];
+        await setDoc(doc(db, "config", "roles"), { admins: updated }, { merge: true });
+        input.value = "";
+        logMsg("تمت إضافة الأدمن بنجاح.");
+      }
+    };
+
+    document.getElementById("addTaskBtn").onclick = async () => {
+      if (currentRole !== "owner" && currentRole !== "admin") return;
+      const titleEl = document.getElementById("taskTitleInput");
+      const assigneeEl = document.getElementById("taskAssigneeInput");
+      const title = titleEl.value.trim();
+      const assignee = assigneeEl.value.trim().toLowerCase();
+      if (!title) return;
+
+      await addDoc(collection(db, "tasks"), {
+        title,
+        assignee,
+        status: "قيد التنفيذ",
+        createdAt: serverTimestamp()
+      });
+      titleEl.value = "";
+      assigneeEl.value = "";
+      logMsg("تمت إضافة المهمة.");
+    };
+
+    onAuthStateChanged(auth, async (user) => {
+      currentUser = user;
+      if (user) {
+        sysState.textContent = `مسجل الدخول: ${user.email}`;
+        authBox.innerHTML = `<span class="muted">${user.email}</span><button id="logoutBtn" class="secondary">خروج</button>`;
+        document.getElementById("logoutBtn").onclick = () => signOut(auth);
+        await claimOwnerIfNeeded();
+      } else {
+        sysState.textContent = "الواجهة جاهزة - اضغط الدخول عبر Google";
+        authBox.innerHTML = `<button id="loginBtn">الدخول عبر Google</button>`;
+        document.getElementById("loginBtn").onclick = async () => {
+          try {
+            await signInWithPopup(auth, provider);
+          } catch (err) {
+            logMsg("فشل تسجيل الدخول: " + err.message);
+          }
+        };
+      }
+      watchRolesConfig();
+      watchTasks();
+    });
+  </script>
+</body>
+</html>
