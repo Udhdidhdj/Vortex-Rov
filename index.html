@@ -8,38 +8,44 @@
   <meta name="theme-color" content="#1d6fd6" />
   <style>
     :root {
-      --bg: #f3f6fa;
+      --bg: #eef2f7;
       --surface: #ffffff;
       --surface-2: #f8fafc;
       --sidebar-bg: #ffffff;
       --primary: #1d6fd6;
-      --primary-soft: #e8f1fc;
+      --primary-soft: #e6f0fd;
       --primary-ink: #ffffff;
+      --accent-picked: #15803d;
+      --accent-picked-soft: #dcfce7;
+      --accent-picked-ink: #ffffff;
       --text: #0f172a;
       --muted: #64748b;
-      --border: #e2e8f0;
+      --border: #dbe3ee;
       --ok: #16a34a;
       --warn: #d97706;
       --danger: #dc2626;
-      --radius: 14px;
-      --shadow: 0 3px 14px rgba(15, 23, 42, 0.05);
+      --radius: 16px;
+      --shadow: 0 6px 22px rgba(15, 23, 42, 0.06);
     }
 
     body.dark {
-      --bg: #0a111e;
-      --surface: #111c2e;
-      --surface-2: #17263d;
-      --sidebar-bg: #0e1828;
+      --bg: #080e1a;
+      --surface: #0f192b;
+      --surface-2: #15233b;
+      --sidebar-bg: #0c1423;
       --primary: #38bdf8;
-      --primary-soft: rgba(56, 189, 248, 0.14);
-      --primary-ink: #06131f;
+      --primary-soft: rgba(56, 189, 248, 0.16);
+      --primary-ink: #05111c;
+      --accent-picked: #22c55e;
+      --accent-picked-soft: rgba(34, 197, 94, 0.2);
+      --accent-picked-ink: #041309;
       --text: #f1f5f9;
       --muted: #94a3b8;
-      --border: #233550;
+      --border: #20314d;
       --ok: #22c55e;
       --warn: #f59e0b;
       --danger: #ef4444;
-      --shadow: 0 8px 24px rgba(0, 0, 0, 0.32);
+      --shadow: 0 10px 28px rgba(0, 0, 0, 0.36);
     }
 
     * {
@@ -69,25 +75,25 @@
     }
 
     .sidebar {
-      width: clamp(236px, 20vw, 280px);
+      width: clamp(240px, 20vw, 285px);
       flex-shrink: 0;
       background: var(--sidebar-bg);
       border-inline-end: 1px solid var(--border);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      padding: 18px 14px;
+      padding: 20px 14px;
     }
 
     .greeting-box {
-      padding: 4px 10px 12px;
+      padding: 4px 10px 14px;
       border-bottom: 1px solid var(--border);
-      margin-bottom: 12px;
+      margin-bottom: 14px;
     }
 
     .greeting-title {
       margin: 0;
-      font-size: clamp(18px, 1.4vw, 21px);
+      font-size: clamp(19px, 1.45vw, 22px);
       font-weight: 800;
       color: var(--primary);
       line-height: 1.25;
@@ -108,21 +114,21 @@
       gap: 10px;
       background: var(--surface-2);
       border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 10px;
-      margin-bottom: 12px;
+      border-radius: 14px;
+      padding: 11px;
+      margin-bottom: 14px;
     }
 
     .mini-avatar {
-      width: 40px;
-      height: 40px;
-      border-radius: 12px;
+      width: 42px;
+      height: 42px;
+      border-radius: 13px;
       background: var(--primary);
       color: var(--primary-ink);
       display: grid;
       place-items: center;
       font-weight: 800;
-      font-size: 15px;
+      font-size: 16px;
       flex-shrink: 0;
     }
 
@@ -132,7 +138,7 @@
     }
 
     .mini-user-name {
-      font-size: 13px;
+      font-size: 13.5px;
       font-weight: 700;
       white-space: nowrap;
       overflow: hidden;
@@ -140,7 +146,7 @@
     }
 
     .mini-user-sub {
-      font-size: 11px;
+      font-size: 11.5px;
       color: var(--muted);
       white-space: nowrap;
       overflow: hidden;
@@ -168,7 +174,7 @@
       background: transparent;
       color: var(--text);
       border: 1px solid transparent;
-      border-radius: 10px;
+      border-radius: 11px;
       padding: 10px 12px;
       font-size: 13.5px;
       font-weight: 600;
@@ -179,6 +185,7 @@
       cursor: pointer;
       text-align: start;
       min-height: 42px;
+      transition: all 0.15s ease;
     }
 
     .nav-btn:hover {
@@ -188,19 +195,19 @@
     .nav-btn.active {
       background: var(--primary-soft);
       color: var(--primary);
-      border-color: rgba(29, 111, 214, 0.25);
+      border-color: rgba(29, 111, 214, 0.28);
       font-weight: 700;
     }
 
     .main-area {
       flex: 1;
       min-width: 0;
-      padding: clamp(14px, 2.5vw, 28px) clamp(14px, 3vw, 36px) 44px;
+      padding: clamp(16px, 2.5vw, 30px) clamp(16px, 3vw, 38px) 48px;
     }
 
     .main-inner {
       width: 100%;
-      max-width: 1360px;
+      max-width: 1380px;
       margin: 0 auto;
     }
 
@@ -210,9 +217,12 @@
       align-items: center;
       gap: 10px;
       flex-wrap: wrap;
-      margin-bottom: 18px;
-      padding-bottom: 12px;
-      border-bottom: 1px solid var(--border);
+      margin-bottom: 20px;
+      padding: 12px 16px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      box-shadow: var(--shadow);
     }
 
     .page-header {
@@ -221,13 +231,13 @@
 
     .page-title {
       margin: 0;
-      font-size: clamp(20px, 2.2vw, 28px);
+      font-size: clamp(21px, 2.2vw, 29px);
       font-weight: 800;
       line-height: 1.25;
     }
 
     .page-subtitle {
-      margin: 5px 0 0;
+      margin: 6px 0 0;
       color: var(--muted);
       font-size: 14px;
     }
@@ -268,7 +278,7 @@
 
     .auth-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(265px, 1fr));
       gap: 14px;
       margin-top: 14px;
     }
@@ -276,7 +286,7 @@
     .auth-panel {
       background: var(--surface-2);
       border: 1px solid var(--border);
-      border-radius: 12px;
+      border-radius: 14px;
       padding: 16px;
       display: flex;
       flex-direction: column;
@@ -287,7 +297,7 @@
     .auth-panel h3 {
       margin: 0;
       font-size: 16px;
-      font-weight: 700;
+      font-weight: 800;
     }
 
     .field-grid-2 {
@@ -299,7 +309,7 @@
     .field-box {
       background: var(--surface-2);
       border: 1px solid var(--border);
-      border-radius: 12px;
+      border-radius: 13px;
       padding: 14px 16px;
       display: flex;
       justify-content: space-between;
@@ -324,7 +334,7 @@
 
     .stats-row {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
       gap: 12px;
       margin-bottom: 18px;
     }
@@ -340,24 +350,31 @@
     .stat-label {
       font-size: 13px;
       color: var(--muted);
-      font-weight: 600;
+      font-weight: 700;
     }
 
     .stat-value {
-      font-size: 24px;
+      font-size: 25px;
       font-weight: 800;
       margin-top: 6px;
+      color: var(--primary);
     }
 
     input, select, button {
       padding: 11px 14px;
-      border-radius: 10px;
+      border-radius: 11px;
       border: 1px solid var(--border);
       background: var(--surface-2);
       color: var(--text);
       font-size: 14px;
       min-height: 42px;
       max-width: 100%;
+    }
+
+    select.is-selected-item {
+      border-color: var(--accent-picked);
+      background: var(--accent-picked-soft);
+      font-weight: 700;
     }
 
     button {
@@ -370,6 +387,11 @@
       align-items: center;
       justify-content: center;
       gap: 7px;
+      transition: transform 0.1s ease, opacity 0.15s ease;
+    }
+
+    button:active {
+      transform: scale(0.99);
     }
 
     button:disabled {
@@ -407,6 +429,11 @@
     .badge.ok { border-color: var(--ok); color: var(--ok); }
     .badge.warn { border-color: var(--warn); color: var(--warn); }
     .badge.danger { border-color: var(--danger); color: var(--danger); }
+    .badge.picked {
+      background: var(--accent-picked);
+      border-color: var(--accent-picked);
+      color: var(--accent-picked-ink);
+    }
 
     .list-item {
       display: flex;
@@ -415,7 +442,7 @@
       gap: 12px;
       padding: 15px 18px;
       border: 1px solid var(--border);
-      border-radius: 12px;
+      border-radius: 13px;
       background: var(--surface-2);
       margin-top: 10px;
       flex-wrap: wrap;
@@ -447,6 +474,7 @@
     .hint {
       font-size: 13px;
       color: var(--muted);
+      line-height: 1.5;
     }
 
     .hidden {
@@ -455,7 +483,7 @@
 
     #vortex-status-box {
       padding: 12px 15px;
-      border-radius: 10px;
+      border-radius: 11px;
       border: 1px solid var(--border);
       background: var(--surface-2);
       font-size: 14px;
@@ -482,7 +510,7 @@
       flex-direction: column;
       gap: 10px;
       padding: 14px;
-      border-radius: 12px;
+      border-radius: 13px;
       border: 1px solid var(--border);
       background: var(--surface-2);
       margin-bottom: 14px;
@@ -503,8 +531,8 @@
 
     .assignee-picker {
       background: var(--surface-2);
-      border: 1px dashed var(--primary);
-      border-radius: 12px;
+      border: 2px dashed var(--primary);
+      border-radius: 14px;
       padding: 14px;
       margin-top: 12px;
     }
@@ -513,16 +541,19 @@
       background: var(--surface);
       color: var(--text);
       border: 1px solid var(--border);
-      font-size: 12px;
-      padding: 6px 12px;
+      font-size: 12.5px;
+      padding: 7px 13px;
       border-radius: 999px;
-      min-height: 34px;
+      min-height: 36px;
+      transition: all 0.15s ease;
     }
 
     .email-chip-btn.selected {
-      background: var(--primary);
-      color: var(--primary-ink);
-      border-color: var(--primary);
+      background: var(--accent-picked);
+      color: var(--accent-picked-ink);
+      border-color: var(--accent-picked);
+      box-shadow: 0 3px 10px rgba(21, 128, 61, 0.28);
+      font-weight: 800;
     }
 
     .rotate-tip {
@@ -533,7 +564,7 @@
       flex-wrap: wrap;
       background: var(--primary-soft);
       border: 1px solid var(--primary);
-      border-radius: 10px;
+      border-radius: 11px;
       padding: 10px 14px;
       margin-bottom: 14px;
       font-size: 13px;
@@ -662,7 +693,7 @@
           <div class="auth-grid">
             <div class="auth-panel">
               <h3 id="t-google-title">🔑 تسجيل الدخول بحساب Google</h3>
-              <p id="t-google-desc" class="hint" style="margin:0;">دخول سريع عبر Google على Windows وMac وAndroid وiOS.</p>
+              <p id="t-google-desc" class="hint" style="margin:0;">دخول سريع ومضمون عبر Google على Windows وMac وAndroid وiOS.</p>
               <button id="vortex-google-popup-btn" type="button">🚀 الدخول عبر Google</button>
               <button id="vortex-google-redirect-btn" type="button" class="secondary">↪ الدخول عبر Google (Redirect)</button>
             </div>
@@ -680,6 +711,7 @@
 
             <div class="auth-panel">
               <h3 id="t-phone-title">📱 تسجيل الدخول برقم الموبايل</h3>
+              <div class="hint" id="t-sms-note" style="margin:0;">ملاحظة: إرسال SMS يتطلب تفعيل Phone Auth و Authorized Domains في Firebase Console؛ إذا لم تصل رسالة استخدم Google أو البريد.</div>
               <input id="vortex-phone-input" type="tel" dir="ltr" autocomplete="tel" placeholder="+201012345678" />
               <button id="vortex-send-otp-btn" type="button">📲 إرسال كود التحقق (SMS)</button>
               <div id="vortex-otp-box" class="stack hidden">
@@ -821,13 +853,14 @@
 
                 <div id="vortex-assignee-picker" class="assignee-picker hidden">
                   <div class="row" style="justify-content:space-between; margin-bottom:10px;">
-                    <strong id="t-pick-assignee-title" style="font-size:13px;">✉ اختر الشخص المسؤول من الإيميلات المحطوطة:</strong>
-                    <span id="vortex-selected-assignee-label" class="badge ok"></span>
+                    <strong id="t-pick-assignee-title" style="font-size:13.5px;">✉ اختر الشخص المسؤول في التيم المختار:</strong>
+                    <span id="vortex-selected-assignee-label" class="badge picked"></span>
                   </div>
                   <select id="vortex-task-assignee-select" style="width:100%; margin-bottom:10px;">
                     <option value="" data-i18n="unassignedOption">بدون تعيين محدد (أي حد في التيم)</option>
                   </select>
                   <div id="vortex-assignee-chips" class="row"></div>
+                  <div id="vortex-team-assignee-hint" class="hint" style="margin-top:10px;"></div>
                 </div>
               </div>
 
@@ -898,7 +931,7 @@
           <section id="vpage-owners" class="hidden">
             <div class="page-header">
               <h1 id="t-owners-page-title" class="page-title">Owners & Team Emails</h1>
-              <p class="page-subtitle">Max 4 Owner accounts + saved emails list for task assignment.</p>
+              <p class="page-subtitle">Max 4 Owner accounts + saved emails list with their sub-teams for task assignment.</p>
             </div>
 
             <div class="card">
@@ -915,6 +948,13 @@
 
               <div class="row" style="margin-top:16px;">
                 <input id="vortex-roster-email-input" type="email" dir="ltr" placeholder="member@example.com" style="flex:1; min-width:200px;" />
+                <select id="vortex-roster-team-select">
+                  <option value="GUI">GUI</option>
+                  <option value="Vision">Vision</option>
+                  <option value="Control">Control</option>
+                  <option value="Mechanical">Mechanical</option>
+                  <option value="Electrical">Electrical</option>
+                </select>
                 <button id="vortex-add-roster-btn" type="button" class="secondary">✉ إضافة إيميل عضو للمهام</button>
               </div>
               <div id="vortex-roster-list" class="row" style="margin-top:10px;"></div>
@@ -998,7 +1038,7 @@
         signupTeamHint: "يُستخدم لتحديد التيم الخاص بك في قائمة التيمات والشات وصلاحيات المهام.",
         logout: "🚪 تسجيل الخروج",
         googleTitle: "🔑 تسجيل الدخول بحساب Google",
-        googleDesc: "دخول سريع عبر Google على Windows وMac وAndroid وiOS.",
+        googleDesc: "دخول سريع ومضمون عبر Google على Windows وMac وAndroid وiOS.",
         googlePopup: "🚀 الدخول عبر Google",
         googleRedirect: "↪ الدخول عبر Google (Redirect)",
         emailTitle: "✉️ البريد الإلكتروني وكلمة المرور",
@@ -1008,6 +1048,7 @@
         emailSignUp: "➕ إنشاء حساب",
         resetPass: "🔄 إرسال رابط استعادة كلمة المرور",
         phoneTitle: "📱 تسجيل الدخول برقم الموبايل",
+        smsNote: "ملاحظة: إرسال SMS يتطلب تفعيل Phone Auth و Authorized Domains في Firebase Console؛ إذا لم تصل رسالة استخدم Google أو البريد.",
         phonePh: "+201012345678",
         sendOtp: "📲 إرسال كود التحقق (SMS)",
         otpPh: "أدخل كود التحقق (6 أرقام)",
@@ -1031,7 +1072,8 @@
         assigneeAll: "كل المسؤولين",
         unassignedOption: "بدون تعيين محدد (أي حد في التيم)",
         pickAssigneeBtn: "👤 اختيار الشخص المسؤول",
-        pickAssigneeTitle: "✉ اختر الشخص المسؤول من الإيميلات المحطوطة:",
+        pickAssigneeTitle: "✉ اختر الشخص المسؤول في التيم المختار:",
+        noTeamMemberHint: "لا يوجد أعضاء مرتبطون بتيم {team} حاليًا — يمكنك اختيار «بدون تعيين محدد» أو إضافة عضو لتيم {team} من صفحة الملاك والإيميلات.",
         assignedTo: "المسؤول",
         openForTeam: "متاحة لأي عضو في التيم",
         tasksListHeading: "📋 قائمة المهام",
@@ -1098,7 +1140,7 @@
         signupTeamHint: "Used to display your team in Sub-teams, Team Chat, and task permissions.",
         logout: "🚪 Sign Out",
         googleTitle: "🔑 Sign In with Google",
-        googleDesc: "Fast sign-in via Google on Windows, Mac, Android, and iOS.",
+        googleDesc: "Fast and reliable sign-in via Google on Windows, Mac, Android, and iOS.",
         googlePopup: "🚀 Continue with Google",
         googleRedirect: "↪ Continue with Google (Redirect)",
         emailTitle: "✉️ Email & Password",
@@ -1108,6 +1150,7 @@
         emailSignUp: "➕ Create Account",
         resetPass: "🔄 Send Password Reset Link",
         phoneTitle: "📱 Sign In with Mobile Number",
+        smsNote: "Note: SMS requires Phone Auth & Authorized Domains enabled in Firebase Console; use Google or Email if SMS is not enabled.",
         phonePh: "+201012345678",
         sendOtp: "📲 Send Verification Code (SMS)",
         otpPh: "Enter 6-digit code",
@@ -1131,7 +1174,8 @@
         assigneeAll: "All Assignees",
         unassignedOption: "Unassigned (Anyone in team)",
         pickAssigneeBtn: "👤 Select Assignee",
-        pickAssigneeTitle: "✉ Select task assignee from saved emails:",
+        pickAssigneeTitle: "✉ Select task assignee in the selected team:",
+        noTeamMemberHint: "No members linked to {team} yet — choose Unassigned or add a member to {team} in Owners & Roster.",
         assignedTo: "Assignee",
         openForTeam: "Open to team members",
         tasksListHeading: "📋 Team Tasks",
@@ -1217,6 +1261,7 @@
     const verifyOtpBtn = document.getElementById("vortex-verify-otp-btn");
 
     const ownerTaskControls = document.getElementById("vortex-owner-task-controls");
+    const taskTeamSelect = document.getElementById("vortex-task-team");
     const tasksList = document.getElementById("vortex-tasks-list");
     const tasksCountBadge = document.getElementById("vortex-tasks-count-badge");
     const taskFilter = document.getElementById("vortex-task-filter");
@@ -1228,6 +1273,7 @@
     const assigneePicker = document.getElementById("vortex-assignee-picker");
     const taskAssigneeSelect = document.getElementById("vortex-task-assignee-select");
     const assigneeChips = document.getElementById("vortex-assignee-chips");
+    const teamAssigneeHint = document.getElementById("vortex-team-assignee-hint");
     const selectedAssigneeLabel = document.getElementById("vortex-selected-assignee-label");
 
     const chatBox = document.getElementById("vortex-chat-box");
@@ -1330,6 +1376,7 @@
       emailSignUpBtn.textContent = t("emailSignUp");
       resetPassBtn.textContent = t("resetPass");
       document.getElementById("t-phone-title").textContent = t("phoneTitle");
+      document.getElementById("t-sms-note").textContent = t("smsNote");
       phoneInput.placeholder = t("phonePh");
       sendOtpBtn.textContent = t("sendOtp");
       otpInput.placeholder = t("otpPh");
@@ -1428,7 +1475,7 @@
     let currentUser = null;
     let currentRole = "Member";
     let ownersSet = new Set(INITIAL_OWNERS.map((e) => e.toLowerCase()));
-    let knownEmailsSet = new Set(INITIAL_OWNERS.map((e) => e.toLowerCase()));
+    let knownEmailsMap = new Map();
     let membersMap = new Map();
     let allTasks = [];
     let allChat = [];
@@ -1552,9 +1599,22 @@
       return Array.from(merged).slice(0, MAX_OWNERS);
     }
 
+    function getEmailTeamMap() {
+      const map = new Map();
+      membersMap.forEach((m) => {
+        if (m.email && m.email.includes("@")) {
+          map.set(m.email.toLowerCase(), TEAMS.includes(m.team) ? m.team : "GUI");
+        }
+      });
+      knownEmailsMap.forEach((tm, em) => {
+        map.set(em.toLowerCase(), TEAMS.includes(tm) ? tm : "GUI");
+      });
+      return map;
+    }
+
     function getAllKnownEmails() {
       const emails = new Set(getEffectiveOwnersSet());
-      knownEmailsSet.forEach((e) => { if (e) emails.add(e.toLowerCase()); });
+      knownEmailsMap.forEach((_, em) => { if (em) emails.add(em.toLowerCase()); });
       if (currentUser && currentUser.email) emails.add(currentUser.email.toLowerCase());
       membersMap.forEach((m) => { if (m.email && m.email.includes("@")) emails.add(m.email.toLowerCase()); });
       allTasks.forEach((tk) => {
@@ -1564,53 +1624,91 @@
       return Array.from(emails);
     }
 
+    function getEmailsForTeam(targetTeam) {
+      const all = getAllKnownEmails();
+      const emailTeamMap = getEmailTeamMap();
+      return all.filter((em) => emailTeamMap.get(em) === targetTeam);
+    }
+
     function isOwner() {
       return currentRole === "Owner";
     }
 
     function renderAssigneeOptions() {
-      const emails = getAllKnownEmails();
+      const selectedTaskTeam = taskTeamSelect.value || "GUI";
+      const teamEmails = getEmailsForTeam(selectedTaskTeam);
+      const allEmails = getAllKnownEmails();
       const prevSelectVal = taskAssigneeSelect.value;
       const prevFilterVal = taskAssigneeFilter.value;
 
       taskAssigneeSelect.innerHTML = `<option value="">${t("unassignedOption")}</option>`;
-      taskAssigneeFilter.innerHTML = `<option value="all">${t("assigneeAll")}</option>`;
       assigneeChips.innerHTML = "";
 
-      emails.forEach((em) => {
+      teamEmails.forEach((em) => {
         const opt = document.createElement("option");
         opt.value = em;
-        opt.textContent = em;
+        opt.textContent = `${em} (${selectedTaskTeam})`;
         taskAssigneeSelect.appendChild(opt);
 
-        const fOpt = document.createElement("option");
-        fOpt.value = em;
-        fOpt.textContent = em;
-        taskAssigneeFilter.appendChild(fOpt);
-
+        const isPicked = taskAssigneeSelect.value === em;
         const chip = document.createElement("button");
         chip.type = "button";
-        chip.className = `email-chip-btn ${taskAssigneeSelect.value === em ? "selected" : ""}`;
-        chip.textContent = `✉ ${em}`;
+        chip.className = `email-chip-btn ${isPicked ? "selected" : ""}`;
+        chip.textContent = `${isPicked ? "✓ " : "✉ "}${em} • ${selectedTaskTeam}`;
         chip.addEventListener("click", () => {
           taskAssigneeSelect.value = em;
+          const tmMap = getEmailTeamMap();
+          if (tmMap.has(em)) {
+            taskTeamSelect.value = tmMap.get(em);
+          }
           syncSelectedAssigneeLabel();
           renderAssigneeOptions();
         });
         assigneeChips.appendChild(chip);
       });
 
-      if (prevSelectVal && emails.includes(prevSelectVal)) taskAssigneeSelect.value = prevSelectVal;
-      if (prevFilterVal && (prevFilterVal === "all" || emails.includes(prevFilterVal))) {
+      if (teamEmails.length === 0) {
+        teamAssigneeHint.textContent = t("noTeamMemberHint").replaceAll("{team}", selectedTaskTeam);
+      } else {
+        teamAssigneeHint.textContent = "";
+      }
+
+      if (prevSelectVal && teamEmails.includes(prevSelectVal)) {
+        taskAssigneeSelect.value = prevSelectVal;
+      } else {
+        taskAssigneeSelect.value = "";
+      }
+
+      taskAssigneeFilter.innerHTML = `<option value="all">${t("assigneeAll")}</option>`;
+      allEmails.forEach((em) => {
+        const fOpt = document.createElement("option");
+        fOpt.value = em;
+        fOpt.textContent = em;
+        taskAssigneeFilter.appendChild(fOpt);
+      });
+      if (prevFilterVal && (prevFilterVal === "all" || allEmails.includes(prevFilterVal))) {
         taskAssigneeFilter.value = prevFilterVal;
       }
+
       syncSelectedAssigneeLabel();
     }
 
     function syncSelectedAssigneeLabel() {
       const chosen = taskAssigneeSelect.value;
-      selectedAssigneeLabel.textContent = chosen ? `${t("assignedTo")}: ${chosen}` : t("unassignedOption");
+      if (chosen) {
+        selectedAssigneeLabel.textContent = `✓ ${t("assignedTo")}: ${chosen}`;
+        selectedAssigneeLabel.className = "badge picked";
+        taskAssigneeSelect.classList.add("is-selected-item");
+      } else {
+        selectedAssigneeLabel.textContent = t("unassignedOption");
+        selectedAssigneeLabel.className = "badge ok";
+        taskAssigneeSelect.classList.remove("is-selected-item");
+      }
     }
+
+    taskTeamSelect.addEventListener("change", () => {
+      renderAssigneeOptions();
+    });
 
     pickAssigneeBtn.addEventListener("click", () => {
       if (!isOwner()) return;
@@ -1619,6 +1717,13 @@
     });
 
     taskAssigneeSelect.addEventListener("change", () => {
+      const chosen = taskAssigneeSelect.value;
+      if (chosen) {
+        const tmMap = getEmailTeamMap();
+        if (tmMap.has(chosen)) {
+          taskTeamSelect.value = tmMap.get(chosen);
+        }
+      }
       syncSelectedAssigneeLabel();
       renderAssigneeOptions();
     });
@@ -1769,11 +1874,13 @@
         ownersList.appendChild(chip);
       });
 
+      const tmMap = getEmailTeamMap();
       rosterList.innerHTML = "";
       getAllKnownEmails().forEach((em) => {
         const chip = document.createElement("span");
         chip.className = "badge";
-        chip.textContent = `✉ ${em}`;
+        const tmTag = tmMap.get(em) || "GUI";
+        chip.textContent = `✉ ${em} • 🎯 ${tmTag}`;
         rosterList.appendChild(chip);
       });
     }
@@ -2109,7 +2216,7 @@
         otpBox.classList.remove("hidden");
         setStatus(`SMS sent to ${phone}`, "ok");
       } catch (err) {
-        setStatus(formatErr(err), "error");
+        setStatus(`${formatErr(err)} — تأكد من تفعيل Phone Auth و Authorized Domains في Firebase Console أو استخدم Google / البريد.`, "error");
         if (recaptchaVerifier) {
           try { recaptchaVerifier.clear(); } catch (_) {}
           recaptchaVerifier = null;
@@ -2149,7 +2256,6 @@
         return;
       }
       const titleInput = document.getElementById("vortex-task-title");
-      const teamSel = document.getElementById("vortex-task-team");
       const prioSel = document.getElementById("vortex-task-priority");
       const title = titleInput.value.trim();
       if (!title || !currentUser) return;
@@ -2157,7 +2263,7 @@
       try {
         await addDoc(collection(db, "tasks"), {
           title,
-          team: teamSel.value,
+          team: taskTeamSelect.value,
           status: "pending",
           priority: prioSel.value,
           assignedTo: taskAssigneeSelect.value || "",
@@ -2221,7 +2327,7 @@
           role: "Owner",
           updatedAt: serverTimestamp()
         });
-        knownEmailsSet.add(email);
+        if (!knownEmailsMap.has(email)) knownEmailsMap.set(email, "GUI");
         input.value = "";
       } catch (err) {
         setStatus(formatErr(err), "error");
@@ -2248,14 +2354,17 @@
 
     document.getElementById("vortex-add-roster-btn").addEventListener("click", async () => {
       const input = document.getElementById("vortex-roster-email-input");
+      const tmSel = document.getElementById("vortex-roster-team-select");
       const email = input.value.trim().toLowerCase();
+      const chosenTeam = TEAMS.includes(tmSel.value) ? tmSel.value : "GUI";
       if (!email || !email.includes("@") || !isOwner()) return;
       try {
         await setDoc(doc(db, "team_roster", encodeURIComponent(email)), {
           email,
+          team: chosenTeam,
           updatedAt: serverTimestamp()
         });
-        knownEmailsSet.add(email);
+        knownEmailsMap.set(email, chosenTeam);
         input.value = "";
         renderOwnersList();
         renderAssigneeOptions();
@@ -2288,7 +2397,7 @@
           allChat = [];
           membersMap = new Map();
           ownersSet = new Set(INITIAL_OWNERS.map((e) => e.toLowerCase()));
-          knownEmailsSet = new Set(INITIAL_OWNERS.map((e) => e.toLowerCase()));
+          knownEmailsMap = new Map();
           renderUI();
           return;
         }
@@ -2336,7 +2445,7 @@
                 if (data && data.email) {
                   const em = String(data.email).toLowerCase();
                   nextSet.add(em);
-                  knownEmailsSet.add(em);
+                  if (!knownEmailsMap.has(em)) knownEmailsMap.set(em, "GUI");
                 }
               });
               ownersSet = nextSet;
@@ -2352,7 +2461,11 @@
             (snap) => {
               snap.forEach((d) => {
                 const data = d.data();
-                if (data && data.email) knownEmailsSet.add(String(data.email).toLowerCase());
+                if (data && data.email) {
+                  const em = String(data.email).toLowerCase();
+                  const tm = TEAMS.includes(data.team) ? data.team : "GUI";
+                  knownEmailsMap.set(em, tm);
+                }
               });
               renderOwnersList();
               renderAssigneeOptions();
