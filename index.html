@@ -4,6 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vortex ROV - Task Manager</title>
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#0b192c" />
   <style>
     :root {
       --bg-main: #0b192c;
@@ -950,6 +952,14 @@
     });
 
     applyLanguage();
+  </script>
+
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("/Vortex-Rov/service-worker.js").catch(() => {});
+      });
+    }
   </script>
 </body>
 </html>
