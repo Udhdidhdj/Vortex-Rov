@@ -135,6 +135,30 @@
       font-weight: 800;
       font-size: 16px;
       flex-shrink: 0;
+      overflow: hidden;
+    }
+
+    .mini-avatar img,
+    .profile-photo-preview {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .profile-photo-box {
+      width: 68px;
+      height: 68px;
+      border-radius: 18px;
+      background: var(--primary);
+      color: var(--primary-ink);
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      font-size: 24px;
+      flex-shrink: 0;
+      overflow: hidden;
+      border: 2px solid var(--border);
     }
 
     .mini-user-info {
@@ -722,7 +746,7 @@
         <section id="vortex-auth-card" class="card">
           <div class="page-header" style="margin-bottom:12px;">
             <h1 id="t-auth-title" class="page-title">🔐 Account & Sign In</h1>
-            <p id="t-choose-auth" class="page-subtitle">Choose your sub-team, then sign in with Google, Email & Password, or Mobile Number.</p>
+            <p id="t-choose-auth" class="page-subtitle">Choose your sub-team, then sign in with Google, verified Email & Password, or Mobile Number.</p>
           </div>
 
           <div id="vortex-status-box">⏳ Initializing workspace...</div>
@@ -753,7 +777,7 @@
 
             <div class="auth-panel">
               <h3 id="t-email-title">✉️ Email & Password</h3>
-              <input id="vortex-email-input" type="email" dir="ltr" autocomplete="email" placeholder="name@example.com" />
+              <input id="vortex-email-input" type="email" dir="ltr" autocomplete="email" placeholder="name@gmail.com" />
               <input id="vortex-pass-input" type="password" dir="ltr" autocomplete="current-password" placeholder="Password (6+ characters)" />
               <div class="row">
                 <button id="vortex-email-signin-btn" type="button">✅ Sign In</button>
@@ -799,20 +823,37 @@
             </div>
           </div>
 
-          <!-- 1. My Profile & Password Security -->
+          <!-- 1. My Profile -->
           <section id="vpage-profile">
             <div class="page-header">
               <h1 id="t-profile-heading" class="page-title">My Profile</h1>
-              <p id="t-profile-sub" class="page-subtitle">Your unique ID, sub-team, device status, and password controls.</p>
+              <p id="t-profile-sub" class="page-subtitle">Your profile photo, username, sub-team, site passcode, and account details.</p>
             </div>
 
             <div class="card">
               <h3 id="t-acc-details" class="card-title">Account details</h3>
+
+              <div class="field-box" style="margin-bottom:14px;">
+                <div class="row" style="gap:14px;">
+                  <div id="vortex-prof-photo-box" class="profile-photo-box">V</div>
+                  <div>
+                    <div id="t-lbl-photo" class="field-label">Profile Photo</div>
+                    <div id="vortex-prof-name" class="field-value">—</div>
+                    <div class="hint" id="t-photo-hint">Upload a profile picture from your device.</div>
+                  </div>
+                </div>
+                <div class="row">
+                  <input id="vortex-photo-file-input" type="file" accept="image/*" class="hidden" />
+                  <button id="vortex-upload-photo-btn" type="button">📷 Choose Photo</button>
+                  <button id="vortex-remove-photo-btn" type="button" class="secondary">✖ Remove</button>
+                </div>
+              </div>
+
               <div class="field-grid-2">
                 <div class="field-box">
                   <div>
-                    <div id="t-lbl-name" class="field-label">Name / Identity</div>
-                    <div id="vortex-prof-name" class="field-value">—</div>
+                    <div id="t-lbl-username" class="field-label">Username</div>
+                    <div id="vortex-prof-username" class="field-value">—</div>
                   </div>
                   <span id="vortex-prof-role" class="badge ok">Member</span>
                 </div>
@@ -840,6 +881,13 @@
                 </div>
                 <div class="field-box">
                   <div style="min-width:0; flex:1;">
+                    <div id="t-lbl-site-pass" class="field-label">Site Passcode (Platform Password)</div>
+                    <div id="vortex-prof-site-pass" class="field-value" style="font-size:14px;">••••••</div>
+                  </div>
+                  <button id="vortex-toggle-site-pass-btn" type="button" class="secondary">👁 Show</button>
+                </div>
+                <div class="field-box" style="grid-column: 1 / -1;">
+                  <div style="min-width:0; flex:1;">
                     <div id="t-lbl-uid" class="field-label">Unique Member ID (UID)</div>
                     <div id="vortex-prof-uid" class="field-value" style="font-size:13px;">—</div>
                   </div>
@@ -849,19 +897,18 @@
             </div>
 
             <div class="card">
-              <h3 id="t-pass-security-title" class="card-title">🔒 Password & Recovery</h3>
+              <h3 id="t-pass-security-title" class="card-title">🔑 Site Passcode & Password Recovery</h3>
               <div class="field-grid-2">
                 <div class="auth-panel">
-                  <h3 id="t-change-pass-title">Change Password</h3>
-                  <div class="hint" id="t-change-pass-hint">Enter your current password and your new password (6+ characters).</div>
-                  <input id="vortex-current-pass-input" type="password" dir="ltr" autocomplete="current-password" placeholder="Current password" />
-                  <input id="vortex-new-pass-input" type="password" dir="ltr" autocomplete="new-password" placeholder="New password (6+ characters)" />
-                  <button id="vortex-update-pass-btn" type="button">🔑 Update Password</button>
+                  <h3 id="t-change-site-pass-title">Update Site Passcode</h3>
+                  <div class="hint" id="t-change-site-pass-hint">Change your platform-only site passcode (4+ chars).</div>
+                  <input id="vortex-new-site-pass-input" type="text" dir="ltr" placeholder="New site passcode (4+ chars)" />
+                  <button id="vortex-save-own-site-pass-btn" type="button">🔑 Save Site Passcode</button>
                 </div>
                 <div class="auth-panel">
-                  <h3 id="t-forgot-pass-inapp-title">Forgot Password</h3>
-                  <div class="hint" id="t-forgot-pass-inapp-hint">Send a password reset link to your email address.</div>
-                  <input id="vortex-forgot-email-input" type="email" dir="ltr" autocomplete="email" placeholder="name@example.com" />
+                  <h3 id="t-forgot-pass-inapp-title">Email Password Reset</h3>
+                  <div class="hint" id="t-forgot-pass-inapp-hint">Send a Firebase password reset link to your email address.</div>
+                  <input id="vortex-forgot-email-input" type="email" dir="ltr" autocomplete="email" placeholder="name@gmail.com" />
                   <button id="vortex-send-forgot-inapp-btn" type="button" class="secondary">🔄 Send Reset Link</button>
                 </div>
               </div>
@@ -949,7 +996,6 @@
               <p id="t-timetable-sub" class="page-subtitle">Add your busy slots from Saturday to Friday. Regular members view only their own schedule; Owners view everyone's schedule.</p>
             </div>
 
-            <!-- Dynamic Availability & Schedule Summary (shown only when slots exist) -->
             <div id="vortex-availability-card" class="card hidden">
               <div class="card-title">
                 <span id="t-common-free-title">🤝 Free Windows & Schedule Summary</span>
@@ -978,7 +1024,6 @@
               <div id="vortex-all-teams-free-overview" style="margin-top:12px;"></div>
             </div>
 
-            <!-- Add Busy Commitments Grid -->
             <div class="card">
               <div class="card-title">
                 <span id="t-days-grid-title">📆 Add Busy Commitments (Saturday → Friday)</span>
@@ -987,7 +1032,6 @@
               <div id="vortex-days-grid" class="days-grid"></div>
             </div>
 
-            <!-- Recorded Schedule List -->
             <div class="card">
               <div class="card-title">
                 <span id="t-busy-list-title">📋 Recorded Commitments & Hours</span>
@@ -1075,11 +1119,37 @@
             </div>
           </section>
 
-          <!-- 7. Owners & Roster -->
+          <!-- 7. Owners & Roster (Owner Only) -->
           <section id="vpage-owners" class="hidden">
             <div class="page-header">
-              <h1 id="t-owners-page-title" class="page-title">Owners & Team Emails</h1>
-              <p id="t-owners-page-sub" class="page-subtitle">Manage Owner accounts (up to 4) and assign member emails to sub-teams for tasks.</p>
+              <h1 id="t-owners-page-title" class="page-title">Owners & Accounts Directory</h1>
+              <p id="t-owners-page-sub" class="page-subtitle">Owner-only controls: create verified member accounts, permanently wipe any member & history, and manage owners.</p>
+            </div>
+
+            <!-- Create Member Account (Owner Only) -->
+            <div class="card">
+              <div class="card-title">
+                <span id="t-create-member-title">➕ Create Member Account (Owner Only)</span>
+                <span class="badge ok">Verified Email Required</span>
+              </div>
+              <div class="row">
+                <input id="vortex-new-member-name" type="text" placeholder="Full Name (e.g. Omar Ali)" style="flex:1; min-width:170px;" />
+                <input id="vortex-new-member-email" type="email" dir="ltr" placeholder="member@gmail.com" style="flex:1; min-width:190px;" />
+                <select id="vortex-new-member-team">
+                  <option value="GUI">GUI</option>
+                  <option value="Vision">Vision</option>
+                  <option value="Control">Control</option>
+                  <option value="Mechanical">Mechanical</option>
+                  <option value="Electrical">Electrical</option>
+                </select>
+              </div>
+              <div class="row" style="margin-top:10px;">
+                <input id="vortex-new-member-username" type="text" dir="ltr" placeholder="Auto username" style="min-width:180px; flex:1;" />
+                <button id="vortex-regen-username-btn" type="button" class="secondary">🎲 Gen Username</button>
+                <input id="vortex-new-member-pass" type="text" dir="ltr" placeholder="Site passcode (or random)" style="min-width:170px; flex:1;" />
+                <button id="vortex-regen-pass-btn" type="button" class="secondary">🎲 Gen Pass</button>
+                <button id="vortex-create-member-btn" type="button">✅ Create Member Account</button>
+              </div>
             </div>
 
             <div class="card">
@@ -1088,14 +1158,14 @@
                 <span id="vortex-owners-count-badge" class="badge">Owners: 1 / 4</span>
               </div>
               <div class="row">
-                <input id="vortex-owner-email-input" type="email" dir="ltr" placeholder="owner@example.com" style="flex:1; min-width:200px;" />
+                <input id="vortex-owner-email-input" type="email" dir="ltr" placeholder="owner@gmail.com" style="flex:1; min-width:200px;" />
                 <button id="vortex-add-owner-btn" type="button">➕ Add Owner</button>
                 <button id="vortex-remove-owner-btn" type="button" class="danger">✖ Remove Owner</button>
               </div>
               <div id="vortex-owners-list" class="row" style="margin-top:12px;"></div>
 
               <div class="row" style="margin-top:16px;">
-                <input id="vortex-roster-email-input" type="email" dir="ltr" placeholder="member@example.com" style="flex:1; min-width:200px;" />
+                <input id="vortex-roster-email-input" type="email" dir="ltr" placeholder="member@gmail.com" style="flex:1; min-width:200px;" />
                 <select id="vortex-roster-team-select">
                   <option value="GUI">GUI</option>
                   <option value="Vision">Vision</option>
@@ -1106,6 +1176,15 @@
                 <button id="vortex-add-roster-btn" type="button" class="secondary">✉ Assign Member Email</button>
               </div>
               <div id="vortex-roster-list" class="row" style="margin-top:10px;"></div>
+            </div>
+
+            <div class="card">
+              <div class="card-title">
+                <span id="t-all-accounts-title">🗂 All Accounts, Usernames & Site Passcodes</span>
+                <span id="vortex-accounts-count-badge" class="badge ok">0</span>
+              </div>
+              <div class="hint" id="t-pass-note-owner">Owner can view/change any member's site passcode, update team, or permanently wipe a member and all their history.</div>
+              <div id="vortex-owner-accounts-directory"></div>
             </div>
           </section>
         </div>
@@ -1120,11 +1199,9 @@
       setPersistence,
       browserLocalPersistence,
       GoogleAuthProvider,
-      EmailAuthProvider,
-      reauthenticateWithCredential,
-      updatePassword,
       signInWithEmailAndPassword,
       createUserWithEmailAndPassword,
+      sendEmailVerification,
       sendPasswordResetEmail,
       RecaptchaVerifier,
       signInWithPhoneNumber,
@@ -1163,6 +1240,34 @@
     const PRIMARY_OWNER_EMAIL = "bilalmnam7@gmail.com";
     const INITIAL_OWNERS = [PRIMARY_OWNER_EMAIL];
 
+    const TRUSTED_EMAIL_DOMAINS = new Set([
+      "gmail.com",
+      "googlemail.com",
+      "outlook.com",
+      "hotmail.com",
+      "live.com",
+      "msn.com",
+      "yahoo.com",
+      "ymail.com",
+      "icloud.com",
+      "me.com",
+      "proton.me",
+      "protonmail.com",
+      "aol.com",
+      "zoho.com"
+    ]);
+
+    const BLOCKED_TEMP_DOMAINS = new Set([
+      "tempmail.com",
+      "10minutemail.com",
+      "guerrillamail.com",
+      "mailinator.com",
+      "trashmail.com",
+      "yopmail.com",
+      "fakeinbox.com",
+      "getnada.com"
+    ]);
+
     const firebaseConfig = {
       apiKey: "AIzaSyCTb6fawE3ltI6A06lBVrx_5zre4Ei4N8g",
       authDomain: "vortex-rov.firebaseapp.com",
@@ -1192,7 +1297,7 @@
         lightMode: "☀ Light Mode",
         langSwitch: "🌐 العربية",
         authTitle: "🔐 Account & Sign In",
-        chooseAuth: "Choose your sub-team, then sign in with Google, Email & Password, or Mobile Number.",
+        chooseAuth: "Choose your sub-team, then sign in with Google, verified Email & Password, or Mobile Number.",
         signupTeamLabel: "🎯 Select your sub-team:",
         signupTeamHint: "Used to link your profile with your sub-team across Timetable, Tasks, and Team Chat.",
         logout: "🚪 Sign Out",
@@ -1201,7 +1306,7 @@
         googlePopup: "🚀 Continue with Google",
         googleRedirect: "↪ Continue with Google (Redirect)",
         emailTitle: "✉️ Email & Password",
-        emailPh: "name@example.com",
+        emailPh: "name@gmail.com",
         passPh: "Password (6+ characters)",
         emailSignIn: "✅ Sign In",
         emailSignUp: "➕ Create Account",
@@ -1212,34 +1317,44 @@
         sendOtp: "📲 Send Verification Code",
         otpPh: "Enter 6-digit code",
         verifyOtp: "✔ Verify Code & Sign In",
-        missingEmail: "Please enter your email address first.",
+        missingEmail: "Please enter a valid email address first.",
+        invalidRealEmail: "Please enter a real, valid email address (trusted provider, no random/temp email).",
+        emailVerifySent: "✔ Verification email sent! Check your inbox/spam and verify before full access.",
+        emailNotVerifiedErr: "Your email is not verified yet. Please check your inbox and click the verification link.",
         missingEmailAndPass: "Please enter both email and password.",
         weakPassError: "Password must be at least 6 characters.",
-        accountCreatedOk: "✔ Account created and signed in successfully.",
+        accountCreatedOk: "✔ Account created! Verification email sent to your inbox.",
         signedInOk: "✔ Signed in successfully.",
         resetSentOk: "✔ Password reset email sent.",
         profileHeading: "My Profile",
-        profileSub: "Your unique ID, sub-team, device status, and password controls.",
+        profileSub: "Your profile photo, username, sub-team, site passcode, and account details.",
         accDetails: "Account details",
-        lblName: "Name / Identity",
+        lblPhoto: "Profile Photo",
+        photoHint: "Upload a profile picture from your device.",
+        uploadPhotoBtn: "📷 Choose Photo",
+        removePhotoBtn: "✖ Remove",
+        photoUpdatedOk: "✔ Profile photo updated.",
+        photoRemovedOk: "✔ Profile photo removed.",
+        lblUsername: "Username",
         lblEmail: "Email / Phone",
         lblMyTeam: "My Team",
+        lblSitePass: "Site Passcode (Platform Password)",
+        showBtn: "👁 Show",
+        hideBtn: "🙈 Hide",
         saveTeam: "💾 Save Team",
         teamSaved: "Team saved successfully.",
         lblUid: "Unique Member ID (UID)",
         copyUid: "📋 Copy ID",
         copiedUidOk: "✔ Unique ID copied.",
-        passSecurityTitle: "🔒 Password & Recovery",
-        changePassTitle: "Change Password",
-        changePassHint: "Enter your current password and your new password (6+ characters).",
-        currentPassPh: "Current password",
-        newPassPh: "New password (6+ characters)",
-        updatePassBtn: "🔑 Update Password",
-        missingPassFields: "Please enter your current password and a new password (6+ chars).",
-        passUpdatedOk: "✔ Password updated successfully.",
-        googleNoPassChange: "This account uses Google/Phone sign-in. Use Forgot Password or Google settings to manage credentials.",
-        forgotPassInAppTitle: "Forgot Password",
-        forgotPassInAppHint: "Send a password reset link to your email address.",
+        passSecurityTitle: "🔑 Site Passcode & Password Recovery",
+        changeSitePassTitle: "Update Site Passcode",
+        changeSitePassHint: "Change your platform-only site passcode (4+ chars).",
+        newSitePassPh: "New site passcode (4+ chars)",
+        saveOwnSitePassBtn: "🔑 Save Site Passcode",
+        sitePassSavedOk: "✔ Site passcode updated successfully.",
+        sitePassMinErr: "Site passcode must be at least 4 characters.",
+        forgotPassInAppTitle: "Email Password Reset",
+        forgotPassInAppHint: "Send a Firebase password reset link to your email address.",
         sendForgotInAppBtn: "🔄 Send Reset Link",
         ticketsHeading: "Team Tasks",
         ticketsSub: "View all sub-team tasks; complete tasks in your sub-team assigned to you or open to your team.",
@@ -1267,6 +1382,8 @@
         complete: "✔ Complete",
         markDoneMember: "✔ Done",
         deleteBtn: "🗑 Delete",
+        wipeAccountBtn: "🧨 Wipe Account & History",
+        confirmWipeMsg: "Permanently delete ({name}) and wipe all their schedule slots, chat messages, task assignments, and roster records?",
         untitled: "Untitled",
         member: "Member",
         by: "By",
@@ -1312,8 +1429,24 @@
         chatPh: "Write a message to the team...",
         sendChat: "📨 Send",
         noChat: "No chat messages yet.",
-        ownersPageTitle: "Owners & Team Emails",
-        ownersPageSub: "Manage Owner accounts (up to 4) and assign member emails to sub-teams for tasks.",
+        ownersPageTitle: "Owners & Accounts Directory",
+        ownersPageSub: "Owner-only controls: create verified member accounts, permanently wipe any member & history, and manage owners.",
+        createMemberTitle: "➕ Create Member Account (Owner Only)",
+        newMemberNamePh: "Full Name (e.g. Omar Ali)",
+        newMemberEmailPh: "member@gmail.com",
+        newMemberUsernamePh: "Auto username",
+        regenUsernameBtn: "🎲 Gen Username",
+        newMemberPassPh: "Site passcode (or random)",
+        regenPassBtn: "🎲 Gen Pass",
+        createMemberBtn: "✅ Create Member Account",
+        memberCreatedOk: "✔ Member account created.",
+        memberDeletedOk: "✔ Member account and all history wiped.",
+        allAccountsTitle: "🗂 All Accounts, Usernames & Site Passcodes",
+        passNoteOwner: "Owner can view/change any member's site passcode, update team, or permanently wipe a member and all their history.",
+        sitePassFieldPh: "New site passcode",
+        setSitePassBtn: "🔑 Set Site Pass",
+        genPassBtn: "🎲 Random",
+        updateMemberTeamBtn: "💾 Save Team",
         statTotal: "📌 Total Tasks",
         statPending: "⏳ In Progress",
         statDone: "✅ Completed",
@@ -1333,14 +1466,14 @@
         navTeams: "التيمات والأعضاء",
         navPoints: "النقاط والترتيب",
         navChat: "شات الفريق",
-        navOwners: "الملاك والإيميلات",
+        navOwners: "الملاك والحسابات",
         online: "● متصل بالشبكة",
         offline: "○ غير متصل بالشبكة",
         darkMode: "🌙 الوضع الليلي",
         lightMode: "☀ الوضع النهاري",
         langSwitch: "🌐 English",
         authTitle: "🔐 الحساب وتسجيل الدخول",
-        chooseAuth: "اختر التيم الخاص بك ثم سجل دخولك عبر Google أو البريد الإلكتروني أو رقم الموبايل.",
+        chooseAuth: "اختر التيم الخاص بك ثم سجل دخولك عبر Google أو بريد حقيقي موثق أو رقم الموبايل.",
         signupTeamLabel: "🎯 اختر التيم الخاص بك:",
         signupTeamHint: "يُستخدم لربط حسابك بالتيم في جدول المواعيد والمهام والشات.",
         logout: "🚪 تسجيل الخروج",
@@ -1349,7 +1482,7 @@
         googlePopup: "🚀 الدخول عبر Google",
         googleRedirect: "↪ الدخول عبر Google (Redirect)",
         emailTitle: "✉️ البريد الإلكتروني وكلمة المرور",
-        emailPh: "name@example.com",
+        emailPh: "name@gmail.com",
         passPh: "كلمة المرور (6 أحرف فأكثر)",
         emailSignIn: "✅ دخول بالبريد",
         emailSignUp: "➕ إنشاء حساب",
@@ -1360,34 +1493,44 @@
         sendOtp: "📲 إرسال كود التحقق",
         otpPh: "أدخل كود التحقق (6 أرقام)",
         verifyOtp: "✔ تأكيد الكود وتسجيل الدخول",
-        missingEmail: "من فضلك اكتب البريد الإلكتروني أولاً.",
+        missingEmail: "من فضلك اكتب بريدًا إلكترونيًا صحيحًا أولاً.",
+        invalidRealEmail: "ممنوع إدخال إيميل وهمي أو عشوائي؛ اكتب إيميل حقيقي معروف (مثل Gmail أو Outlook أو Yahoo أو بريد رسمي).",
+        emailVerifySent: "✔ تم إرسال رسالة تحقق على الإيميل؛ افتح البريد (أو Spam) واضغط رابط التأكيد لتفعيل الحساب.",
+        emailNotVerifiedErr: "الإيميل ده لسه مش متأكد؛ افتح صندوق الوارد واضغط على رابط التفعيل اللي اتبعت لك.",
         missingEmailAndPass: "من فضلك اكتب البريد الإلكتروني وكلمة المرور.",
         weakPassError: "كلمة المرور لازم تكون 6 أحرف أو أرقام على الأقل.",
-        accountCreatedOk: "✔ تم إنشاء الحساب وتسجيل الدخول بنجاح.",
+        accountCreatedOk: "✔ تم إنشاء الحساب وإرسال رابط التحقق إلى البريد الإلكتروني.",
         signedInOk: "✔ تم تسجيل الدخول بنجاح.",
         resetSentOk: "✔ تم إرسال رابط استعادة كلمة المرور إلى بريدك الإلكتروني.",
         profileHeading: "ملفي الشخصي",
-        profileSub: "المعرف الخاص بك، التيم، حالة الجهاز، وإعدادات كلمة المرور.",
+        profileSub: "صورة البروفايل، اليوزر نيم، التيم، باسورد الموقع، وتفاصيل الحساب.",
         accDetails: "تفاصيل الحساب",
-        lblName: "الاسم / الهوية",
+        lblPhoto: "صورة البروفايل",
+        photoHint: "ارفع صورة بروفايل من جهازك.",
+        uploadPhotoBtn: "📷 اختيار صورة",
+        removePhotoBtn: "✖ إزالة",
+        photoUpdatedOk: "✔ تم تحديث صورة البروفايل.",
+        photoRemovedOk: "✔ تم إزالة صورة البروفايل.",
+        lblUsername: "اسم المستخدم (Username)",
         lblEmail: "البريد / رقم الهاتف",
         lblMyTeam: "التيم الخاص بي",
+        lblSitePass: "كلمة سر الموقع (Site Passcode)",
+        showBtn: "👁 إظهار",
+        hideBtn: "🙈 إخفاء",
         saveTeam: "💾 حفظ التيم",
         teamSaved: "تم حفظ التيم بنجاح.",
         lblUid: "المعرف الخاص بالحساب (UID)",
         copyUid: "📋 نسخ المعرف",
         copiedUidOk: "✔ تم نسخ المعرف الخاص بك.",
-        passSecurityTitle: "🔒 كلمة المرور واستعادة الحساب",
-        changePassTitle: "تغيير كلمة المرور",
-        changePassHint: "أدخل كلمة المرور الحالية وكلمة المرور الجديدة (6 أحرف فأكثر).",
-        currentPassPh: "كلمة المرور الحالية",
-        newPassPh: "كلمة المرور الجديدة (6 أحرف فأكثر)",
-        updatePassBtn: "🔑 تحديث كلمة المرور",
-        missingPassFields: "من فضلك أدخل كلمة المرور الحالية والجديدة (6 أحرف فأكثر).",
-        passUpdatedOk: "✔ تم تغيير كلمة المرور بنجاح.",
-        googleNoPassChange: "هذا الحساب مسجل عبر Google أو الموبايل؛ استخدم «نسيت كلمة المرور» أو إعدادات حساب Google.",
-        forgotPassInAppTitle: "نسيت كلمة المرور",
-        forgotPassInAppHint: "إرسال رابط استعادة كلمة المرور إلى بريدك الإلكتروني.",
+        passSecurityTitle: "🔑 باسورد الموقع واستعادة الإيميل",
+        changeSitePassTitle: "تغيير باسورد الموقع الخاص بك",
+        changeSitePassHint: "تغيير كلمة السر الخاصة بالمنصة فقط (4 أحرف فأكثر).",
+        newSitePassPh: "باسورد الموقع الجديد (4 أحرف فأكثر)",
+        saveOwnSitePassBtn: "🔑 حفظ باسورد الموقع",
+        sitePassSavedOk: "✔ تم تحديث باسورد الموقع بنجاح.",
+        sitePassMinErr: "باسورد الموقع لازم يكون 4 أحرف أو أرقام على الأقل.",
+        forgotPassInAppTitle: "استعادة كلمة سر الإيميل",
+        forgotPassInAppHint: "إرسال رابط استعادة كلمة سر البريد الإلكتروني عبر Firebase.",
         sendForgotInAppBtn: "🔄 إرسال رابط الاستعادة",
         ticketsHeading: "المهام",
         ticketsSub: "تابع مهام كل التيمات، ونفّذ المهام الخاصة بتيمك المعينة لك أو المفتوحة للتيم.",
@@ -1415,6 +1558,8 @@
         complete: "✔ إتمام",
         markDoneMember: "✔ تم التنفيذ",
         deleteBtn: "🗑 حذف",
+        wipeAccountBtn: "🧨 مسح الأكونت بتاريخه",
+        confirmWipeMsg: "هل أنت متأكد من حذف الأكونت ({name}) ومسح كل مواعيده ورسائله وتعيينات مهامه وسجلاته نهائيًا؟",
         untitled: "بدون عنوان",
         member: "عضو",
         by: "بواسطة",
@@ -1460,8 +1605,24 @@
         chatPh: "اكتب رسالة للفريق...",
         sendChat: "📨 إرسال",
         noChat: "لا توجد رسائل بعد.",
-        ownersPageTitle: "Owners & Team Emails",
-        ownersPageSub: "إدارة حسابات الملاك (حتى 4 حسابات) وربط إيميلات الأعضاء بالتيمات لتعيين المهام.",
+        ownersPageTitle: "Owners & Accounts Directory",
+        ownersPageSub: "صلاحيات الأونر فقط: إنشاء حساب عضو بإيميل حقيقي، مسح أي حساب بتاريخه كاملًا، وإدارة الملاك.",
+        createMemberTitle: "➕ إنشاء حساب عضو جديد (للأونر فقط)",
+        newMemberNamePh: "اسم العضو الكامل (مثال: عمر علي)",
+        newMemberEmailPh: "member@gmail.com",
+        newMemberUsernamePh: "يوزر نيم تلقائي",
+        regenUsernameBtn: "🎲 توليد يوزر",
+        newMemberPassPh: "باسورد الموقع (أو عشوائي)",
+        regenPassBtn: "🎲 توليد باسورد",
+        createMemberBtn: "✅ إنشاء حساب العضو",
+        memberCreatedOk: "✔ تم إنشاء حساب العضو بنجاح.",
+        memberDeletedOk: "✔ تم حذف الأكونت ومسح تاريخه بالكامل.",
+        allAccountsTitle: "🗂 جميع الحسابات واليوزر نيم وباسوردات الموقع",
+        passNoteOwner: "للأونر فقط: رؤية وتغيير باسورد الموقع لأي عضو، تعديل التيم، أو مسح أي حساب بتاريخه بالكامل.",
+        sitePassFieldPh: "باسورد موقع جديد للعضو",
+        setSitePassBtn: "🔑 تغيير باسورد الموقع",
+        genPassBtn: "🎲 توليد",
+        updateMemberTeamBtn: "💾 حفظ التيم",
         statTotal: "📌 إجمالي المهام",
         statPending: "⏳ قيد التنفيذ",
         statDone: "✅ مهام مكتملة",
@@ -1481,1909 +1642,60 @@
         .replace(/'/g, "&#39;");
     }
 
-    function detectPlatform() {
-      const ua = navigator.userAgent || "";
-      const platform = navigator.platform || "";
-      if (/android/i.test(ua)) return { id: "android", label: "📱 Android" };
-      if (/iphone|ipad|ipod/i.test(ua) || (/mac/i.test(platform) && navigator.maxTouchPoints > 1)) {
-        return { id: "ios", label: "🍎 iOS" };
-      }
-      if (/mac/i.test(platform) || /macintosh|mac os x/i.test(ua)) return { id: "macos", label: "💻 macOS" };
-      if (/win/i.test(platform) || /windows/i.test(ua)) return { id: "windows", label: "🖥 Windows" };
-      return { id: "web", label: "🌐 Web" };
-    }
-
-    const detectedDevice = detectPlatform();
-    document.body.setAttribute("data-platform", detectedDevice.id);
-
-    let lang = localStorage.getItem("vortex_lang") === "ar" ? "ar" : "en";
-    let theme = localStorage.getItem("vortex_theme") === "dark" ? "dark" : "light";
-    let activePage = "profile";
-    let viewedTeam = "ALL";
-
-    const statusBox = document.getElementById("vortex-status-box");
-    const workspaceBanner = document.getElementById("vortex-workspace-banner");
-    const deviceBadge = document.getElementById("vortex-device-badge");
-    const netBadge = document.getElementById("vortex-net-badge");
-    const themeBtn = document.getElementById("vortex-theme-btn");
-    const langBtn = document.getElementById("vortex-lang-btn");
-
-    const authCard = document.getElementById("vortex-auth-card");
-    const authTeamSelect = document.getElementById("vortex-auth-team-select");
-    const profileTeamSelect = document.getElementById("vortex-profile-team-select");
-    const saveTeamBtn = document.getElementById("vortex-save-team-btn");
-    const copyUidBtn = document.getElementById("vortex-copy-uid-btn");
-
-    const currentPassInput = document.getElementById("vortex-current-pass-input");
-    const newPassInput = document.getElementById("vortex-new-pass-input");
-    const updatePassBtn = document.getElementById("vortex-update-pass-btn");
-    const forgotEmailInput = document.getElementById("vortex-forgot-email-input");
-    const sendForgotInAppBtn = document.getElementById("vortex-send-forgot-inapp-btn");
-
-    const workspace = document.getElementById("vortex-workspace");
-    const navSection = document.getElementById("vortex-nav-section");
-    const navAdminGroup = document.getElementById("vortex-nav-admin-group");
-    const logoutBtn = document.getElementById("vortex-logout-btn");
-
-    const miniAvatar = document.getElementById("vortex-mini-avatar");
-    const miniName = document.getElementById("vortex-mini-name");
-    const miniRole = document.getElementById("vortex-mini-role");
-
-    const googlePopupBtn = document.getElementById("vortex-google-popup-btn");
-    const googleRedirectBtn = document.getElementById("vortex-google-redirect-btn");
-    const emailInput = document.getElementById("vortex-email-input");
-    const passInput = document.getElementById("vortex-pass-input");
-    const emailSignInBtn = document.getElementById("vortex-email-signin-btn");
-    const emailSignUpBtn = document.getElementById("vortex-email-signup-btn");
-    const resetPassBtn = document.getElementById("vortex-reset-pass-btn");
-
-    const phoneInput = document.getElementById("vortex-phone-input");
-    const sendOtpBtn = document.getElementById("vortex-send-otp-btn");
-    const otpBox = document.getElementById("vortex-otp-box");
-    const otpInput = document.getElementById("vortex-otp-input");
-    const verifyOtpBtn = document.getElementById("vortex-verify-otp-btn");
-
-    const ownerTaskControls = document.getElementById("vortex-owner-task-controls");
-    const taskTeamSelect = document.getElementById("vortex-task-team");
-    const tasksList = document.getElementById("vortex-tasks-list");
-    const tasksCountBadge = document.getElementById("vortex-tasks-count-badge");
-    const taskFilter = document.getElementById("vortex-task-filter");
-    const taskTeamFilter = document.getElementById("vortex-task-team-filter");
-    const taskAssigneeFilter = document.getElementById("vortex-task-assignee-filter");
-    const taskSearch = document.getElementById("vortex-task-search");
-
-    const pickAssigneeBtn = document.getElementById("vortex-pick-assignee-btn");
-    const assigneePicker = document.getElementById("vortex-assignee-picker");
-    const taskAssigneeSelect = document.getElementById("vortex-task-assignee-select");
-    const assigneeChips = document.getElementById("vortex-assignee-chips");
-    const teamAssigneeHint = document.getElementById("vortex-team-assignee-hint");
-    const selectedAssigneeLabel = document.getElementById("vortex-selected-assignee-label");
-
-    const availabilityCard = document.getElementById("vortex-availability-card");
-    const daysGrid = document.getElementById("vortex-days-grid");
-    const overlapDaySel = document.getElementById("vortex-overlap-day");
-    const overlapScopeSel = document.getElementById("vortex-overlap-scope");
-    const copyFreeBtn = document.getElementById("vortex-copy-free-btn");
-    const overlapSummaryBox = document.getElementById("vortex-overlap-summary");
-    const allTeamsFreeOverview = document.getElementById("vortex-all-teams-free-overview");
-    const myWeeklyHoursBadge = document.getElementById("vortex-my-weekly-hours");
-    const busyDayFilter = document.getElementById("vortex-busy-day-filter");
-    const busyTeamFilter = document.getElementById("vortex-busy-team-filter");
-    const busyList = document.getElementById("vortex-busy-list");
-
-    const chatBox = document.getElementById("vortex-chat-box");
-    const chatInput = document.getElementById("vortex-chat-input");
-    const sendChatBtn = document.getElementById("vortex-send-chat-btn");
-
-    function t(key) {
-      return (I18N[lang] && I18N[lang][key]) || I18N.en[key] || key;
-    }
-
-    function dayLabel(dayKey) {
-      const found = DAYS_OF_WEEK.find((d) => d.key === dayKey);
-      if (!found) return dayKey || "";
-      return lang === "ar" ? `${found.ar} / ${found.en}` : `${found.en} / ${found.ar}`;
-    }
-
-    function setStatus(text, type = "normal") {
-      statusBox.textContent = text;
-      statusBox.classList.remove("error", "ok");
-      if (type === "error") statusBox.classList.add("error");
-      if (type === "ok") statusBox.classList.add("ok");
-
-      if (currentUser && text) {
-        workspaceBanner.classList.remove("hidden", "error", "ok");
-        workspaceBanner.textContent = text;
-        if (type === "error") workspaceBanner.classList.add("error");
-        if (type === "ok") workspaceBanner.classList.add("ok");
-      } else {
-        workspaceBanner.classList.add("hidden");
-      }
-    }
-
-    function formatErr(err) {
-      const code = err && err.code ? String(err.code) : "";
-      const msg = err && err.message ? String(err.message).replace(/^Firebase:\s*/i, "") : "Error";
-      const friendlyEn = {
-        "auth/invalid-email": "Invalid email format.",
-        "auth/user-not-found": "No account found with this email.",
-        "auth/wrong-password": "Current password is incorrect.",
-        "auth/invalid-credential": "Invalid credentials.",
-        "auth/email-already-in-use": "Email is already registered; sign in instead.",
-        "auth/weak-password": "Password must be at least 6 characters.",
-        "auth/too-many-requests": "Too many attempts. Please try again later.",
-        "auth/network-request-failed": "Network connection error."
-      };
-      const friendlyAr = {
-        "auth/invalid-email": "صيغة البريد الإلكتروني غير صحيحة.",
-        "auth/user-not-found": "لا يوجد حساب مسجل بهذا البريد الإلكتروني.",
-        "auth/wrong-password": "كلمة المرور الحالية غير صحيحة.",
-        "auth/invalid-credential": "بيانات الدخول غير صحيحة.",
-        "auth/email-already-in-use": "هذا البريد الإلكتروني مسجل من قبل؛ استخدم تسجيل الدخول.",
-        "auth/weak-password": "كلمة المرور ضعيفة، يجب أن تكون 6 أحرف على الأقل.",
-        "auth/too-many-requests": "محاولات كثيرة جدًا، انتظر قليلًا ثم حاول مرة أخرى.",
-        "auth/network-request-failed": "مشكلة في الاتصال بالإنترنت."
-      };
-      const mapped = lang === "ar" ? friendlyAr[code] : friendlyEn[code];
-      return mapped || msg;
-    }
-
-    function isMobileOrIOS() {
-      return detectedDevice.id === "android" || detectedDevice.id === "ios";
-    }
-
-    function normalizePhone(raw) {
-      const cleaned = raw.trim().replace(/\s+/g, "");
-      if (!cleaned) return "";
-      if (cleaned.startsWith("+")) return cleaned;
-      if (/^0?1\d{9}$/.test(cleaned)) return "+2" + cleaned.replace(/^0/, "0");
-      return "+" + cleaned;
-    }
-
-    function syncNetBadge() {
-      const online = navigator.onLine;
-      netBadge.textContent = online ? t("online") : t("offline");
-      netBadge.classList.toggle("ok", online);
-      netBadge.classList.toggle("danger", !online);
-      deviceBadge.textContent = `${detectedDevice.label} • ${online ? "Active" : "Standby"}`;
-      deviceBadge.classList.toggle("ok", online);
-    }
-
-    function applyTheme() {
-      document.body.classList.toggle("dark", theme === "dark");
-      themeBtn.textContent = theme === "dark" ? t("lightMode") : t("darkMode");
-    }
-
-    function switchPage(pageName) {
-      if (pageName === "owners" && !isOwner()) pageName = "profile";
-      activePage = pageName;
-      document.querySelectorAll(".nav-btn").forEach((btn) => {
-        btn.classList.toggle("active", btn.dataset.vpage === pageName);
-      });
-      ["profile", "tickets", "timetable", "teams", "points", "chat", "owners"].forEach((p) => {
-        const el = document.getElementById(`vpage-${p}`);
-        if (el) el.classList.toggle("hidden", p !== pageName);
-      });
-    }
-
-    document.querySelectorAll(".nav-btn").forEach((btn) => {
-      btn.addEventListener("click", () => switchPage(btn.dataset.vpage));
-    });
-
-    document.querySelectorAll("[data-view-team]").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        viewedTeam = btn.dataset.viewTeam || "ALL";
-        document.querySelectorAll("[data-view-team]").forEach((b) => {
-          b.classList.toggle("selected", b.dataset.viewTeam === viewedTeam);
-        });
-        renderSubteamsAndMembers();
-      });
-    });
-
-    function applyLanguage() {
-      document.documentElement.lang = lang;
-      document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
-
-      document.getElementById("t-greeting").textContent = t("greeting");
-      document.getElementById("t-nav-acc").textContent = t("navAcc");
-      document.getElementById("t-nav-work").textContent = t("navWork");
-      document.getElementById("t-nav-admin").textContent = t("navAdmin");
-
-      document.getElementById("t-auth-title").textContent = t("authTitle");
-      document.getElementById("t-choose-auth").textContent = t("chooseAuth");
-      document.getElementById("t-signup-team-label").textContent = t("signupTeamLabel");
-      document.getElementById("t-signup-team-hint").textContent = t("signupTeamHint");
-      document.getElementById("t-google-title").textContent = t("googleTitle");
-      document.getElementById("t-google-desc").textContent = t("googleDesc");
-      googlePopupBtn.textContent = t("googlePopup");
-      googleRedirectBtn.textContent = t("googleRedirect");
-      document.getElementById("t-email-title").textContent = t("emailTitle");
-      emailInput.placeholder = t("emailPh");
-      passInput.placeholder = t("passPh");
-      emailSignInBtn.textContent = t("emailSignIn");
-      emailSignUpBtn.textContent = t("emailSignUp");
-      resetPassBtn.textContent = t("resetPass");
-      document.getElementById("t-phone-title").textContent = t("phoneTitle");
-      document.getElementById("t-sms-note").textContent = t("smsNote");
-      phoneInput.placeholder = t("phonePh");
-      sendOtpBtn.textContent = t("sendOtp");
-      otpInput.placeholder = t("otpPh");
-      verifyOtpBtn.textContent = t("verifyOtp");
-      logoutBtn.textContent = t("logout");
-
-      document.getElementById("t-profile-heading").textContent = t("profileHeading");
-      document.getElementById("t-profile-sub").textContent = t("profileSub");
-      document.getElementById("t-acc-details").textContent = t("accDetails");
-      document.getElementById("t-lbl-name").textContent = t("lblName");
-      document.getElementById("t-lbl-email").textContent = t("lblEmail");
-      document.getElementById("t-lbl-my-team").textContent = t("lblMyTeam");
-      saveTeamBtn.textContent = t("saveTeam");
-      document.getElementById("t-lbl-uid").textContent = t("lblUid");
-      copyUidBtn.textContent = t("copyUid");
-
-      document.getElementById("t-pass-security-title").textContent = t("passSecurityTitle");
-      document.getElementById("t-change-pass-title").textContent = t("changePassTitle");
-      document.getElementById("t-change-pass-hint").textContent = t("changePassHint");
-      currentPassInput.placeholder = t("currentPassPh");
-      newPassInput.placeholder = t("newPassPh");
-      updatePassBtn.textContent = t("updatePassBtn");
-      document.getElementById("t-forgot-pass-inapp-title").textContent = t("forgotPassInAppTitle");
-      document.getElementById("t-forgot-pass-inapp-hint").textContent = t("forgotPassInAppHint");
-      forgotEmailInput.placeholder = t("emailPh");
-      sendForgotInAppBtn.textContent = t("sendForgotInAppBtn");
-
-      document.getElementById("t-tickets-heading").textContent = t("ticketsHeading");
-      document.getElementById("t-tickets-sub").textContent = t("ticketsSub");
-      document.getElementById("t-task-filter-title").textContent = t("taskFilterTitle");
-      taskSearch.placeholder = t("searchPh");
-      document.getElementById("t-tasks-list-heading").textContent = t("tasksListHeading");
-      document.getElementById("vortex-task-title").placeholder = t("taskPh");
-      document.getElementById("vortex-add-task-btn").textContent = t("addTask");
-      pickAssigneeBtn.textContent = t("pickAssigneeBtn");
-      document.getElementById("t-pick-assignee-title").textContent = t("pickAssigneeTitle");
-
-      document.getElementById("t-timetable-heading").textContent = t("timetableHeading");
-      document.getElementById("t-timetable-sub").textContent = t("timetableSub");
-      document.getElementById("t-common-free-title").textContent = t("commonFreeTitle");
-      copyFreeBtn.textContent = t("copyFreeBtn");
-      document.getElementById("t-days-grid-title").textContent = t("daysGridTitle");
-      document.getElementById("t-busy-list-title").textContent = isOwner() ? t("busyListOwnerTitle") : t("busyListTitle");
-
-      document.getElementById("t-teams-page-heading").textContent = t("teamsPageHeading");
-      document.getElementById("t-teams-page-sub").textContent = t("teamsPageSub");
-      document.getElementById("t-teams-filter-lbl").textContent = t("teamsFilterLbl");
-
-      document.getElementById("t-points-heading").textContent = t("pointsHeading");
-      document.getElementById("t-points-sub").textContent = t("pointsSub");
-      document.getElementById("t-lb-members-title").textContent = t("lbMembersTitle");
-
-      document.getElementById("t-chat-heading").textContent = t("chatHeading");
-      document.getElementById("t-chat-sub").textContent = t("chatSub");
-      document.getElementById("vortex-scroll-chat-btn").textContent = t("scrollChat");
-      chatInput.placeholder = t("chatPh");
-      sendChatBtn.textContent = t("sendChat");
-
-      document.getElementById("t-owners-page-title").textContent = t("ownersPageTitle");
-      document.getElementById("t-owners-page-sub").textContent = t("ownersPageSub");
-
-      document.getElementById("t-stat-total").textContent = t("statTotal");
-      document.getElementById("t-stat-pending").textContent = t("statPending");
-      document.getElementById("t-stat-done").textContent = t("statDone");
-      document.getElementById("t-stat-points").textContent = t("statPoints");
-
-      document.querySelectorAll("[data-i18n]").forEach((el) => {
-        const k = el.getAttribute("data-i18n");
-        if (I18N[lang][k]) el.textContent = I18N[lang][k];
-      });
-
-      langBtn.textContent = t("langSwitch");
-      applyTheme();
-      syncNetBadge();
-      renderDaysGrid();
-      renderAssigneeOptions();
-      renderUI();
-    }
-
-    themeBtn.addEventListener("click", () => {
-      theme = theme === "dark" ? "light" : "dark";
-      localStorage.setItem("vortex_theme", theme);
-      applyTheme();
-    });
-
-    langBtn.addEventListener("click", () => {
-      lang = lang === "ar" ? "en" : "ar";
-      localStorage.setItem("vortex_lang", lang);
-      applyLanguage();
-    });
-
-    window.addEventListener("online", () => { syncNetBadge(); setStatus(t("online"), "ok"); });
-    window.addEventListener("offline", () => { syncNetBadge(); setStatus(t("offline"), "error"); });
-
-    let auth = null;
-    let db = null;
-    let provider = null;
-    let confirmationResult = null;
-    let recaptchaVerifier = null;
-
-    try {
-      const app = initializeApp(firebaseConfig);
-      auth = getAuth(app);
-      db = getFirestore(app);
-      provider = new GoogleAuthProvider();
-      provider.setCustomParameters({ prompt: "select_account" });
-      setPersistence(auth, browserLocalPersistence).catch(() => {});
-    } catch (err) {
-      setStatus(formatErr(err), "error");
-    }
-
-    function ensureRecaptcha() {
-      if (!auth || recaptchaVerifier) return recaptchaVerifier;
-      recaptchaVerifier = new RecaptchaVerifier(auth, "vortex-recaptcha-box", { size: "invisible" });
-      return recaptchaVerifier;
-    }
-
-    let currentUser = null;
-    let currentRole = "Member";
-    let ownersSet = new Set(INITIAL_OWNERS.map((e) => e.toLowerCase()));
-    let knownEmailsMap = new Map();
-    let membersMap = new Map();
-    let allTasks = [];
-    let allBusySlots = [];
-    let allChat = [];
-    let unsubs = [];
-
-    function isOwner() {
-      return currentRole === "Owner";
-    }
-
-    function getCurrentUserTeam() {
-      if (!currentUser) return authTeamSelect.value || "GUI";
-      const savedProf = membersMap.get(currentUser.uid);
-      if (savedProf && TEAMS.includes(savedProf.team)) return savedProf.team;
-      return TEAMS.includes(authTeamSelect.value) ? authTeamSelect.value : "GUI";
-    }
-
-    function to24HourMinutes(hour12, minuteVal, period) {
-      let h = Number(hour12);
-      const m = Number(minuteVal);
-      if (Number.isNaN(h) || Number.isNaN(m) || h < 1 || h > 12 || m < 0 || m > 59) return null;
-      if (period === "AM") {
-        if (h === 12) h = 0;
-      } else if (period === "PM") {
-        if (h !== 12) h += 12;
-      } else {
-        return null;
-      }
-      return h * 60 + m;
-    }
-
-    function formatMinutes24(mins) {
-      const clamped = Math.max(0, Math.min(24 * 60, Math.round(mins)));
-      const h = String(Math.floor(clamped / 60)).padStart(2, "0");
-      const m = String(clamped % 60).padStart(2, "0");
-      return `${h}:${m}`;
-    }
-
-    function formatMinutes12(mins) {
-      const clamped = Math.max(0, Math.min(24 * 60, Math.round(mins)));
-      const h24 = Math.floor(clamped / 60);
-      const m = String(clamped % 60).padStart(2, "0");
-      const period = h24 >= 12 ? t("pmLbl") : t("amLbl");
-      let h12 = h24 % 12;
-      if (h12 === 0) h12 = 12;
-      return `${String(h12).padStart(2, "0")}:${m} ${period}`;
-    }
-
-    function parseStoredSlotRange(sl) {
-      if (typeof sl.startMin === "number" && typeof sl.endMin === "number" && sl.endMin > sl.startMin) {
-        return [sl.startMin, sl.endMin];
-      }
-      if (sl.from && sl.to && /^\d{2}:\d{2}$/.test(sl.from) && /^\d{2}:\d{2}$/.test(sl.to)) {
-        const [sh, sm] = sl.from.split(":").map(Number);
-        const [eh, em] = sl.to.split(":").map(Number);
-        const s = sh * 60 + sm;
-        const e = eh * 60 + em;
-        if (e > s) return [s, e];
-      }
-      return null;
-    }
-
-    function getVisibleBusySlots() {
-      if (!currentUser) return [];
-      if (isOwner()) return allBusySlots;
-      return allBusySlots.filter((sl) => sl.uid === currentUser.uid);
-    }
-
-    function computeMinutesForUid(uid, dayFilter = null) {
-      if (!currentUser) return 0;
-      if (!isOwner() && uid !== currentUser.uid) return 0;
-      let totalMins = 0;
-      allBusySlots.forEach((sl) => {
-        if (sl.uid !== uid) return;
-        if (dayFilter && sl.day !== dayFilter) return;
-        const rng = parseStoredSlotRange(sl);
-        if (rng) totalMins += rng[1] - rng[0];
-      });
-      return totalMins;
-    }
-
-    function formatHoursFromMinutes(mins) {
-      return (mins / 60).toFixed(1);
-    }
-
-    function computeFreeWindowsForSlots(sourceSlots) {
-      const windowStart = 8 * 60;
-      const windowEnd = 22 * 60;
-
-      const intervals = sourceSlots
-        .map((sl) => {
-          const rng = parseStoredSlotRange(sl);
-          if (!rng) return null;
-          return [Math.max(windowStart, rng[0]), Math.min(windowEnd, rng[1])];
-        })
-        .filter((iv) => iv && iv[1] > iv[0])
-        .sort((a, b) => a[0] - b[0]);
-
-      const merged = [];
-      intervals.forEach(([s, e]) => {
-        if (!merged.length || s > merged[merged.length - 1][1]) {
-          merged.push([s, e]);
-        } else {
-          merged[merged.length - 1][1] = Math.max(merged[merged.length - 1][1], e);
-        }
-      });
-
-      const freeWindows = [];
-      let cursor = windowStart;
-      merged.forEach(([bs, be]) => {
-        if (bs - cursor >= 30) {
-          freeWindows.push(`${formatMinutes12(cursor)} → ${formatMinutes12(bs)}`);
-        }
-        cursor = Math.max(cursor, be);
-      });
-      if (windowEnd - cursor >= 30) {
-        freeWindows.push(`${formatMinutes12(cursor)} → ${formatMinutes12(windowEnd)}`);
-      }
-      return freeWindows;
-    }
-
-    function buildHourOptions(selectedVal = "04") {
-      const hours = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"];
-      return hours
-        .map((h) => `<option value="${h}" ${h === selectedVal ? "selected" : ""}>${h}</option>`)
-        .join("");
-    }
-
-    function buildMinuteOptions(selectedVal = "00") {
-      const mins = ["00", "15", "30", "45"];
-      return mins
-        .map((m) => `<option value="${m}" ${m === selectedVal ? "selected" : ""}>${m}</option>`)
-        .join("");
-    }
-
-    function renderDaysGrid() {
-      if (!daysGrid) return;
-      daysGrid.innerHTML = "";
-
-      DAYS_OF_WEEK.forEach((dObj) => {
-        const daySlotsForMe = currentUser
-          ? allBusySlots.filter((s) => s.uid === currentUser.uid && s.day === dObj.key)
-          : [];
-        const dayMinsForMe = currentUser ? computeMinutesForUid(currentUser.uid, dObj.key) : 0;
-
-        const card = document.createElement("div");
-        card.className = `day-card ${daySlotsForMe.length ? "active-day" : ""}`;
-
-        const labelText = dayLabel(dObj.key);
-        card.innerHTML = `
-          <div class="day-header">
-            <strong>📅 ${escapeHtml(labelText)}</strong>
-            <span class="badge ok">⏱ ${escapeHtml(t("dayHoursPrefix"))}: ${formatHoursFromMinutes(dayMinsForMe)} ${escapeHtml(t("hoursUnit"))}</span>
-          </div>
-          <input type="text" class="day-title-inp" placeholder="${escapeHtml(t("activityNamePh"))}" />
-
-          <div class="time-group">
-            <span class="time-group-label">${escapeHtml(t("fromLbl"))}</span>
-            <select class="day-from-h">${buildHourOptions("04")}</select>
-            <span>:</span>
-            <select class="day-from-m">${buildMinuteOptions("00")}</select>
-            <select class="day-from-p">
-              <option value="AM">${escapeHtml(t("amLbl"))}</option>
-              <option value="PM" selected>${escapeHtml(t("pmLbl"))}</option>
-            </select>
-          </div>
-
-          <div class="time-group">
-            <span class="time-group-label">${escapeHtml(t("toLbl"))}</span>
-            <select class="day-to-h">${buildHourOptions("06")}</select>
-            <span>:</span>
-            <select class="day-to-m">${buildMinuteOptions("00")}</select>
-            <select class="day-to-p">
-              <option value="AM">${escapeHtml(t("amLbl"))}</option>
-              <option value="PM" selected>${escapeHtml(t("pmLbl"))}</option>
-            </select>
-          </div>
-
-          <input type="text" class="day-note-inp" placeholder="${escapeHtml(t("noteOptionalPh"))}" />
-          <label class="repeat-check">
-            <input type="checkbox" class="day-repeat-chk" checked />
-            <span>🔁 ${escapeHtml(t("repeatWeeklyLbl"))}</span>
-          </label>
-          <button type="button" class="day-save-btn">${escapeHtml(t("saveBusyBtn"))}</button>
-        `;
-
-        const titleInp = card.querySelector(".day-title-inp");
-        const fromH = card.querySelector(".day-from-h");
-        const fromM = card.querySelector(".day-from-m");
-        const fromP = card.querySelector(".day-from-p");
-        const toH = card.querySelector(".day-to-h");
-        const toM = card.querySelector(".day-to-m");
-        const toP = card.querySelector(".day-to-p");
-        const noteInp = card.querySelector(".day-note-inp");
-        const repeatChk = card.querySelector(".day-repeat-chk");
-        const saveBtn = card.querySelector(".day-save-btn");
-
-        saveBtn.addEventListener("click", async () => {
-          if (!currentUser || !db) return;
-          const titleVal = titleInp.value.trim();
-          if (!titleVal) {
-            setStatus(t("missingActivityName"), "error");
-            return;
-          }
-
-          const sMin = to24HourMinutes(fromH.value, fromM.value, fromP.value);
-          const eMin = to24HourMinutes(toH.value, toM.value, toP.value);
-          if (sMin === null || eMin === null || eMin <= sMin) {
-            setStatus(t("invalidTimeRange"), "error");
-            return;
-          }
-
-          const fromFormatted = formatMinutes12(sMin);
-          const toFormatted = formatMinutes12(eMin);
-
-          saveBtn.disabled = true;
-          try {
-            await addDoc(collection(db, "busy_schedule"), {
-              day: dObj.key,
-              title: titleVal,
-              from: fromFormatted,
-              to: toFormatted,
-              from24: formatMinutes24(sMin),
-              to24: formatMinutes24(eMin),
-              startMin: sMin,
-              endMin: eMin,
-              repeatWeekly: Boolean(repeatChk.checked),
-              note: noteInp.value.trim(),
-              team: getCurrentUserTeam(),
-              uid: currentUser.uid,
-              userLabel: currentUser.displayName || currentUser.email || currentUser.phoneNumber || currentUser.uid,
-              createdAt: serverTimestamp()
-            });
-            titleInp.value = "";
-            noteInp.value = "";
-            setStatus(`✔ ${labelText}: ${titleVal} (${fromFormatted} → ${toFormatted})`, "ok");
-          } catch (err) {
-            setStatus(formatErr(err), "error");
-          } finally {
-            saveBtn.disabled = false;
-          }
-        });
-
-        daysGrid.appendChild(card);
-      });
-    }
-
-    function buildAvailabilityTextForDay(dayKey, scopeTeam) {
-      const ownerMode = isOwner();
-      const chosenDaySlots = ownerMode
-        ? allBusySlots.filter((sl) => {
-            if (sl.day !== dayKey) return false;
-            if (scopeTeam && scopeTeam !== "ALL") return (sl.team || "GUI") === scopeTeam;
-            return true;
-          })
-        : allBusySlots.filter((sl) => currentUser && sl.uid === currentUser.uid && sl.day === dayKey);
-
-      if (!chosenDaySlots.length) return null;
-
-      const freeWindows = computeFreeWindowsForSlots(chosenDaySlots);
-      const freeText = freeWindows.length
-        ? freeWindows.join(" | ")
-        : t("noFreeInWindow");
-
-      const busyDetails = chosenDaySlots
-        .map((sl) => {
-          const who = ownerMode ? `${sl.userLabel || t("member")} (${sl.team || "GUI"})` : (sl.team || "GUI");
-          return `${who}: ${sl.title || t("untitled")} [${sl.from} → ${sl.to}]`;
-        })
-        .join(" • ");
-
-      return {
-        freeText,
-        busyDetails,
-        count: chosenDaySlots.length,
-        plainText: `${dayLabel(dayKey)} — ${t("freeWindowsPrefix")}: ${freeText} | ${busyDetails}`
-      };
-    }
-
-    function renderTimetableSection() {
-      const ownerMode = isOwner();
-      overlapScopeSel.classList.toggle("hidden", !ownerMode);
-      busyTeamFilter.classList.toggle("hidden", !ownerMode);
-      document.getElementById("t-busy-list-title").textContent = ownerMode ? t("busyListOwnerTitle") : t("busyListTitle");
-
-      if (currentUser) {
-        const wkMins = computeMinutesForUid(currentUser.uid, null);
-        myWeeklyHoursBadge.textContent = `⏱ ${t("weeklyHoursPrefix")}: ${formatHoursFromMinutes(wkMins)} ${t("hoursUnit")}`;
+    function isLikelyRealEmail(rawEmail) {
+      const email = String(rawEmail || "").trim().toLowerCase();
+      const match = email.match(/^([a-z0-9._%+-]+)@([a-z0-9.-]+\.[a-z]{2,})$/);
+      if (!match) return false;
+      const localPart = match[1];
+      const domain = match[2];
+
+      if (localPart.length < 2) return false;
+      if (BLOCKED_TEMP_DOMAINS.has(domain)) return false;
+
+      // Reject obvious keyboard mash / random strings like "hyjsjr"
+      const alphaOnly = localPart.replace(/[^a-z]/g, "");
+      if (alphaOnly.length >= 5) {
+        const hasVowel = /[aeiou]/.test(alphaOnly);
+        const maxConsonants = Math.max(...alphaOnly.split(/[aeiou]/).map((s) => s.length));
+        if (!hasVowel || maxConsonants >= 5) return false;
       }
 
-      const visibleSlots = getVisibleBusySlots();
+      const isTrusted =
+        TRUSTED_EMAIL_DOMAINS.has(domain) ||
+        /\.(edu|edu\.eg|org|gov|ac\.[a-z]{2,})$/i.test(domain);
 
-      if (visibleSlots.length === 0) {
-        availabilityCard.classList.add("hidden");
-        overlapSummaryBox.innerHTML = "";
-        allTeamsFreeOverview.innerHTML = "";
-      } else {
-        const chosenDay = overlapDaySel.value || "Saturday";
-        const chosenScope = ownerMode ? (overlapScopeSel.value || "ALL") : getCurrentUserTeam();
-        const dayData = buildAvailabilityTextForDay(chosenDay, chosenScope);
-
-        if (!dayData) {
-          availabilityCard.classList.add("hidden");
-          overlapSummaryBox.innerHTML = "";
-          allTeamsFreeOverview.innerHTML = "";
-        } else {
-          availabilityCard.classList.remove("hidden");
-          const scopeTitle = ownerMode
-            ? (chosenScope === "ALL" ? (lang === "ar" ? "كل التيمات" : "All Teams") : chosenScope)
-            : (currentUser ? (currentUser.displayName || currentUser.email || t("member")) : "");
-
-          overlapSummaryBox.innerHTML = `
-            <div class="list-item" style="margin-top:0;">
-              <div style="flex:1; min-width:240px;">
-                <strong>📅 ${escapeHtml(dayLabel(chosenDay))} • 🎯 ${escapeHtml(scopeTitle)}</strong>
-                <div class="task-badges" style="margin-top:8px;">
-                  <span class="badge ok">🕒 ${escapeHtml(t("freeWindowsPrefix"))}: ${escapeHtml(dayData.freeText)}</span>
-                </div>
-                <div class="hint" style="margin-top:8px;">📌 ${escapeHtml(dayData.busyDetails)}</div>
-              </div>
-            </div>
-          `;
-
-          if (ownerMode) {
-            const activeTeamBlocks = TEAMS
-              .map((tm) => {
-                const tmData = buildAvailabilityTextForDay(chosenDay, tm);
-                if (!tmData) return "";
-                return `
-                  <div class="list-item" style="margin-top:8px;">
-                    <div style="flex:1; min-width:220px;">
-                      <strong>🎯 ${escapeHtml(tm)}</strong>
-                      <div class="task-badges">
-                        <span class="badge ok">🕒 ${escapeHtml(tmData.freeText)}</span>
-                      </div>
-                      <div class="hint" style="margin-top:6px;">${escapeHtml(tmData.busyDetails)}</div>
-                    </div>
-                  </div>
-                `;
-              })
-              .filter(Boolean)
-              .join("");
-
-            allTeamsFreeOverview.innerHTML = activeTeamBlocks;
-          } else {
-            allTeamsFreeOverview.innerHTML = "";
-          }
-        }
-      }
-
-      const fDay = busyDayFilter.value;
-      const fTeam = ownerMode ? busyTeamFilter.value : "all";
-
-      const filtered = visibleSlots.filter((sl) => {
-        const okDay = fDay === "all" || sl.day === fDay;
-        const okTeam = fTeam === "all" || (sl.team || "GUI") === fTeam;
-        return okDay && okTeam;
-      });
-
-      busyList.innerHTML = "";
-      if (!filtered.length) {
-        busyList.innerHTML = `<p class="hint" style="margin:0;">${escapeHtml(t("noBusyEntries"))}</p>`;
-        return;
-      }
-
-      filtered.forEach((sl) => {
-        const row = document.createElement("div");
-        row.className = "list-item";
-
-        const rng = parseStoredSlotRange(sl);
-        const slotDurHrs = rng ? ((rng[1] - rng[0]) / 60).toFixed(1) : "0.0";
-        const memberWkHrs = formatHoursFromMinutes(computeMinutesForUid(sl.uid, null));
-        const repeatText = sl.repeatWeekly ? t("repeatWeeklyLbl") : t("oneTimeLbl");
-
-        const left = document.createElement("div");
-        left.innerHTML = `
-          <strong>📌 ${escapeHtml(sl.title || t("untitled"))}</strong>
-          <div class="task-badges">
-            <span class="badge">📅 ${escapeHtml(dayLabel(sl.day))}</span>
-            <span class="badge warn">🕒 ${escapeHtml(sl.from || "--:--")} → ${escapeHtml(sl.to || "--:--")} (${slotDurHrs} ${escapeHtml(t("hoursUnit"))})</span>
-            <span class="badge ok">⏱ ${escapeHtml(t("memberWeeklyHours"))}: ${memberWkHrs} ${escapeHtml(t("hoursUnit"))}</span>
-            <span class="badge">🔁 ${escapeHtml(repeatText)}</span>
-            <span class="badge">🎯 ${escapeHtml(sl.team || "GUI")}</span>
-            ${ownerMode ? `<span class="badge">👤 ${escapeHtml(sl.userLabel || t("member"))}</span>` : ""}
-            ${sl.note ? `<span class="badge">📝 ${escapeHtml(sl.note)}</span>` : ""}
-          </div>
-        `;
-        row.appendChild(left);
-
-        const canDelete = currentUser && (ownerMode || sl.uid === currentUser.uid);
-        if (canDelete) {
-          const delBtn = document.createElement("button");
-          delBtn.type = "button";
-          delBtn.className = "danger";
-          delBtn.textContent = t("deleteBtn");
-          delBtn.addEventListener("click", async () => {
-            try {
-              await deleteDoc(doc(db, "busy_schedule", sl.id));
-            } catch (err) {
-              setStatus(formatErr(err), "error");
-            }
-          });
-          row.appendChild(delBtn);
-        }
-
-        busyList.appendChild(row);
-      });
+      return isTrusted;
     }
 
-    copyFreeBtn.addEventListener("click", async () => {
-      const chosenDay = overlapDaySel.value || "Saturday";
-      const chosenScope = isOwner() ? (overlapScopeSel.value || "ALL") : getCurrentUserTeam();
-      const dayData = buildAvailabilityTextForDay(chosenDay, chosenScope);
-      if (!dayData) return;
-
-      try {
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-          await navigator.clipboard.writeText(dayData.plainText);
-        } else {
-          const tmp = document.createElement("textarea");
-          tmp.value = dayData.plainText;
-          document.body.appendChild(tmp);
-          tmp.select();
-          document.execCommand("copy");
-          document.body.removeChild(tmp);
-        }
-        setStatus(t("copiedFreeOk"), "ok");
-      } catch (_) {
-        setStatus(dayData.plainText, "ok");
+    function generateRandomPasscode(len = 8) {
+      const chars = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789@#";
+      let out = "";
+      for (let i = 0; i < len; i++) {
+        out += chars.charAt(Math.floor(Math.random() * chars.length));
       }
-    });
-
-    function canMemberCompleteTask(task) {
-      if (!currentUser || task.status === "done") return false;
-      const myTeam = getCurrentUserTeam();
-      const taskTeam = task.team || "GUI";
-      if (myTeam !== taskTeam) return false;
-
-      const assignee = String(task.assignedTo || "").trim().toLowerCase();
-      if (!assignee) return true;
-
-      const myEmail = String(currentUser.email || "").trim().toLowerCase();
-      const myLabel = String(currentUser.displayName || currentUser.phoneNumber || currentUser.uid || "").trim().toLowerCase();
-      return (myEmail && assignee === myEmail) || (myLabel && assignee === myLabel);
+      return out;
     }
 
-    function taskPointsValue(prio) {
-      if (prio === "urgent") return 30;
-      if (prio === "high") return 20;
-      return 10;
+    function generateRandomUsername(fullName = "", email = "") {
+      const namePart = String(fullName || "")
+        .trim()
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "_")
+        .replace(/^_+|_+$/g, "");
+      const emailPart = String(email || "")
+        .split("@")[0]
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "")
+        .slice(0, 8);
+      const base = (namePart || emailPart || "rov_member").slice(0, 12);
+      const suffix = Math.floor(1000 + Math.random() * 9000);
+      return `${base}_${suffix}`;
     }
 
-    function completionOrderScore(task) {
-      if (!task.completedAt) return Number.MAX_SAFE_INTEGER;
-      if (typeof task.completedAt.toMillis === "function") return task.completedAt.toMillis();
-      if (task.completedAt.seconds) return task.completedAt.seconds * 1000;
-      const parsed = Date.parse(task.completedAt);
-      return Number.isNaN(parsed) ? Number.MAX_SAFE_INTEGER : parsed;
+    function makePendingUidFromEmail(email) {
+      const clean = String(email || "").trim().toLowerCase().replace(/[^a-z0-9]/g, "_");
+      return `member_${clean}`;
     }
 
-    function speedRankBonus(rankIndex) {
-      if (rankIndex === 0) return 15;
-      if (rankIndex === 1) return 10;
-      if (rankIndex === 2) return 5;
-      return 2;
-    }
-
-    function computePointsBreakdown() {
-      const doneTasks = allTasks
-        .filter((tk) => tk.status === "done")
-        .sort((a, b) => completionOrderScore(a) - completionOrderScore(b));
-
-      const statsByKey = new Map();
-
-      function ensureEntry(key, displayName) {
-        if (!statsByKey.has(key)) {
-          statsByKey.set(key, { name: displayName, base: 0, speed: 0, total: 0, doneCount: 0 });
-        }
-        return statsByKey.get(key);
-      }
-
-      doneTasks.forEach((tk, idx) => {
-        const actorRaw = String(tk.completedBy || tk.assignedTo || "").trim();
-        if (!actorRaw) return;
-        const key = actorRaw.toLowerCase();
-        const entry = ensureEntry(key, actorRaw);
-        const base = taskPointsValue(tk.priority);
-        const bonus = speedRankBonus(idx);
-        entry.base += base;
-        entry.speed += bonus;
-        entry.total += base + bonus;
-        entry.doneCount += 1;
-      });
-
-      return statsByKey;
-    }
-
-    function getUserPointsBreakdown(userObj) {
-      const map = computePointsBreakdown();
-      if (!userObj) return { base: 0, speed: 0, total: 0, doneCount: 0 };
-      const candidates = [
-        String(userObj.email || "").trim().toLowerCase(),
-        String(userObj.label || "").trim().toLowerCase()
-      ].filter(Boolean);
-
-      for (const k of candidates) {
-        if (map.has(k)) return map.get(k);
-      }
-      return { base: 0, speed: 0, total: 0, doneCount: 0 };
-    }
-
-    async function persistMemberProfile(user, chosenTeam) {
-      if (!db || !user) return;
-      const teamVal = TEAMS.includes(chosenTeam) ? chosenTeam : "GUI";
-      const labelVal = user.displayName || user.email || user.phoneNumber || user.uid;
-      try {
-        await setDoc(
-          doc(db, "members_profiles", user.uid),
-          {
-            uid: user.uid,
-            email: (user.email || "").toLowerCase(),
-            label: labelVal,
-            team: teamVal,
-            platform: detectedDevice.id,
-            updatedAt: serverTimestamp()
-          },
-          { merge: true }
-        );
-      } catch (_) {}
-    }
-
-    saveTeamBtn.addEventListener("click", async () => {
-      if (!currentUser) return;
-      const chosen = profileTeamSelect.value || "GUI";
-      await persistMemberProfile(currentUser, chosen);
-      setStatus(t("teamSaved"), "ok");
-    });
-
-    copyUidBtn.addEventListener("click", async () => {
-      if (!currentUser) return;
-      try {
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-          await navigator.clipboard.writeText(currentUser.uid);
-        }
-        setStatus(`${t("copiedUidOk")} (${currentUser.uid})`, "ok");
-      } catch (_) {
-        setStatus(currentUser.uid, "ok");
-      }
-    });
-
-    updatePassBtn.addEventListener("click", async () => {
-      if (!currentUser || !auth) return;
-      const curPass = currentPassInput.value;
-      const nxtPass = newPassInput.value;
-      if (!curPass || !nxtPass || nxtPass.length < 6) {
-        setStatus(t("missingPassFields"), "error");
-        return;
-      }
-      if (!currentUser.email) {
-        setStatus(t("googleNoPassChange"), "error");
-        return;
-      }
-      updatePassBtn.disabled = true;
-      try {
-        const cred = EmailAuthProvider.credential(currentUser.email, curPass);
-        await reauthenticateWithCredential(currentUser, cred);
-        await updatePassword(currentUser, nxtPass);
-        currentPassInput.value = "";
-        newPassInput.value = "";
-        setStatus(t("passUpdatedOk"), "ok");
-      } catch (err) {
-        const code = err && err.code ? String(err.code) : "";
-        if (code === "auth/provider-not-linked" || code === "auth/no-such-provider") {
-          setStatus(t("googleNoPassChange"), "error");
-        } else {
-          setStatus(formatErr(err), "error");
-        }
-      } finally {
-        updatePassBtn.disabled = false;
-      }
-    });
-
-    sendForgotInAppBtn.addEventListener("click", async () => {
-      if (!auth) return;
-      const targetEmail = (forgotEmailInput.value || (currentUser && currentUser.email) || "").trim();
-      if (!targetEmail) {
-        setStatus(t("missingEmail"), "error");
-        return;
-      }
-      sendForgotInAppBtn.disabled = true;
-      try {
-        await sendPasswordResetEmail(auth, targetEmail);
-        setStatus(`${t("resetSentOk")} (${targetEmail})`, "ok");
-      } catch (err) {
-        setStatus(formatErr(err), "error");
-      } finally {
-        sendForgotInAppBtn.disabled = false;
-      }
-    });
-
-    function getEffectiveOwnersSet() {
-      const merged = new Set(INITIAL_OWNERS.map((e) => e.toLowerCase()));
-      ownersSet.forEach((e) => merged.add(e.toLowerCase()));
-      return Array.from(merged).slice(0, MAX_OWNERS);
-    }
-
-    function getEmailTeamMap() {
-      const map = new Map();
-      membersMap.forEach((m) => {
-        if (m.email && m.email.includes("@")) {
-          map.set(m.email.toLowerCase(), TEAMS.includes(m.team) ? m.team : "GUI");
-        }
-      });
-      knownEmailsMap.forEach((tm, em) => {
-        map.set(em.toLowerCase(), TEAMS.includes(tm) ? tm : "GUI");
-      });
-      return map;
-    }
-
-    function getAllKnownEmails() {
-      const emails = new Set(getEffectiveOwnersSet());
-      knownEmailsMap.forEach((_, em) => { if (em) emails.add(em.toLowerCase()); });
-      if (currentUser && currentUser.email) emails.add(currentUser.email.toLowerCase());
-      membersMap.forEach((m) => { if (m.email && m.email.includes("@")) emails.add(m.email.toLowerCase()); });
-      allTasks.forEach((tk) => {
-        if (tk.createdByLabel && tk.createdByLabel.includes("@")) emails.add(tk.createdByLabel.toLowerCase());
-        if (tk.assignedTo && tk.assignedTo.includes("@")) emails.add(tk.assignedTo.toLowerCase());
-      });
-      return Array.from(emails);
-    }
-
-    function getEmailsForTeam(targetTeam) {
-      const all = getAllKnownEmails();
-      const emailTeamMap = getEmailTeamMap();
-      return all.filter((em) => emailTeamMap.get(em) === targetTeam);
-    }
-
-    function renderAssigneeOptions() {
-      const selectedTaskTeam = taskTeamSelect.value || "GUI";
-      const teamEmails = getEmailsForTeam(selectedTaskTeam);
-      const allEmails = getAllKnownEmails();
-      const prevSelectVal = taskAssigneeSelect.value;
-      const prevFilterVal = taskAssigneeFilter.value;
-
-      taskAssigneeSelect.innerHTML = `<option value="">${escapeHtml(t("unassignedOption"))}</option>`;
-      assigneeChips.innerHTML = "";
-
-      teamEmails.forEach((em) => {
-        const opt = document.createElement("option");
-        opt.value = em;
-        opt.textContent = `${em} (${selectedTaskTeam})`;
-        taskAssigneeSelect.appendChild(opt);
-
-        const isPicked = taskAssigneeSelect.value === em;
-        const chip = document.createElement("button");
-        chip.type = "button";
-        chip.className = `email-chip-btn ${isPicked ? "selected" : ""}`;
-        chip.textContent = `${isPicked ? "✓ " : "✉ "}${em} • ${selectedTaskTeam}`;
-        chip.addEventListener("click", () => {
-          taskAssigneeSelect.value = em;
-          const tmMap = getEmailTeamMap();
-          if (tmMap.has(em)) {
-            taskTeamSelect.value = tmMap.get(em);
-          }
-          syncSelectedAssigneeLabel();
-          renderAssigneeOptions();
-        });
-        assigneeChips.appendChild(chip);
-      });
-
-      if (teamEmails.length === 0) {
-        teamAssigneeHint.textContent = t("noTeamMemberHint").replaceAll("{team}", selectedTaskTeam);
-      } else {
-        teamAssigneeHint.textContent = "";
-      }
-
-      if (prevSelectVal && teamEmails.includes(prevSelectVal)) {
-        taskAssigneeSelect.value = prevSelectVal;
-      } else {
-        taskAssigneeSelect.value = "";
-      }
-
-      taskAssigneeFilter.innerHTML = `<option value="all">${escapeHtml(t("assigneeAll"))}</option>`;
-      allEmails.forEach((em) => {
-        const fOpt = document.createElement("option");
-        fOpt.value = em;
-        fOpt.textContent = em;
-        taskAssigneeFilter.appendChild(fOpt);
-      });
-      if (prevFilterVal && (prevFilterVal === "all" || allEmails.includes(prevFilterVal))) {
-        taskAssigneeFilter.value = prevFilterVal;
-      }
-
-      syncSelectedAssigneeLabel();
-    }
-
-    function syncSelectedAssigneeLabel() {
-      const chosen = taskAssigneeSelect.value;
-      if (chosen) {
-        selectedAssigneeLabel.textContent = `✓ ${t("assignedTo")}: ${chosen}`;
-        selectedAssigneeLabel.className = "badge picked";
-        taskAssigneeSelect.classList.add("is-selected-item");
-      } else {
-        selectedAssigneeLabel.textContent = t("unassignedOption");
-        selectedAssigneeLabel.className = "badge ok";
-        taskAssigneeSelect.classList.remove("is-selected-item");
-      }
-    }
-
-    taskTeamSelect.addEventListener("change", () => {
-      renderAssigneeOptions();
-    });
-
-    pickAssigneeBtn.addEventListener("click", () => {
-      if (!isOwner()) return;
-      renderAssigneeOptions();
-      assigneePicker.classList.toggle("hidden");
-    });
-
-    taskAssigneeSelect.addEventListener("change", () => {
-      const chosen = taskAssigneeSelect.value;
-      if (chosen) {
-        const tmMap = getEmailTeamMap();
-        if (tmMap.has(chosen)) {
-          taskTeamSelect.value = tmMap.get(chosen);
-        }
-      }
-      syncSelectedAssigneeLabel();
-      renderAssigneeOptions();
-    });
-
-    function computeRole(user) {
-      if (!user || !user.email) return "Member";
-      const email = user.email.toLowerCase();
-      if (getEffectiveOwnersSet().includes(email)) return "Owner";
-      return "Member";
-    }
-
-    function updateStats() {
-      const total = allTasks.length;
-      const done = allTasks.filter((item) => item.status === "done").length;
-      const pending = total - done;
-      const myBreakdown = currentUser
-        ? getUserPointsBreakdown({
-            email: currentUser.email,
-            label: currentUser.displayName || currentUser.email || currentUser.phoneNumber
-          })
-        : { total: 0 };
-
-      document.getElementById("stat-total-tasks").textContent = String(total);
-      document.getElementById("stat-pending-tasks").textContent = String(pending);
-      document.getElementById("stat-done-tasks").textContent = String(done);
-      document.getElementById("stat-user-points").textContent = String(myBreakdown.total);
-      document.getElementById("vortex-prof-points-badge").textContent = `⭐ ${myBreakdown.total} pts`;
-
-      renderSubteamsAndMembers();
-      renderPointsLeaderboard();
-    }
-
-    function renderSubteamsAndMembers() {
-      const box = document.getElementById("vortex-subteams-grid");
-      if (!box) return;
-      box.innerHTML = "";
-
-      const teamsToShow = viewedTeam === "ALL" ? TEAMS : [viewedTeam];
-      const allMembers = Array.from(membersMap.values());
-
-      teamsToShow.forEach((tm) => {
-        const tmMembers = allMembers.filter((m) => (m.team || "GUI") === tm);
-        const tmTasks = allTasks.filter((tk) => (tk.team || "GUI") === tm);
-        const tmDone = tmTasks.filter((tk) => tk.status === "done").length;
-        const pct = tmTasks.length > 0 ? Math.round((tmDone / tmTasks.length) * 100) : 0;
-
-        const block = document.createElement("div");
-        block.className = "list-item";
-        block.style.alignItems = "stretch";
-
-        const membersHtml = tmMembers.length
-          ? tmMembers
-              .map((m) => {
-                const pts = getUserPointsBreakdown(m).total;
-                return `<span class="badge ok">👤 ${escapeHtml(m.label || m.email || m.uid)} • ⭐ ${pts}</span>`;
-              })
-              .join(" ")
-          : `<span class="hint">${escapeHtml(t("noTeamMembers"))}</span>`;
-
-        block.innerHTML = `
-          <div style="flex:1; min-width:240px;">
-            <div class="row" style="justify-content:space-between;">
-              <strong style="font-size:16px; font-weight:800;">🎯 ${escapeHtml(tm)}</strong>
-              <span class="badge">${tmDone} / ${tmTasks.length} (${pct}%)</span>
-            </div>
-            <div class="progress-track"><div class="progress-fill" style="width:${pct}%;"></div></div>
-            <div class="row" style="margin-top:10px;">${membersHtml}</div>
-          </div>
-        `;
-        box.appendChild(block);
-      });
-    }
-
-    function renderPointsLeaderboard() {
-      const box = document.getElementById("vortex-points-list");
-      if (!box) return;
-      box.innerHTML = "";
-
-      const breakdownMap = computePointsBreakdown();
-      const entries = [];
-      const seenKeys = new Set();
-
-      Array.from(membersMap.values()).forEach((m) => {
-        const bd = getUserPointsBreakdown(m);
-        const k = String(m.email || m.label || m.uid).toLowerCase();
-        seenKeys.add(k);
-        entries.push({
-          name: m.label || m.email || m.uid,
-          team: m.team || "GUI",
-          base: bd.base,
-          speed: bd.speed,
-          points: bd.total,
-          doneCount: bd.doneCount
-        });
-      });
-
-      breakdownMap.forEach((bd, k) => {
-        if (!seenKeys.has(k)) {
-          entries.push({
-            name: bd.name,
-            team: "ROV",
-            base: bd.base,
-            speed: bd.speed,
-            points: bd.total,
-            doneCount: bd.doneCount
-          });
-        }
-      });
-
-      entries.sort((a, b) => b.points - a.points || b.speed - a.speed);
-
-      if (entries.length === 0) {
-        box.innerHTML = `<p class="hint" style="margin:0;">${escapeHtml(t("noPointsData"))}</p>`;
-        return;
-      }
-
-      entries.forEach((entry, idx) => {
-        const medal = idx === 0 ? "🥇" : idx === 1 ? "🥈" : idx === 2 ? "🥉" : `#${idx + 1}`;
-        const row = document.createElement("div");
-        row.className = "list-item";
-        row.innerHTML = `
-          <div>
-            <strong>${medal} • ${escapeHtml(entry.name)}</strong>
-            <div class="task-badges">
-              <span class="badge">🎯 ${escapeHtml(entry.team)}</span>
-              <span class="badge">${escapeHtml(t("basePtsLbl"))}: +${entry.base}</span>
-              <span class="badge ok">⚡ ${escapeHtml(t("speedBonusLbl"))}: +${entry.speed}</span>
-            </div>
-          </div>
-          <span class="badge warn">⭐ ${entry.points} pts</span>
-        `;
-        box.appendChild(row);
-      });
-    }
-
-    function renderOwnersList() {
-      const activeOwners = getEffectiveOwnersSet();
-      const badge = document.getElementById("vortex-owners-count-badge");
-      if (badge) badge.textContent = `Owners: ${activeOwners.length} / ${MAX_OWNERS}`;
-
-      const ownersList = document.getElementById("vortex-owners-list");
-      const rosterList = document.getElementById("vortex-roster-list");
-      ownersList.innerHTML = "";
-      activeOwners.forEach((email) => {
-        const chip = document.createElement("span");
-        chip.className = "badge ok";
-        chip.textContent = `👑 ${email}`;
-        ownersList.appendChild(chip);
-      });
-
-      const tmMap = getEmailTeamMap();
-      rosterList.innerHTML = "";
-      getAllKnownEmails().forEach((em) => {
-        const chip = document.createElement("span");
-        chip.className = "badge";
-        const tmTag = tmMap.get(em) || "GUI";
-        chip.textContent = `✉ ${em} • 🎯 ${tmTag}`;
-        rosterList.appendChild(chip);
-      });
-    }
-
-    function renderUI() {
-      if (!currentUser) {
-        authCard.classList.remove("hidden");
-        workspace.classList.add("hidden");
-        workspaceBanner.classList.add("hidden");
-        navSection.classList.add("hidden");
-        logoutBtn.classList.add("hidden");
-        otpBox.classList.add("hidden");
-        miniAvatar.textContent = "V";
-        miniName.textContent = "Vortex Guest";
-        miniRole.textContent = "Member";
-        setStatus(t("chooseAuth"), "normal");
-        return;
-      }
-
-      currentRole = computeRole(currentUser);
-      const ownerMode = isOwner();
-      const activeTeam = getCurrentUserTeam();
-      const identity = currentUser.email || currentUser.phoneNumber || currentUser.uid;
-      const displayLabel = currentUser.displayName || identity;
-      const initials = String(displayLabel || "V").trim().charAt(0).toUpperCase() || "V";
-
-      profileTeamSelect.value = activeTeam;
-      if (currentUser.email && !forgotEmailInput.value) {
-        forgotEmailInput.value = currentUser.email;
-      }
-
-      authCard.classList.add("hidden");
-      otpBox.classList.add("hidden");
-      workspace.classList.remove("hidden");
-      navSection.classList.remove("hidden");
-      logoutBtn.classList.remove("hidden");
-      navAdminGroup.classList.toggle("hidden", !ownerMode);
-
-      miniAvatar.textContent = initials;
-      miniName.textContent = displayLabel;
-      miniRole.textContent = `${currentRole} • ${activeTeam}`;
-
-      document.getElementById("vortex-prof-name").textContent = displayLabel;
-      document.getElementById("vortex-prof-role").textContent = currentRole;
-      document.getElementById("vortex-prof-contact").textContent = identity;
-      document.getElementById("vortex-prof-uid").textContent = currentUser.uid;
-
-      ownerTaskControls.classList.toggle("hidden", !ownerMode);
-      if (!ownerMode) assigneePicker.classList.add("hidden");
-      if (ownerMode) renderOwnersList();
-
-      switchPage(activePage);
-      renderDaysGrid();
-      renderAssigneeOptions();
-      updateStats();
-      renderTasks();
-      renderTimetableSection();
-      renderChat();
-    }
-
-    function prioLabel(prio) {
-      if (prio === "urgent") return t("prioUrgent");
-      if (prio === "high") return t("prioHigh");
-      return t("prioNormal");
-    }
-
-    function renderTasks() {
-      const f = taskFilter.value;
-      const tmFilter = taskTeamFilter.value;
-      const asgFilter = taskAssigneeFilter.value;
-      const qText = taskSearch.value.trim().toLowerCase();
-
-      const filtered = allTasks.filter((task) => {
-        const okStatus = f === "all" || task.status === f;
-        const okTeam = tmFilter === "all" || (task.team || "GUI") === tmFilter;
-        const okAssignee = asgFilter === "all" || (task.assignedTo || "") === asgFilter;
-        const okSearch =
-          !qText ||
-          String(task.title || "").toLowerCase().includes(qText) ||
-          String(task.team || "").toLowerCase().includes(qText) ||
-          String(task.assignedTo || "").toLowerCase().includes(qText) ||
-          String(task.createdByLabel || "").toLowerCase().includes(qText);
-        return okStatus && okTeam && okAssignee && okSearch;
-      });
-
-      tasksCountBadge.textContent = String(filtered.length);
-      tasksList.innerHTML = "";
-
-      if (filtered.length === 0) {
-        tasksList.innerHTML = `<p class="hint" style="margin-top:14px;">${escapeHtml(t("noTasks"))}</p>`;
-        return;
-      }
-
-      filtered.forEach((task) => {
-        const div = document.createElement("div");
-        div.className = "list-item";
-
-        const left = document.createElement("div");
-        const titleEl = document.createElement("div");
-        titleEl.textContent = `📌 ${task.title || t("untitled")}`;
-        titleEl.style.fontWeight = "800";
-
-        const badgesRow = document.createElement("div");
-        badgesRow.className = "task-badges";
-
-        const stBadge = document.createElement("span");
-        stBadge.className = `badge ${task.status === "done" ? "ok" : "warn"}`;
-        stBadge.textContent = task.status === "done" ? `✅ ${t("stDone")}` : `⏳ ${t("stPending")}`;
-
-        const teamBadge = document.createElement("span");
-        teamBadge.className = "badge";
-        teamBadge.textContent = `🎯 ${task.team || "GUI"}`;
-
-        const prioBadge = document.createElement("span");
-        prioBadge.className = "badge";
-        prioBadge.textContent = `⚡ ${prioLabel(task.priority)}`;
-
-        const asgBadge = document.createElement("span");
-        asgBadge.className = "badge";
-        asgBadge.textContent = task.assignedTo
-          ? `✉ ${t("assignedTo")}: ${task.assignedTo}`
-          : `👥 ${t("openForTeam")}`;
-
-        const byBadge = document.createElement("span");
-        byBadge.className = "hint";
-        byBadge.textContent = `${t("by")}: ${task.createdByLabel || t("member")}`;
-
-        badgesRow.appendChild(stBadge);
-        badgesRow.appendChild(teamBadge);
-        badgesRow.appendChild(prioBadge);
-        badgesRow.appendChild(asgBadge);
-        badgesRow.appendChild(byBadge);
-
-        left.appendChild(titleEl);
-        left.appendChild(badgesRow);
-
-        const actions = document.createElement("div");
-        actions.className = "row";
-
-        if (isOwner()) {
-          const toggleBtn = document.createElement("button");
-          toggleBtn.type = "button";
-          toggleBtn.className = "secondary";
-          toggleBtn.textContent = task.status === "done" ? t("reopen") : t("complete");
-          toggleBtn.addEventListener("click", async () => {
-            try {
-              const nextStatus = task.status === "done" ? "pending" : "done";
-              const actor = currentUser.email || currentUser.displayName || currentUser.uid;
-              await updateDoc(doc(db, "tasks", task.id), {
-                status: nextStatus,
-                completedBy: nextStatus === "done" ? (task.assignedTo || actor) : "",
-                completedAt: nextStatus === "done" ? serverTimestamp() : null
-              });
-            } catch (err) {
-              setStatus(formatErr(err), "error");
-            }
-          });
-
-          const delBtn = document.createElement("button");
-          delBtn.type = "button";
-          delBtn.className = "danger";
-          delBtn.textContent = t("deleteBtn");
-          delBtn.addEventListener("click", async () => {
-            try {
-              await deleteDoc(doc(db, "tasks", task.id));
-            } catch (err) {
-              setStatus(formatErr(err), "error");
-            }
-          });
-
-          actions.appendChild(toggleBtn);
-          actions.appendChild(delBtn);
-        } else if (canMemberCompleteTask(task)) {
-          const doneBtn = document.createElement("button");
-          doneBtn.type = "button";
-          doneBtn.textContent = t("markDoneMember");
-          doneBtn.addEventListener("click", async () => {
-            if (!canMemberCompleteTask(task)) return;
-            try {
-              const actor = currentUser.email || currentUser.displayName || currentUser.phoneNumber || currentUser.uid;
-              await updateDoc(doc(db, "tasks", task.id), {
-                status: "done",
-                completedBy: actor,
-                completedAt: serverTimestamp()
-              });
-            } catch (err) {
-              setStatus(formatErr(err), "error");
-            }
-          });
-          actions.appendChild(doneBtn);
-        }
-
-        div.appendChild(left);
-        div.appendChild(actions);
-        tasksList.appendChild(div);
-      });
-    }
-
-    function renderChat() {
-      chatBox.innerHTML = "";
-      if (allChat.length === 0) {
-        chatBox.innerHTML = `<p class="hint" style="margin:0;">${escapeHtml(t("noChat"))}</p>`;
-        return;
-      }
-
-      allChat.forEach((msg) => {
-        const bubble = document.createElement("div");
-        const isMine = currentUser && msg.createdByUid === currentUser.uid;
-        bubble.className = `chat-msg ${isMine ? "mine" : ""}`;
-
-        const topRow = document.createElement("div");
-        topRow.className = "row";
-        topRow.style.justifyContent = "space-between";
-
-        const senderEl = document.createElement("strong");
-        senderEl.style.fontSize = "13px";
-        const tmTag = msg.senderTeam ? ` • 🎯 ${msg.senderTeam}` : "";
-        senderEl.textContent = `👤 ${msg.createdByLabel || t("member")}${tmTag}`;
-        topRow.appendChild(senderEl);
-
-        if (isOwner()) {
-          const delMsgBtn = document.createElement("button");
-          delMsgBtn.type = "button";
-          delMsgBtn.className = "danger";
-          delMsgBtn.style.padding = "5px 10px";
-          delMsgBtn.style.fontSize = "12px";
-          delMsgBtn.textContent = t("deleteBtn");
-          delMsgBtn.addEventListener("click", async () => {
-            try {
-              await deleteDoc(doc(db, "chat_messages", msg.id));
-            } catch (err) {
-              setStatus(formatErr(err), "error");
-            }
-          });
-          topRow.appendChild(delMsgBtn);
-        }
-
-        const textEl = document.createElement("div");
-        textEl.style.marginTop = "6px";
-        textEl.style.fontSize = "14px";
-        textEl.textContent = msg.text || "";
-
-        bubble.appendChild(topRow);
-        bubble.appendChild(textEl);
-        chatBox.appendChild(bubble);
-      });
-    }
-
-    if (auth) {
-      getRedirectResult(auth)
-        .then((res) => {
-          if (res && res.user) {
-            persistMemberProfile(res.user, authTeamSelect.value || "GUI");
-            setStatus(t("signedInOk"), "ok");
-          }
-        })
-        .catch((err) => setStatus(formatErr(err), "error"));
-    }
-
-    async function handleGoogleSignIn(forceRedirect = false) {
-      if (!auth || !provider) return;
-      try {
-        if (forceRedirect || isMobileOrIOS()) {
-          await signInWithRedirect(auth, provider);
-          return;
-        }
-        const cred = await signInWithPopup(auth, provider);
-        if (cred && cred.user) {
-          await persistMemberProfile(cred.user, authTeamSelect.value || "GUI");
-          setStatus(t("signedInOk"), "ok");
-        }
-      } catch (err) {
-        const code = err && err.code ? err.code : "";
-        if (
-          code === "auth/popup-blocked" ||
-          code === "auth/operation-not-supported-in-this-environment" ||
-          code === "auth/cancelled-popup-request"
-        ) {
-          try {
-            await signInWithRedirect(auth, provider);
-            return;
-          } catch (redirErr) {
-            setStatus(formatErr(redirErr), "error");
-            return;
-          }
-        }
-        setStatus(formatErr(err), "error");
-      }
-    }
-
-    googlePopupBtn.addEventListener("click", () => handleGoogleSignIn(false));
-    googleRedirectBtn.addEventListener("click", () => handleGoogleSignIn(true));
-
-    emailSignInBtn.addEventListener("click", async () => {
-      if (!auth) return;
-      const email = emailInput.value.trim();
-      const pass = passInput.value;
-      if (!email || !pass) {
-        setStatus(t("missingEmailAndPass"), "error");
-        return;
-      }
-      emailSignInBtn.disabled = true;
-      try {
-        const cred = await signInWithEmailAndPassword(auth, email, pass);
-        if (cred && cred.user) {
-          await persistMemberProfile(cred.user, authTeamSelect.value || "GUI");
-          setStatus(t("signedInOk"), "ok");
-        }
-      } catch (err) {
-        setStatus(formatErr(err), "error");
-      } finally {
-        emailSignInBtn.disabled = false;
-      }
-    });
-
-    emailSignUpBtn.addEventListener("click", async () => {
-      if (!auth) return;
-      const email = emailInput.value.trim();
-      const pass = passInput.value;
-      if (!email || !pass) {
-        setStatus(t("missingEmailAndPass"), "error");
-        return;
-      }
-      if (pass.length < 6) {
-        setStatus(t("weakPassError"), "error");
-        return;
-      }
-      emailSignUpBtn.disabled = true;
-      try {
-        const cred = await createUserWithEmailAndPassword(auth, email, pass);
-        if (cred && cred.user) {
-          await persistMemberProfile(cred.user, authTeamSelect.value || "GUI");
-          setStatus(t("accountCreatedOk"), "ok");
-        }
-      } catch (err) {
-        setStatus(formatErr(err), "error");
-      } finally {
-        emailSignUpBtn.disabled = false;
-      }
-    });
-
-    resetPassBtn.addEventListener("click", async () => {
-      if (!auth) return;
-      const email = emailInput.value.trim();
-      if (!email) {
-        setStatus(t("missingEmail"), "error");
-        return;
-      }
-      resetPassBtn.disabled = true;
-      try {
-        await sendPasswordResetEmail(auth, email);
-        setStatus(`${t("resetSentOk")} (${email})`, "ok");
-      } catch (err) {
-        setStatus(formatErr(err), "error");
-      } finally {
-        resetPassBtn.disabled = false;
-      }
-    });
-
-    sendOtpBtn.addEventListener("click", async () => {
-      if (!auth) return;
-      const phone = normalizePhone(phoneInput.value);
-      if (!/^\+\d{8,15}$/.test(phone)) {
-        setStatus("Invalid phone format (+201012345678)", "error");
-        return;
-      }
-      sendOtpBtn.disabled = true;
-      try {
-        const verifier = ensureRecaptcha();
-        confirmationResult = await signInWithPhoneNumber(auth, phone, verifier);
-        otpBox.classList.remove("hidden");
-        setStatus(`SMS sent to ${phone}`, "ok");
-      } catch (err) {
-        setStatus(`${formatErr(err)} — Check Phone Auth & Authorized Domains in Firebase Console.`, "error");
-        if (recaptchaVerifier) {
-          try { recaptchaVerifier.clear(); } catch (_) {}
-          recaptchaVerifier = null;
-        }
-      } finally {
-        sendOtpBtn.disabled = false;
-      }
-    });
-
-    verifyOtpBtn.addEventListener("click", async () => {
-      const code = otpInput.value.trim();
-      if (!confirmationResult || !code) return;
-      verifyOtpBtn.disabled = true;
-      try {
-        const cred = await confirmationResult.confirm(code);
-        if (cred && cred.user) {
-          await persistMemberProfile(cred.user, authTeamSelect.value || "GUI");
-        }
-        otpInput.value = "";
-        phoneInput.value = "";
-        confirmationResult = null;
-        setStatus(t("signedInOk"), "ok");
-      } catch (err) {
-        setStatus(formatErr(err), "error");
-      } finally {
-        verifyOtpBtn.disabled = false;
-      }
-    });
-
-    logoutBtn.addEventListener("click", async () => {
-      try {
-        await signOut(auth);
-      } catch (err) {
-        setStatus(formatErr(err), "error");
-      }
-    });
-
-    overlapDaySel.addEventListener("change", renderTimetableSection);
-    overlapScopeSel.addEventListener("change", renderTimetableSection);
-    busyDayFilter.addEventListener("change", renderTimetableSection);
-    busyTeamFilter.addEventListener("change", renderTimetableSection);
-
-    document.getElementById("vortex-add-task-btn").addEventListener("click", async () => {
-      if (!isOwner()) {
-        setStatus(t("ownerOnlyError"), "error");
-        return;
-      }
-      const titleInput = document.getElementById("vortex-task-title");
-      const prioSel = document.getElementById("vortex-task-priority");
-      const title = titleInput.value.trim();
-      if (!title || !currentUser) return;
-
-      try {
-        await addDoc(collection(db, "tasks"), {
-          title,
-          team: taskTeamSelect.value,
-          status: "pending",
-          priority: prioSel.value,
-          assignedTo: taskAssigneeSelect.value || "",
-          completedBy: "",
-          completedAt: null,
-          createdByUid: currentUser.uid,
-          createdByLabel: currentUser.email || currentUser.phoneNumber || currentUser.uid,
-          createdAt: serverTimestamp()
-        });
-        titleInput.value = "";
-      } catch (err) {
-        setStatus(formatErr(err), "error");
-      }
-    });
-
-    async function sendChatMessage() {
-      const text = chatInput.value.trim();
-      if (!text || !currentUser) return;
-      const senderTeam = getCurrentUserTeam();
-
-      sendChatBtn.disabled = true;
-      try {
-        await addDoc(collection(db, "chat_messages"), {
-          text,
-          senderTeam,
-          createdByUid: currentUser.uid,
-          createdByLabel: currentUser.displayName || currentUser.email || currentUser.phoneNumber || currentUser.uid,
-          createdAt: serverTimestamp()
-        });
-        chatInput.value = "";
-        setTimeout(() => { chatBox.scrollTop = chatBox.scrollHeight; }, 100);
-      } catch (err) {
-        setStatus(formatErr(err), "error");
-      } finally {
-        sendChatBtn.disabled = false;
-      }
-    }
-
-    sendChatBtn.addEventListener("click", sendChatMessage);
-    chatInput.addEventListener("keydown", (e) => {
-      if (e.key === "Enter") sendChatMessage();
-    });
-    document.getElementById("vortex-scroll-chat-btn").addEventListener("click", () => {
-      chatBox.scrollTop = chatBox.scrollHeight;
-    });
-
-    document.getElementById("vortex-add-owner-btn").addEventListener("click", async () => {
-      const input = document.getElementById("vortex-owner-email-input");
-      const email = input.value.trim().toLowerCase();
-      if (!email || !isOwner()) return;
-
-      const currentOwners = getEffectiveOwnersSet();
-      if (!currentOwners.includes(email) && currentOwners.length >= MAX_OWNERS) {
-        setStatus(t("maxOwnersReached"), "error");
-        return;
-      }
-
-      try {
-        await setDoc(doc(db, "owners", encodeURIComponent(email)), {
-          email,
-          role: "Owner",
-          updatedAt: serverTimestamp()
-        });
-        if (!knownEmailsMap.has(email)) knownEmailsMap.set(email, "GUI");
-        input.value = "";
-      } catch (err) {
-        setStatus(formatErr(err), "error");
-      }
-    });
-
-    document.getElementById("vortex-remove-owner-btn").addEventListener("click", async () => {
-      const input = document.getElementById("vortex-owner-email-input");
-      const email = input.value.trim().toLowerCase();
-      if (!email || !isOwner()) return;
-
-      if (email === PRIMARY_OWNER_EMAIL.toLowerCase()) {
-        setStatus(t("cannotRemovePrimary"), "error");
-        return;
-      }
-
-      try {
-        await deleteDoc(doc(db, "owners", encodeURIComponent(email)));
-        input.value = "";
-      } catch (err) {
-        setStatus(formatErr(err), "error");
-      }
-    });
-
-    document.getElementById("vortex-add-roster-btn").addEventListener("click", async () => {
-      const input = document.getElementById("vortex-roster-email-input");
-      const tmSel = document.getElementById("vortex-roster-team-select");
-      const email = input.value.trim().toLowerCase();
-      const chosenTeam = TEAMS.includes(tmSel.value) ? tmSel.value : "GUI";
-      if (!email || !email.includes("@") || !isOwner()) return;
-      try {
-        await setDoc(doc(db, "team_roster", encodeURIComponent(email)), {
-          email,
-          team: chosenTeam,
-          updatedAt: serverTimestamp()
-        });
-        knownEmailsMap.set(email, chosenTeam);
-        input.value = "";
-        renderOwnersList();
-        renderAssigneeOptions();
-      } catch (err) {
-        setStatus(formatErr(err), "error");
-      }
-    });
-
-    taskFilter.addEventListener("change", renderTasks);
-    taskTeamFilter.addEventListener("change", renderTasks);
-    taskAssigneeFilter.addEventListener("change", renderTasks);
-    taskSearch.addEventListener("input", renderTasks);
-
-    if (auth && db) {
-      onAuthStateChanged(auth, (user) => {
-        currentUser = user;
-        unsubs.forEach((fn) => { if (typeof fn === "function") fn(); });
-        unsubs = [];
-
-        if (!user) {
-          allTasks = [];
-          allBusySlots = [];
-          allChat = [];
-          membersMap = new Map();
-          ownersSet = new Set(INITIAL_OWNERS.map((e) => e.toLowerCase()));
-          knownEmailsMap = new Map();
-          renderUI();
-          return;
-        }
-
-        renderUI();
-
-        getDoc(doc(db, "members_profiles", user.uid))
-          .then((snap) => {
-            if (!snap || !snap.exists()) {
-              persistMemberProfile(user, authTeamSelect.value || "GUI");
-            }
-          })
-          .catch(() => {});
-
-        unsubs.push(
-          onSnapshot(
-            collection(db, "members_profiles"),
-            (snap) => {
-              const nextMap = new Map();
-              snap.forEach((d) => {
-                const data = d.data();
-                if (data && data.uid) {
-                  nextMap.set(data.uid, {
-                    uid: data.uid,
-                    email: data.email || "",
-                    label: data.label || data.email || data.uid,
-                    team: TEAMS.includes(data.team) ? data.team : "GUI"
-                  });
-                }
-              });
-              membersMap = nextMap;
-              renderUI();
-            },
-            () => renderUI()
-          )
-        );
-
-        unsubs.push(
-          onSnapshot(
-            collection(db, "owners"),
-            (snap) => {
-              const nextSet = new Set(INITIAL_OWNERS.map((e) => e.toLowerCase()));
-              snap.forEach((d) => {
-                const data = d.data();
-                if (data && data.email) {
-                  const em = String(data.email).toLowerCase();
-                  nextSet.add(em);
-                  if (!knownEmailsMap.has(em)) knownEmailsMap.set(em, "GUI");
-                }
-              });
-              ownersSet = nextSet;
-              renderUI();
-            },
-            () => renderUI()
-          )
-        );
-
-        unsubs.push(
-          onSnapshot(
-            collection(db, "team_roster"),
-            (snap) => {
-              snap.forEach((d) => {
-                const data = d.data();
-                if (data && data.email) {
-                  const em = String(data.email).toLowerCase();
-                  const tm = TEAMS.includes(data.team) ? data.team : "GUI";
-                  knownEmailsMap.set(em, tm);
-                }
-              });
-              renderOwnersList();
-              renderAssigneeOptions();
-            },
-            () => {}
-          )
-        );
-
-        unsubs.push(
-          onSnapshot(
-            query(collection(db, "tasks"), orderBy("createdAt", "desc")),
-            (snap) => {
-              allTasks = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
-              updateStats();
-              renderTasks();
-              renderAssigneeOptions();
-            },
-            (err) => setStatus(formatErr(err), "error")
-          )
-        );
-
-        unsubs.push(
-          onSnapshot(
-            query(collection(db, "busy_schedule"), orderBy("createdAt", "desc")),
-            (snap) => {
-              allBusySlots = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
-              renderDaysGrid();
-              renderTimetableSection();
-              renderSubteamsAndMembers();
-            },
-            (err) => setStatus(formatErr(err), "error")
-          )
-        );
-
-        unsubs.push(
-          onSnapshot(
-            query(collection(db, "chat_messages"), orderBy("createdAt", "asc")),
-            (snap) => {
-              allChat = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
-              updateStats();
-              renderChat();
-            },
-            (err) => setStatus(formatErr(err), "error")
-          )
-        );
-      });
-    }
-
-    applyLanguage();
-  </script>
-</body>
-</html>
+    function compressImageToDataUrl(file, maxSize = 240, quality = 0.78) {
+      return ne
