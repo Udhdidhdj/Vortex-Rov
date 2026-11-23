@@ -127,6 +127,20 @@
       color: #ffffff;
     }
 
+    .btn-remove-admin {
+      padding: 2px 8px;
+      font-size: 0.78rem;
+      border-radius: 999px;
+      background: rgba(239, 68, 68, 0.15);
+      color: var(--danger);
+      border: 1px solid rgba(239, 68, 68, 0.35);
+    }
+
+    .btn-remove-admin:hover {
+      background: var(--danger);
+      color: #ffffff;
+    }
+
     .btn-success {
       background: rgba(16, 185, 129, 0.15);
       color: var(--success);
@@ -323,7 +337,7 @@
     .admin-chip {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
       background: var(--bg-input);
       border: 1px solid var(--border);
       padding: 5px 10px;
@@ -508,6 +522,7 @@
         adminTitle: "إدارة الأدمن (مالك النظام - الحد الأقصى 4)",
         adminPlaceholder: "اكتب بريد Google للأدمن الجديد",
         addAdmin: "إضافة أدمن",
+        removeAdmin: "حذف",
         addTaskTitle: "إضافة مهمة جديدة للفريق",
         lblTaskName: "المهمة هي إيه (العنوان)",
         taskNamePh: "مثال: اختبار حساسات العمق",
@@ -551,6 +566,7 @@
         adminTitle: "Admin Management (Owner - Max 4)",
         adminPlaceholder: "Enter new admin Google email",
         addAdmin: "Add Admin",
+        removeAdmin: "Remove",
         addTaskTitle: "Add New Team Task",
         lblTaskName: "What is the task? (Title)",
         taskNamePh: "e.g. Test depth sensors",
@@ -682,9 +698,15 @@
     }
 
     function renderAdmins() {
+      const t = i18n[currentLang];
       el("adminCountBadge").textContent = `${adminsList.length} / 4`;
       el("adminsList").innerHTML = adminsList
-        .map((email) => `<span class="admin-chip">🛡️ ${email}</span>`)
+        .map((email) => {
+          const removeBtn = currentRole === "Owner"
+            ? `<button type="button" class="btn-remove-admin" data-remove-admin="${escapeHtml(email)}">✕ ${t.removeAdmin}</button>`
+            : "";
+          return `<span class="admin-chip">🛡️ ${escapeHtml(email)} ${removeBtn}</span>`;
+        })
         .join("");
     }
 
@@ -844,6 +866,19 @@
         await updateDoc(doc(db, "config", "roles"), { admins: updated });
       }
       el("newAdminEmail").value = "";
+    });
+
+    el("adminsList").addEventListener("click", async (e) => {
+      const btn = e.target.closest("button[data-remove-admin]");
+      if (!btn || currentRole !== "Owner") return;
+      showError("");
+      const targetEmail = btn.dataset.removeAdmin.toLowerCase();
+      const updated = adminsList.filter((email) => email.toLowerCase() !== targetEmail);
+      try {
+        await updateDoc(doc(db, "config", "roles"), { admins: updated });
+      } catch (err) {
+        showError(err.message);
+      }
     });
 
     el("addTaskBtn").addEventListener("click", async () => {
