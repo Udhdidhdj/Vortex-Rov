@@ -556,26 +556,6 @@
       font-weight: 800;
     }
 
-    .rotate-tip {
-      display: none;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      flex-wrap: wrap;
-      background: var(--primary-soft);
-      border: 1px solid var(--primary);
-      border-radius: 11px;
-      padding: 10px 14px;
-      margin-bottom: 14px;
-      font-size: 13px;
-    }
-
-    @media (max-width: 640px) and (orientation: portrait) {
-      .rotate-tip:not(.dismissed) {
-        display: flex;
-      }
-    }
-
     @media (max-width: 900px) {
       .app-shell {
         flex-direction: column;
@@ -625,7 +605,8 @@
 
           <div id="t-nav-work" class="nav-group-label">TEAM WORKSPACE</div>
           <nav class="nav-list">
-            <button type="button" class="nav-btn" data-vpage="tickets">📋 <span data-i18n="navTickets">Time table</span></button>
+            <button type="button" class="nav-btn" data-vpage="tickets">📋 <span data-i18n="navTickets">Team Tasks</span></button>
+            <button type="button" class="nav-btn" data-vpage="timetable">🕒 <span data-i18n="navTimetable">Time table</span></button>
             <button type="button" class="nav-btn" data-vpage="teams">🎯 <span data-i18n="navTeams">Sub-teams & Members</span></button>
             <button type="button" class="nav-btn" data-vpage="points">🏆 <span data-i18n="navPoints">Points & Leaderboard</span></button>
             <button type="button" class="nav-btn" data-vpage="chat">💬 <span data-i18n="navChat">Team Chat</span></button>
@@ -649,11 +630,6 @@
     <!-- المحتوى الرئيسي -->
     <main class="main-area">
       <div class="main-inner">
-        <div id="vortex-rotate-tip" class="rotate-tip">
-          <span id="t-rotate-msg">📱 للحصول على عرض أوسع على الموبايل، يمكنك لف الهاتف أفقيًا (Landscape) أو إكمال العرض مباشرة.</span>
-          <button id="vortex-dismiss-rotate-btn" type="button" class="secondary" style="padding:6px 10px; min-height:34px; font-size:12px;">إخفاء</button>
-        </div>
-
         <div class="top-utility">
           <div class="row">
             <span class="badge">Vortex ROV Academy</span>
@@ -677,8 +653,8 @@
           <div class="card" style="margin-top:14px; margin-bottom:14px; background:var(--surface-2);">
             <div class="row" style="justify-content:space-between;">
               <div>
-                <strong id="t-signup-team-label">🎯 اختر التيم الخاص بك (للحساب الجديد / البروفايل):</strong>
-                <div class="hint" id="t-signup-team-hint">يُستخدم لتحديد التيم الخاص بك في قائمة التيمات والشات وصلاحيات المهام.</div>
+                <strong id="t-signup-team-label">🎯 اختر التيم الخاص بك:</strong>
+                <div class="hint" id="t-signup-team-hint">يُستخدم لتحديد التيم الخاص بك في قائمة التيمات، أوقات الفراغ، والشات.</div>
               </div>
               <select id="vortex-auth-team-select" style="min-width:190px;">
                 <option value="GUI">GUI</option>
@@ -693,7 +669,7 @@
           <div class="auth-grid">
             <div class="auth-panel">
               <h3 id="t-google-title">🔑 تسجيل الدخول بحساب Google</h3>
-              <p id="t-google-desc" class="hint" style="margin:0;">دخول سريع ومضمون عبر Google على Windows وMac وAndroid وiOS.</p>
+              <p id="t-google-desc" class="hint" style="margin:0;">دخول سريع عبر Google على كل الأجهزة.</p>
               <button id="vortex-google-popup-btn" type="button">🚀 الدخول عبر Google</button>
               <button id="vortex-google-redirect-btn" type="button" class="secondary">↪ الدخول عبر Google (Redirect)</button>
             </div>
@@ -711,7 +687,7 @@
 
             <div class="auth-panel">
               <h3 id="t-phone-title">📱 تسجيل الدخول برقم الموبايل</h3>
-              <div class="hint" id="t-sms-note" style="margin:0;">ملاحظة: إرسال SMS يتطلب تفعيل Phone Auth و Authorized Domains في Firebase Console؛ إذا لم تصل رسالة استخدم Google أو البريد.</div>
+              <div class="hint" id="t-sms-note" style="margin:0;">يتطلب تفعيل Phone Auth و Authorized Domains في Firebase Console؛ وإلا استخدم Google أو البريد.</div>
               <input id="vortex-phone-input" type="tel" dir="ltr" autocomplete="tel" placeholder="+201012345678" />
               <button id="vortex-send-otp-btn" type="button">📲 إرسال كود التحقق (SMS)</button>
               <div id="vortex-otp-box" class="stack hidden">
@@ -793,18 +769,14 @@
             </div>
           </section>
 
-          <!-- 2. Time table -->
+          <!-- 2. Team Tasks -->
           <section id="vpage-tickets" class="hidden">
             <div class="page-header">
-              <h1 id="t-tickets-heading" class="page-title">Time table</h1>
+              <h1 id="t-tickets-heading" class="page-title">Team Tasks</h1>
               <p id="t-tickets-sub" class="page-subtitle">View all sub-team tasks; complete tasks in your own team assigned to you or unassigned.</p>
             </div>
 
             <div class="card">
-              <div class="card-title">
-                <span id="t-search-heading">🔎 البحث والتصفية</span>
-                <button id="vortex-reset-filters-btn" type="button" class="secondary">♻️ إعادة ضبط الفلاتر</button>
-              </div>
               <div class="row">
                 <input id="vortex-task-search" type="text" placeholder="ابحث باسم المهمة أو التيم أو الإيميل..." style="flex:1; min-width:200px;" />
                 <select id="vortex-task-filter">
@@ -828,7 +800,7 @@
 
             <div class="card">
               <div class="card-title">
-                <span id="t-tasks-list-heading">📋 جدول مهام الفريق (Time table)</span>
+                <span id="t-tasks-list-heading">📋 قائمة المهام</span>
                 <span id="vortex-tasks-count-badge" class="badge">0</span>
               </div>
 
@@ -868,7 +840,63 @@
             </div>
           </section>
 
-          <!-- 3. Sub-teams & Members -->
+          <!-- 3. Time table (أوقات الفراغ المتاحة) -->
+          <section id="vpage-timetable" class="hidden">
+            <div class="page-header">
+              <h1 id="t-timetable-heading" class="page-title">🕒 Time table</h1>
+              <p id="t-timetable-sub" class="page-subtitle">سجّل الأوقات اللي أنت فاضي فيها وشوف مواعيد فراغ باقي الفريق.</p>
+            </div>
+
+            <div class="card">
+              <div class="card-title">
+                <span id="t-add-slot-title">➕ أضف وقت فراغك</span>
+              </div>
+              <div class="row">
+                <select id="vortex-slot-day">
+                  <option value="Saturday">السبت / Saturday</option>
+                  <option value="Sunday">الأحد / Sunday</option>
+                  <option value="Monday">الاثنين / Monday</option>
+                  <option value="Tuesday">الثلاثاء / Tuesday</option>
+                  <option value="Wednesday">الأربعاء / Wednesday</option>
+                  <option value="Thursday">الخميس / Thursday</option>
+                  <option value="Friday">الجمعة / Friday</option>
+                </select>
+                <input id="vortex-slot-from" type="time" dir="ltr" />
+                <input id="vortex-slot-to" type="time" dir="ltr" />
+                <input id="vortex-slot-note" type="text" placeholder="ملاحظة (اختياري: متاح أونلاين / بعد المدرسة...)" style="flex:1; min-width:200px;" />
+                <button id="vortex-add-slot-btn" type="button">🕒 إضافة وقت فراغ</button>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-title">
+                <span id="t-slots-list-title">📅 جدول أوقات الفراغ المتاحة</span>
+                <div class="row">
+                  <select id="vortex-slot-day-filter">
+                    <option value="all">كل الأيام</option>
+                    <option value="Saturday">السبت / Saturday</option>
+                    <option value="Sunday">الأحد / Sunday</option>
+                    <option value="Monday">الاثنين / Monday</option>
+                    <option value="Tuesday">الثلاثاء / Tuesday</option>
+                    <option value="Wednesday">الأربعاء / Wednesday</option>
+                    <option value="Thursday">الخميس / Thursday</option>
+                    <option value="Friday">الجمعة / Friday</option>
+                  </select>
+                  <select id="vortex-slot-team-filter">
+                    <option value="all">كل التيمات</option>
+                    <option value="GUI">GUI</option>
+                    <option value="Vision">Vision</option>
+                    <option value="Control">Control</option>
+                    <option value="Mechanical">Mechanical</option>
+                    <option value="Electrical">Electrical</option>
+                  </select>
+                </div>
+              </div>
+              <div id="vortex-slots-list"></div>
+            </div>
+          </section>
+
+          <!-- 4. Sub-teams & Members -->
           <section id="vpage-teams" class="hidden">
             <div class="page-header">
               <h1 id="t-teams-page-heading" class="page-title">Sub-teams & Members</h1>
@@ -891,7 +919,7 @@
             </div>
           </section>
 
-          <!-- 4. Points & Leaderboard -->
+          <!-- 5. Points & Leaderboard -->
           <section id="vpage-points" class="hidden">
             <div class="page-header">
               <h1 id="t-points-heading" class="page-title">Points & Leaderboard</h1>
@@ -907,7 +935,7 @@
             </div>
           </section>
 
-          <!-- 5. Team Chat -->
+          <!-- 6. Team Chat -->
           <section id="vpage-chat" class="hidden">
             <div class="page-header">
               <h1 id="t-chat-heading" class="page-title">Team Chat</h1>
@@ -927,7 +955,7 @@
             </div>
           </section>
 
-          <!-- 6. Owners & Roster -->
+          <!-- 7. Owners & Roster -->
           <section id="vpage-owners" class="hidden">
             <div class="page-header">
               <h1 id="t-owners-page-title" class="page-title">Owners & Team Emails</h1>
@@ -1016,13 +1044,12 @@
     const I18N = {
       ar: {
         greeting: "مساء الخير",
-        rotateMsg: "📱 للحصول على عرض أوسع على الموبايل، يمكنك لف الهاتف أفقيًا (Landscape) أو إكمال العرض مباشرة.",
-        hideBtn: "إخفاء",
         navAcc: "الحساب",
         navWork: "مساحة الفريق",
         navAdmin: "إدارة الأونر",
         navProfile: "ملفي الشخصي",
-        navTickets: "Time table",
+        navTickets: "المهام",
+        navTimetable: "Time table",
         navTeams: "التيمات والأعضاء",
         navPoints: "النقاط والترتيب",
         navChat: "شات الفريق",
@@ -1034,11 +1061,11 @@
         langSwitch: "🌐 English",
         authTitle: "🔐 الحساب وتسجيل الدخول",
         chooseAuth: "اختر التيم الخاص بك ثم سجل دخولك عبر Google أو البريد الإلكتروني أو رقم الموبايل.",
-        signupTeamLabel: "🎯 اختر التيم الخاص بك (للحساب الجديد / البروفايل):",
-        signupTeamHint: "يُستخدم لتحديد التيم الخاص بك في قائمة التيمات والشات وصلاحيات المهام.",
+        signupTeamLabel: "🎯 اختر التيم الخاص بك:",
+        signupTeamHint: "يُستخدم لتحديد التيم الخاص بك في قائمة التيمات، أوقات الفراغ، والشات.",
         logout: "🚪 تسجيل الخروج",
         googleTitle: "🔑 تسجيل الدخول بحساب Google",
-        googleDesc: "دخول سريع ومضمون عبر Google على Windows وMac وAndroid وiOS.",
+        googleDesc: "دخول سريع عبر Google على كل الأجهزة.",
         googlePopup: "🚀 الدخول عبر Google",
         googleRedirect: "↪ الدخول عبر Google (Redirect)",
         emailTitle: "✉️ البريد الإلكتروني وكلمة المرور",
@@ -1048,7 +1075,7 @@
         emailSignUp: "➕ إنشاء حساب",
         resetPass: "🔄 إرسال رابط استعادة كلمة المرور",
         phoneTitle: "📱 تسجيل الدخول برقم الموبايل",
-        smsNote: "ملاحظة: إرسال SMS يتطلب تفعيل Phone Auth و Authorized Domains في Firebase Console؛ إذا لم تصل رسالة استخدم Google أو البريد.",
+        smsNote: "يتطلب تفعيل Phone Auth و Authorized Domains في Firebase Console؛ وإلا استخدم Google أو البريد.",
         phonePh: "+201012345678",
         sendOtp: "📲 إرسال كود التحقق (SMS)",
         otpPh: "أدخل كود التحقق (6 أرقام)",
@@ -1062,10 +1089,8 @@
         saveTeam: "💾 حفظ التيم",
         teamSaved: "تم حفظ التيم بنجاح.",
         lblUid: "معرف الحساب (UID)",
-        ticketsHeading: "Time table",
+        ticketsHeading: "المهام",
         ticketsSub: "تقدر تشوف مهام كل التيمات، وتنفذ المهام الخاصة بتيمك لو معينة لك أو بدون تعيين.",
-        searchHeading: "🔎 البحث والتصفية",
-        resetFilters: "♻️ إعادة ضبط الفلاتر",
         searchPh: "ابحث باسم المهمة أو التيم أو الإيميل...",
         filterAll: "الكل",
         teamAll: "كل التيمات",
@@ -1073,10 +1098,10 @@
         unassignedOption: "بدون تعيين محدد (أي حد في التيم)",
         pickAssigneeBtn: "👤 اختيار الشخص المسؤول",
         pickAssigneeTitle: "✉ اختر الشخص المسؤول في التيم المختار:",
-        noTeamMemberHint: "لا يوجد أعضاء مرتبطون بتيم {team} حاليًا — يمكنك اختيار «بدون تعيين محدد» أو إضافة عضو لتيم {team} من صفحة الملاك والإيميلات.",
+        noTeamMemberHint: "لا يوجد أعضاء مرتبطون بتيم {team} حاليًا — يمكنك اختيار «بدون تعيين محدد» أو إضافة عضو لتيم {team}.",
         assignedTo: "المسؤول",
         openForTeam: "متاحة لأي عضو في التيم",
-        tasksListHeading: "📋 جدول مهام الفريق (Time table)",
+        tasksListHeading: "📋 قائمة المهام",
         taskPh: "عنوان المهمة الجديدة...",
         prioNormal: "أولوية عادية (+10 pts)",
         prioHigh: "أولوية عالية (+20 pts)",
@@ -1092,6 +1117,13 @@
         untitled: "بدون عنوان",
         member: "عضو",
         by: "بواسطة",
+        timetableHeading: "🕒 Time table",
+        timetableSub: "سجّل الأوقات اللي أنت فاضي فيها وشوف مواعيد فراغ باقي الفريق.",
+        addSlotTitle: "➕ أضف وقت فراغك",
+        slotNotePh: "ملاحظة (اختياري: متاح أونلاين / بعد المدرسة...)",
+        addSlotBtn: "🕒 إضافة وقت فراغ",
+        slotsListTitle: "📅 جدول أوقات الفراغ المتاحة",
+        noSlots: "لا توجد أوقات فراغ مسجلة بعد.",
         teamsPageHeading: "التيمات والأعضاء",
         teamsPageSub: "اعرف مين موجود في GUI وVision وControl وMechanical وElectrical.",
         teamsFilterLbl: "🎯 اختر التيم لعرض أعضائه ومهامه:",
@@ -1118,13 +1150,12 @@
       },
       en: {
         greeting: "Good Evening",
-        rotateMsg: "📱 For a wider view on mobile, you can rotate to Landscape or continue directly.",
-        hideBtn: "Hide",
         navAcc: "ACCOUNT",
         navWork: "TEAM WORKSPACE",
         navAdmin: "OWNER CONTROLS",
         navProfile: "My Profile",
-        navTickets: "Time table",
+        navTickets: "Team Tasks",
+        navTimetable: "Time table",
         navTeams: "Sub-teams & Members",
         navPoints: "Points & Leaderboard",
         navChat: "Team Chat",
@@ -1136,11 +1167,11 @@
         langSwitch: "🌐 العربية",
         authTitle: "🔐 Account & Sign In",
         chooseAuth: "Choose your team, then sign in with Google, Email & Password, or Mobile Number.",
-        signupTeamLabel: "🎯 Select your team (for new account / profile):",
-        signupTeamHint: "Used to display your team in Sub-teams, Team Chat, and task permissions.",
+        signupTeamLabel: "🎯 Select your team:",
+        signupTeamHint: "Used to display your team in Sub-teams, Time table, and Team Chat.",
         logout: "🚪 Sign Out",
         googleTitle: "🔑 Sign In with Google",
-        googleDesc: "Fast and reliable sign-in via Google on Windows, Mac, Android, and iOS.",
+        googleDesc: "Fast sign-in via Google across devices.",
         googlePopup: "🚀 Continue with Google",
         googleRedirect: "↪ Continue with Google (Redirect)",
         emailTitle: "✉️ Email & Password",
@@ -1150,7 +1181,7 @@
         emailSignUp: "➕ Create Account",
         resetPass: "🔄 Send Password Reset Link",
         phoneTitle: "📱 Sign In with Mobile Number",
-        smsNote: "Note: SMS requires Phone Auth & Authorized Domains enabled in Firebase Console; use Google or Email if SMS is not enabled.",
+        smsNote: "Requires Phone Auth & Authorized Domains in Firebase Console; use Google or Email otherwise.",
         phonePh: "+201012345678",
         sendOtp: "📲 Send Verification Code (SMS)",
         otpPh: "Enter 6-digit code",
@@ -1164,10 +1195,8 @@
         saveTeam: "💾 Save Team",
         teamSaved: "Team saved successfully.",
         lblUid: "Account UID",
-        ticketsHeading: "Time table",
+        ticketsHeading: "Team Tasks",
         ticketsSub: "View all sub-team tasks; complete tasks in your own team assigned to you or unassigned.",
-        searchHeading: "🔎 Search & Filters",
-        resetFilters: "♻️ Reset Filters",
         searchPh: "Search by task title, team, or email...",
         filterAll: "All",
         teamAll: "All Teams",
@@ -1175,10 +1204,10 @@
         unassignedOption: "Unassigned (Anyone in team)",
         pickAssigneeBtn: "👤 Select Assignee",
         pickAssigneeTitle: "✉ Select task assignee in the selected team:",
-        noTeamMemberHint: "No members linked to {team} yet — choose Unassigned or add a member to {team} in Owners & Roster.",
+        noTeamMemberHint: "No members linked to {team} yet — choose Unassigned or add a member to {team}.",
         assignedTo: "Assignee",
         openForTeam: "Open to team members",
-        tasksListHeading: "📋 Team Time table",
+        tasksListHeading: "📋 Team Tasks",
         taskPh: "New task title...",
         prioNormal: "Normal Priority (+10 pts)",
         prioHigh: "High Priority (+20 pts)",
@@ -1194,6 +1223,13 @@
         untitled: "Untitled",
         member: "Member",
         by: "By",
+        timetableHeading: "🕒 Time table",
+        timetableSub: "Add the times when you are free and check when teammates are available.",
+        addSlotTitle: "➕ Add Free Time Slot",
+        slotNotePh: "Note (optional: online / after school...)",
+        addSlotBtn: "🕒 Add Free Slot",
+        slotsListTitle: "📅 Free Time Schedule",
+        noSlots: "No free time slots added yet.",
         teamsPageHeading: "Sub-teams & Members",
         teamsPageSub: "See who is in GUI, Vision, Control, Mechanical, and Electrical.",
         teamsFilterLbl: "🎯 Filter by sub-team:",
@@ -1229,8 +1265,6 @@
     const netBadge = document.getElementById("vortex-net-badge");
     const themeBtn = document.getElementById("vortex-theme-btn");
     const langBtn = document.getElementById("vortex-lang-btn");
-    const rotateTip = document.getElementById("vortex-rotate-tip");
-    const dismissRotateBtn = document.getElementById("vortex-dismiss-rotate-btn");
 
     const authCard = document.getElementById("vortex-auth-card");
     const authTeamSelect = document.getElementById("vortex-auth-team-select");
@@ -1276,13 +1310,18 @@
     const teamAssigneeHint = document.getElementById("vortex-team-assignee-hint");
     const selectedAssigneeLabel = document.getElementById("vortex-selected-assignee-label");
 
+    const slotDaySel = document.getElementById("vortex-slot-day");
+    const slotFromInp = document.getElementById("vortex-slot-from");
+    const slotToInp = document.getElementById("vortex-slot-to");
+    const slotNoteInp = document.getElementById("vortex-slot-note");
+    const addSlotBtn = document.getElementById("vortex-add-slot-btn");
+    const slotDayFilter = document.getElementById("vortex-slot-day-filter");
+    const slotTeamFilter = document.getElementById("vortex-slot-team-filter");
+    const slotsList = document.getElementById("vortex-slots-list");
+
     const chatBox = document.getElementById("vortex-chat-box");
     const chatInput = document.getElementById("vortex-chat-input");
     const sendChatBtn = document.getElementById("vortex-send-chat-btn");
-
-    dismissRotateBtn.addEventListener("click", () => {
-      rotateTip.classList.add("dismissed");
-    });
 
     function t(key) {
       return (I18N[lang] && I18N[lang][key]) || I18N.ar[key] || key;
@@ -1330,7 +1369,7 @@
       document.querySelectorAll(".nav-btn").forEach((btn) => {
         btn.classList.toggle("active", btn.dataset.vpage === pageName);
       });
-      ["profile", "tickets", "teams", "points", "chat", "owners"].forEach((p) => {
+      ["profile", "tickets", "timetable", "teams", "points", "chat", "owners"].forEach((p) => {
         const el = document.getElementById(`vpage-${p}`);
         if (el) el.classList.toggle("hidden", p !== pageName);
       });
@@ -1355,8 +1394,6 @@
       document.documentElement.dir = lang === "en" ? "ltr" : "rtl";
 
       document.getElementById("t-greeting").textContent = t("greeting");
-      document.getElementById("t-rotate-msg").textContent = t("rotateMsg");
-      dismissRotateBtn.textContent = t("hideBtn");
       document.getElementById("t-nav-acc").textContent = t("navAcc");
       document.getElementById("t-nav-work").textContent = t("navWork");
       document.getElementById("t-nav-admin").textContent = t("navAdmin");
@@ -1394,14 +1431,19 @@
 
       document.getElementById("t-tickets-heading").textContent = t("ticketsHeading");
       document.getElementById("t-tickets-sub").textContent = t("ticketsSub");
-      document.getElementById("t-search-heading").textContent = t("searchHeading");
-      document.getElementById("vortex-reset-filters-btn").textContent = t("resetFilters");
       taskSearch.placeholder = t("searchPh");
       document.getElementById("t-tasks-list-heading").textContent = t("tasksListHeading");
       document.getElementById("vortex-task-title").placeholder = t("taskPh");
       document.getElementById("vortex-add-task-btn").textContent = t("addTask");
       pickAssigneeBtn.textContent = t("pickAssigneeBtn");
       document.getElementById("t-pick-assignee-title").textContent = t("pickAssigneeTitle");
+
+      document.getElementById("t-timetable-heading").textContent = t("timetableHeading");
+      document.getElementById("t-timetable-sub").textContent = t("timetableSub");
+      document.getElementById("t-add-slot-title").textContent = t("addSlotTitle");
+      slotNoteInp.placeholder = t("slotNotePh");
+      addSlotBtn.textContent = t("addSlotBtn");
+      document.getElementById("t-slots-list-title").textContent = t("slotsListTitle");
 
       document.getElementById("t-teams-page-heading").textContent = t("teamsPageHeading");
       document.getElementById("t-teams-page-sub").textContent = t("teamsPageSub");
@@ -1478,6 +1520,7 @@
     let knownEmailsMap = new Map();
     let membersMap = new Map();
     let allTasks = [];
+    let allSlots = [];
     let allChat = [];
     let unsubs = [];
 
@@ -1885,6 +1928,59 @@
       });
     }
 
+    function renderTimetable() {
+      const dayVal = slotDayFilter.value;
+      const tmVal = slotTeamFilter.value;
+
+      const filtered = allSlots.filter((sl) => {
+        const okDay = dayVal === "all" || sl.day === dayVal;
+        const okTeam = tmVal === "all" || (sl.team || "GUI") === tmVal;
+        return okDay && okTeam;
+      });
+
+      slotsList.innerHTML = "";
+      if (filtered.length === 0) {
+        slotsList.innerHTML = `<p class="hint" style="margin:0;">${t("noSlots")}</p>`;
+        return;
+      }
+
+      filtered.forEach((sl) => {
+        const row = document.createElement("div");
+        row.className = "list-item";
+
+        const left = document.createElement("div");
+        const timeText = `${sl.from || "--:--"} → ${sl.to || "--:--"}`;
+        left.innerHTML = `
+          <strong>🕒 ${sl.day || ""} • ${timeText}</strong>
+          <div class="task-badges">
+            <span class="badge ok">👤 ${sl.userLabel || t("member")}</span>
+            <span class="badge">🎯 ${sl.team || "GUI"}</span>
+            ${sl.note ? `<span class="badge">📝 ${sl.note}</span>` : ""}
+          </div>
+        `;
+
+        row.appendChild(left);
+
+        const canDelete = currentUser && (isOwner() || sl.uid === currentUser.uid);
+        if (canDelete) {
+          const delBtn = document.createElement("button");
+          delBtn.type = "button";
+          delBtn.className = "danger";
+          delBtn.textContent = t("deleteBtn");
+          delBtn.addEventListener("click", async () => {
+            try {
+              await deleteDoc(doc(db, "free_slots", sl.id));
+            } catch (err) {
+              setStatus(formatErr(err), "error");
+            }
+          });
+          row.appendChild(delBtn);
+        }
+
+        slotsList.appendChild(row);
+      });
+    }
+
     function renderUI() {
       if (!currentUser) {
         authCard.classList.remove("hidden");
@@ -1932,6 +2028,7 @@
       renderAssigneeOptions();
       updateStats();
       renderTasks();
+      renderTimetable();
       renderChat();
     }
 
@@ -2250,6 +2347,35 @@
       }
     });
 
+    addSlotBtn.addEventListener("click", async () => {
+      if (!currentUser || !db) return;
+      const fromVal = slotFromInp.value;
+      const toVal = slotToInp.value;
+      if (!fromVal || !toVal) return;
+
+      addSlotBtn.disabled = true;
+      try {
+        await addDoc(collection(db, "free_slots"), {
+          day: slotDaySel.value,
+          from: fromVal,
+          to: toVal,
+          note: slotNoteInp.value.trim(),
+          team: getCurrentUserTeam(),
+          uid: currentUser.uid,
+          userLabel: currentUser.displayName || currentUser.email || currentUser.phoneNumber || currentUser.uid,
+          createdAt: serverTimestamp()
+        });
+        slotNoteInp.value = "";
+      } catch (err) {
+        setStatus(formatErr(err), "error");
+      } finally {
+        addSlotBtn.disabled = false;
+      }
+    });
+
+    slotDayFilter.addEventListener("change", renderTimetable);
+    slotTeamFilter.addEventListener("change", renderTimetable);
+
     document.getElementById("vortex-add-task-btn").addEventListener("click", async () => {
       if (!isOwner()) {
         setStatus(t("ownerOnlyError"), "error");
@@ -2373,14 +2499,6 @@
       }
     });
 
-    document.getElementById("vortex-reset-filters-btn").addEventListener("click", () => {
-      taskSearch.value = "";
-      taskFilter.value = "all";
-      taskTeamFilter.value = "all";
-      taskAssigneeFilter.value = "all";
-      renderTasks();
-    });
-
     taskFilter.addEventListener("change", renderTasks);
     taskTeamFilter.addEventListener("change", renderTasks);
     taskAssigneeFilter.addEventListener("change", renderTasks);
@@ -2394,6 +2512,7 @@
 
         if (!user) {
           allTasks = [];
+          allSlots = [];
           allChat = [];
           membersMap = new Map();
           ownersSet = new Set(INITIAL_OWNERS.map((e) => e.toLowerCase()));
@@ -2482,6 +2601,17 @@
               updateStats();
               renderTasks();
               renderAssigneeOptions();
+            },
+            (err) => setStatus(formatErr(err), "error")
+          )
+        );
+
+        unsubs.push(
+          onSnapshot(
+            query(collection(db, "free_slots"), orderBy("createdAt", "desc")),
+            (snap) => {
+              allSlots = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+              renderTimetable();
             },
             (err) => setStatus(formatErr(err), "error")
           )
