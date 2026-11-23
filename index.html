@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Vortex ROV — Student & Team Academy</title>
   <link rel="manifest" href="/Vortex-Rov/manifest.json" />
   <meta name="theme-color" content="#1d6fd6" />
@@ -44,14 +44,19 @@
 
     * {
       box-sizing: border-box;
-      font-family: "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
+      font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+      -webkit-tap-highlight-color: transparent;
     }
 
-    body {
+    html, body {
       margin: 0;
+      padding: 0;
+      width: 100%;
+      max-width: 100%;
+      overflow-x: hidden;
       background: var(--bg);
       color: var(--text);
-      font-size: 15px;
+      font-size: clamp(14px, 1.05vw, 16px);
       min-height: 100vh;
       transition: background-color 0.2s ease, color 0.2s ease;
     }
@@ -59,11 +64,13 @@
     .app-shell {
       display: flex;
       min-height: 100vh;
+      width: 100%;
+      max-width: 100%;
     }
 
-    /* القائمة الجانبية المنظمة في اليمين (RTL) / اليسار (LTR) */
+    /* القائمة الجانبية */
     .sidebar {
-      width: 268px;
+      width: clamp(230px, 20vw, 275px);
       flex-shrink: 0;
       background: var(--sidebar-bg);
       border-inline-end: 1px solid var(--border);
@@ -81,7 +88,7 @@
 
     .greeting-title {
       margin: 0;
-      font-size: 20px;
+      font-size: clamp(18px, 1.4vw, 21px);
       font-weight: 800;
       color: var(--primary);
       line-height: 1.25;
@@ -162,7 +169,7 @@
       color: var(--text);
       border: 1px solid transparent;
       border-radius: 9px;
-      padding: 9px 12px;
+      padding: 10px 12px;
       font-size: 13.5px;
       font-weight: 600;
       display: flex;
@@ -171,6 +178,7 @@
       gap: 9px;
       cursor: pointer;
       text-align: start;
+      min-height: 42px;
     }
 
     .nav-btn:hover {
@@ -184,15 +192,16 @@
       font-weight: 700;
     }
 
-    /* المحتوى الرئيسي */
+    /* المحتوى الرئيسي المتجاوب مع Windows / Mac / Android / iOS */
     .main-area {
       flex: 1;
       min-width: 0;
-      padding: 24px 32px 44px;
+      padding: clamp(14px, 2.5vw, 28px) clamp(14px, 3vw, 36px) 44px;
     }
 
     .main-inner {
-      max-width: 1320px;
+      width: 100%;
+      max-width: 1360px;
       margin: 0 auto;
     }
 
@@ -200,19 +209,20 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       flex-wrap: wrap;
       margin-bottom: 18px;
     }
 
     .page-header {
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
 
     .page-title {
       margin: 0;
-      font-size: 26px;
+      font-size: clamp(20px, 2.2vw, 28px);
       font-weight: 800;
+      line-height: 1.25;
     }
 
     .page-subtitle {
@@ -225,9 +235,10 @@
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 22px 24px;
+      padding: clamp(16px, 2vw, 24px);
       margin-bottom: 18px;
       box-shadow: var(--shadow);
+      width: 100%;
     }
 
     .card-title {
@@ -243,7 +254,7 @@
 
     .row {
       display: flex;
-      gap: 12px;
+      gap: 10px;
       flex-wrap: wrap;
       align-items: center;
     }
@@ -251,13 +262,13 @@
     .stack {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 10px;
     }
 
     .auth-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 16px;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 14px;
       margin-top: 14px;
     }
 
@@ -265,10 +276,11 @@
       background: var(--surface-2);
       border: 1px solid var(--border);
       border-radius: 12px;
-      padding: 18px;
+      padding: 16px;
       display: flex;
       flex-direction: column;
-      gap: 11px;
+      gap: 10px;
+      min-width: 0;
     }
 
     .auth-panel h3 {
@@ -279,7 +291,7 @@
 
     .field-grid-2 {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 14px;
     }
 
@@ -292,6 +304,8 @@
       justify-content: space-between;
       align-items: center;
       gap: 12px;
+      flex-wrap: wrap;
+      min-width: 0;
     }
 
     .field-label {
@@ -309,8 +323,8 @@
 
     .stats-row {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 14px;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 12px;
       margin-bottom: 18px;
     }
 
@@ -318,7 +332,7 @@
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 16px 20px;
+      padding: 16px 18px;
       box-shadow: var(--shadow);
     }
 
@@ -329,7 +343,7 @@
     }
 
     .stat-value {
-      font-size: 26px;
+      font-size: 24px;
       font-weight: 800;
       margin-top: 6px;
     }
@@ -341,6 +355,8 @@
       background: var(--surface-2);
       color: var(--text);
       font-size: 14px;
+      min-height: 42px;
+      max-width: 100%;
     }
 
     button {
@@ -351,6 +367,7 @@
       cursor: pointer;
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 7px;
     }
 
@@ -381,6 +398,9 @@
       display: inline-flex;
       align-items: center;
       gap: 5px;
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .badge.ok { border-color: var(--ok); color: var(--ok); }
@@ -391,8 +411,8 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 14px;
-      padding: 14px 18px;
+      gap: 12px;
+      padding: 14px 16px;
       border: 1px solid var(--border);
       border-radius: 11px;
       background: var(--surface-2);
@@ -417,6 +437,7 @@
       font-size: 14px;
       line-height: 1.6;
       white-space: pre-line;
+      word-break: break-word;
     }
 
     #vortex-status-box.error {
@@ -430,8 +451,8 @@
     }
 
     .chat-box {
-      min-height: 300px;
-      max-height: 460px;
+      min-height: 260px;
+      max-height: 440px;
       overflow-y: auto;
       display: flex;
       flex-direction: column;
@@ -444,10 +465,11 @@
     }
 
     .chat-msg {
-      padding: 12px 15px;
+      padding: 12px 14px;
       border-radius: 11px;
       border: 1px solid var(--border);
       background: var(--surface);
+      word-break: break-word;
     }
 
     .chat-msg.mine {
@@ -470,12 +492,33 @@
       font-size: 12px;
       padding: 6px 11px;
       border-radius: 999px;
+      min-height: 34px;
     }
 
     .email-chip-btn.selected {
       background: var(--primary);
       color: var(--primary-ink);
       border-color: var(--primary);
+    }
+
+    .rotate-tip {
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+      background: var(--primary-soft);
+      border: 1px solid var(--primary);
+      border-radius: 10px;
+      padding: 10px 14px;
+      margin-bottom: 14px;
+      font-size: 13px;
+    }
+
+    @media (max-width: 640px) and (orientation: portrait) {
+      .rotate-tip:not(.dismissed) {
+        display: flex;
+      }
     }
 
     @media (max-width: 900px) {
@@ -486,9 +529,17 @@
         width: 100%;
         border-inline-end: none;
         border-bottom: 1px solid var(--border);
+        padding: 14px;
       }
-      .main-area {
-        padding: 18px 16px 32px;
+      .nav-list {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+      .nav-btn {
+        width: auto;
+        flex: 1 1 auto;
+        justify-content: center;
       }
     }
   </style>
@@ -543,6 +594,11 @@
     <!-- المحتوى الرئيسي -->
     <main class="main-area">
       <div class="main-inner">
+        <div id="vortex-rotate-tip" class="rotate-tip">
+          <span id="t-rotate-msg">📱 للحصول على عرض أوسع على الموبايل، يمكنك لف الهاتف أفقيًا (Landscape) أو إكمال العرض مباشرة.</span>
+          <button id="vortex-dismiss-rotate-btn" type="button" class="secondary" style="padding:6px 10px; min-height:34px; font-size:12px;">إخفاء</button>
+        </div>
+
         <div class="top-utility">
           <div class="row">
             <span class="badge">Vortex ROV Academy</span>
@@ -569,7 +625,7 @@
                 <strong id="t-signup-team-label">🎯 اختر التيم الخاص بك (للحساب الجديد / البروفايل):</strong>
                 <div class="hint" id="t-signup-team-hint">يُستخدم لتحديد التيم الخاص بك في قائمة التيمات والشات.</div>
               </div>
-              <select id="vortex-auth-team-select" style="min-width:200px;">
+              <select id="vortex-auth-team-select" style="min-width:190px;">
                 <option value="GUI">GUI</option>
                 <option value="Vision">Vision</option>
                 <option value="Control">Control</option>
@@ -591,8 +647,8 @@
             <!-- 2. البريد الإلكتروني وكلمة المرور -->
             <div class="auth-panel">
               <h3 id="t-email-title">✉️ البريد الإلكتروني وكلمة المرور</h3>
-              <input id="vortex-email-input" type="email" dir="ltr" placeholder="name@example.com" />
-              <input id="vortex-pass-input" type="password" dir="ltr" placeholder="كلمة المرور (6 أحرف فأكثر)" />
+              <input id="vortex-email-input" type="email" dir="ltr" autocomplete="email" placeholder="name@example.com" />
+              <input id="vortex-pass-input" type="password" dir="ltr" autocomplete="current-password" placeholder="كلمة المرور (6 أحرف فأكثر)" />
               <div class="row">
                 <button id="vortex-email-signin-btn" type="button">✅ دخول بالبريد</button>
                 <button id="vortex-email-signup-btn" type="button" class="secondary">➕ إنشاء حساب</button>
@@ -603,10 +659,10 @@
             <!-- 3. رقم الموبايل -->
             <div class="auth-panel">
               <h3 id="t-phone-title">📱 تسجيل الدخول برقم الموبايل</h3>
-              <input id="vortex-phone-input" type="tel" dir="ltr" placeholder="+201012345678" />
+              <input id="vortex-phone-input" type="tel" dir="ltr" autocomplete="tel" placeholder="+201012345678" />
               <button id="vortex-send-otp-btn" type="button">📲 إرسال كود التحقق (SMS)</button>
               <div id="vortex-otp-box" class="stack hidden">
-                <input id="vortex-otp-input" type="text" dir="ltr" inputmode="numeric" placeholder="أدخل كود التحقق (6 أرقام)" />
+                <input id="vortex-otp-input" type="text" dir="ltr" inputmode="numeric" autocomplete="one-time-code" placeholder="أدخل كود التحقق (6 أرقام)" />
                 <button id="vortex-verify-otp-btn" type="button" class="ok">✔ تأكيد الكود وتسجيل الدخول</button>
               </div>
               <div id="vortex-recaptcha-box"></div>
@@ -614,7 +670,7 @@
           </div>
         </section>
 
-        <!-- مساحة العمل بعد تسجيل الدخول -->
+        <!-- مساحة عمل الفريق بعد تسجيل الدخول -->
         <div id="vortex-workspace" class="hidden">
           <div class="stats-row">
             <div class="stat-card">
@@ -698,7 +754,7 @@
                 <button id="vortex-reset-filters-btn" type="button" class="secondary">♻️ إعادة ضبط الفلاتر</button>
               </div>
               <div class="row">
-                <input id="vortex-task-search" type="text" placeholder="ابحث باسم المهمة أو التيم أو الإيميل..." style="flex:1; min-width:220px;" />
+                <input id="vortex-task-search" type="text" placeholder="ابحث باسم المهمة أو التيم أو الإيميل..." style="flex:1; min-width:200px;" />
                 <select id="vortex-task-filter">
                   <option value="all" data-i18n="filterAll">الكل</option>
                   <option value="pending" data-i18n="stPending">قيد التنفيذ</option>
@@ -727,7 +783,7 @@
 
               <div id="vortex-owner-task-controls">
                 <div class="row">
-                  <input id="vortex-task-title" type="text" placeholder="عنوان المهمة الجديدة..." style="flex:1; min-width:220px;" />
+                  <input id="vortex-task-title" type="text" placeholder="عنوان المهمة الجديدة..." style="flex:1; min-width:200px;" />
                   <select id="vortex-task-team">
                     <option value="GUI">GUI</option>
                     <option value="Vision">Vision</option>
@@ -760,11 +816,11 @@
             </div>
           </section>
 
-          <!-- 3. Sub-teams & Members (معرفة مين في GUI وVision وControl وMechanical وElectrical) -->
+          <!-- 3. Sub-teams & Members -->
           <section id="vpage-teams" class="hidden">
             <div class="page-header">
               <h1 id="t-teams-page-heading" class="page-title">Sub-teams & Members</h1>
-              <p id="t-teams-page-sub" class="page-subtitle">See which members belong to GUI, Vision, Control, Mechanical, and Electrical.</p>
+              <p id="t-teams-page-sub" class="page-subtitle">See who is in GUI, Vision, Control, Mechanical, and Electrical.</p>
             </div>
 
             <div class="card">
@@ -787,7 +843,7 @@
           <section id="vpage-points" class="hidden">
             <div class="page-header">
               <h1 id="t-points-heading" class="page-title">Points & Leaderboard</h1>
-              <p id="t-points-sub" class="page-subtitle">Points earned from completed tasks per member and team.</p>
+              <p id="t-points-sub" class="page-subtitle">Points earned from completed tasks per member.</p>
             </div>
 
             <div class="card">
@@ -796,7 +852,7 @@
             </div>
           </section>
 
-          <!-- 5. Team Chat (مفتوح لجميع الأعضاء والـ Owner، والحذف للـ Owner فقط) -->
+          <!-- 5. Team Chat -->
           <section id="vpage-chat" class="hidden">
             <div class="page-header">
               <h1 id="t-chat-heading" class="page-title">Team Chat</h1>
@@ -810,7 +866,7 @@
               </div>
               <div id="vortex-chat-box" class="chat-box"></div>
               <div class="row">
-                <input id="vortex-chat-input" type="text" placeholder="اكتب رسالة للفريق..." style="flex:1; min-width:240px;" />
+                <input id="vortex-chat-input" type="text" placeholder="اكتب رسالة للفريق..." style="flex:1; min-width:200px;" />
                 <button id="vortex-send-chat-btn" type="button">📨 إرسال</button>
               </div>
             </div>
@@ -829,14 +885,14 @@
                 <span id="vortex-owners-count-badge" class="badge">Owners: 1 / 4</span>
               </div>
               <div class="row">
-                <input id="vortex-owner-email-input" type="email" dir="ltr" placeholder="owner@example.com" style="flex:1; min-width:220px;" />
+                <input id="vortex-owner-email-input" type="email" dir="ltr" placeholder="owner@example.com" style="flex:1; min-width:200px;" />
                 <button id="vortex-add-owner-btn" type="button">➕ إضافة Owner</button>
                 <button id="vortex-remove-owner-btn" type="button" class="danger">✖ إزالة Owner</button>
               </div>
               <div id="vortex-owners-list" class="row" style="margin-top:12px;"></div>
 
               <div class="row" style="margin-top:16px;">
-                <input id="vortex-roster-email-input" type="email" dir="ltr" placeholder="member@example.com" style="flex:1; min-width:220px;" />
+                <input id="vortex-roster-email-input" type="email" dir="ltr" placeholder="member@example.com" style="flex:1; min-width:200px;" />
                 <button id="vortex-add-roster-btn" type="button" class="secondary">✉ إضافة إيميل عضو للمهام</button>
               </div>
               <div id="vortex-roster-list" class="row" style="margin-top:10px;"></div>
@@ -873,6 +929,7 @@
       deleteDoc,
       doc,
       setDoc,
+      getDoc,
       onSnapshot,
       query,
       orderBy,
@@ -897,6 +954,8 @@
     const I18N = {
       ar: {
         greeting: "مساء الخير",
+        rotateMsg: "📱 للحصول على عرض أوسع على الموبايل، يمكنك لف الهاتف أفقيًا (Landscape) أو إكمال العرض مباشرة.",
+        hideBtn: "إخفاء",
         navAcc: "الحساب",
         navWork: "مساحة الفريق",
         navAdmin: "إدارة الأونر",
@@ -991,6 +1050,8 @@
       },
       en: {
         greeting: "Good Evening",
+        rotateMsg: "📱 For a wider view on mobile, you can rotate to Landscape or continue directly.",
+        hideBtn: "Hide",
         navAcc: "ACCOUNT",
         navWork: "TEAM WORKSPACE",
         navAdmin: "OWNER CONTROLS",
@@ -1094,6 +1155,8 @@
     const netBadge = document.getElementById("vortex-net-badge");
     const themeBtn = document.getElementById("vortex-theme-btn");
     const langBtn = document.getElementById("vortex-lang-btn");
+    const rotateTip = document.getElementById("vortex-rotate-tip");
+    const dismissRotateBtn = document.getElementById("vortex-dismiss-rotate-btn");
 
     const authCard = document.getElementById("vortex-auth-card");
     const authTeamSelect = document.getElementById("vortex-auth-team-select");
@@ -1140,6 +1203,10 @@
     const chatBox = document.getElementById("vortex-chat-box");
     const chatInput = document.getElementById("vortex-chat-input");
     const sendChatBtn = document.getElementById("vortex-send-chat-btn");
+
+    dismissRotateBtn.addEventListener("click", () => {
+      rotateTip.classList.add("dismissed");
+    });
 
     function t(key) {
       return (I18N[lang] && I18N[lang][key]) || I18N.ar[key] || key;
@@ -1212,6 +1279,8 @@
       document.documentElement.dir = lang === "en" ? "ltr" : "rtl";
 
       document.getElementById("t-greeting").textContent = t("greeting");
+      document.getElementById("t-rotate-msg").textContent = t("rotateMsg");
+      dismissRotateBtn.textContent = t("hideBtn");
       document.getElementById("t-nav-acc").textContent = t("navAcc");
       document.getElementById("t-nav-work").textContent = t("navWork");
       document.getElementById("t-nav-admin").textContent = t("navAdmin");
@@ -1330,7 +1399,7 @@
     let currentRole = "Member";
     let ownersSet = new Set(INITIAL_OWNERS.map((e) => e.toLowerCase()));
     let knownEmailsSet = new Set(INITIAL_OWNERS.map((e) => e.toLowerCase()));
-    let membersMap = new Map(); // uid -> { uid, label, team }
+    let membersMap = new Map();
     let allTasks = [];
     let allChat = [];
     let unsubs = [];
@@ -1512,7 +1581,7 @@
           : `<span class="hint">${t("noTeamMembers")}</span>`;
 
         block.innerHTML = `
-          <div style="flex:1; min-width:250px;">
+          <div style="flex:1; min-width:220px;">
             <div style="font-size:16px; font-weight:800;">🎯 ${tm}</div>
             <div class="hint" style="margin-top:4px;">${t("statTotal")}: ${tmTasks.length} • ${t("statDone")}: ${tmDone}</div>
             <div class="row" style="margin-top:10px;">${membersHtml}</div>
@@ -1920,4 +1989,229 @@
         });
         titleInput.value = "";
       } catch (err) {
-        setStatus(format
+        setStatus(formatErr(err), "error");
+      }
+    });
+
+    async function sendChatMessage() {
+      const text = chatInput.value.trim();
+      if (!text || !currentUser) return;
+      const savedProf = membersMap.get(currentUser.uid);
+      const senderTeam = (savedProf && TEAMS.includes(savedProf.team))
+        ? savedProf.team
+        : (TEAMS.includes(authTeamSelect.value) ? authTeamSelect.value : "GUI");
+
+      sendChatBtn.disabled = true;
+      try {
+        await addDoc(collection(db, "chat_messages"), {
+          text,
+          senderTeam,
+          createdByUid: currentUser.uid,
+          createdByLabel: currentUser.displayName || currentUser.email || currentUser.phoneNumber || currentUser.uid,
+          createdAt: serverTimestamp()
+        });
+        chatInput.value = "";
+        setTimeout(() => { chatBox.scrollTop = chatBox.scrollHeight; }, 100);
+      } catch (err) {
+        setStatus(formatErr(err), "error");
+      } finally {
+        sendChatBtn.disabled = false;
+      }
+    }
+
+    sendChatBtn.addEventListener("click", sendChatMessage);
+    chatInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") sendChatMessage();
+    });
+    document.getElementById("vortex-scroll-chat-btn").addEventListener("click", () => {
+      chatBox.scrollTop = chatBox.scrollHeight;
+    });
+
+    document.getElementById("vortex-add-owner-btn").addEventListener("click", async () => {
+      const input = document.getElementById("vortex-owner-email-input");
+      const email = input.value.trim().toLowerCase();
+      if (!email || !isOwner()) return;
+
+      const currentOwners = getEffectiveOwnersSet();
+      if (!currentOwners.includes(email) && currentOwners.length >= MAX_OWNERS) {
+        setStatus(t("maxOwnersReached"), "error");
+        return;
+      }
+
+      try {
+        await setDoc(doc(db, "owners", encodeURIComponent(email)), {
+          email,
+          role: "Owner",
+          updatedAt: serverTimestamp()
+        });
+        knownEmailsSet.add(email);
+        input.value = "";
+      } catch (err) {
+        setStatus(formatErr(err), "error");
+      }
+    });
+
+    document.getElementById("vortex-remove-owner-btn").addEventListener("click", async () => {
+      const input = document.getElementById("vortex-owner-email-input");
+      const email = input.value.trim().toLowerCase();
+      if (!email || !isOwner()) return;
+
+      if (email === PRIMARY_OWNER_EMAIL.toLowerCase()) {
+        setStatus(t("cannotRemovePrimary"), "error");
+        return;
+      }
+
+      try {
+        await deleteDoc(doc(db, "owners", encodeURIComponent(email)));
+        input.value = "";
+      } catch (err) {
+        setStatus(formatErr(err), "error");
+      }
+    });
+
+    document.getElementById("vortex-add-roster-btn").addEventListener("click", async () => {
+      const input = document.getElementById("vortex-roster-email-input");
+      const email = input.value.trim().toLowerCase();
+      if (!email || !email.includes("@") || !isOwner()) return;
+      try {
+        await setDoc(doc(db, "team_roster", encodeURIComponent(email)), {
+          email,
+          updatedAt: serverTimestamp()
+        });
+        knownEmailsSet.add(email);
+        input.value = "";
+        renderOwnersList();
+        renderAssigneeOptions();
+      } catch (err) {
+        setStatus(formatErr(err), "error");
+      }
+    });
+
+    document.getElementById("vortex-reset-filters-btn").addEventListener("click", () => {
+      taskSearch.value = "";
+      taskFilter.value = "all";
+      taskTeamFilter.value = "all";
+      taskAssigneeFilter.value = "all";
+      renderTasks();
+    });
+
+    taskFilter.addEventListener("change", renderTasks);
+    taskTeamFilter.addEventListener("change", renderTasks);
+    taskAssigneeFilter.addEventListener("change", renderTasks);
+    taskSearch.addEventListener("input", renderTasks);
+
+    if (auth && db) {
+      onAuthStateChanged(auth, (user) => {
+        currentUser = user;
+        unsubs.forEach((fn) => { if (typeof fn === "function") fn(); });
+        unsubs = [];
+
+        if (!user) {
+          allTasks = [];
+          allChat = [];
+          membersMap = new Map();
+          ownersSet = new Set(INITIAL_OWNERS.map((e) => e.toLowerCase()));
+          knownEmailsSet = new Set(INITIAL_OWNERS.map((e) => e.toLowerCase()));
+          renderUI();
+          return;
+        }
+
+        renderUI();
+
+        getDoc(doc(db, "members_profiles", user.uid))
+          .then((snap) => {
+            if (!snap || !snap.exists()) {
+              persistMemberProfile(user, authTeamSelect.value || "GUI");
+            }
+          })
+          .catch(() => {});
+
+        unsubs.push(
+          onSnapshot(
+            collection(db, "members_profiles"),
+            (snap) => {
+              const nextMap = new Map();
+              snap.forEach((d) => {
+                const data = d.data();
+                if (data && data.uid) {
+                  nextMap.set(data.uid, {
+                    uid: data.uid,
+                    email: data.email || "",
+                    label: data.label || data.email || data.uid,
+                    team: TEAMS.includes(data.team) ? data.team : "GUI"
+                  });
+                }
+              });
+              membersMap = nextMap;
+              renderUI();
+            },
+            () => renderUI()
+          )
+        );
+
+        unsubs.push(
+          onSnapshot(
+            collection(db, "owners"),
+            (snap) => {
+              const nextSet = new Set(INITIAL_OWNERS.map((e) => e.toLowerCase()));
+              snap.forEach((d) => {
+                const data = d.data();
+                if (data && data.email) {
+                  const em = String(data.email).toLowerCase();
+                  nextSet.add(em);
+                  knownEmailsSet.add(em);
+                }
+              });
+              ownersSet = nextSet;
+              renderUI();
+            },
+            () => renderUI()
+          )
+        );
+
+        unsubs.push(
+          onSnapshot(
+            collection(db, "team_roster"),
+            (snap) => {
+              snap.forEach((d) => {
+                const data = d.data();
+                if (data && data.email) knownEmailsSet.add(String(data.email).toLowerCase());
+              });
+              renderOwnersList();
+              renderAssigneeOptions();
+            },
+            () => {}
+          )
+        );
+
+        unsubs.push(
+          onSnapshot(
+            query(collection(db, "tasks"), orderBy("createdAt", "desc")),
+            (snap) => {
+              allTasks = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+              updateStats();
+              renderTasks();
+              renderAssigneeOptions();
+            },
+            (err) => setStatus(formatErr(err), "error")
+          )
+        );
+
+        unsubs.push(
+          onSnapshot(
+            query(collection(db, "chat_messages"), orderBy("createdAt", "asc")),
+            (snap) => {
+              allChat = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+              updateStats();
+              renderChat();
+            },
+            (err) => setStatus(formatErr(err), "error")
+          )
+        );
+      });
+    }
+
+    applyLanguage();
+  </script>
+</body>
+</html>
