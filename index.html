@@ -3,126 +3,255 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vortex ROV - إدارة مهام الفريق</title>
+  <title>Vortex ROV — مركز قيادة ومهام الفريق</title>
   <link rel="manifest" href="/Vortex-Rov/manifest.json" />
   <meta name="theme-color" content="#0b192c" />
   <style>
     :root {
       --bg: #0b192c;
+      --bg-soft: rgba(11, 25, 44, 0.72);
       --card: #13263f;
+      --card-2: #172e4c;
       --accent: #00b4d8;
+      --accent-ink: #04101d;
       --text: #f1f5f9;
       --muted: #94a3b8;
       --border: #1e3a5f;
       --danger: #ef4444;
+      --ok: #22c55e;
       --warn: #f59e0b;
     }
-    * { box-sizing: border-box; font-family: system-ui, -apple-system, sans-serif; }
+
+    body.light {
+      --bg: #f1f5f9;
+      --bg-soft: rgba(255, 255, 255, 0.85);
+      --card: #ffffff;
+      --card-2: #f8fafc;
+      --accent: #0284c7;
+      --accent-ink: #ffffff;
+      --text: #0f172a;
+      --muted: #475569;
+      --border: #cbd5e1;
+      --danger: #dc2626;
+      --ok: #16a34a;
+      --warn: #d97706;
+    }
+
+    * { box-sizing: border-box; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; }
+
     body {
       margin: 0;
       background: var(--bg);
       color: var(--text);
       min-height: 100vh;
       padding: 16px;
+      transition: background-color 0.2s ease, color 0.2s ease;
     }
-    .container { max-width: 900px; margin: 0 auto; }
+
+    .container { max-width: 1060px; margin: 0 auto; }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px 18px;
+      margin-bottom: 14px;
+    }
+
+    .brand h1 { margin: 0; font-size: 20px; }
+    .brand p { margin: 4px 0 0 0; font-size: 12px; color: var(--muted); }
+
     .card {
       background: var(--card);
       border: 1px solid var(--border);
-      border-radius: 12px;
+      border-radius: 14px;
       padding: 16px;
       margin-bottom: 14px;
     }
+
     .row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
     .stack { display: flex; flex-direction: column; gap: 10px; margin-top: 12px; }
-    input, select, button {
-      padding: 10px 12px;
-      border-radius: 8px;
+
+    .tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .tab-btn {
+      background: var(--card);
+      color: var(--text);
       border: 1px solid var(--border);
-      background: var(--bg);
+      padding: 9px 14px;
+      border-radius: 10px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .tab-btn.active {
+      background: var(--accent);
+      color: var(--accent-ink);
+      border-color: var(--accent);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .stat-box {
+      background: var(--card-2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px;
+    }
+
+    .stat-label { font-size: 12px; color: var(--muted); }
+    .stat-val { font-size: 22px; font-weight: 800; margin-top: 4px; }
+
+    input, select, textarea, button {
+      padding: 10px 12px;
+      border-radius: 9px;
+      border: 1px solid var(--border);
+      background: var(--bg-soft);
       color: var(--text);
       font-size: 14px;
     }
+
+    textarea { resize: vertical; min-height: 72px; width: 100%; }
+
     button {
       background: var(--accent);
-      color: #04101d;
+      color: var(--accent-ink);
       font-weight: 700;
       border: none;
       cursor: pointer;
     }
+
     button:disabled { opacity: 0.55; cursor: not-allowed; }
-    button.secondary { background: #1e3a5f; color: var(--text); }
+    button.secondary { background: var(--card-2); color: var(--text); border: 1px solid var(--border); }
     button.danger { background: var(--danger); color: #fff; }
-    .task {
+    button.ok { background: var(--ok); color: #fff; }
+
+    .item-card {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 10px;
-      padding: 12px;
+      gap: 12px;
+      padding: 12px 14px;
       border: 1px solid var(--border);
-      border-radius: 10px;
+      border-radius: 11px;
       margin-top: 10px;
-      background: rgba(11, 25, 44, 0.65);
+      background: var(--bg-soft);
+      flex-wrap: wrap;
     }
+
     .badge {
-      padding: 4px 8px;
-      border-radius: 6px;
+      padding: 4px 9px;
+      border-radius: 999px;
       font-size: 12px;
-      background: #1e3a5f;
-      color: #e2e8f0;
+      background: var(--card-2);
+      color: var(--text);
+      border: 1px solid var(--border);
+      font-weight: 600;
     }
-    .divider { height: 1px; background: var(--border); margin: 12px 0; }
+
+    .badge.ok { border-color: var(--ok); color: var(--ok); }
+    .badge.warn { border-color: var(--warn); color: var(--warn); }
+    .badge.danger { border-color: var(--danger); color: var(--danger); }
+
+    .divider { height: 1px; background: var(--border); margin: 14px 0; }
     .hint { font-size: 12px; color: var(--muted); }
-    .hidden { display: none; }
+    .hidden { display: none !important; }
+
     #statusBox {
       margin-top: 10px;
-      padding: 10px 12px;
-      border-radius: 8px;
+      padding: 11px 13px;
+      border-radius: 10px;
       border: 1px solid var(--border);
-      background: rgba(11, 25, 44, 0.7);
+      background: var(--bg-soft);
       font-size: 13px;
-      line-height: 1.6;
+      line-height: 1.65;
+      white-space: pre-line;
     }
+
     #statusBox.error {
       border-color: var(--danger);
-      color: #fecaca;
       background: rgba(239, 68, 68, 0.12);
+    }
+
+    #statusBox.ok {
+      border-color: var(--ok);
+      background: rgba(34, 197, 94, 0.12);
+    }
+
+    .diag-list {
+      margin: 10px 0 0 0;
+      padding: 0 18px 0 0;
+      font-size: 13px;
+      line-height: 1.8;
     }
   </style>
 </head>
 <body>
   <div class="container">
+    <!-- الشريط العلوي والتحكم السريع -->
+    <div class="topbar">
+      <div class="brand">
+        <h1 id="appTitle">Vortex ROV — مركز قيادة ومهام الفريق</h1>
+        <p id="appSubtitle">نظام إدارة الفريق والمعدات والإعلانات والمهام — MATE ROV</p>
+      </div>
+      <div class="row">
+        <span id="netBadge" class="badge ok">متصل بالشبكة</span>
+        <button id="themeBtn" type="button" class="secondary">الوضع النهاري</button>
+        <button id="langBtn" type="button" class="secondary">English</button>
+      </div>
+    </div>
+
+    <!-- بطاقة الحساب وتسجيل الدخول -->
     <div class="card">
-      <h2 style="margin:0 0 8px 0;">إدارة مهام الفريق - Vortex ROV</h2>
-      <div id="statusBox">جاري تهيئة النظام...</div>
+      <div class="row" style="justify-content:space-between;">
+        <h2 id="authHeading" style="margin:0; font-size:18px;">الحساب وتسجيل الدخول</h2>
+        <span id="userInfo" class="badge hidden"></span>
+      </div>
+
+      <div id="statusBox">جاري تهيئة النظام وفحص البيئة...</div>
 
       <div id="authBox" style="margin-top:12px;">
         <div class="row">
           <button id="loginGoogleBtn" type="button">تسجيل الدخول بحساب Google</button>
           <button id="logoutBtn" type="button" class="secondary hidden">تسجيل الخروج</button>
-          <span id="userInfo" class="badge hidden"></span>
         </div>
 
         <div id="authMethodsSection" class="stack">
           <div class="divider"></div>
-          <div class="hint">البريد الإلكتروني وكلمة المرور:</div>
+          <div class="hint">تسجيل الدخول أو إنشاء حساب بالبريد الإلكتروني وكلمة المرور:</div>
           <div class="row">
-            <input id="emailInput" type="email" dir="ltr" placeholder="name@example.com" style="flex:1; min-width:190px;" />
-            <input id="passwordInput" type="password" dir="ltr" placeholder="كلمة المرور (6 أحرف فأكثر)" style="flex:1; min-width:190px;" />
+            <input id="emailInput" type="email" dir="ltr" placeholder="name@example.com" style="flex:1; min-width:200px;" />
+            <input id="passwordInput" type="password" dir="ltr" placeholder="كلمة المرور (6 أحرف فأكثر)" style="flex:1; min-width:200px;" />
           </div>
           <div class="row">
             <button id="emailSignInBtn" type="button">دخول بالبريد</button>
             <button id="emailSignUpBtn" type="button" class="secondary">إنشاء حساب جديد</button>
+            <button id="resetPassBtn" type="button" class="secondary">إعادة تعيين كلمة المرور</button>
           </div>
 
           <div class="divider"></div>
-          <div class="hint">رقم التليفون (مثال: +201012345678):</div>
+          <div class="hint">تسجيل الدخول برقم التليفون (مثال: +201012345678):</div>
           <div class="row">
-            <input id="phoneInput" type="tel" dir="ltr" placeholder="+201xxxxxxxxx" style="flex:1; min-width:190px;" />
+            <input id="phoneInput" type="tel" dir="ltr" placeholder="+201xxxxxxxxx" style="flex:1; min-width:200px;" />
             <button id="sendOtpBtn" type="button" class="secondary">إرسال كود التحقق</button>
           </div>
           <div id="otpRow" class="row hidden">
-            <input id="otpInput" type="text" dir="ltr" inputmode="numeric" placeholder="كود التحقق (6 أرقام)" style="flex:1; min-width:190px;" />
+            <input id="otpInput" type="text" dir="ltr" inputmode="numeric" placeholder="كود التحقق (6 أرقام)" style="flex:1; min-width:200px;" />
             <button id="verifyOtpBtn" type="button">تأكيد الدخول</button>
           </div>
           <div id="recaptcha-container"></div>
@@ -130,36 +259,116 @@
       </div>
     </div>
 
+    <!-- إدارة المشرفين للمالك -->
     <div id="adminBox" class="card hidden">
       <h3 style="margin:0 0 10px 0;">إدارة المشرفين (Owner)</h3>
       <div class="row">
-        <input id="adminEmailInput" type="email" placeholder="البريد الإلكتروني للمشرف" />
+        <input id="adminEmailInput" type="email" dir="ltr" placeholder="admin@example.com" style="flex:1; min-width:200px;" />
         <button id="addAdminBtn" type="button">إضافة Admin</button>
         <button id="removeAdminBtn" type="button" class="danger">إزالة Admin</button>
       </div>
     </div>
 
-    <div id="appBox" class="card hidden">
-      <h3 style="margin:0 0 10px 0;">مهام الفريق</h3>
-      <div class="row">
-        <input id="taskTitleInput" type="text" placeholder="عنوان المهمة الجديدة..." style="flex:1; min-width:200px;" />
-        <select id="taskStatusSelect">
-          <option value="pending">قيد التنفيذ</option>
-          <option value="done">مكتملة</option>
-        </select>
-        <button id="addTaskBtn" type="button">إضافة مهمة</button>
+    <!-- واجهة النظام الاحترافية بعد تسجيل الدخول -->
+    <div id="workspaceBox" class="hidden">
+      <!-- لوحة الإحصائيات السريعة -->
+      <div class="stats-grid">
+        <div class="stat-box">
+          <div class="stat-label">إجمالي المهام</div>
+          <div id="statTotalTasks" class="stat-val">0</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">قيد التنفيذ</div>
+          <div id="statPendingTasks" class="stat-val">0</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">مهام مكتملة</div>
+          <div id="statDoneTasks" class="stat-val">0</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">قطع ومعدات ROV</div>
+          <div id="statGearCount" class="stat-val">0</div>
+        </div>
       </div>
 
-      <div class="row" style="margin-top:12px;">
-        <label for="filterSelect">تصفية:</label>
-        <select id="filterSelect">
-          <option value="all">الكل</option>
-          <option value="pending">قيد التنفيذ</option>
-          <option value="done">مكتملة</option>
-        </select>
+      <!-- تبويبات الأقسام -->
+      <div class="tabs">
+        <button type="button" class="tab-btn active" data-tab="tasks">المهام</button>
+        <button type="button" class="tab-btn" data-tab="gear">معدات ROV</button>
+        <button type="button" class="tab-btn" data-tab="announcements">إعلانات الفريق</button>
+        <button type="button" class="tab-btn" data-tab="diagnostics">فحص الأخطاء والبيئة</button>
       </div>
 
-      <div id="tasksList"></div>
+      <!-- تبويب المهام -->
+      <div id="tab-tasks" class="card">
+        <h3 style="margin:0 0 10px 0;">مهام الفريق</h3>
+        <div class="row">
+          <input id="taskTitleInput" type="text" placeholder="عنوان المهمة الجديدة..." style="flex:1; min-width:200px;" />
+          <select id="taskPrioritySelect">
+            <option value="normal">أولوية عادية</option>
+            <option value="high">أولوية عالية</option>
+          </select>
+          <select id="taskStatusSelect">
+            <option value="pending">قيد التنفيذ</option>
+            <option value="done">مكتملة</option>
+          </select>
+          <button id="addTaskBtn" type="button">إضافة مهمة</button>
+        </div>
+
+        <div class="row" style="margin-top:12px;">
+          <input id="taskSearchInput" type="text" placeholder="بحث في المهام..." style="flex:1; min-width:180px;" />
+          <label for="filterSelect">تصفية:</label>
+          <select id="filterSelect">
+            <option value="all">الكل</option>
+            <option value="pending">قيد التنفيذ</option>
+            <option value="done">مكتملة</option>
+          </select>
+        </div>
+
+        <div id="tasksList"></div>
+      </div>
+
+      <!-- تبويب معدات وقطع ROV -->
+      <div id="tab-gear" class="card hidden">
+        <h3 style="margin:0 0 10px 0;">معدات وقطع ROV (كهرباء، حساسات، دفّاعات، هيكل)</h3>
+        <div class="row">
+          <input id="gearNameInput" type="text" placeholder="اسم القطعة أو الجهاز (مثلاً: Thruster T200)" style="flex:1; min-width:200px;" />
+          <input id="gearQtyInput" type="number" min="1" value="1" style="width:90px;" />
+          <select id="gearStateSelect">
+            <option value="ready">جاهز</option>
+            <option value="maintenance">صيانة / فحص</option>
+            <option value="missing">ناقص / مطلوب</option>
+          </select>
+          <button id="addGearBtn" type="button">إضافة قطعة</button>
+        </div>
+        <div id="gearList"></div>
+      </div>
+
+      <!-- تبويب إعلانات الفريق -->
+      <div id="tab-announcements" class="card hidden">
+        <h3 style="margin:0 0 10px 0;">إعلانات وملاحظات الفريق</h3>
+        <div class="stack">
+          <input id="annTitleInput" type="text" placeholder="عنوان الإعلان أو التحديث..." />
+          <textarea id="annBodyInput" placeholder="اكتب تفاصيل الاجتماع أو الاختبار أو التنبيه..."></textarea>
+          <div class="row">
+            <button id="addAnnBtn" type="button">نشر إعلان</button>
+          </div>
+        </div>
+        <div id="annList"></div>
+      </div>
+
+      <!-- تبويب فحص الأخطاء والبيئة وسجل التشخيص -->
+      <div id="tab-diagnostics" class="card hidden">
+        <h3 style="margin:0 0 8px 0;">فحص الأخطاء والبيئة (Diagnostics)</h3>
+        <p class="hint" style="margin:0 0 10px 0;">
+          يفحص تلقائياً اتصال الإنترنت، إعدادات Firebase، نوع المتصفح/الـ WebView، وحالة Service Worker وStorage.
+        </p>
+        <div class="row">
+          <button id="runDiagBtn" type="button">إعادة فحص البيئة الآن</button>
+          <button id="clearSwBtn" type="button" class="secondary">تحديث Service Worker ومسح الكاش</button>
+        </div>
+        <ul id="diagResults" class="diag-list"></ul>
+      </div>
     </div>
   </div>
 
@@ -170,6 +379,7 @@
       GoogleAuthProvider,
       signInWithEmailAndPassword,
       createUserWithEmailAndPassword,
+      sendPasswordResetEmail,
       RecaptchaVerifier,
       signInWithPhoneNumber,
       signInWithPopup,
@@ -192,37 +402,40 @@
       serverTimestamp
     } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-    const OWNER_EMAIL = "OWNER_EMAIL_HERE";
+    // ضع بريد المالك هنا بحروف صغيرة إذا أردت صلاحية Owner تلقائياً
+    const OWNER_EMAIL = "";
 
+    // إعدادات مشروع Firebase الحقيقية
     const firebaseConfig = {
-      apiKey: "YOUR_API_KEY",
+      apiKey: "AIzaSyCTb6fawE3ltI6A06lBVrx_5zre4Ei4N8g",
       authDomain: "vortex-rov.firebaseapp.com",
       projectId: "vortex-rov",
-      storageBucket: "vortex-rov.appspot.com",
-      messagingSenderId: "YOUR_SENDER_ID",
-      appId: "YOUR_APP_ID"
+      storageBucket: "vortex-rov.firebasestorage.app",
+      messagingSenderId: "764552928966",
+      appId: "1:764552928966:web:9051155f2f17de641301c7",
+      measurementId: "G-LKE662TNSJ"
     };
 
     const ERROR_CATALOG = {
       "auth/invalid-api-key": {
         num: "ERR-01",
-        msg: "مفتاح Firebase API Key غير صحيح أو ناقص.",
-        fix: "تأكد من كتابة apiKey الصحيح لمشروع vortex-rov داخل firebaseConfig."
+        msg: "مفتاح Firebase API Key غير صحيح.",
+        fix: "تأكد من تطابق apiKey مع بيانات مشروع vortex-rov في Firebase Console."
       },
       "auth/unauthorized-domain": {
         num: "ERR-02",
-        msg: "الدومين الحالي غير مصرح به في Firebase.",
+        msg: "الدومين الحالي غير مضاف في Authorized domains.",
         fix: "أضف udhdidhdj.github.io في Firebase Console ← Authentication ← Settings ← Authorized domains."
       },
       "auth/operation-not-allowed": {
         num: "ERR-03",
-        msg: "طريقة تسجيل الدخول هذه غير مفعّلة في Firebase.",
-        fix: "فعّل المزود (Google / Phone / Email-Password) في Authentication ← Sign-in method."
+        msg: "طريقة الدخول هذه غير مفعّلة في Firebase.",
+        fix: "فعّل Google / Phone / Email-Password في Authentication ← Sign-in method."
       },
       "auth/popup-blocked": {
         num: "ERR-04",
-        msg: "المتصفح منع النافذة المنبثقة لتسجيل الدخول.",
-        fix: "اسمح بالـ Pop-ups في المتصفح أو افتح الموقع في متصفح خارجي (Chrome/Safari)."
+        msg: "المتصفح منع نافذة تسجيل الدخول المنبثقة.",
+        fix: "اسمح بالـ Pop-ups أو افتح الرابط مباشرة في Chrome أو Safari."
       },
       "auth/popup-closed-by-user": {
         num: "ERR-05",
@@ -232,47 +445,47 @@
       "auth/cancelled-popup-request": {
         num: "ERR-06",
         msg: "تم إلغاء طلب نافذة الدخول بسبب ضغط متكرر أو تحويل.",
-        fix: "اضغط مرة واحدة فقط وانتظر فتح نافذة الدخول أو إعادة التوجيه."
+        fix: "اضغط مرة واحدة فقط وانتظر فتح النافذة أو إعادة التوجيه."
       },
       "auth/operation-not-supported-in-this-environment": {
         num: "ERR-07",
-        msg: "البيئة الحالية (WebView أو متصفح مدمج أو وضع غير آمن) لا تدعم هذه الخطوة.",
-        fix: "افتح الرابط في Chrome أو Safari مباشرة وتأكد من عدم حظر الكوكيز/التخزين."
+        msg: "البيئة الحالية (WebView أو متصفح مدمج أو وضع مقيد) لا تدعم العملية.",
+        fix: "افتح الرابط في Chrome أو Safari وتأكد من عدم حظر الكوكيز أو التخزين."
       },
       "auth/network-request-failed": {
         num: "ERR-08",
-        msg: "مشكلة في الاتصال بالإنترنت أو حجب طلب الشبكة.",
-        fix: "تحقق من الإنترنت أو أوقف أي مانع إعلانات/VPN/Proxy يعيق اتصال Firebase."
+        msg: "تعذر الاتصال بخوادم Firebase بسبب الشبكة أو حجب الاتصال.",
+        fix: "تحقق من الإنترنت وأوقف أي مانع إعلانات أو VPN أو Proxy مقيد."
       },
       "auth/invalid-email": {
         num: "ERR-09",
         msg: "صيغة البريد الإلكتروني غير صحيحة.",
-        fix: "اكتب بريداً إلكترونياً صحيحاً مثل name@example.com."
+        fix: "اكتب بريداً صحيحاً مثل name@example.com."
       },
       "auth/weak-password": {
         num: "ERR-10",
         msg: "كلمة المرور ضعيفة أو أقل من 6 أحرف.",
-        fix: "اكتب كلمة مرور مكونة من 6 أحرف أو أرقام على الأقل."
+        fix: "استخدم كلمة مرور من 6 أحرف أو أرقام على الأقل."
       },
       "auth/email-already-in-use": {
         num: "ERR-11",
-        msg: "هذا البريد الإلكتروني مسجل من قبل.",
-        fix: "اضغط «دخول بالبريد» بدلاً من «إنشاء حساب جديد» أو استخدم بريداً آخر."
+        msg: "البريد الإلكتروني مسجل مسبقاً.",
+        fix: "اضغط «دخول بالبريد» بدلاً من «إنشاء حساب جديد»."
       },
       "auth/invalid-credential": {
         num: "ERR-12",
-        msg: "البريد الإلكتروني أو كلمة المرور غير صحيحة.",
-        fix: "راجع البريد وكلمة المرور، أو أنشئ حساباً جديداً إذا لم يكن موجوداً."
+        msg: "بيانات البريد الإلكتروني أو كلمة المرور غير صحيحة.",
+        fix: "راجع البريد وكلمة المرور أو أنشئ حساباً جديداً."
       },
       "auth/user-not-found": {
         num: "ERR-13",
-        msg: "لا يوجد مستخدم مسجل بهذا البريد الإلكتروني.",
-        fix: "اضغط «إنشاء حساب جديد» لتسجيل الحساب أولاً."
+        msg: "لا يوجد حساب بهذا البريد الإلكتروني.",
+        fix: "اضغط «إنشاء حساب جديد» أولاً."
       },
       "auth/wrong-password": {
         num: "ERR-14",
         msg: "كلمة المرور غير صحيحة.",
-        fix: "أدخل كلمة المرور الصحيحة لهذا الحساب."
+        fix: "أدخل كلمة المرور الصحيحة."
       },
       "auth/invalid-phone-number": {
         num: "ERR-15",
@@ -281,8 +494,8 @@
       },
       "auth/too-many-requests": {
         num: "ERR-16",
-        msg: "تم إرسال طلبات كثيرة جداً في وقت قصير.",
-        fix: "انتظر بضع دقائق ثم أعد المحاولة، أو استخدم رقم اختبار في Firebase."
+        msg: "تم إرسال طلبات كثيرة جداً في فترة قصيرة.",
+        fix: "انتظر قليلاً ثم أعد المحاولة، أو أضف رقم اختبار في Firebase Phone Auth."
       },
       "auth/captcha-check-failed": {
         num: "ERR-17",
@@ -292,21 +505,29 @@
       "auth/invalid-verification-code": {
         num: "ERR-18",
         msg: "كود التحقق المكون من 6 أرقام غير صحيح.",
-        fix: "تأكد من كتابة الكود الصحيح المرسل إلى هاتفك."
+        fix: "راجع الكود المرسل إلى هاتفك وأعد إدخاله."
       },
       "auth/code-expired": {
         num: "ERR-19",
         msg: "انتهت صلاحية كود التحقق.",
-        fix: "اضغط «إرسال كود التحقق» مرة أخرى وأدخل الكود الجديد بسرعة."
+        fix: "اضغط «إرسال كود التحقق» مرة أخرى."
       },
       "permission-denied": {
         num: "ERR-20",
-        msg: "الصلاحيات مرفوضة من قاعدة بيانات Firestore.",
-        fix: "راجع Firestore Rules واسمح للمستخدم المسجل بالقراءة والكتابة حسب صلاحيته."
+        msg: "قاعدة بيانات Firestore رفضت العملية بسبب الصلاحيات.",
+        fix: "راجع قواعد Firestore في Firebase Console واسمح للمستخدم المسجل."
+      },
+      "unavailable": {
+        num: "ERR-21",
+        msg: "خدمة Firestore غير متاحة مؤقتاً أو الاتصال منقطع.",
+        fix: "تحقق من اتصال الإنترنت وأعد المحاولة."
       }
     };
 
     const statusBox = document.getElementById("statusBox");
+    const netBadge = document.getElementById("netBadge");
+    const themeBtn = document.getElementById("themeBtn");
+    const langBtn = document.getElementById("langBtn");
     const loginGoogleBtn = document.getElementById("loginGoogleBtn");
     const logoutBtn = document.getElementById("logoutBtn");
     const authMethodsSection = document.getElementById("authMethodsSection");
@@ -314,6 +535,7 @@
     const passwordInput = document.getElementById("passwordInput");
     const emailSignInBtn = document.getElementById("emailSignInBtn");
     const emailSignUpBtn = document.getElementById("emailSignUpBtn");
+    const resetPassBtn = document.getElementById("resetPassBtn");
     const phoneInput = document.getElementById("phoneInput");
     const sendOtpBtn = document.getElementById("sendOtpBtn");
     const otpRow = document.getElementById("otpRow");
@@ -321,33 +543,40 @@
     const verifyOtpBtn = document.getElementById("verifyOtpBtn");
     const userInfo = document.getElementById("userInfo");
     const adminBox = document.getElementById("adminBox");
-    const appBox = document.getElementById("appBox");
+    const workspaceBox = document.getElementById("workspaceBox");
+
     const tasksList = document.getElementById("tasksList");
     const filterSelect = document.getElementById("filterSelect");
+    const taskSearchInput = document.getElementById("taskSearchInput");
+    const gearList = document.getElementById("gearList");
+    const annList = document.getElementById("annList");
+    const diagResults = document.getElementById("diagResults");
 
-    let unknownErrorCounter = 100;
-    const unknownCodeMap = new Map();
+    let unknownCounter = 100;
+    const unknownMap = new Map();
 
-    function setStatus(text, isError = false) {
+    function setStatus(text, type = "normal") {
       statusBox.textContent = text;
-      statusBox.classList.toggle("error", Boolean(isError));
+      statusBox.classList.remove("error", "ok");
+      if (type === "error") statusBox.classList.add("error");
+      if (type === "ok") statusBox.classList.add("ok");
     }
 
     function resolveError(err, fallbackTitle = "حدث خطأ") {
-      const rawCode = (err && (err.code || err.message)) ? String(err.code || err.message) : "unknown";
-      const normalized = rawCode.replace(/^Firebase:\s*/i, "").replace(/\(.*\)\.?$/, "").trim();
+      const raw = err && (err.code || err.message) ? String(err.code || err.message) : "unknown";
+      const clean = raw.replace(/^Firebase:\s*/i, "").replace(/\(.*\)\.?$/, "").trim();
 
-      if (ERROR_CATALOG[normalized]) {
-        const item = ERROR_CATALOG[normalized];
-        return `[${item.num}] ${fallbackTitle}: ${item.msg}\nالحل: ${item.fix} (${normalized})`;
+      if (ERROR_CATALOG[clean]) {
+        const e = ERROR_CATALOG[clean];
+        return `[${e.num}] ${fallbackTitle}: ${e.msg}\nالحل: ${e.fix} (${clean})`;
       }
 
-      if (!unknownCodeMap.has(rawCode)) {
-        unknownErrorCounter += 1;
-        unknownCodeMap.set(rawCode, `ERR-${unknownErrorCounter}`);
+      if (!unknownMap.has(raw)) {
+        unknownCounter += 1;
+        unknownMap.set(raw, `ERR-${unknownCounter}`);
       }
-      const num = unknownCodeMap.get(rawCode);
-      return `[${num}] ${fallbackTitle} — خطأ غير مصنف مسبقاً: ${rawCode}\nالحل: تأكد من إعدادات Firebase وافتح Console لمعرفة التفاصيل.`;
+      const num = unknownMap.get(raw);
+      return `[${num}] ${fallbackTitle} — كود غير مصنف مسبقاً: ${raw}\nالحل: تحقق من إعدادات Firebase وراجع تبويب «فحص الأخطاء والبيئة».`;
     }
 
     function isMobileOrIOS() {
@@ -364,14 +593,129 @@
       return "+" + cleaned;
     }
 
+    function updateNetworkBadge() {
+      const online = navigator.onLine;
+      netBadge.textContent = online ? "متصل بالشبكة" : "غير متصل بالشبكة";
+      netBadge.classList.toggle("ok", online);
+      netBadge.classList.toggle("danger", !online);
+    }
+
+    window.addEventListener("online", () => {
+      updateNetworkBadge();
+      setStatus("عاد الاتصال بالشبكة.", "ok");
+    });
+
+    window.addEventListener("offline", () => {
+      updateNetworkBadge();
+      setStatus("[ERR-08] تم فقدان الاتصال بالإنترنت — بعض العمليات قد تتوقف لحين عودة الاتصال.", "error");
+    });
+
+    updateNetworkBadge();
+
+    // الوضع الليلي / النهاري
+    const savedTheme = localStorage.getItem("vortex_theme") || "dark";
+    if (savedTheme === "light") {
+      document.body.classList.add("light");
+      themeBtn.textContent = "الوضع الليلي";
+    }
+    themeBtn.addEventListener("click", () => {
+      const isLight = document.body.classList.toggle("light");
+      localStorage.setItem("vortex_theme", isLight ? "light" : "dark");
+      themeBtn.textContent = isLight ? "الوضع الليلي" : "الوضع النهاري";
+    });
+
+    // تبديل اتجاه اللغة (عربي / إنجليزي)
+    let isEnglish = false;
+    langBtn.addEventListener("click", () => {
+      isEnglish = !isEnglish;
+      document.documentElement.lang = isEnglish ? "en" : "ar";
+      document.documentElement.dir = isEnglish ? "ltr" : "rtl";
+      document.getElementById("appTitle").textContent = isEnglish
+        ? "Vortex ROV — Team Command & Task Hub"
+        : "Vortex ROV — مركز قيادة ومهام الفريق";
+      document.getElementById("appSubtitle").textContent = isEnglish
+        ? "Team Tasks, ROV Gear, Announcements & Diagnostics — MATE ROV"
+        : "نظام إدارة الفريق والمعدات والإعلانات والمهام — MATE ROV";
+      langBtn.textContent = isEnglish ? "العربية" : "English";
+    });
+
+    // التبديل بين التبويبات
+    document.querySelectorAll(".tab-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const target = btn.dataset.tab;
+        document.querySelectorAll(".tab-btn").forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+        ["tasks", "gear", "announcements", "diagnostics"].forEach((name) => {
+          document.getElementById(`tab-${name}`).classList.toggle("hidden", name !== target);
+        });
+        if (target === "diagnostics") runDiagnostics();
+      });
+    });
+
+    // تسجيل Service Worker بأمان
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", () => {
         navigator.serviceWorker
           .register("/Vortex-Rov/service-worker.js")
-          .catch((err) => console.warn("SW note:", err));
+          .catch((err) => console.warn("ServiceWorker note:", err));
       });
     }
 
+    // أداة فحص الأخطاء والبيئة
+    async function runDiagnostics() {
+      const checks = [];
+      checks.push(`المتصفح / الجهاز: ${navigator.userAgent}`);
+      checks.push(`حالة الشبكة: ${navigator.onLine ? "متصل (Online)" : "غير متصل (Offline)"}`);
+      checks.push(`الدومين الحالي: ${window.location.origin} (المسار: ${window.location.pathname})`);
+      checks.push(`توافق Firebase Config: ${firebaseConfig.apiKey.startsWith("AIza") && firebaseConfig.projectId === "vortex-rov" ? "سليم ✓" : "تحقق من القيم"}`);
+
+      let storageOk = false;
+      try {
+        localStorage.setItem("_vortex_test", "1");
+        localStorage.removeItem("_vortex_test");
+        storageOk = true;
+      } catch (_) {}
+      checks.push(`تخزين المتصفح (localStorage): ${storageOk ? "متاح ✓" : "محجوب أو مقيد (قد يؤثر على الجلسات أو الإعدادات)"}`);
+
+      if ("serviceWorker" in navigator) {
+        try {
+          const regs = await navigator.serviceWorker.getRegistrations();
+          checks.push(`Service Worker: مسجل (${regs.length} تسجيل نشط)`);
+        } catch (e) {
+          checks.push(`Service Worker: تعذر الفحص (${e.message || e})`);
+        }
+      } else {
+        checks.push("Service Worker: غير مدعوم في هذا المتصفح");
+      }
+
+      diagResults.innerHTML = "";
+      checks.forEach((line) => {
+        const li = document.createElement("li");
+        li.textContent = line;
+        diagResults.appendChild(li);
+      });
+    }
+
+    document.getElementById("runDiagBtn").addEventListener("click", runDiagnostics);
+
+    document.getElementById("clearSwBtn").addEventListener("click", async () => {
+      try {
+        if ("serviceWorker" in navigator) {
+          const regs = await navigator.serviceWorker.getRegistrations();
+          for (const r of regs) await r.unregister();
+        }
+        if ("caches" in window) {
+          const keys = await caches.keys();
+          for (const k of keys) await caches.delete(k);
+        }
+        setStatus("تم تحديث Service Worker ومسح الكاش. سيتم إعادة تحميل الصفحة...", "ok");
+        setTimeout(() => window.location.reload(true), 800);
+      } catch (err) {
+        setStatus(resolveError(err, "تعذر مسح الكاش"), "error");
+      }
+    });
+
+    // تهيئة Firebase
     let auth = null;
     let db = null;
     let provider = null;
@@ -385,7 +729,7 @@
       provider = new GoogleAuthProvider();
       provider.setCustomParameters({ prompt: "select_account" });
     } catch (err) {
-      setStatus(resolveError(err, "فشل تهيئة Firebase"), true);
+      setStatus(resolveError(err, "فشل تهيئة Firebase"), "error");
       console.error(err);
     }
 
@@ -401,19 +745,30 @@
     let currentRole = "Member";
     let adminEmails = new Set();
     let allTasks = [];
+    let allGear = [];
+    let allAnnouncements = [];
     let unsubscribeTasks = null;
     let unsubscribeAdmins = null;
+    let unsubscribeGear = null;
+    let unsubscribeAnn = null;
 
     function computeRole(user) {
       if (!user) return "Member";
       const email = (user.email || "").toLowerCase();
-      if (email && OWNER_EMAIL !== "OWNER_EMAIL_HERE" && email === OWNER_EMAIL.toLowerCase()) {
-        return "Owner";
-      }
-      if (email && adminEmails.has(email)) {
-        return "Admin";
-      }
+      if (email && OWNER_EMAIL && email === OWNER_EMAIL.toLowerCase()) return "Owner";
+      if (email && adminEmails.has(email)) return "Admin";
       return "Member";
+    }
+
+    function updateStats() {
+      document.getElementById("statTotalTasks").textContent = String(allTasks.length);
+      document.getElementById("statPendingTasks").textContent = String(
+        allTasks.filter((t) => t.status !== "done").length
+      );
+      document.getElementById("statDoneTasks").textContent = String(
+        allTasks.filter((t) => t.status === "done").length
+      );
+      document.getElementById("statGearCount").textContent = String(allGear.length);
     }
 
     function renderUI() {
@@ -423,55 +778,66 @@
         logoutBtn.classList.add("hidden");
         userInfo.classList.add("hidden");
         adminBox.classList.add("hidden");
-        appBox.classList.add("hidden");
-        setStatus("سجّل الدخول بحساب Google أو البريد الإلكتروني أو رقم التليفون.", false);
+        workspaceBox.classList.add("hidden");
+        setStatus("سجّل الدخول بحساب Google أو البريد الإلكتروني أو رقم التليفون.", "normal");
         return;
       }
 
       currentRole = computeRole(currentUser);
-      const identityLabel = currentUser.email || currentUser.phoneNumber || currentUser.uid;
+      const identity = currentUser.email || currentUser.phoneNumber || currentUser.uid;
 
       loginGoogleBtn.classList.add("hidden");
       authMethodsSection.classList.add("hidden");
       otpRow.classList.add("hidden");
       logoutBtn.classList.remove("hidden");
       userInfo.classList.remove("hidden");
-      userInfo.textContent = `${identityLabel} (${currentRole})`;
-      appBox.classList.remove("hidden");
+      userInfo.textContent = `${identity} (${currentRole})`;
+      workspaceBox.classList.remove("hidden");
       adminBox.classList.toggle("hidden", currentRole !== "Owner");
-      setStatus(`تم تسجيل الدخول بنجاح — الصلاحية: ${currentRole}`, false);
+      setStatus(`تم تسجيل الدخول بنجاح — الصلاحية: ${currentRole}`, "ok");
+      updateStats();
       renderTasks();
+      renderGear();
+      renderAnnouncements();
     }
 
-    function canManageTask(task) {
+    function canManageItem(item) {
       if (!currentUser) return false;
       if (currentRole === "Owner" || currentRole === "Admin") return true;
-      return task.createdByUid === currentUser.uid;
+      return item.createdByUid === currentUser.uid;
     }
 
+    // عرض المهام
     function renderTasks() {
       const filter = filterSelect.value;
-      const filtered = allTasks.filter((t) => filter === "all" || t.status === filter);
-      tasksList.innerHTML = "";
+      const search = taskSearchInput.value.trim().toLowerCase();
 
+      const filtered = allTasks.filter((t) => {
+        const matchStatus = filter === "all" || t.status === filter;
+        const matchText = !search || String(t.title || "").toLowerCase().includes(search);
+        return matchStatus && matchText;
+      });
+
+      tasksList.innerHTML = "";
       if (filtered.length === 0) {
-        tasksList.innerHTML = `<p style="color:var(--muted); margin-top:12px;">لا توجد مهام مطابقة.</p>`;
+        tasksList.innerHTML = `<p class="hint" style="margin-top:12px;">لا توجد مهام مطابقة.</p>`;
         return;
       }
 
       filtered.forEach((task) => {
         const div = document.createElement("div");
-        div.className = "task";
+        div.className = "item-card";
 
         const left = document.createElement("div");
         const titleEl = document.createElement("div");
         titleEl.textContent = task.title || "بدون عنوان";
-        titleEl.style.fontWeight = "600";
+        titleEl.style.fontWeight = "700";
 
         const metaEl = document.createElement("div");
-        metaEl.style.fontSize = "12px";
-        metaEl.style.color = "var(--muted)";
-        metaEl.textContent = `الحالة: ${task.status === "done" ? "مكتملة" : "قيد التنفيذ"} — بواسطة: ${task.createdByLabel || "عضو"}`;
+        metaEl.className = "hint";
+        const prioText = task.priority === "high" ? "أولوية عالية" : "أولوية عادية";
+        const stText = task.status === "done" ? "مكتملة" : "قيد التنفيذ";
+        metaEl.textContent = `${stText} • ${prioText} • بواسطة: ${task.createdByLabel || "عضو"}`;
 
         left.appendChild(titleEl);
         left.appendChild(metaEl);
@@ -479,7 +845,7 @@
         const actions = document.createElement("div");
         actions.className = "row";
 
-        if (canManageTask(task)) {
+        if (canManageItem(task)) {
           const toggleBtn = document.createElement("button");
           toggleBtn.type = "button";
           toggleBtn.className = "secondary";
@@ -490,7 +856,7 @@
                 status: task.status === "done" ? "pending" : "done"
               });
             } catch (err) {
-              setStatus(resolveError(err, "تعذر تحديث حالة المهمة"), true);
+              setStatus(resolveError(err, "تعذر تحديث المهمة"), "error");
             }
           });
 
@@ -502,7 +868,7 @@
             try {
               await deleteDoc(doc(db, "tasks", task.id));
             } catch (err) {
-              setStatus(resolveError(err, "تعذر حذف المهمة"), true);
+              setStatus(resolveError(err, "تعذر حذف المهمة"), "error");
             }
           });
 
@@ -516,18 +882,136 @@
       });
     }
 
-    if (auth) {
-      getRedirectResult(auth).catch((err) => {
-        setStatus(resolveError(err, "تعذر إتمام تسجيل الدخول بعد إعادة التوجيه"), true);
+    // عرض معدات ROV
+    function renderGear() {
+      gearList.innerHTML = "";
+      if (allGear.length === 0) {
+        gearList.innerHTML = `<p class="hint" style="margin-top:12px;">لم تُضف معدات بعد.</p>`;
+        return;
+      }
+
+      allGear.forEach((item) => {
+        const div = document.createElement("div");
+        div.className = "item-card";
+
+        const left = document.createElement("div");
+        const titleEl = document.createElement("div");
+        titleEl.textContent = `${item.name || "قطعة"} × ${item.qty || 1}`;
+        titleEl.style.fontWeight = "700";
+
+        const metaEl = document.createElement("div");
+        metaEl.className = "hint";
+        metaEl.textContent = `أضافها: ${item.createdByLabel || "عضو"}`;
+
+        left.appendChild(titleEl);
+        left.appendChild(metaEl);
+
+        const right = document.createElement("div");
+        right.className = "row";
+
+        const badge = document.createElement("span");
+        badge.className = "badge";
+        if (item.state === "ready") {
+          badge.textContent = "جاهز";
+          badge.classList.add("ok");
+        } else if (item.state === "maintenance") {
+          badge.textContent = "صيانة / فحص";
+          badge.classList.add("warn");
+        } else {
+          badge.textContent = "ناقص / مطلوب";
+          badge.classList.add("danger");
+        }
+        right.appendChild(badge);
+
+        if (canManageItem(item)) {
+          const delBtn = document.createElement("button");
+          delBtn.type = "button";
+          delBtn.className = "danger";
+          delBtn.textContent = "حذف";
+          delBtn.addEventListener("click", async () => {
+            try {
+              await deleteDoc(doc(db, "gear", item.id));
+            } catch (err) {
+              setStatus(resolveError(err, "تعذر حذف القطعة"), "error");
+            }
+          });
+          right.appendChild(delBtn);
+        }
+
+        div.appendChild(left);
+        div.appendChild(right);
+        gearList.appendChild(div);
       });
     }
 
-    loginGoogleBtn.addEventListener("click", async () => {
-      if (!auth || !provider) {
-        setStatus("[ERR-01] Firebase غير مهيأ — راجع firebaseConfig.", true);
+    // عرض إعلانات الفريق
+    function renderAnnouncements() {
+      annList.innerHTML = "";
+      if (allAnnouncements.length === 0) {
+        annList.innerHTML = `<p class="hint" style="margin-top:12px;">لا توجد إعلانات حالياً.</p>`;
         return;
       }
-      setStatus("جاري فتح تسجيل الدخول بحساب Google...", false);
+
+      allAnnouncements.forEach((ann) => {
+        const div = document.createElement("div");
+        div.className = "item-card";
+
+        const left = document.createElement("div");
+        left.style.flex = "1";
+
+        const titleEl = document.createElement("div");
+        titleEl.textContent = ann.title || "إعلان";
+        titleEl.style.fontWeight = "700";
+
+        const bodyEl = document.createElement("div");
+        bodyEl.textContent = ann.body || "";
+        bodyEl.style.fontSize = "13px";
+        bodyEl.style.marginTop = "4px";
+
+        const metaEl = document.createElement("div");
+        metaEl.className = "hint";
+        metaEl.style.marginTop = "4px";
+        metaEl.textContent = `نشره: ${ann.createdByLabel || "عضو"}`;
+
+        left.appendChild(titleEl);
+        left.appendChild(bodyEl);
+        left.appendChild(metaEl);
+
+        div.appendChild(left);
+
+        if (canManageItem(ann)) {
+          const delBtn = document.createElement("button");
+          delBtn.type = "button";
+          delBtn.className = "danger";
+          delBtn.textContent = "حذف";
+          delBtn.addEventListener("click", async () => {
+            try {
+              await deleteDoc(doc(db, "announcements", ann.id));
+            } catch (err) {
+              setStatus(resolveError(err, "تعذر حذف الإعلان"), "error");
+            }
+          });
+          div.appendChild(delBtn);
+        }
+
+        annList.appendChild(div);
+      });
+    }
+
+    // نتيجة إعادة التوجيه (Google Redirect)
+    if (auth) {
+      getRedirectResult(auth).catch((err) => {
+        setStatus(resolveError(err, "تعذر إتمام تسجيل الدخول بعد إعادة التوجيه"), "error");
+      });
+    }
+
+    // تسجيل الدخول بحساب Google
+    loginGoogleBtn.addEventListener("click", async () => {
+      if (!auth || !provider) {
+        setStatus("[ERR-01] Firebase غير مهيأ.", "error");
+        return;
+      }
+      setStatus("جاري فتح تسجيل الدخول بحساب Google...", "normal");
       try {
         if (isMobileOrIOS()) {
           await signInWithRedirect(auth, provider);
@@ -545,28 +1029,29 @@
             await signInWithRedirect(auth, provider);
             return;
           } catch (redirErr) {
-            setStatus(resolveError(redirErr, "فشل تسجيل الدخول بحساب Google"), true);
+            setStatus(resolveError(redirErr, "فشل تسجيل الدخول بحساب Google"), "error");
             return;
           }
         }
-        setStatus(resolveError(err, "فشل تسجيل الدخول بحساب Google"), true);
+        setStatus(resolveError(err, "فشل تسجيل الدخول بحساب Google"), "error");
       }
     });
 
+    // البريد الإلكتروني وكلمة المرور
     emailSignInBtn.addEventListener("click", async () => {
       if (!auth) return;
       const email = emailInput.value.trim();
       const password = passwordInput.value;
       if (!email || !password) {
-        setStatus("[ERR-09] أدخل البريد الإلكتروني وكلمة المرور أولاً.", true);
+        setStatus("[ERR-09] أدخل البريد الإلكتروني وكلمة المرور.", "error");
         return;
       }
       emailSignInBtn.disabled = true;
-      setStatus("جاري تسجيل الدخول بالبريد الإلكتروني...", false);
+      setStatus("جاري تسجيل الدخول بالبريد الإلكتروني...", "normal");
       try {
         await signInWithEmailAndPassword(auth, email, password);
       } catch (err) {
-        setStatus(resolveError(err, "فشل الدخول بالبريد الإلكتروني"), true);
+        setStatus(resolveError(err, "فشل الدخول بالبريد الإلكتروني"), "error");
       } finally {
         emailSignInBtn.disabled = false;
       }
@@ -577,36 +1062,52 @@
       const email = emailInput.value.trim();
       const password = passwordInput.value;
       if (!email || !password) {
-        setStatus("[ERR-09] أدخل البريد الإلكتروني وكلمة المرور لإنشاء الحساب.", true);
+        setStatus("[ERR-09] أدخل البريد الإلكتروني وكلمة المرور لإنشاء الحساب.", "error");
         return;
       }
       emailSignUpBtn.disabled = true;
-      setStatus("جاري إنشاء الحساب...", false);
+      setStatus("جاري إنشاء الحساب...", "normal");
       try {
         await createUserWithEmailAndPassword(auth, email, password);
       } catch (err) {
-        setStatus(resolveError(err, "فشل إنشاء الحساب"), true);
+        setStatus(resolveError(err, "فشل إنشاء الحساب"), "error");
       } finally {
         emailSignUpBtn.disabled = false;
       }
     });
 
+    resetPassBtn.addEventListener("click", async () => {
+      if (!auth) return;
+      const email = emailInput.value.trim();
+      if (!email) {
+        setStatus("[ERR-09] اكتب البريد الإلكتروني في خانة البريد أولاً لإرسال رابط الاستعادة.", "error");
+        return;
+      }
+      try {
+        await sendPasswordResetEmail(auth, email);
+        setStatus(`تم إرسال رسالة إعادة تعيين كلمة المرور إلى ${email}.`, "ok");
+      } catch (err) {
+        setStatus(resolveError(err, "تعذر إرسال رابط الاستعادة"), "error");
+      }
+    });
+
+    // رقم التليفون (OTP)
     sendOtpBtn.addEventListener("click", async () => {
       if (!auth) return;
       const phoneNumber = normalizePhone(phoneInput.value);
       if (!/^\+\d{8,15}$/.test(phoneNumber)) {
-        setStatus("[ERR-15] اكتب رقم تليفون صحيح بصيغة دولية مثل +201012345678.", true);
+        setStatus("[ERR-15] اكتب رقم التليفون بصيغة دولية مثل +201012345678.", "error");
         return;
       }
       sendOtpBtn.disabled = true;
-      setStatus("جاري إرسال كود التحقق...", false);
+      setStatus("جاري إرسال كود التحقق...", "normal");
       try {
         const verifier = ensureRecaptcha();
         confirmationResult = await signInWithPhoneNumber(auth, phoneNumber, verifier);
         otpRow.classList.remove("hidden");
-        setStatus(`تم إرسال كود التحقق إلى ${phoneNumber}.`, false);
+        setStatus(`تم إرسال كود التحقق إلى ${phoneNumber}.`, "ok");
       } catch (err) {
-        setStatus(resolveError(err, "تعذر إرسال كود التحقق"), true);
+        setStatus(resolveError(err, "تعذر إرسال كود التحقق"), "error");
         if (recaptchaVerifier) {
           try { recaptchaVerifier.clear(); } catch (_) {}
           recaptchaVerifier = null;
@@ -619,50 +1120,104 @@
     verifyOtpBtn.addEventListener("click", async () => {
       const code = otpInput.value.trim();
       if (!confirmationResult || !code) {
-        setStatus("[ERR-18] أدخل كود التحقق أولاً.", true);
+        setStatus("[ERR-18] أدخل كود التحقق أولاً.", "error");
         return;
       }
       verifyOtpBtn.disabled = true;
-      setStatus("جاري التحقق من الكود...", false);
+      setStatus("جاري التحقق من الكود...", "normal");
       try {
         await confirmationResult.confirm(code);
         otpInput.value = "";
         phoneInput.value = "";
         confirmationResult = null;
       } catch (err) {
-        setStatus(resolveError(err, "تعذر تأكيد كود التحقق"), true);
+        setStatus(resolveError(err, "تعذر تأكيد كود التحقق"), "error");
       } finally {
         verifyOtpBtn.disabled = false;
       }
     });
 
+    // تسجيل الخروج
     logoutBtn.addEventListener("click", async () => {
       try {
         await signOut(auth);
       } catch (err) {
-        setStatus(resolveError(err, "تعذر تسجيل الخروج"), true);
+        setStatus(resolveError(err, "تعذر تسجيل الخروج"), "error");
       }
     });
 
+    // إضافة مهمة
     document.getElementById("addTaskBtn").addEventListener("click", async () => {
       const input = document.getElementById("taskTitleInput");
       const statusSel = document.getElementById("taskStatusSelect");
+      const prioSel = document.getElementById("taskPrioritySelect");
       const title = input.value.trim();
       if (!title || !currentUser) return;
+
       try {
         await addDoc(collection(db, "tasks"), {
           title,
           status: statusSel.value,
+          priority: prioSel.value,
           createdByUid: currentUser.uid,
           createdByLabel: currentUser.email || currentUser.phoneNumber || "عضو",
           createdAt: serverTimestamp()
         });
         input.value = "";
       } catch (err) {
-        setStatus(resolveError(err, "تعذر إضافة المهمة"), true);
+        setStatus(resolveError(err, "تعذر إضافة المهمة"), "error");
       }
     });
 
+    // إضافة قطعة معدات ROV
+    document.getElementById("addGearBtn").addEventListener("click", async () => {
+      const nameInput = document.getElementById("gearNameInput");
+      const qtyInput = document.getElementById("gearQtyInput");
+      const stateSel = document.getElementById("gearStateSelect");
+      const name = nameInput.value.trim();
+      const qty = Math.max(1, parseInt(qtyInput.value, 10) || 1);
+      if (!name || !currentUser) return;
+
+      try {
+        await addDoc(collection(db, "gear"), {
+          name,
+          qty,
+          state: stateSel.value,
+          createdByUid: currentUser.uid,
+          createdByLabel: currentUser.email || currentUser.phoneNumber || "عضو",
+          createdAt: serverTimestamp()
+        });
+        nameInput.value = "";
+        qtyInput.value = "1";
+      } catch (err) {
+        setStatus(resolveError(err, "تعذر إضافة القطعة"), "error");
+      }
+    });
+
+    // نشر إعلان للفريق
+    document.getElementById("addAnnBtn").addEventListener("click", async () => {
+      const titleInput = document.getElementById("annTitleInput");
+      const bodyInput = document.getElementById("annBodyInput");
+      const title = titleInput.value.trim();
+      const body = bodyInput.value.trim();
+      if (!title || !body || !currentUser) return;
+
+      try {
+        await addDoc(collection(db, "announcements"), {
+          title,
+          body,
+          createdByUid: currentUser.uid,
+          createdByLabel: currentUser.email || currentUser.phoneNumber || "عضو",
+          createdAt: serverTimestamp()
+        });
+        titleInput.value = "";
+        bodyInput.value = "";
+      } catch (err) {
+        setStatus(resolveError(err, "تعذر نشر الإعلان"), "error");
+      }
+    });
+
+    // إدارة المشرفين
     document.getElementById("addAdminBtn").addEventListener("click", async () => {
       const emailInput = document.getElementById("adminEmailInput");
       const email = emailInput.value.trim().toLowerCase();
@@ -675,7 +1230,7 @@
         });
         emailInput.value = "";
       } catch (err) {
-        setStatus(resolveError(err, "تعذر إضافة المشرف"), true);
+        setStatus(resolveError(err, "تعذر إضافة المشرف"), "error");
       }
     });
 
@@ -687,20 +1242,29 @@
         await deleteDoc(doc(db, "admins", encodeURIComponent(email)));
         emailInput.value = "";
       } catch (err) {
-        setStatus(resolveError(err, "تعذر إزالة المشرف"), true);
+        setStatus(resolveError(err, "تعذر إزالة المشرف"), "error");
       }
     });
 
     filterSelect.addEventListener("change", renderTasks);
+    taskSearchInput.addEventListener("input", renderTasks);
 
+    // مراقبة حالة المستخدم والمجموعات في Firestore
     if (auth && db) {
       onAuthStateChanged(auth, (user) => {
         currentUser = user;
-        if (unsubscribeTasks) { unsubscribeTasks(); unsubscribeTasks = null; }
-        if (unsubscribeAdmins) { unsubscribeAdmins(); unsubscribeAdmins = null; }
+        [unsubscribeTasks, unsubscribeAdmins, unsubscribeGear, unsubscribeAnn].forEach((fn) => {
+          if (typeof fn === "function") fn();
+        });
+        unsubscribeTasks = null;
+        unsubscribeAdmins = null;
+        unsubscribeGear = null;
+        unsubscribeAnn = null;
 
         if (!user) {
           allTasks = [];
+          allGear = [];
+          allAnnouncements = [];
           adminEmails = new Set();
           renderUI();
           return;
@@ -724,11 +1288,29 @@
           query(collection(db, "tasks"), orderBy("createdAt", "desc")),
           (snap) => {
             allTasks = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+            updateStats();
             renderTasks();
           },
-          (err) => {
-            setStatus(resolveError(err, "تعذر تحميل المهام"), true);
-          }
+          (err) => setStatus(resolveError(err, "تعذر تحميل المهام"), "error")
+        );
+
+        unsubscribeGear = onSnapshot(
+          query(collection(db, "gear"), orderBy("createdAt", "desc")),
+          (snap) => {
+            allGear = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+            updateStats();
+            renderGear();
+          },
+          (err) => setStatus(resolveError(err, "تعذر تحميل المعدات"), "error")
+        );
+
+        unsubscribeAnn = onSnapshot(
+          query(collection(db, "announcements"), orderBy("createdAt", "desc")),
+          (snap) => {
+            allAnnouncements = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+            renderAnnouncements();
+          },
+          (err) => setStatus(resolveError(err, "تعذر تحميل الإعلانات"), "error")
         );
 
         renderUI();
