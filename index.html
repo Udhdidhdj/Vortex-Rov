@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vortex ROV - Task Manager</title>
+  <title>Vortex ROV - إدارة مهام الفريق</title>
   <link rel="manifest" href="/Vortex-Rov/manifest.json" />
   <meta name="theme-color" content="#0b192c" />
   <style>
@@ -15,7 +15,7 @@
       --muted: #94a3b8;
       --border: #1e3a5f;
       --danger: #ef4444;
-      --ok: #22c55e;
+      --warn: #f59e0b;
     }
     * { box-sizing: border-box; font-family: system-ui, -apple-system, sans-serif; }
     body {
@@ -71,24 +71,30 @@
       background: #1e3a5f;
       color: #e2e8f0;
     }
-    .divider {
-      height: 1px;
-      background: var(--border);
-      margin: 12px 0;
-    }
-    .hint {
-      font-size: 12px;
-      color: var(--muted);
-    }
+    .divider { height: 1px; background: var(--border); margin: 12px 0; }
+    .hint { font-size: 12px; color: var(--muted); }
     .hidden { display: none; }
-    #statusMsg { font-size: 13px; color: var(--muted); margin-top: 8px; }
+    #statusBox {
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: rgba(11, 25, 44, 0.7);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+    #statusBox.error {
+      border-color: var(--danger);
+      color: #fecaca;
+      background: rgba(239, 68, 68, 0.12);
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <div class="card">
-      <h2 style="margin:0 0 8px 0;">Vortex ROV — إدارة المهام</h2>
-      <div id="statusMsg">جاري تهيئة النظام...</div>
+      <h2 style="margin:0 0 8px 0;">إدارة مهام الفريق - Vortex ROV</h2>
+      <div id="statusBox">جاري تهيئة النظام...</div>
 
       <div id="authBox" style="margin-top:12px;">
         <div class="row">
@@ -99,7 +105,7 @@
 
         <div id="authMethodsSection" class="stack">
           <div class="divider"></div>
-          <div class="hint">تسجيل الدخول أو إنشاء حساب بالبريد الإلكتروني وكلمة المرور:</div>
+          <div class="hint">البريد الإلكتروني وكلمة المرور:</div>
           <div class="row">
             <input id="emailInput" type="email" dir="ltr" placeholder="name@example.com" style="flex:1; min-width:190px;" />
             <input id="passwordInput" type="password" dir="ltr" placeholder="كلمة المرور (6 أحرف فأكثر)" style="flex:1; min-width:190px;" />
@@ -110,13 +116,13 @@
           </div>
 
           <div class="divider"></div>
-          <div class="hint">تسجيل الدخول برقم التليفون (مثال: +201012345678):</div>
+          <div class="hint">رقم التليفون (مثال: +201012345678):</div>
           <div class="row">
             <input id="phoneInput" type="tel" dir="ltr" placeholder="+201xxxxxxxxx" style="flex:1; min-width:190px;" />
             <button id="sendOtpBtn" type="button" class="secondary">إرسال كود التحقق</button>
           </div>
           <div id="otpRow" class="row hidden">
-            <input id="otpInput" type="text" dir="ltr" inputmode="numeric" placeholder="أدخل كود التحقق (6 أرقام)" style="flex:1; min-width:190px;" />
+            <input id="otpInput" type="text" dir="ltr" inputmode="numeric" placeholder="كود التحقق (6 أرقام)" style="flex:1; min-width:190px;" />
             <button id="verifyOtpBtn" type="button">تأكيد الدخول</button>
           </div>
           <div id="recaptcha-container"></div>
@@ -134,7 +140,7 @@
     </div>
 
     <div id="appBox" class="card hidden">
-      <h3 style="margin:0 0 10px 0;">المهام</h3>
+      <h3 style="margin:0 0 10px 0;">مهام الفريق</h3>
       <div class="row">
         <input id="taskTitleInput" type="text" placeholder="عنوان المهمة الجديدة..." style="flex:1; min-width:200px;" />
         <select id="taskStatusSelect">
@@ -197,7 +203,110 @@
       appId: "YOUR_APP_ID"
     };
 
-    const statusMsg = document.getElementById("statusMsg");
+    const ERROR_CATALOG = {
+      "auth/invalid-api-key": {
+        num: "ERR-01",
+        msg: "مفتاح Firebase API Key غير صحيح أو ناقص.",
+        fix: "تأكد من كتابة apiKey الصحيح لمشروع vortex-rov داخل firebaseConfig."
+      },
+      "auth/unauthorized-domain": {
+        num: "ERR-02",
+        msg: "الدومين الحالي غير مصرح به في Firebase.",
+        fix: "أضف udhdidhdj.github.io في Firebase Console ← Authentication ← Settings ← Authorized domains."
+      },
+      "auth/operation-not-allowed": {
+        num: "ERR-03",
+        msg: "طريقة تسجيل الدخول هذه غير مفعّلة في Firebase.",
+        fix: "فعّل المزود (Google / Phone / Email-Password) في Authentication ← Sign-in method."
+      },
+      "auth/popup-blocked": {
+        num: "ERR-04",
+        msg: "المتصفح منع النافذة المنبثقة لتسجيل الدخول.",
+        fix: "اسمح بالـ Pop-ups في المتصفح أو افتح الموقع في متصفح خارجي (Chrome/Safari)."
+      },
+      "auth/popup-closed-by-user": {
+        num: "ERR-05",
+        msg: "تم إغلاق نافذة تسجيل الدخول قبل إتمام العملية.",
+        fix: "أعد المحاولة وأكمل اختيار الحساب حتى النهاية."
+      },
+      "auth/cancelled-popup-request": {
+        num: "ERR-06",
+        msg: "تم إلغاء طلب نافذة الدخول بسبب ضغط متكرر أو تحويل.",
+        fix: "اضغط مرة واحدة فقط وانتظر فتح نافذة الدخول أو إعادة التوجيه."
+      },
+      "auth/operation-not-supported-in-this-environment": {
+        num: "ERR-07",
+        msg: "البيئة الحالية (WebView أو متصفح مدمج أو وضع غير آمن) لا تدعم هذه الخطوة.",
+        fix: "افتح الرابط في Chrome أو Safari مباشرة وتأكد من عدم حظر الكوكيز/التخزين."
+      },
+      "auth/network-request-failed": {
+        num: "ERR-08",
+        msg: "مشكلة في الاتصال بالإنترنت أو حجب طلب الشبكة.",
+        fix: "تحقق من الإنترنت أو أوقف أي مانع إعلانات/VPN/Proxy يعيق اتصال Firebase."
+      },
+      "auth/invalid-email": {
+        num: "ERR-09",
+        msg: "صيغة البريد الإلكتروني غير صحيحة.",
+        fix: "اكتب بريداً إلكترونياً صحيحاً مثل name@example.com."
+      },
+      "auth/weak-password": {
+        num: "ERR-10",
+        msg: "كلمة المرور ضعيفة أو أقل من 6 أحرف.",
+        fix: "اكتب كلمة مرور مكونة من 6 أحرف أو أرقام على الأقل."
+      },
+      "auth/email-already-in-use": {
+        num: "ERR-11",
+        msg: "هذا البريد الإلكتروني مسجل من قبل.",
+        fix: "اضغط «دخول بالبريد» بدلاً من «إنشاء حساب جديد» أو استخدم بريداً آخر."
+      },
+      "auth/invalid-credential": {
+        num: "ERR-12",
+        msg: "البريد الإلكتروني أو كلمة المرور غير صحيحة.",
+        fix: "راجع البريد وكلمة المرور، أو أنشئ حساباً جديداً إذا لم يكن موجوداً."
+      },
+      "auth/user-not-found": {
+        num: "ERR-13",
+        msg: "لا يوجد مستخدم مسجل بهذا البريد الإلكتروني.",
+        fix: "اضغط «إنشاء حساب جديد» لتسجيل الحساب أولاً."
+      },
+      "auth/wrong-password": {
+        num: "ERR-14",
+        msg: "كلمة المرور غير صحيحة.",
+        fix: "أدخل كلمة المرور الصحيحة لهذا الحساب."
+      },
+      "auth/invalid-phone-number": {
+        num: "ERR-15",
+        msg: "رقم التليفون غير صحيح.",
+        fix: "اكتب الرقم بصيغة دولية صحيحة تبدأ بـ + مثل +201012345678."
+      },
+      "auth/too-many-requests": {
+        num: "ERR-16",
+        msg: "تم إرسال طلبات كثيرة جداً في وقت قصير.",
+        fix: "انتظر بضع دقائق ثم أعد المحاولة، أو استخدم رقم اختبار في Firebase."
+      },
+      "auth/captcha-check-failed": {
+        num: "ERR-17",
+        msg: "فشل التحقق من reCAPTCHA الخاص برقم التليفون.",
+        fix: "تأكد من إضافة الدومين في Authorized domains وأعد تحميل الصفحة."
+      },
+      "auth/invalid-verification-code": {
+        num: "ERR-18",
+        msg: "كود التحقق المكون من 6 أرقام غير صحيح.",
+        fix: "تأكد من كتابة الكود الصحيح المرسل إلى هاتفك."
+      },
+      "auth/code-expired": {
+        num: "ERR-19",
+        msg: "انتهت صلاحية كود التحقق.",
+        fix: "اضغط «إرسال كود التحقق» مرة أخرى وأدخل الكود الجديد بسرعة."
+      },
+      "permission-denied": {
+        num: "ERR-20",
+        msg: "الصلاحيات مرفوضة من قاعدة بيانات Firestore.",
+        fix: "راجع Firestore Rules واسمح للمستخدم المسجل بالقراءة والكتابة حسب صلاحيته."
+      }
+    };
+
+    const statusBox = document.getElementById("statusBox");
     const loginGoogleBtn = document.getElementById("loginGoogleBtn");
     const logoutBtn = document.getElementById("logoutBtn");
     const authMethodsSection = document.getElementById("authMethodsSection");
@@ -216,17 +325,33 @@
     const tasksList = document.getElementById("tasksList");
     const filterSelect = document.getElementById("filterSelect");
 
-    function setStatus(text) {
-      statusMsg.textContent = text;
+    let unknownErrorCounter = 100;
+    const unknownCodeMap = new Map();
+
+    function setStatus(text, isError = false) {
+      statusBox.textContent = text;
+      statusBox.classList.toggle("error", Boolean(isError));
     }
 
-    function formatError(err, fallback = "حدث خطأ غير متوقع") {
-      if (!err) return fallback;
-      return `${fallback} (${err.code || err.message || "error"})`;
+    function resolveError(err, fallbackTitle = "حدث خطأ") {
+      const rawCode = (err && (err.code || err.message)) ? String(err.code || err.message) : "unknown";
+      const normalized = rawCode.replace(/^Firebase:\s*/i, "").replace(/\(.*\)\.?$/, "").trim();
+
+      if (ERROR_CATALOG[normalized]) {
+        const item = ERROR_CATALOG[normalized];
+        return `[${item.num}] ${fallbackTitle}: ${item.msg}\nالحل: ${item.fix} (${normalized})`;
+      }
+
+      if (!unknownCodeMap.has(rawCode)) {
+        unknownErrorCounter += 1;
+        unknownCodeMap.set(rawCode, `ERR-${unknownErrorCounter}`);
+      }
+      const num = unknownCodeMap.get(rawCode);
+      return `[${num}] ${fallbackTitle} — خطأ غير مصنف مسبقاً: ${rawCode}\nالحل: تأكد من إعدادات Firebase وافتح Console لمعرفة التفاصيل.`;
     }
 
-    function isIOS() {
-      return /iPad|iPhone|iPod/i.test(navigator.userAgent);
+    function isMobileOrIOS() {
+      return /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
     }
 
     function normalizePhone(raw) {
@@ -243,7 +368,7 @@
       window.addEventListener("load", () => {
         navigator.serviceWorker
           .register("/Vortex-Rov/service-worker.js")
-          .catch((err) => console.warn("ServiceWorker note:", err));
+          .catch((err) => console.warn("SW note:", err));
       });
     }
 
@@ -260,7 +385,7 @@
       provider = new GoogleAuthProvider();
       provider.setCustomParameters({ prompt: "select_account" });
     } catch (err) {
-      setStatus(formatError(err, "تحقق من إعدادات Firebase داخل index.html"));
+      setStatus(resolveError(err, "فشل تهيئة Firebase"), true);
       console.error(err);
     }
 
@@ -299,7 +424,7 @@
         userInfo.classList.add("hidden");
         adminBox.classList.add("hidden");
         appBox.classList.add("hidden");
-        setStatus("سجّل الدخول بحساب Google أو البريد الإلكتروني أو رقم التليفون.");
+        setStatus("سجّل الدخول بحساب Google أو البريد الإلكتروني أو رقم التليفون.", false);
         return;
       }
 
@@ -314,7 +439,7 @@
       userInfo.textContent = `${identityLabel} (${currentRole})`;
       appBox.classList.remove("hidden");
       adminBox.classList.toggle("hidden", currentRole !== "Owner");
-      setStatus(`تم تسجيل الدخول بنجاح — الصلاحية: ${currentRole}`);
+      setStatus(`تم تسجيل الدخول بنجاح — الصلاحية: ${currentRole}`, false);
       renderTasks();
     }
 
@@ -365,7 +490,7 @@
                 status: task.status === "done" ? "pending" : "done"
               });
             } catch (err) {
-              setStatus(formatError(err, "تعذر تحديث حالة المهمة"));
+              setStatus(resolveError(err, "تعذر تحديث حالة المهمة"), true);
             }
           });
 
@@ -377,7 +502,7 @@
             try {
               await deleteDoc(doc(db, "tasks", task.id));
             } catch (err) {
-              setStatus(formatError(err, "تعذر حذف المهمة"));
+              setStatus(resolveError(err, "تعذر حذف المهمة"), true);
             }
           });
 
@@ -393,18 +518,18 @@
 
     if (auth) {
       getRedirectResult(auth).catch((err) => {
-        setStatus(formatError(err, "حدث خطأ أثناء إتمام تسجيل الدخول"));
+        setStatus(resolveError(err, "تعذر إتمام تسجيل الدخول بعد إعادة التوجيه"), true);
       });
     }
 
     loginGoogleBtn.addEventListener("click", async () => {
       if (!auth || !provider) {
-        setStatus("Firebase غير مهيأ — راجع firebaseConfig.");
+        setStatus("[ERR-01] Firebase غير مهيأ — راجع firebaseConfig.", true);
         return;
       }
-      setStatus("جاري فتح تسجيل الدخول بحساب Google...");
+      setStatus("جاري فتح تسجيل الدخول بحساب Google...", false);
       try {
-        if (isIOS()) {
+        if (isMobileOrIOS()) {
           await signInWithRedirect(auth, provider);
           return;
         }
@@ -420,11 +545,11 @@
             await signInWithRedirect(auth, provider);
             return;
           } catch (redirErr) {
-            setStatus(formatError(redirErr, "حدث خطأ أثناء تسجيل الدخول"));
+            setStatus(resolveError(redirErr, "فشل تسجيل الدخول بحساب Google"), true);
             return;
           }
         }
-        setStatus(formatError(err, "حدث خطأ أثناء تسجيل الدخول"));
+        setStatus(resolveError(err, "فشل تسجيل الدخول بحساب Google"), true);
       }
     });
 
@@ -433,15 +558,15 @@
       const email = emailInput.value.trim();
       const password = passwordInput.value;
       if (!email || !password) {
-        setStatus("أدخل البريد الإلكتروني وكلمة المرور.");
+        setStatus("[ERR-09] أدخل البريد الإلكتروني وكلمة المرور أولاً.", true);
         return;
       }
       emailSignInBtn.disabled = true;
-      setStatus("جاري تسجيل الدخول بالبريد الإلكتروني...");
+      setStatus("جاري تسجيل الدخول بالبريد الإلكتروني...", false);
       try {
         await signInWithEmailAndPassword(auth, email, password);
       } catch (err) {
-        setStatus(formatError(err, "تعذر تسجيل الدخول بالبريد"));
+        setStatus(resolveError(err, "فشل الدخول بالبريد الإلكتروني"), true);
       } finally {
         emailSignInBtn.disabled = false;
       }
@@ -452,40 +577,36 @@
       const email = emailInput.value.trim();
       const password = passwordInput.value;
       if (!email || !password) {
-        setStatus("أدخل البريد الإلكتروني وكلمة المرور لإنشاء الحساب.");
+        setStatus("[ERR-09] أدخل البريد الإلكتروني وكلمة المرور لإنشاء الحساب.", true);
         return;
       }
       emailSignUpBtn.disabled = true;
-      setStatus("جاري إنشاء الحساب...");
+      setStatus("جاري إنشاء الحساب...", false);
       try {
         await createUserWithEmailAndPassword(auth, email, password);
       } catch (err) {
-        setStatus(formatError(err, "تعذر إنشاء الحساب"));
+        setStatus(resolveError(err, "فشل إنشاء الحساب"), true);
       } finally {
         emailSignUpBtn.disabled = false;
       }
     });
 
     sendOtpBtn.addEventListener("click", async () => {
-      if (!auth) {
-        setStatus("Firebase غير مهيأ — راجع firebaseConfig.");
-        return;
-      }
+      if (!auth) return;
       const phoneNumber = normalizePhone(phoneInput.value);
       if (!/^\+\d{8,15}$/.test(phoneNumber)) {
-        setStatus("اكتب رقم تليفون صحيح بصيغة دولية مثل +201012345678.");
+        setStatus("[ERR-15] اكتب رقم تليفون صحيح بصيغة دولية مثل +201012345678.", true);
         return;
       }
-
       sendOtpBtn.disabled = true;
-      setStatus("جاري إرسال كود التحقق...");
+      setStatus("جاري إرسال كود التحقق...", false);
       try {
         const verifier = ensureRecaptcha();
         confirmationResult = await signInWithPhoneNumber(auth, phoneNumber, verifier);
         otpRow.classList.remove("hidden");
-        setStatus(`تم إرسال كود التحقق إلى ${phoneNumber}.`);
+        setStatus(`تم إرسال كود التحقق إلى ${phoneNumber}.`, false);
       } catch (err) {
-        setStatus(formatError(err, "تعذر إرسال كود التحقق"));
+        setStatus(resolveError(err, "تعذر إرسال كود التحقق"), true);
         if (recaptchaVerifier) {
           try { recaptchaVerifier.clear(); } catch (_) {}
           recaptchaVerifier = null;
@@ -498,18 +619,18 @@
     verifyOtpBtn.addEventListener("click", async () => {
       const code = otpInput.value.trim();
       if (!confirmationResult || !code) {
-        setStatus("أدخل كود التحقق أولاً.");
+        setStatus("[ERR-18] أدخل كود التحقق أولاً.", true);
         return;
       }
       verifyOtpBtn.disabled = true;
-      setStatus("جاري التحقق من الكود...");
+      setStatus("جاري التحقق من الكود...", false);
       try {
         await confirmationResult.confirm(code);
         otpInput.value = "";
         phoneInput.value = "";
         confirmationResult = null;
       } catch (err) {
-        setStatus(formatError(err, "كود التحقق غير صحيح أو منتهي"));
+        setStatus(resolveError(err, "تعذر تأكيد كود التحقق"), true);
       } finally {
         verifyOtpBtn.disabled = false;
       }
@@ -519,7 +640,7 @@
       try {
         await signOut(auth);
       } catch (err) {
-        setStatus(formatError(err, "حدث خطأ أثناء تسجيل الخروج"));
+        setStatus(resolveError(err, "تعذر تسجيل الخروج"), true);
       }
     });
 
@@ -528,7 +649,6 @@
       const statusSel = document.getElementById("taskStatusSelect");
       const title = input.value.trim();
       if (!title || !currentUser) return;
-
       try {
         await addDoc(collection(db, "tasks"), {
           title,
@@ -539,7 +659,7 @@
         });
         input.value = "";
       } catch (err) {
-        setStatus(formatError(err, "تعذر إضافة المهمة"));
+        setStatus(resolveError(err, "تعذر إضافة المهمة"), true);
       }
     });
 
@@ -547,7 +667,6 @@
       const emailInput = document.getElementById("adminEmailInput");
       const email = emailInput.value.trim().toLowerCase();
       if (!email || currentRole !== "Owner") return;
-
       try {
         await setDoc(doc(db, "admins", encodeURIComponent(email)), {
           email,
@@ -556,7 +675,7 @@
         });
         emailInput.value = "";
       } catch (err) {
-        setStatus(formatError(err, "تعذر إضافة المشرف"));
+        setStatus(resolveError(err, "تعذر إضافة المشرف"), true);
       }
     });
 
@@ -564,12 +683,11 @@
       const emailInput = document.getElementById("adminEmailInput");
       const email = emailInput.value.trim().toLowerCase();
       if (!email || currentRole !== "Owner") return;
-
       try {
         await deleteDoc(doc(db, "admins", encodeURIComponent(email)));
         emailInput.value = "";
       } catch (err) {
-        setStatus(formatError(err, "تعذر إزالة المشرف"));
+        setStatus(resolveError(err, "تعذر إزالة المشرف"), true);
       }
     });
 
@@ -609,7 +727,7 @@
             renderTasks();
           },
           (err) => {
-            setStatus(formatError(err, "تعذر تحميل المهام — تحقق من قواعد Firestore"));
+            setStatus(resolveError(err, "تعذر تحميل المهام"), true);
           }
         );
 
