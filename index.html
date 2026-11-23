@@ -305,7 +305,7 @@
       gap: 10px;
     }
 
-    /* Exact layout from reference image, styled with Vortex ROV colors */
+    /* Sign In UI matching reference image with Vortex ROV colors */
     .signin-stage {
       border-radius: 26px;
       padding: clamp(24px, 4vw, 48px) clamp(14px, 3vw, 28px);
@@ -857,7 +857,7 @@
     <aside class="sidebar">
       <div>
         <div class="greeting-box">
-          <h2 id="t-greeting" class="greeting-title">مساء الخير</h2>
+          <h2 id="t-greeting" class="greeting-title">Good Evening</h2>
           <div class="greeting-sub">VORTEX ROV • MATE ROV</div>
         </div>
 
@@ -870,24 +870,24 @@
         </div>
 
         <div id="vortex-nav-section" class="hidden">
-          <div id="t-nav-acc" class="nav-group-label">الحساب</div>
+          <div id="t-nav-acc" class="nav-group-label">ACCOUNT</div>
           <nav class="nav-list">
-            <button type="button" class="nav-btn active" data-vpage="profile">👤 <span data-i18n="navProfile">ملفي الشخصي</span></button>
+            <button type="button" class="nav-btn active" data-vpage="profile">👤 <span data-i18n="navProfile">My Profile</span></button>
           </nav>
 
-          <div id="t-nav-work" class="nav-group-label">مساحة الفريق</div>
+          <div id="t-nav-work" class="nav-group-label">TEAM WORKSPACE</div>
           <nav class="nav-list">
-            <button type="button" class="nav-btn" data-vpage="tickets">📋 <span data-i18n="navTickets">المهام</span></button>
+            <button type="button" class="nav-btn" data-vpage="tickets">📋 <span data-i18n="navTickets">Team Tasks</span></button>
             <button type="button" class="nav-btn" data-vpage="timetable">🕒 <span data-i18n="navTimetable">Timetable</span></button>
-            <button type="button" class="nav-btn" data-vpage="teams">🎯 <span data-i18n="navTeams">التيمات والأعضاء</span></button>
-            <button type="button" class="nav-btn" data-vpage="points">🏆 <span data-i18n="navPoints">النقاط والترتيب</span></button>
-            <button type="button" class="nav-btn" data-vpage="chat">💬 <span data-i18n="navChat">شات الفريق</span></button>
+            <button type="button" class="nav-btn" data-vpage="teams">🎯 <span data-i18n="navTeams">Sub-teams & Members</span></button>
+            <button type="button" class="nav-btn" data-vpage="points">🏆 <span data-i18n="navPoints">Points & Leaderboard</span></button>
+            <button type="button" class="nav-btn" data-vpage="chat">💬 <span data-i18n="navChat">Team Chat</span></button>
           </nav>
 
           <div id="vortex-nav-admin-group" class="hidden">
-            <div id="t-nav-admin" class="nav-group-label">إدارة الأونر</div>
+            <div id="t-nav-admin" class="nav-group-label">OWNER CONTROLS</div>
             <nav class="nav-list">
-              <button type="button" class="nav-btn" data-vpage="owners">👑 <span data-i18n="navOwners">الملاك والحسابات</span></button>
+              <button type="button" class="nav-btn" data-vpage="owners">👑 <span data-i18n="navOwners">Owners & Accounts</span></button>
             </nav>
           </div>
         </div>
@@ -895,8 +895,8 @@
 
       <div class="stack" style="margin-top:16px;">
         <span id="vortex-device-badge" class="badge">💻 Auto-Detected Device</span>
-        <span id="vortex-net-badge" class="badge ok">● متصل بالشبكة</span>
-        <button id="vortex-logout-btn" type="button" class="secondary hidden">🚪 تسجيل الخروج</button>
+        <span id="vortex-net-badge" class="badge ok">● Online</span>
+        <button id="vortex-logout-btn" type="button" class="secondary hidden">🚪 Logout</button>
       </div>
     </aside>
 
@@ -909,8 +909,8 @@
             <span class="badge">GUI • Vision • Control • Mechanical • Electrical</span>
           </div>
           <div class="row">
-            <button id="vortex-theme-btn" type="button" class="secondary">🌙 الوضع الليلي</button>
-            <button id="vortex-lang-btn" type="button" class="secondary">🌐 English</button>
+            <button id="vortex-theme-btn" type="button" class="secondary">🌙 Dark Mode</button>
+            <button id="vortex-lang-btn" type="button" class="secondary">🌐 العربية</button>
           </div>
         </div>
 
@@ -965,7 +965,7 @@
               </div>
             </div>
 
-            <div id="vortex-status-box" class="signin-status-pill">⏳ جاري تحميل بيانات الحسابات...</div>
+            <div id="vortex-status-box" class="signin-status-pill">⏳ Loading account data...</div>
           </div>
         </section>
 
@@ -975,19 +975,19 @@
 
           <div class="stats-row">
             <div class="stat-card">
-              <div id="t-stat-total" class="stat-label">📌 إجمالي المهام</div>
+              <div id="t-stat-total" class="stat-label">📌 Total Tasks</div>
               <div id="stat-total-tasks" class="stat-value">0</div>
             </div>
             <div class="stat-card">
-              <div id="t-stat-pending" class="stat-label">⏳ قيد التنفيذ</div>
+              <div id="t-stat-pending" class="stat-label">⏳ Pending Tasks</div>
               <div id="stat-pending-tasks" class="stat-value">0</div>
             </div>
             <div class="stat-card">
-              <div id="t-stat-done" class="stat-label">✅ مهام مكتملة</div>
+              <div id="t-stat-done" class="stat-label">✅ Completed Tasks</div>
               <div id="stat-done-tasks" class="stat-value">0</div>
             </div>
             <div class="stat-card">
-              <div id="t-stat-points" class="stat-label">⭐ النقاط</div>
+              <div id="t-stat-points" class="stat-label">⭐ Points</div>
               <div id="stat-user-points" class="stat-value">0</div>
             </div>
           </div>
@@ -995,47 +995,47 @@
           <!-- 1. My Profile -->
           <section id="vpage-profile">
             <div class="page-header">
-              <h1 id="t-profile-heading" class="page-title">ملفي الشخصي</h1>
-              <p id="t-profile-sub" class="page-subtitle">صورة البروفايل، اليوزر نيم، التيم، باسورد الموقع، وتفاصيل الحساب.</p>
+              <h1 id="t-profile-heading" class="page-title">My Profile</h1>
+              <p id="t-profile-sub" class="page-subtitle">Profile photo, username, sub-team, site passcode, and account details.</p>
             </div>
 
             <div class="card">
-              <h3 id="t-acc-details" class="card-title">تفاصيل الحساب</h3>
+              <h3 id="t-acc-details" class="card-title">Account Details</h3>
 
               <div class="field-box" style="margin-bottom:14px;">
                 <div class="row" style="gap:14px;">
                   <div id="vortex-prof-photo-box" class="profile-photo-box">V</div>
                   <div>
-                    <div id="t-lbl-photo" class="field-label">صورة البروفايل</div>
+                    <div id="t-lbl-photo" class="field-label">Profile Photo</div>
                     <div id="vortex-prof-name" class="field-value">—</div>
-                    <div class="hint" id="t-photo-hint">ارفع صورة بروفايل من جهازك.</div>
+                    <div class="hint" id="t-photo-hint">Upload a profile photo from your device.</div>
                   </div>
                 </div>
                 <div class="row">
                   <input id="vortex-photo-file-input" type="file" accept="image/*" class="hidden" />
-                  <button id="vortex-upload-photo-btn" type="button">📷 اختيار صورة</button>
-                  <button id="vortex-remove-photo-btn" type="button" class="secondary">✖ إزالة</button>
+                  <button id="vortex-upload-photo-btn" type="button">📷 Choose Photo</button>
+                  <button id="vortex-remove-photo-btn" type="button" class="secondary">✖ Remove</button>
                 </div>
               </div>
 
               <div class="field-grid-2">
                 <div class="field-box">
                   <div>
-                    <div id="t-lbl-username" class="field-label">اسم المستخدم (Username)</div>
+                    <div id="t-lbl-username" class="field-label">Username</div>
                     <div id="vortex-prof-username" class="field-value">—</div>
                   </div>
                   <span id="vortex-prof-role" class="badge ok">Member</span>
                 </div>
                 <div class="field-box">
                   <div>
-                    <div id="t-lbl-email" class="field-label">البريد الإلكتروني</div>
+                    <div id="t-lbl-email" class="field-label">Email</div>
                     <div id="vortex-prof-contact" class="field-value">—</div>
                   </div>
                   <span id="vortex-prof-points-badge" class="badge warn">⭐ 0 pts</span>
                 </div>
                 <div class="field-box">
                   <div style="flex:1;">
-                    <div id="t-lbl-my-team" class="field-label">التيم الخاص بي</div>
+                    <div id="t-lbl-my-team" class="field-label">My Sub-team</div>
                     <div class="row" style="margin-top:6px;">
                       <select id="vortex-profile-team-select">
                         <option value="GUI">GUI</option>
@@ -1044,34 +1044,34 @@
                         <option value="Mechanical">Mechanical</option>
                         <option value="Electrical">Electrical</option>
                       </select>
-                      <button id="vortex-save-team-btn" type="button">💾 حفظ التيم</button>
+                      <button id="vortex-save-team-btn" type="button">💾 Save Team</button>
                     </div>
                   </div>
                 </div>
                 <div class="field-box">
                   <div style="min-width:0; flex:1;">
-                    <div id="t-lbl-site-pass" class="field-label">كلمة سر الموقع (Site Passcode)</div>
+                    <div id="t-lbl-site-pass" class="field-label">Site Passcode</div>
                     <div id="vortex-prof-site-pass" class="field-value" style="font-size:14px;">••••••</div>
                   </div>
-                  <button id="vortex-toggle-site-pass-btn" type="button" class="secondary">👁 إظهار</button>
+                  <button id="vortex-toggle-site-pass-btn" type="button" class="secondary">👁 Show</button>
                 </div>
                 <div class="field-box" style="grid-column: 1 / -1;">
                   <div style="min-width:0; flex:1;">
-                    <div id="t-lbl-uid" class="field-label">المعرف الخاص بالحساب (UID)</div>
+                    <div id="t-lbl-uid" class="field-label">Account UID</div>
                     <div id="vortex-prof-uid" class="field-value" style="font-size:13px;">—</div>
                   </div>
-                  <button id="vortex-copy-uid-btn" type="button" class="secondary">📋 نسخ المعرف</button>
+                  <button id="vortex-copy-uid-btn" type="button" class="secondary">📋 Copy UID</button>
                 </div>
               </div>
             </div>
 
             <div class="card">
-              <h3 id="t-pass-security-title" class="card-title">🔑 باسورد الموقع</h3>
+              <h3 id="t-pass-security-title" class="card-title">🔑 Site Passcode</h3>
               <div class="auth-panel">
-                <h3 id="t-change-site-pass-title">تغيير باسورد الموقع الخاص بك</h3>
-                <div class="hint" id="t-change-site-pass-hint">تغيير كلمة السر الخاصة بالموقع (4 أحرف فأكثر).</div>
-                <input id="vortex-new-site-pass-input" type="text" dir="ltr" placeholder="باسورد الموقع الجديد (4 أحرف فأكثر)" />
-                <button id="vortex-save-own-site-pass-btn" type="button">🔑 حفظ الباسورد</button>
+                <h3 id="t-change-site-pass-title">Change Your Site Passcode</h3>
+                <div class="hint" id="t-change-site-pass-hint">Update your site passcode (4 characters or more).</div>
+                <input id="vortex-new-site-pass-input" type="text" dir="ltr" placeholder="New site passcode (4+ chars)" />
+                <button id="vortex-save-own-site-pass-btn" type="button">🔑 Save Passcode</button>
               </div>
             </div>
           </section>
@@ -1079,23 +1079,23 @@
           <!-- 2. Team Tasks -->
           <section id="vpage-tickets" class="hidden">
             <div class="page-header">
-              <h1 id="t-tickets-heading" class="page-title">المهام</h1>
-              <p id="t-tickets-sub" class="page-subtitle">تابع مهام كل التيمات، ونفّذ المهام الخاصة بتيمك المعينة لك أو المفتوحة للتيم.</p>
+              <h1 id="t-tickets-heading" class="page-title">Team Tasks</h1>
+              <p id="t-tickets-sub" class="page-subtitle">Track all sub-team tasks and complete tasks assigned to you or open for your team.</p>
             </div>
 
             <div class="card">
               <div class="card-title">
-                <span id="t-task-filter-title">🔎 تصفية وبحث المهام</span>
+                <span id="t-task-filter-title">🔎 Filter & Search Tasks</span>
               </div>
               <div class="row">
-                <input id="vortex-task-search" type="text" placeholder="ابحث باسم المهمة أو التيم أو الإيميل..." style="flex:1; min-width:200px;" />
+                <input id="vortex-task-search" type="text" placeholder="Search by task, team, or email..." style="flex:1; min-width:200px;" />
                 <select id="vortex-task-filter">
-                  <option value="all" data-i18n="filterAll">الكل</option>
-                  <option value="pending" data-i18n="stPending">قيد التنفيذ</option>
-                  <option value="done" data-i18n="stDone">مكتملة</option>
+                  <option value="all" data-i18n="filterAll">All</option>
+                  <option value="pending" data-i18n="stPending">Pending</option>
+                  <option value="done" data-i18n="stDone">Completed</option>
                 </select>
                 <select id="vortex-task-team-filter">
-                  <option value="all" data-i18n="teamAll">كل التيمات</option>
+                  <option value="all" data-i18n="teamAll">All Teams</option>
                   <option value="GUI">GUI</option>
                   <option value="Vision">Vision</option>
                   <option value="Control">Control</option>
@@ -1103,20 +1103,20 @@
                   <option value="Electrical">Electrical</option>
                 </select>
                 <select id="vortex-task-assignee-filter">
-                  <option value="all" data-i18n="assigneeAll">كل المسؤولين</option>
+                  <option value="all" data-i18n="assigneeAll">All Assignees</option>
                 </select>
               </div>
             </div>
 
             <div class="card">
               <div class="card-title">
-                <span id="t-tasks-list-heading">📋 قائمة المهام</span>
+                <span id="t-tasks-list-heading">📋 Tasks List</span>
                 <span id="vortex-tasks-count-badge" class="badge">0</span>
               </div>
 
               <div id="vortex-owner-task-controls">
                 <div class="row">
-                  <input id="vortex-task-title" type="text" placeholder="عنوان المهمة الجديدة..." style="flex:1; min-width:200px;" />
+                  <input id="vortex-task-title" type="text" placeholder="New task title..." style="flex:1; min-width:200px;" />
                   <select id="vortex-task-team">
                     <option value="GUI">GUI</option>
                     <option value="Vision">Vision</option>
@@ -1125,21 +1125,21 @@
                     <option value="Electrical">Electrical</option>
                   </select>
                   <select id="vortex-task-priority">
-                    <option value="normal" data-i18n="prioNormal">أولوية عادية (+10 pts)</option>
-                    <option value="high" data-i18n="prioHigh">أولوية عالية (+20 pts)</option>
-                    <option value="urgent" data-i18n="prioUrgent">عاجلة (+30 pts)</option>
+                    <option value="normal" data-i18n="prioNormal">Normal Priority (+10 pts)</option>
+                    <option value="high" data-i18n="prioHigh">High Priority (+20 pts)</option>
+                    <option value="urgent" data-i18n="prioUrgent">Urgent (+30 pts)</option>
                   </select>
-                  <button id="vortex-pick-assignee-btn" type="button" class="secondary">👤 اختيار الشخص المسؤول</button>
-                  <button id="vortex-add-task-btn" type="button">➕ إضافة مهمة</button>
+                  <button id="vortex-pick-assignee-btn" type="button" class="secondary">👤 Select Assignee</button>
+                  <button id="vortex-add-task-btn" type="button">➕ Add Task</button>
                 </div>
 
                 <div id="vortex-assignee-picker" class="assignee-picker hidden">
                   <div class="row" style="justify-content:space-between; margin-bottom:10px;">
-                    <strong id="t-pick-assignee-title" style="font-size:13.5px;">✉ اختر الشخص المسؤول في التيم المختار:</strong>
+                    <strong id="t-pick-assignee-title" style="font-size:13.5px;">✉ Select Assignee in Selected Team:</strong>
                     <span id="vortex-selected-assignee-label" class="badge picked"></span>
                   </div>
                   <select id="vortex-task-assignee-select" style="width:100%; margin-bottom:10px;">
-                    <option value="" data-i18n="unassignedOption">بدون تعيين محدد (أي حد في التيم)</option>
+                    <option value="" data-i18n="unassignedOption">Unassigned (Anyone on Team)</option>
                   </select>
                   <div id="vortex-assignee-chips" class="row"></div>
                   <div id="vortex-team-assignee-hint" class="hint" style="margin-top:10px;"></div>
@@ -1154,21 +1154,21 @@
           <section id="vpage-timetable" class="hidden">
             <div class="page-header">
               <h1 id="t-timetable-heading" class="page-title">🕒 Timetable</h1>
-              <p id="t-timetable-sub" class="page-subtitle">أضف مواعيد انشغالك من السبت للجمعة؛ العضو يرى مواعيده فقط والأونر يرى مواعيد الجميع.</p>
+              <p id="t-timetable-sub" class="page-subtitle">Add your busy slots from Saturday to Friday; members see their own slots and owners see everyone's.</p>
             </div>
 
             <div id="vortex-availability-card" class="card hidden">
               <div class="card-title">
-                <span id="t-common-free-title">🤝 ملخص الأوقات الفاضية والمواعيد</span>
+                <span id="t-common-free-title">🤝 Free Windows & Schedule Summary</span>
                 <div class="row">
                   <select id="vortex-overlap-day">
-                    <option value="Saturday">السبت / Saturday</option>
-                    <option value="Sunday">الأحد / Sunday</option>
-                    <option value="Monday">الاثنين / Monday</option>
-                    <option value="Tuesday">الثلاثاء / Tuesday</option>
-                    <option value="Wednesday">الأربعاء / Wednesday</option>
-                    <option value="Thursday">الخميس / Thursday</option>
-                    <option value="Friday">الجمعة / Friday</option>
+                    <option value="Saturday">Saturday</option>
+                    <option value="Sunday">Sunday</option>
+                    <option value="Monday">Monday</option>
+                    <option value="Tuesday">Tuesday</option>
+                    <option value="Wednesday">Wednesday</option>
+                    <option value="Thursday">Thursday</option>
+                    <option value="Friday">Friday</option>
                   </select>
                   <select id="vortex-overlap-scope" class="hidden">
                     <option value="ALL">All Teams</option>
@@ -1178,7 +1178,7 @@
                     <option value="Control">Control</option>
                     <option value="Mechanical">Mechanical</option>
                   </select>
-                  <button id="vortex-copy-free-btn" type="button" class="secondary">📋 نسخ الملخص</button>
+                  <button id="vortex-copy-free-btn" type="button" class="secondary">📋 Copy Summary</button>
                 </div>
               </div>
               <div id="vortex-overlap-summary"></div>
@@ -1187,28 +1187,28 @@
 
             <div class="card">
               <div class="card-title">
-                <span id="t-days-grid-title">📆 إضافة المواعيد (السبت ← الجمعة)</span>
-                <span id="vortex-my-weekly-hours" class="badge ok">⏱ إجمالي الأسبوع: 0.0 ساعة</span>
+                <span id="t-days-grid-title">📆 Add Busy Slots (Saturday ← Friday)</span>
+                <span id="vortex-my-weekly-hours" class="badge ok">⏱ Weekly Total: 0.0 hrs</span>
               </div>
               <div id="vortex-days-grid" class="days-grid"></div>
             </div>
 
             <div class="card">
               <div class="card-title">
-                <span id="t-busy-list-title">📋 سجل مواعيدك وساعاتك</span>
+                <span id="t-busy-list-title">📋 Your Busy Slots & Hours</span>
                 <div class="row">
                   <select id="vortex-busy-day-filter">
-                    <option value="all">كل الأيام</option>
-                    <option value="Saturday">السبت / Saturday</option>
-                    <option value="Sunday">الأحد / Sunday</option>
-                    <option value="Monday">الاثنين / Monday</option>
-                    <option value="Tuesday">الثلاثاء / Tuesday</option>
-                    <option value="Wednesday">الأربعاء / Wednesday</option>
-                    <option value="Thursday">الخميس / Thursday</option>
-                    <option value="Friday">الجمعة / Friday</option>
+                    <option value="all">All Days</option>
+                    <option value="Saturday">Saturday</option>
+                    <option value="Sunday">Sunday</option>
+                    <option value="Monday">Monday</option>
+                    <option value="Tuesday">Tuesday</option>
+                    <option value="Wednesday">Wednesday</option>
+                    <option value="Thursday">Thursday</option>
+                    <option value="Friday">Friday</option>
                   </select>
                   <select id="vortex-busy-team-filter" class="hidden">
-                    <option value="all">كل التيمات</option>
+                    <option value="all">All Teams</option>
                     <option value="GUI">GUI</option>
                     <option value="Vision">Vision</option>
                     <option value="Control">Control</option>
@@ -1224,13 +1224,13 @@
           <!-- 4. Sub-teams & Members -->
           <section id="vpage-teams" class="hidden">
             <div class="page-header">
-              <h1 id="t-teams-page-heading" class="page-title">التيمات والأعضاء</h1>
-              <p id="t-teams-page-sub" class="page-subtitle">تعرف على أعضاء كل تيم ونسبة إنجاز المهام.</p>
+              <h1 id="t-teams-page-heading" class="page-title">Sub-teams & Members</h1>
+              <p id="t-teams-page-sub" class="page-subtitle">View members per sub-team and task completion progress.</p>
             </div>
 
             <div class="card">
               <div class="card-title">
-                <span id="t-teams-filter-lbl">🎯 اختر التيم لعرض أعضائه ومهامه:</span>
+                <span id="t-teams-filter-lbl">🎯 Select Sub-team to View Members & Tasks:</span>
                 <div id="vortex-team-tabs" class="row">
                   <button type="button" class="email-chip-btn selected" data-view-team="ALL">ALL</button>
                   <button type="button" class="email-chip-btn" data-view-team="GUI">GUI</button>
@@ -1247,13 +1247,13 @@
           <!-- 5. Points & Leaderboard -->
           <section id="vpage-points" class="hidden">
             <div class="page-header">
-              <h1 id="t-points-heading" class="page-title">النقاط والترتيب</h1>
-              <p id="t-points-sub" class="page-subtitle">النقاط تُحسب من أولوية المهمة + مكافأة السرعة والترتيب (#1 +15، #2 +10، #3 +5، والباقي +2).</p>
+              <h1 id="t-points-heading" class="page-title">Points & Leaderboard</h1>
+              <p id="t-points-sub" class="page-subtitle">Points are earned from task priority + speed rank bonus (#1 +15, #2 +10, #3 +5, others +2).</p>
             </div>
 
             <div class="card">
               <div class="card-title">
-                <span id="t-lb-members-title">🏆 ترتيب الأعضاء بالنقاط والسرعة</span>
+                <span id="t-lb-members-title">🏆 Member Points & Speed Leaderboard</span>
                 <span class="badge warn">⚡ Speed Bonus: #1 +15 • #2 +10 • #3 +5</span>
               </div>
               <div id="vortex-points-list"></div>
@@ -1263,19 +1263,19 @@
           <!-- 6. Team Chat -->
           <section id="vpage-chat" class="hidden">
             <div class="page-header">
-              <h1 id="t-chat-heading" class="page-title">شات الفريق</h1>
-              <p id="t-chat-sub" class="page-subtitle">مساحة تواصل مباشرة لجميع أعضاء التيم والأونر.</p>
+              <h1 id="t-chat-heading" class="page-title">Team Chat</h1>
+              <p id="t-chat-sub" class="page-subtitle">Direct communication space for all team members and owners.</p>
             </div>
 
             <div class="card">
               <div class="card-title">
-                <span>💬 <span data-i18n="navChat">شات الفريق</span></span>
-                <button id="vortex-scroll-chat-btn" type="button" class="secondary">⬇ آخر الرسائل</button>
+                <span>💬 <span data-i18n="navChat">Team Chat</span></span>
+                <button id="vortex-scroll-chat-btn" type="button" class="secondary">⬇ Latest Messages</button>
               </div>
               <div id="vortex-chat-box" class="chat-box"></div>
               <div class="row">
-                <input id="vortex-chat-input" type="text" placeholder="اكتب رسالة للفريق..." style="flex:1; min-width:200px;" />
-                <button id="vortex-send-chat-btn" type="button">📨 إرسال</button>
+                <input id="vortex-chat-input" type="text" placeholder="Write a message to the team..." style="flex:1; min-width:200px;" />
+                <button id="vortex-send-chat-btn" type="button">📨 Send</button>
               </div>
             </div>
           </section>
@@ -1283,18 +1283,17 @@
           <!-- 7. Owners & Roster (Owner Only) -->
           <section id="vpage-owners" class="hidden">
             <div class="page-header">
-              <h1 id="t-owners-page-title" class="page-title">الملاك والحسابات</h1>
-              <p id="t-owners-page-sub" class="page-subtitle">صلاحيات الأونر: إنشاء حساب عضو، حذف الحسابات، وإدارة الملاك (أي أونر يمكنه حذف أي أونر).</p>
+              <h1 id="t-owners-page-title" class="page-title">Owners & Accounts</h1>
+              <p id="t-owners-page-sub" class="page-subtitle">Owner controls: create member accounts, delete accounts, and manage owners (any owner can remove any owner).</p>
             </div>
 
-            <!-- Create Member Account (Owner Only) -->
             <div class="card">
               <div class="card-title">
-                <span id="t-create-member-title">➕ إنشاء حساب عضو جديد (للأونر فقط)</span>
+                <span id="t-create-member-title">➕ Create New Member Account (Owner Only)</span>
                 <span class="badge ok">Owner Account Creator</span>
               </div>
               <div class="row">
-                <input id="vortex-new-member-name" type="text" placeholder="اسم العضو الكامل (مثال: عمر علي)" style="flex:1; min-width:170px;" />
+                <input id="vortex-new-member-name" type="text" placeholder="Full name (e.g. Omar Ali)" style="flex:1; min-width:170px;" />
                 <input id="vortex-new-member-email" type="email" dir="ltr" placeholder="member@gmail.com" style="flex:1; min-width:190px;" />
                 <select id="vortex-new-member-team">
                   <option value="GUI">GUI</option>
@@ -1305,11 +1304,11 @@
                 </select>
               </div>
               <div class="row" style="margin-top:10px;">
-                <input id="vortex-new-member-username" type="text" dir="ltr" placeholder="يوزر نيم تلقائي" style="min-width:180px; flex:1;" />
-                <button id="vortex-regen-username-btn" type="button" class="secondary">🎲 توليد يوزر</button>
-                <input id="vortex-new-member-pass" type="text" dir="ltr" placeholder="باسورد الحساب (أو عشوائي)" style="min-width:170px; flex:1;" />
-                <button id="vortex-regen-pass-btn" type="button" class="secondary">🎲 توليد باسورد</button>
-                <button id="vortex-create-member-btn" type="button">✅ إنشاء حساب العضو</button>
+                <input id="vortex-new-member-username" type="text" dir="ltr" placeholder="Auto username" style="min-width:180px; flex:1;" />
+                <button id="vortex-regen-username-btn" type="button" class="secondary">🎲 Gen Username</button>
+                <input id="vortex-new-member-pass" type="text" dir="ltr" placeholder="Account passcode (or random)" style="min-width:170px; flex:1;" />
+                <button id="vortex-regen-pass-btn" type="button" class="secondary">🎲 Gen Passcode</button>
+                <button id="vortex-create-member-btn" type="button">✅ Create Member Account</button>
               </div>
             </div>
 
@@ -1320,8 +1319,8 @@
               </div>
               <div class="row">
                 <input id="vortex-owner-email-input" type="email" dir="ltr" placeholder="owner@gmail.com" style="flex:1; min-width:200px;" />
-                <button id="vortex-add-owner-btn" type="button">➕ إضافة Owner</button>
-                <button id="vortex-remove-owner-btn" type="button" class="danger">✖ إزالة Owner</button>
+                <button id="vortex-add-owner-btn" type="button">➕ Add Owner</button>
+                <button id="vortex-remove-owner-btn" type="button" class="danger">✖ Remove Owner</button>
               </div>
               <div id="vortex-owners-list" class="row" style="margin-top:12px;"></div>
 
@@ -1334,17 +1333,17 @@
                   <option value="Mechanical">Mechanical</option>
                   <option value="Electrical">Electrical</option>
                 </select>
-                <button id="vortex-add-roster-btn" type="button" class="secondary">✉ ربط إيميل بتيم</button>
+                <button id="vortex-add-roster-btn" type="button" class="secondary">✉ Link Email to Team</button>
               </div>
               <div id="vortex-roster-list" class="row" style="margin-top:10px;"></div>
             </div>
 
             <div class="card">
               <div class="card-title">
-                <span id="t-all-accounts-title">🗂 جميع الحسابات واليوزر نيم والباسوردات</span>
+                <span id="t-all-accounts-title">🗂 All Accounts, Usernames & Passcodes</span>
                 <span id="vortex-accounts-count-badge" class="badge ok">0</span>
               </div>
-              <div class="hint" id="t-pass-note-owner">للأونر: رؤية وتغيير باسورد أي حساب، تعديل التيم، أو حذف أي حساب (بما في ذلك أي أونر).</div>
+              <div class="hint" id="t-pass-note-owner">For Owners: view and update any account's passcode, update sub-team, or delete any account (including any owner).</div>
               <div id="vortex-owner-accounts-directory"></div>
             </div>
           </section>
@@ -1436,133 +1435,141 @@
         missingLoginCreds: "Please enter your username or email and password.",
         invalidLoginCreds: "Invalid username/email or password, or account was not created by Owner.",
         signedInOk: "✔ Signed in successfully.",
-        logout: "🚪 تسجيل الخروج",
-        profileHeading: "ملفي الشخصي",
-        profileSub: "صورة البروفايل، اليوزر نيم، التيم، باسورد الموقع، وتفاصيل الحساب.",
-        accDetails: "تفاصيل الحساب",
-        lblPhoto: "صورة البروفايل",
-        photoHint: "ارفع صورة بروفايل من جهازك.",
-        uploadPhotoBtn: "📷 اختيار صورة",
-        removePhotoBtn: "✖ إزالة",
-        photoUpdatedOk: "✔ تم تحديث صورة البروفايل.",
-        photoRemovedOk: "✔ تم إزالة صورة البروفايل.",
-        lblUsername: "اسم المستخدم (Username)",
-        lblEmail: "البريد الإلكتروني",
-        lblMyTeam: "التيم الخاص بي",
-        lblSitePass: "كلمة سر الموقع (Site Passcode)",
-        showBtn: "👁 إظهار",
-        hideBtn: "🙈 إخفاء",
-        saveTeam: "💾 حفظ التيم",
-        teamSaved: "تم حفظ التيم بنجاح.",
-        lblUid: "المعرف الخاص بالحساب (UID)",
-        copyUid: "📋 نسخ المعرف",
-        copiedUidOk: "✔ تم نسخ المعرف الخاص بك.",
-        passSecurityTitle: "🔑 باسورد الموقع",
-        changeSitePassTitle: "تغيير باسورد الموقع الخاص بك",
-        changeSitePassHint: "تغيير كلمة السر الخاصة بالموقع (4 أحرف فأكثر).",
-        newSitePassPh: "باسورد الموقع الجديد (4 أحرف فأكثر)",
-        saveOwnSitePassBtn: "🔑 حفظ الباسورد",
-        sitePassSavedOk: "✔ تم تحديث الباسورد بنجاح.",
-        sitePassMinErr: "الباسورد لازم يكون 4 أحرف أو أرقام على الأقل.",
-        ticketsHeading: "المهام",
-        ticketsSub: "تابع مهام كل التيمات، ونفّذ المهام الخاصة بتيمك المعينة لك أو المفتوحة للتيم.",
-        taskFilterTitle: "🔎 تصفية وبحث المهام",
-        searchPh: "ابحث باسم المهمة أو التيم أو الإيميل...",
-        filterAll: "الكل",
-        teamAll: "كل التيمات",
-        assigneeAll: "كل المسؤولين",
-        unassignedOption: "بدون تعيين محدد (أي حد في التيم)",
-        pickAssigneeBtn: "👤 اختيار الشخص المسؤول",
-        pickAssigneeTitle: "✉ اختر الشخص المسؤول في التيم المختار:",
-        noTeamMemberHint: "لا يوجد أعضاء مرتبطون بتيم {team} حاليًا — يمكنك اختيار «بدون تعيين محدد» أو إضافة عضو لتيم {team}.",
-        assignedTo: "المسؤول",
-        openForTeam: "متاحة لأي عضو في التيم",
-        tasksListHeading: "📋 قائمة المهام",
-        taskPh: "عنوان المهمة الجديدة...",
-        prioNormal: "أولوية عادية (+10 pts)",
-        prioHigh: "أولوية عالية (+20 pts)",
-        prioUrgent: "عاجلة (+30 pts)",
-        stPending: "قيد التنفيذ",
-        stDone: "مكتملة",
-        addTask: "➕ إضافة مهمة",
-        noTasks: "لا توجد مهام مطابقة.",
-        reopen: "↩ إعادة فتح",
-        complete: "✔ إتمام",
-        markDoneMember: "✔ تم التنفيذ",
-        deleteBtn: "🗑 حذف",
-        deleteAccountBtn: "🗑 حذف الحساب",
-        confirmDeleteMsg: "هل أنت متأكد من حذف حساب ({name}) نهائيًا؟",
-        untitled: "بدون عنوان",
-        member: "عضو",
-        by: "بواسطة",
+        loadingAccounts: "⏳ Loading account data...",
+        logout: "🚪 Logout",
+        profileHeading: "My Profile",
+        profileSub: "Profile photo, username, sub-team, site passcode, and account details.",
+        accDetails: "Account Details",
+        lblPhoto: "Profile Photo",
+        photoHint: "Upload a profile photo from your device.",
+        uploadPhotoBtn: "📷 Choose Photo",
+        removePhotoBtn: "✖ Remove",
+        photoUpdatedOk: "✔ Profile photo updated.",
+        photoRemovedOk: "✔ Profile photo removed.",
+        lblUsername: "Username",
+        lblEmail: "Email",
+        lblMyTeam: "My Sub-team",
+        lblSitePass: "Site Passcode",
+        showBtn: "👁 Show",
+        hideBtn: "🙈 Hide",
+        saveTeam: "💾 Save Team",
+        teamSaved: "✔ Sub-team saved successfully.",
+        lblUid: "Account UID",
+        copyUid: "📋 Copy UID",
+        copiedUidOk: "✔ Copied your UID.",
+        passSecurityTitle: "🔑 Site Passcode",
+        changeSitePassTitle: "Change Your Site Passcode",
+        changeSitePassHint: "Update your site passcode (4 characters or more).",
+        newSitePassPh: "New site passcode (4+ chars)",
+        saveOwnSitePassBtn: "🔑 Save Passcode",
+        sitePassSavedOk: "✔ Passcode updated successfully.",
+        sitePassMinErr: "Passcode must be at least 4 characters.",
+        ticketsHeading: "Team Tasks",
+        ticketsSub: "Track all sub-team tasks and complete tasks assigned to you or open for your team.",
+        taskFilterTitle: "🔎 Filter & Search Tasks",
+        searchPh: "Search by task, team, or email...",
+        filterAll: "All",
+        allDaysOption: "All Days",
+        allTeamsOption: "All Teams",
+        teamAll: "All Teams",
+        assigneeAll: "All Assignees",
+        unassignedOption: "Unassigned (Anyone on Team)",
+        pickAssigneeBtn: "👤 Select Assignee",
+        pickAssigneeTitle: "✉ Select Assignee in Selected Team:",
+        noTeamMemberHint: "No members linked to {team} yet — choose «Unassigned» or link an email to {team}.",
+        assignedTo: "Assignee",
+        openForTeam: "Open for Team",
+        tasksListHeading: "📋 Tasks List",
+        taskPh: "New task title...",
+        prioNormal: "Normal Priority (+10 pts)",
+        prioHigh: "High Priority (+20 pts)",
+        prioUrgent: "Urgent (+30 pts)",
+        stPending: "Pending",
+        stDone: "Completed",
+        addTask: "➕ Add Task",
+        noTasks: "No matching tasks found.",
+        reopen: "↩ Reopen",
+        complete: "✔ Complete",
+        markDoneMember: "✔ Mark Done",
+        deleteBtn: "🗑 Delete",
+        removeOwnerTitle: "Remove Owner",
+        deleteAccountBtn: "🗑 Delete Account",
+        confirmDeleteMsg: "Are you sure you want to permanently delete account ({name})?",
+        untitled: "Untitled",
+        member: "Member",
+        owner: "Owner",
+        by: "By",
         timetableHeading: "🕒 Timetable",
-        timetableSub: "أضف مواعيد انشغالك من السبت للجمعة؛ العضو يرى مواعيده فقط والأونر يرى مواعيد الجميع.",
-        commonFreeTitle: "🤝 ملخص الأوقات الفاضية والمواعيد",
-        copyFreeBtn: "📋 نسخ الملخص",
-        copiedFreeOk: "✔ تم نسخ الملخص بنجاح.",
-        daysGridTitle: "📆 إضافة المواعيد (السبت ← الجمعة)",
-        busyListTitle: "📋 سجل مواعيدك وساعاتك",
-        busyListOwnerTitle: "📋 سجل مواعيد وساعات كل الأعضاء",
-        activityNamePh: "النشاط (درس، تدريب، مدرسة...)",
-        noteOptionalPh: "ملاحظة (اختياري)",
-        repeatWeeklyLbl: "تكرار أسبوعي",
-        oneTimeLbl: "مرة واحدة",
-        saveBusyBtn: "➕ حفظ الموعد",
-        fromLbl: "من",
-        toLbl: "إلى",
+        timetableSub: "Add your busy slots from Saturday to Friday; members see their own slots and owners see everyone's.",
+        commonFreeTitle: "🤝 Free Windows & Schedule Summary",
+        copyFreeBtn: "📋 Copy Summary",
+        copiedFreeOk: "✔ Summary copied to clipboard.",
+        daysGridTitle: "📆 Add Busy Slots (Saturday ← Friday)",
+        busyListTitle: "📋 Your Busy Slots & Hours",
+        busyListOwnerTitle: "📋 All Members Busy Slots & Hours",
+        activityNamePh: "Activity (class, training, school...)",
+        noteOptionalPh: "Note (optional)",
+        repeatWeeklyLbl: "Repeat Weekly",
+        oneTimeLbl: "One-time",
+        saveBusyBtn: "➕ Save Slot",
+        fromLbl: "From",
+        toLbl: "To",
         amLbl: "AM",
         pmLbl: "PM",
-        invalidTimeRange: "يجب أن يكون وقت النهاية بعد وقت البداية.",
-        missingActivityName: "من فضلك اكتب اسم النشاط أو الموعد.",
-        noBusyEntries: "لا توجد مواعيد مسجلة بعد.",
-        freeWindowsPrefix: "الأوقات الفاضية (08:00 AM – 10:00 PM)",
-        noFreeInWindow: "لا توجد فترة فاضية (30 دقيقة فأكثر) بين 08:00 AM و 10:00 PM.",
-        weeklyHoursPrefix: "إجمالي الأسبوع",
-        dayHoursPrefix: "ساعات اليوم",
-        memberWeeklyHours: "أسبوعيًا",
-        hoursUnit: "ساعة",
-        teamsPageHeading: "التيمات والأعضاء",
-        teamsPageSub: "تعرف على أعضاء كل تيم ونسبة إنجاز المهام.",
-        teamsFilterLbl: "🎯 اختر التيم لعرض أعضائه ومهامه:",
-        noTeamMembers: "لا يوجد أعضاء مسجلون في هذا التيم بعد.",
-        pointsHeading: "النقاط والترتيب",
-        pointsSub: "النقاط تُحسب من أولوية المهمة + مكافأة السرعة والترتيب (#1 +15، #2 +10، #3 +5، والباقي +2).",
-        lbMembersTitle: "🏆 ترتيب الأعضاء بالنقاط والسرعة",
-        basePtsLbl: "مهام",
-        speedBonusLbl: "مكافأة السرعة",
-        noPointsData: "لا توجد نقاط مسجلة بعد.",
-        chatHeading: "شات الفريق",
-        chatSub: "مساحة تواصل مباشرة لجميع أعضاء التيم والأونر.",
-        scrollChat: "⬇ آخر الرسائل",
-        chatPh: "اكتب رسالة للفريق...",
-        sendChat: "📨 إرسال",
-        noChat: "لا توجد رسائل بعد.",
-        ownersPageTitle: "الملاك والحسابات",
-        ownersPageSub: "صلاحيات الأونر: إنشاء حساب عضو، حذف الحسابات، وإدارة الملاك (أي أونر يمكنه حذف أي أونر).",
-        createMemberTitle: "➕ إنشاء حساب عضو جديد (للأونر فقط)",
-        newMemberNamePh: "اسم العضو الكامل (مثال: عمر علي)",
+        invalidTimeRange: "End time must be after start time.",
+        missingActivityName: "Please enter an activity or slot title.",
+        noBusyEntries: "No busy slots recorded yet.",
+        freeWindowsPrefix: "Free Windows (08:00 AM – 10:00 PM)",
+        noFreeInWindow: "No free window (30+ mins) between 08:00 AM and 10:00 PM.",
+        weeklyHoursPrefix: "Weekly Total",
+        dayHoursPrefix: "Day Hours",
+        memberWeeklyHours: "Weekly",
+        hoursUnit: "hrs",
+        teamsPageHeading: "Sub-teams & Members",
+        teamsPageSub: "View members per sub-team and task completion progress.",
+        teamsFilterLbl: "🎯 Select Sub-team to View Members & Tasks:",
+        noTeamMembers: "No members registered in this sub-team yet.",
+        pointsHeading: "Points & Leaderboard",
+        pointsSub: "Points are earned from task priority + speed rank bonus (#1 +15, #2 +10, #3 +5, others +2).",
+        lbMembersTitle: "🏆 Member Points & Speed Leaderboard",
+        basePtsLbl: "Tasks",
+        speedBonusLbl: "Speed Bonus",
+        noPointsData: "No points recorded yet.",
+        chatHeading: "Team Chat",
+        chatSub: "Direct communication space for all team members and owners.",
+        scrollChat: "⬇ Latest Messages",
+        chatPh: "Write a message to the team...",
+        sendChat: "📨 Send",
+        noChat: "No messages yet.",
+        ownersPageTitle: "Owners & Accounts",
+        ownersPageSub: "Owner controls: create member accounts, delete accounts, and manage owners (any owner can remove any owner).",
+        createMemberTitle: "➕ Create New Member Account (Owner Only)",
+        newMemberNamePh: "Full name (e.g. Omar Ali)",
         newMemberEmailPh: "member@gmail.com",
-        newMemberUsernamePh: "يوزر نيم تلقائي",
-        regenUsernameBtn: "🎲 توليد يوزر",
-        newMemberPassPh: "باسورد الحساب (أو عشوائي)",
-        regenPassBtn: "🎲 توليد باسورد",
-        createMemberBtn: "✅ إنشاء حساب العضو",
-        memberCreatedOk: "✔ تم إنشاء حساب العضو بنجاح.",
-        memberDeletedOk: "✔ تم حذف الحساب بنجاح.",
-        missingEmailOrPass: "من فضلك اكتب إيميل صحيح وباسورد (4 أحرف فأكثر).",
-        allAccountsTitle: "🗂 جميع الحسابات واليوزر نيم والباسوردات",
-        passNoteOwner: "للأونر: رؤية وتغيير باسورد أي حساب، تعديل التيم، أو حذف أي حساب (بما في ذلك أي أونر).",
-        sitePassFieldPh: "باسورد جديد",
-        setSitePassBtn: "🔑 تغيير الباسورد",
-        genPassBtn: "🎲 توليد",
-        updateMemberTeamBtn: "💾 حفظ التيم",
-        statTotal: "📌 إجمالي المهام",
-        statPending: "⏳ قيد التنفيذ",
-        statDone: "✅ مهام مكتملة",
-        statPoints: "⭐ النقاط",
-        maxOwnersReached: "وصلت إلى الحد الأقصى المسموح به (4 حسابات Owner).",
-        ownerRemovedOk: "✔ تم إزالة حساب الأونر بنجاح.",
-        ownerOnlyError: "هذا الإجراء متاح للـ Owner فقط."
+        newMemberUsernamePh: "Auto username",
+        regenUsernameBtn: "🎲 Gen Username",
+        newMemberPassPh: "Account passcode (or random)",
+        regenPassBtn: "🎲 Gen Passcode",
+        createMemberBtn: "✅ Create Member Account",
+        addOwnerBtn: "➕ Add Owner",
+        removeOwnerBtn: "✖ Remove Owner",
+        addRosterBtn: "✉ Link Email to Team",
+        memberCreatedOk: "✔ Member account created successfully.",
+        memberDeletedOk: "✔ Account deleted successfully.",
+        missingEmailOrPass: "Please enter a valid email and passcode (4+ chars).",
+        allAccountsTitle: "🗂 All Accounts, Usernames & Passcodes",
+        passNoteOwner: "For Owners: view and update any account's passcode, update sub-team, or delete any account (including any owner).",
+        sitePassFieldPh: "New passcode",
+        setSitePassBtn: "🔑 Set Passcode",
+        genPassBtn: "🎲 Gen",
+        updateMemberTeamBtn: "💾 Save Team",
+        statTotal: "📌 Total Tasks",
+        statPending: "⏳ Pending Tasks",
+        statDone: "✅ Completed Tasks",
+        statPoints: "⭐ Points",
+        maxOwnersReached: "Reached the maximum limit of 4 Owner accounts.",
+        ownerRemovedOk: "✔ Owner removed successfully.",
+        ownerOnlyError: "This action is available to Owners only."
       },
       ar: {
         greeting: "مساء الخير",
@@ -1594,6 +1601,7 @@
         missingLoginCreds: "من فضلك اكتب اليوزر نيم أو الإيميل والباسورد.",
         invalidLoginCreds: "اليوزر نيم أو الإيميل أو الباسورد غير صحيح، أو الحساب لم يتم إنشاؤه بواسطة الأونر.",
         signedInOk: "✔ تم تسجيل الدخول بنجاح.",
+        loadingAccounts: "⏳ جاري تحميل بيانات الحسابات...",
         logout: "🚪 تسجيل الخروج",
         profileHeading: "ملفي الشخصي",
         profileSub: "صورة البروفايل، اليوزر نيم، التيم، باسورد الموقع، وتفاصيل الحساب.",
@@ -1627,6 +1635,8 @@
         taskFilterTitle: "🔎 تصفية وبحث المهام",
         searchPh: "ابحث باسم المهمة أو التيم أو الإيميل...",
         filterAll: "الكل",
+        allDaysOption: "كل الأيام",
+        allTeamsOption: "كل التيمات",
         teamAll: "كل التيمات",
         assigneeAll: "كل المسؤولين",
         unassignedOption: "بدون تعيين محدد (أي حد في التيم)",
@@ -1648,10 +1658,12 @@
         complete: "✔ إتمام",
         markDoneMember: "✔ تم التنفيذ",
         deleteBtn: "🗑 حذف",
+        removeOwnerTitle: "حذف الأونر",
         deleteAccountBtn: "🗑 حذف الحساب",
         confirmDeleteMsg: "هل أنت متأكد من حذف حساب ({name}) نهائيًا؟",
         untitled: "بدون عنوان",
         member: "عضو",
+        owner: "Owner",
         by: "بواسطة",
         timetableHeading: "🕒 Timetable",
         timetableSub: "أضف مواعيد انشغالك من السبت للجمعة؛ العضو يرى مواعيده فقط والأونر يرى مواعيد الجميع.",
@@ -1705,6 +1717,9 @@
         newMemberPassPh: "باسورد الحساب (أو عشوائي)",
         regenPassBtn: "🎲 توليد باسورد",
         createMemberBtn: "✅ إنشاء حساب العضو",
+        addOwnerBtn: "➕ إضافة Owner",
+        removeOwnerBtn: "✖ إزالة Owner",
+        addRosterBtn: "✉ ربط إيميل بتيم",
         memberCreatedOk: "✔ تم إنشاء حساب العضو بنجاح.",
         memberDeletedOk: "✔ تم حذف الحساب بنجاح.",
         missingEmailOrPass: "من فضلك اكتب إيميل صحيح وباسورد (4 أحرف فأكثر).",
@@ -1932,7 +1947,32 @@
     function dayLabel(dayKey) {
       const found = DAYS_OF_WEEK.find((d) => d.key === dayKey);
       if (!found) return dayKey || "";
-      return lang === "ar" ? `${found.ar} / ${found.en}` : `${found.en} / ${found.ar}`;
+      return lang === "ar" ? `${found.ar} / ${found.en}` : found.en;
+    }
+
+    function syncDaySelects() {
+      const daySelects = [overlapDaySel, busyDayFilter];
+      daySelects.forEach((sel) => {
+        if (!sel) return;
+        const curVal = sel.value || (sel === busyDayFilter ? "all" : "Saturday");
+        Array.from(sel.options).forEach((opt) => {
+          if (opt.value === "all") {
+            opt.textContent = t("allDaysOption");
+          } else {
+            opt.textContent = dayLabel(opt.value);
+          }
+        });
+        sel.value = curVal;
+      });
+
+      const teamSelects = [overlapScopeSel, busyTeamFilter];
+      teamSelects.forEach((sel) => {
+        if (!sel) return;
+        Array.from(sel.options).forEach((opt) => {
+          if (opt.value === "ALL") opt.textContent = t("allTeamsOption");
+          if (opt.value === "all") opt.textContent = t("allTeamsOption");
+        });
+      });
     }
 
     function setStatus(text, type = "normal") {
@@ -2099,6 +2139,9 @@
       newMemberPassInp.placeholder = t("newMemberPassPh");
       regenPassBtn.textContent = t("regenPassBtn");
       createMemberBtn.textContent = t("createMemberBtn");
+      document.getElementById("vortex-add-owner-btn").textContent = t("addOwnerBtn");
+      document.getElementById("vortex-remove-owner-btn").textContent = t("removeOwnerBtn");
+      document.getElementById("vortex-add-roster-btn").textContent = t("addRosterBtn");
       document.getElementById("t-all-accounts-title").textContent = t("allAccountsTitle");
       document.getElementById("t-pass-note-owner").textContent = t("passNoteOwner");
 
@@ -2112,6 +2155,11 @@
         if (I18N[lang][k]) el.textContent = I18N[lang][k];
       });
 
+      if (!getEffectiveUser() && (!statusBox.textContent || statusBox.textContent.startsWith("⏳"))) {
+        statusBox.textContent = t("loadingAccounts");
+      }
+
+      syncDaySelects();
       langBtn.textContent = t("langSwitch");
       applyTheme();
       syncNetBadge();
@@ -2513,7 +2561,7 @@
         } else {
           availabilityCard.classList.remove("hidden");
           const scopeTitle = ownerMode
-            ? (chosenScope === "ALL" ? (lang === "ar" ? "كل التيمات" : "All Teams") : chosenScope)
+            ? (chosenScope === "ALL" ? t("allTeamsOption") : chosenScope)
             : (activeU ? activeU.displayName : "");
 
           overlapSummaryBox.innerHTML = `
@@ -3200,7 +3248,7 @@
         rmBtn.style.fontSize = "11px";
         rmBtn.style.borderRadius = "999px";
         rmBtn.textContent = "✖";
-        rmBtn.title = "حذف الأونر";
+        rmBtn.title = t("removeOwnerTitle");
         rmBtn.addEventListener("click", async () => {
           try {
             await removeOwnerEmail(email);
@@ -3256,7 +3304,7 @@
         infoDiv.innerHTML = `
           <strong>👤 ${escapeHtml(fullNameVal)}</strong> <span class="badge">@${escapeHtml(usernameVal)}</span>
           <div class="task-badges">
-            <span class="badge ${isAccOwner ? "ok" : ""}">${isAccOwner ? "👑 Owner" : "👤 Member"}</span>
+            <span class="badge ${isAccOwner ? "ok" : ""}">${isAccOwner ? `👑 ${escapeHtml(t("owner"))}` : `👤 ${escapeHtml(t("member"))}`}</span>
             <span class="badge">✉ ${escapeHtml(m.email || "—")}</span>
             <span class="badge">🎯 ${escapeHtml(m.team || "GUI")}</span>
             <span class="badge warn">🔑 ${escapeHtml(t("lblSitePass"))}: ${escapeHtml(sitePassVal)}</span>
@@ -3373,7 +3421,7 @@
         logoutBtn.classList.add("hidden");
         renderAvatarContent(miniAvatar, "", "V");
         miniName.textContent = "Vortex Guest";
-        miniRole.textContent = "Member";
+        miniRole.textContent = t("member");
         return;
       }
 
@@ -3401,11 +3449,11 @@
       renderAvatarContent(document.getElementById("vortex-prof-photo-box"), savedProf.photoUrl || "", initials);
 
       miniName.textContent = fullNameVal;
-      miniRole.textContent = `${currentRole} • ${activeTeam}`;
+      miniRole.textContent = `${ownerMode ? t("owner") : t("member")} • ${activeTeam}`;
 
       document.getElementById("vortex-prof-name").textContent = fullNameVal;
       document.getElementById("vortex-prof-username").textContent = `@${usernameVal}`;
-      document.getElementById("vortex-prof-role").textContent = currentRole;
+      document.getElementById("vortex-prof-role").textContent = ownerMode ? t("owner") : t("member");
       document.getElementById("vortex-prof-contact").textContent = u.email || "—";
       document.getElementById("vortex-prof-uid").textContent = u.uid;
 
@@ -3511,7 +3559,7 @@
           toggleBtn.addEventListener("click", async () => {
             try {
               const nextStatus = task.status === "done" ? "pending" : "done";
-              const actor = (u && (u.email || u.displayName || u.uid)) || "Owner";
+              const actor = (u && (u.email || u.displayName || u.uid)) || t("owner");
               await updateDoc(doc(db, "tasks", task.id), {
                 status: nextStatus,
                 completedBy: nextStatus === "done" ? (task.assignedTo || actor) : "",
