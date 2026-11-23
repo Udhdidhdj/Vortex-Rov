@@ -124,6 +124,8 @@
       getAuth,
       GoogleAuthProvider,
       signInWithPopup,
+      signInWithRedirect,
+      getRedirectResult,
       signOut,
       onAuthStateChanged
     } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
@@ -160,6 +162,10 @@
     const appBox = document.getElementById("appBox");
     const tasksList = document.getElementById("tasksList");
     const filterSelect = document.getElementById("filterSelect");
+
+    function isMobileDevice() {
+      return /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+    }
 
     function setStatus(text) {
       statusMsg.textContent = text;
@@ -300,11 +306,32 @@
       });
     }
 
+    if (auth) {
+      getRedirectResult(auth).catch((err) => {
+        setStatus(`حدث خطأ أثناء تسجيل الدخول (${err.code || "redirect"}).`);
+        console.error(err);
+      });
+    }
+
     loginBtn.addEventListener("click", async () => {
       try {
-        await signInWithPopup(auth, provider);
+        if (isMobileDevice()) {
+          await signInWithRedirect(auth, provider);
+        } else {
+          await signInWithPopup(auth, provider);
+        }
       } catch (err) {
-        setStatus("حدث خطأ أثناء تسجيل الدخول.");
+        if (err && (err.code === "auth/popup-blocked" || err.code === "auth/operation-not-supported-in-this-environment")) {
+          try {
+            await signInWithRedirect(auth, provider);
+            return;
+          } catch (redirectErr) {
+            setStatus(`حدث خطأ أثناء تسجيل الدخول (${redirectErr.code || "auth"}).`);
+            console.error(redirectErr);
+            return;
+          }
+        }
+        setStatus(`حدث خطأ أثناء تسجيل الدخول (${err.code || "auth"}).`);
         console.error(err);
       }
     });
