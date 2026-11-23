@@ -34,6 +34,7 @@
       margin-bottom: 14px;
     }
     .row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+    .stack { display: flex; flex-direction: column; gap: 10px; margin-top: 12px; }
     input, select, button {
       padding: 10px 12px;
       border-radius: 8px;
@@ -49,6 +50,7 @@
       border: none;
       cursor: pointer;
     }
+    button:disabled { opacity: 0.55; cursor: not-allowed; }
     button.secondary { background: #1e3a5f; color: var(--text); }
     button.danger { background: var(--danger); color: #fff; }
     .task {
@@ -69,22 +71,50 @@
       background: #1e3a5f;
       color: #e2e8f0;
     }
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 12px 0;
+    }
+    .hint {
+      font-size: 12px;
+      color: var(--muted);
+    }
     .hidden { display: none; }
     #statusMsg { font-size: 13px; color: var(--muted); margin-top: 8px; }
   </style>
 </head>
 <body>
   <div class="container">
+    <!-- بطاقة الحساب وتسجيل الدخول -->
     <div class="card">
       <h2 style="margin:0 0 8px 0;">Vortex ROV — إدارة المهام</h2>
       <div id="statusMsg">جاري تهيئة النظام...</div>
-      <div id="authBox" class="row" style="margin-top:10px;">
-        <button id="loginBtn" type="button">تسجيل الدخول بحساب Google</button>
-        <button id="logoutBtn" type="button" class="secondary hidden">تسجيل الخروج</button>
-        <span id="userInfo" class="badge hidden"></span>
+
+      <div id="authBox" style="margin-top:12px;">
+        <div class="row">
+          <button id="loginGoogleBtn" type="button">تسجيل الدخول بحساب Google</button>
+          <button id="logoutBtn" type="button" class="secondary hidden">تسجيل الخروج</button>
+          <span id="userInfo" class="badge hidden"></span>
+        </div>
+
+        <div id="phoneAuthSection" class="stack">
+          <div class="divider"></div>
+          <div class="hint">أو تسجيل الدخول برقم التليفون (مثال: +201012345678):</div>
+          <div class="row">
+            <input id="phoneInput" type="tel" dir="ltr" placeholder="+201xxxxxxxxx" style="flex:1; min-width:190px;" />
+            <button id="sendOtpBtn" type="button" class="secondary">إرسال كود التحقق</button>
+          </div>
+          <div id="otpRow" class="row hidden">
+            <input id="otpInput" type="text" dir="ltr" inputmode="numeric" placeholder="أدخل كود التحقق (6 أرقام)" style="flex:1; min-width:190px;" />
+            <button id="verifyOtpBtn" type="button">تأكيد الدخول</button>
+          </div>
+          <div id="recaptcha-container"></div>
+        </div>
       </div>
     </div>
 
+    <!-- إدارة المشرفين للمالك -->
     <div id="adminBox" class="card hidden">
       <h3 style="margin:0 0 10px 0;">إدارة المشرفين (Owner)</h3>
       <div class="row">
@@ -94,6 +124,7 @@
       </div>
     </div>
 
+    <!-- قسم المهام -->
     <div id="appBox" class="card hidden">
       <h3 style="margin:0 0 10px 0;">المهام</h3>
       <div class="row">
@@ -123,6 +154,8 @@
     import {
       getAuth,
       GoogleAuthProvider,
+      RecaptchaVerifier,
+      signInWithPhoneNumber,
       signInWithPopup,
       signInWithRedirect,
       getRedirectResult,
@@ -143,51 +176,88 @@
       serverTimestamp
     } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
+    // استبدل هذه القيم ببيانات مشروعك الحقيقية من Firebase Console
     const OWNER_EMAIL = "OWNER_EMAIL_HERE";
 
     const firebaseConfig = {
       apiKey: "YOUR_API_KEY",
-      authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-      projectId: "YOUR_PROJECT_ID",
-      storageBucket: "YOUR_PROJECT_ID.appspot.com",
+      authDomain: "vortex-rov.firebaseapp.com",
+      projectId: "vortex-rov",
+      storageBucket: "vortex-rov.appspot.com",
       messagingSenderId: "YOUR_SENDER_ID",
       appId: "YOUR_APP_ID"
     };
 
     const statusMsg = document.getElementById("statusMsg");
-    const loginBtn = document.getElementById("loginBtn");
+    const loginGoogleBtn = document.getElementById("loginGoogleBtn");
     const logoutBtn = document.getElementById("logoutBtn");
+    const phoneAuthSection = document.getElementById("phoneAuthSection");
+    const phoneInput = document.getElementById("phoneInput");
+    const sendOtpBtn = document.getElementById("sendOtpBtn");
+    const otpRow = document.getElementById("otpRow");
+    const otpInput = document.getElementById("otpInput");
+    const verifyOtpBtn = document.getElementById("verifyOtpBtn");
     const userInfo = document.getElementById("userInfo");
     const adminBox = document.getElementById("adminBox");
     const appBox = document.getElementById("appBox");
     const tasksList = document.getElementById("tasksList");
     const filterSelect = document.getElementById("filterSelect");
 
-    function isMobileDevice() {
-      return /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
-    }
-
     function setStatus(text) {
       statusMsg.textContent = text;
+    }
+
+    function formatError(err, fallback = "حدث خطأ غير متوقع") {
+      if (!err) return fallback;
+      return `${fallback} (${err.code || err.message || "error"})`;
+    }
+
+    function isIOS() {
+      return /iPad|iPhone|iPod/i.test(navigator.userAgent);
+    }
+
+    function normalizePhone(raw) {
+      const cleaned = raw.trim().replace(/\s+/g, "");
+      if (!cleaned) return "";
+      if (cleaned.startsWith("+")) return cleaned;
+      // افتراض كود مصر (+20) إذا بدأ بـ 01 أو 1
+      if (/^0?1\d{9}$/.test(cleaned)) {
+        return "+2" + cleaned.replace(/^0/, "0");
+      }
+      return "+" + cleaned;
     }
 
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", () => {
         navigator.serviceWorker
           .register("/Vortex-Rov/service-worker.js")
-          .catch((err) => console.warn("ServiceWorker registration note:", err));
+          .catch((err) => console.warn("ServiceWorker note:", err));
       });
     }
 
-    let auth, db, provider;
+    let auth = null;
+    let db = null;
+    let provider = null;
+    let confirmationResult = null;
+    let recaptchaVerifier = null;
+
     try {
       const app = initializeApp(firebaseConfig);
       auth = getAuth(app);
       db = getFirestore(app);
       provider = new GoogleAuthProvider();
+      provider.setCustomParameters({ prompt: "select_account" });
     } catch (err) {
-      setStatus("تحقق من إعدادات Firebase داخل index.html.");
+      setStatus(formatError(err, "تحقق من إعدادات Firebase داخل index.html"));
       console.error(err);
+    }
+
+    function ensureRecaptcha() {
+      if (!auth || recaptchaVerifier) return recaptchaVerifier;
+      recaptchaVerifier = new RecaptchaVerifier(auth, "recaptcha-container", {
+        size: "invisible"
+      });
+      return recaptchaVerifier;
     }
 
     let currentUser = null;
@@ -198,12 +268,12 @@
     let unsubscribeAdmins = null;
 
     function computeRole(user) {
-      if (!user || !user.email) return "Member";
-      const email = user.email.toLowerCase();
-      if (OWNER_EMAIL !== "OWNER_EMAIL_HERE" && email === OWNER_EMAIL.toLowerCase()) {
+      if (!user) return "Member";
+      const email = (user.email || "").toLowerCase();
+      if (email && OWNER_EMAIL !== "OWNER_EMAIL_HERE" && email === OWNER_EMAIL.toLowerCase()) {
         return "Owner";
       }
-      if (adminEmails.has(email)) {
+      if (email && adminEmails.has(email)) {
         return "Admin";
       }
       return "Member";
@@ -211,20 +281,25 @@
 
     function renderUI() {
       if (!currentUser) {
-        loginBtn.classList.remove("hidden");
+        loginGoogleBtn.classList.remove("hidden");
+        phoneAuthSection.classList.remove("hidden");
         logoutBtn.classList.add("hidden");
         userInfo.classList.add("hidden");
         adminBox.classList.add("hidden");
         appBox.classList.add("hidden");
-        setStatus("سجّل الدخول للوصول إلى مهام الفريق.");
+        setStatus("سجّل الدخول بحساب Google أو برقم التليفون للوصول إلى مهام الفريق.");
         return;
       }
 
       currentRole = computeRole(currentUser);
-      loginBtn.classList.add("hidden");
+      const identityLabel = currentUser.email || currentUser.phoneNumber || currentUser.uid;
+
+      loginGoogleBtn.classList.add("hidden");
+      phoneAuthSection.classList.add("hidden");
+      otpRow.classList.add("hidden");
       logoutBtn.classList.remove("hidden");
       userInfo.classList.remove("hidden");
-      userInfo.textContent = `${currentUser.email} (${currentRole})`;
+      userInfo.textContent = `${identityLabel} (${currentRole})`;
       appBox.classList.remove("hidden");
       adminBox.classList.toggle("hidden", currentRole !== "Owner");
       setStatus(`تم تسجيل الدخول بنجاح — الصلاحية: ${currentRole}`);
@@ -259,7 +334,7 @@
         const metaEl = document.createElement("div");
         metaEl.style.fontSize = "12px";
         metaEl.style.color = "var(--muted)";
-        metaEl.textContent = `الحالة: ${task.status === "done" ? "مكتملة" : "قيد التنفيذ"} — بواسطة: ${task.createdByEmail || "عضو"}`;
+        metaEl.textContent = `الحالة: ${task.status === "done" ? "مكتملة" : "قيد التنفيذ"} — بواسطة: ${task.createdByLabel || "عضو"}`;
 
         left.appendChild(titleEl);
         left.appendChild(metaEl);
@@ -278,8 +353,7 @@
                 status: task.status === "done" ? "pending" : "done"
               });
             } catch (err) {
-              setStatus("تعذر تحديث حالة المهمة.");
-              console.error(err);
+              setStatus(formatError(err, "تعذر تحديث حالة المهمة"));
             }
           });
 
@@ -291,8 +365,7 @@
             try {
               await deleteDoc(doc(db, "tasks", task.id));
             } catch (err) {
-              setStatus("تعذر حذف المهمة.");
-              console.error(err);
+              setStatus(formatError(err, "تعذر حذف المهمة"));
             }
           });
 
@@ -308,31 +381,87 @@
 
     if (auth) {
       getRedirectResult(auth).catch((err) => {
-        setStatus(`حدث خطأ أثناء تسجيل الدخول (${err.code || "redirect"}).`);
-        console.error(err);
+        setStatus(formatError(err, "حدث خطأ أثناء إتمام تسجيل الدخول"));
       });
     }
 
-    loginBtn.addEventListener("click", async () => {
+    loginGoogleBtn.addEventListener("click", async () => {
+      if (!auth || !provider) {
+        setStatus("Firebase غير مهيأ — راجع firebaseConfig.");
+        return;
+      }
+      setStatus("جاري فتح تسجيل الدخول بحساب Google...");
       try {
-        if (isMobileDevice()) {
+        if (isIOS()) {
           await signInWithRedirect(auth, provider);
-        } else {
-          await signInWithPopup(auth, provider);
+          return;
         }
+        await signInWithPopup(auth, provider);
       } catch (err) {
-        if (err && (err.code === "auth/popup-blocked" || err.code === "auth/operation-not-supported-in-this-environment")) {
+        const code = err && err.code ? err.code : "";
+        if (
+          code === "auth/popup-blocked" ||
+          code === "auth/operation-not-supported-in-this-environment" ||
+          code === "auth/cancelled-popup-request"
+        ) {
           try {
             await signInWithRedirect(auth, provider);
             return;
-          } catch (redirectErr) {
-            setStatus(`حدث خطأ أثناء تسجيل الدخول (${redirectErr.code || "auth"}).`);
-            console.error(redirectErr);
+          } catch (redirErr) {
+            setStatus(formatError(redirErr, "حدث خطأ أثناء تسجيل الدخول"));
             return;
           }
         }
-        setStatus(`حدث خطأ أثناء تسجيل الدخول (${err.code || "auth"}).`);
-        console.error(err);
+        setStatus(formatError(err, "حدث خطأ أثناء تسجيل الدخول"));
+      }
+    });
+
+    sendOtpBtn.addEventListener("click", async () => {
+      if (!auth) {
+        setStatus("Firebase غير مهيأ — راجع firebaseConfig.");
+        return;
+      }
+      const phoneNumber = normalizePhone(phoneInput.value);
+      if (!/^\+\d{8,15}$/.test(phoneNumber)) {
+        setStatus("اكتب رقم تليفون صحيح بصيغة دولية مثل +201012345678.");
+        return;
+      }
+
+      sendOtpBtn.disabled = true;
+      setStatus("جاري إرسال كود التحقق...");
+      try {
+        const verifier = ensureRecaptcha();
+        confirmationResult = await signInWithPhoneNumber(auth, phoneNumber, verifier);
+        otpRow.classList.remove("hidden");
+        setStatus(`تم إرسال كود التحقق إلى ${phoneNumber}.`);
+      } catch (err) {
+        setStatus(formatError(err, "تعذر إرسال كود التحقق"));
+        if (recaptchaVerifier) {
+          try { recaptchaVerifier.clear(); } catch (_) {}
+          recaptchaVerifier = null;
+        }
+      } finally {
+        sendOtpBtn.disabled = false;
+      }
+    });
+
+    verifyOtpBtn.addEventListener("click", async () => {
+      const code = otpInput.value.trim();
+      if (!confirmationResult || !code) {
+        setStatus("أدخل كود التحقق أولاً.");
+        return;
+      }
+      verifyOtpBtn.disabled = true;
+      setStatus("جاري التحقق من الكود...");
+      try {
+        await confirmationResult.confirm(code);
+        otpInput.value = "";
+        phoneInput.value = "";
+        confirmationResult = null;
+      } catch (err) {
+        setStatus(formatError(err, "كود التحقق غير صحيح أو منتهي"));
+      } finally {
+        verifyOtpBtn.disabled = false;
       }
     });
 
@@ -340,8 +469,7 @@
       try {
         await signOut(auth);
       } catch (err) {
-        setStatus("حدث خطأ أثناء تسجيل الخروج.");
-        console.error(err);
+        setStatus(formatError(err, "حدث خطأ أثناء تسجيل الخروج"));
       }
     });
 
@@ -356,13 +484,12 @@
           title,
           status: statusSel.value,
           createdByUid: currentUser.uid,
-          createdByEmail: currentUser.email,
+          createdByLabel: currentUser.email || currentUser.phoneNumber || "عضو",
           createdAt: serverTimestamp()
         });
         input.value = "";
       } catch (err) {
-        setStatus("تعذر إضافة المهمة.");
-        console.error(err);
+        setStatus(formatError(err, "تعذر إضافة المهمة"));
       }
     });
 
@@ -379,8 +506,7 @@
         });
         emailInput.value = "";
       } catch (err) {
-        setStatus("تعذر إضافة المشرف.");
-        console.error(err);
+        setStatus(formatError(err, "تعذر إضافة المشرف"));
       }
     });
 
@@ -393,8 +519,7 @@
         await deleteDoc(doc(db, "admins", encodeURIComponent(email)));
         emailInput.value = "";
       } catch (err) {
-        setStatus("تعذر إزالة المشرف.");
-        console.error(err);
+        setStatus(formatError(err, "تعذر إزالة المشرف"));
       }
     });
 
@@ -413,9 +538,8 @@
           return;
         }
 
-        const adminsRef = collection(db, "admins");
         unsubscribeAdmins = onSnapshot(
-          adminsRef,
+          collection(db, "admins"),
           (snap) => {
             const nextSet = new Set();
             snap.forEach((d) => {
@@ -425,22 +549,17 @@
             adminEmails = nextSet;
             renderUI();
           },
-          (err) => {
-            console.error("Admins listener error:", err);
-            renderUI();
-          }
+          () => renderUI()
         );
 
-        const tasksQuery = query(collection(db, "tasks"), orderBy("createdAt", "desc"));
         unsubscribeTasks = onSnapshot(
-          tasksQuery,
+          query(collection(db, "tasks"), orderBy("createdAt", "desc")),
           (snap) => {
             allTasks = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
             renderTasks();
           },
           (err) => {
-            console.error("Tasks listener error:", err);
-            setStatus("تعذر تحميل المهام — تحقق من قواعد Firestore.");
+            setStatus(formatError(err, "تعذر تحميل المهام — تحقق من قواعد Firestore"));
           }
         );
 
