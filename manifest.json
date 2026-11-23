@@ -4,9 +4,9 @@
   "display": "standalone",
   "name": "Vortex Rov",
   "orientation": "any",
-  "scope": "/",
+  "scope": "/Vortex-Rov/",
   "short_name": "Vortex Rov",
-  "start_url": "/",
+  "start_url": "/Vortex-Rov/",
   "theme_color": "#ffffff",
   "id": "Vortex-Rov",
   "description": "Vortex ROV Team Task Manager"
