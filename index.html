@@ -1698,4 +1698,2355 @@
     }
 
     function compressImageToDataUrl(file, maxSize = 240, quality = 0.78) {
-      return ne
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          const img = new Image();
+          img.onload = () => {
+            const canvas = document.createElement("canvas");
+            let w = img.width;
+            let h = img.height;
+            if (w > h && w > maxSize) {
+              h = Math.round((h * maxSize) / w);
+              w = maxSize;
+            } else if (h >= w && h > maxSize) {
+              w = Math.round((w * maxSize) / h);
+              h = maxSize;
+            }
+            canvas.width = w;
+            canvas.height = h;
+            const ctx = canvas.getContext("2d");
+            ctx.drawImage(img, 0, 0, w, h);
+            resolve(canvas.toDataURL("image/jpeg", quality));
+          };
+          img.onerror = reject;
+          img.src = reader.result;
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    }
+
+    function renderAvatarContent(container, photoUrl, fallbackLetter) {
+      if (!container) return;
+      if (photoUrl) {
+        container.innerHTML = `<img src="${escapeHtml(photoUrl)}" alt="Avatar" />`;
+      } else {
+        container.textContent = fallbackLetter || "V";
+      }
+    }
+
+    function detectPlatform() {
+      const ua = navigator.userAgent || "";
+      const platform = navigator.platform || "";
+      if (/android/i.test(ua)) return { id: "android", label: "📱 Android" };
+      if (/iphone|ipad|ipod/i.test(ua) || (/mac/i.test(platform) && navigator.maxTouchPoints > 1)) {
+        return { id: "ios", label: "🍎 iOS" };
+      }
+      if (/mac/i.test(platform) || /macintosh|mac os x/i.test(ua)) return { id: "macos", label: "💻 macOS" };
+      if (/win/i.test(platform) || /windows/i.test(ua)) return { id: "windows", label: "🖥 Windows" };
+      return { id: "web", label: "🌐 Web" };
+    }
+
+    const detectedDevice = detectPlatform();
+    document.body.setAttribute("data-platform", detectedDevice.id);
+
+    let lang = localStorage.getItem("vortex_lang") === "ar" ? "ar" : "en";
+    let theme = localStorage.getItem("vortex_theme") === "dark" ? "dark" : "light";
+    let activePage = "profile";
+    let viewedTeam = "ALL";
+    let showOwnSitePass = false;
+
+    const statusBox = document.getElementById("vortex-status-box");
+    const workspaceBanner = document.getElementById("vortex-workspace-banner");
+    const deviceBadge = document.getElementById("vortex-device-badge");
+    const netBadge = document.getElementById("vortex-net-badge");
+    const themeBtn = document.getElementById("vortex-theme-btn");
+    const langBtn = document.getElementById("vortex-lang-btn");
+
+    const authCard = document.getElementById("vortex-auth-card");
+    const authTeamSelect = document.getElementById("vortex-auth-team-select");
+    const profileTeamSelect = document.getElementById("vortex-profile-team-select");
+    const saveTeamBtn = document.getElementById("vortex-save-team-btn");
+    const copyUidBtn = document.getElementById("vortex-copy-uid-btn");
+    const toggleSitePassBtn = document.getElementById("vortex-toggle-site-pass-btn");
+
+    const photoFileInput = document.getElementById("vortex-photo-file-input");
+    const uploadPhotoBtn = document.getElementById("vortex-upload-photo-btn");
+    const removePhotoBtn = document.getElementById("vortex-remove-photo-btn");
+
+    const newSitePassInput = document.getElementById("vortex-new-site-pass-input");
+    const saveOwnSitePassBtn = document.getElementById("vortex-save-own-site-pass-btn");
+    const forgotEmailInput = document.getElementById("vortex-forgot-email-input");
+    const sendForgotInAppBtn = document.getElementById("vortex-send-forgot-inapp-btn");
+
+    const newMemberNameInp = document.getElementById("vortex-new-member-name");
+    const newMemberEmailInp = document.getElementById("vortex-new-member-email");
+    const newMemberTeamSel = document.getElementById("vortex-new-member-team");
+    const newMemberUsernameInp = document.getElementById("vortex-new-member-username");
+    const regenUsernameBtn = document.getElementById("vortex-regen-username-btn");
+    const newMemberPassInp = document.getElementById("vortex-new-member-pass");
+    const regenPassBtn = document.getElementById("vortex-regen-pass-btn");
+    const createMemberBtn = document.getElementById("vortex-create-member-btn");
+
+    const workspace = document.getElementById("vortex-workspace");
+    const navSection = document.getElementById("vortex-nav-section");
+    const navAdminGroup = document.getElementById("vortex-nav-admin-group");
+    const logoutBtn = document.getElementById("vortex-logout-btn");
+
+    const miniAvatar = document.getElementById("vortex-mini-avatar");
+    const miniName = document.getElementById("vortex-mini-name");
+    const miniRole = document.getElementById("vortex-mini-role");
+
+    const googlePopupBtn = document.getElementById("vortex-google-popup-btn");
+    const googleRedirectBtn = document.getElementById("vortex-google-redirect-btn");
+    const emailInput = document.getElementById("vortex-email-input");
+    const passInput = document.getElementById("vortex-pass-input");
+    const emailSignInBtn = document.getElementById("vortex-email-signin-btn");
+    const emailSignUpBtn = document.getElementById("vortex-email-signup-btn");
+    const resetPassBtn = document.getElementById("vortex-reset-pass-btn");
+
+    const phoneInput = document.getElementById("vortex-phone-input");
+    const sendOtpBtn = document.getElementById("vortex-send-otp-btn");
+    const otpBox = document.getElementById("vortex-otp-box");
+    const otpInput = document.getElementById("vortex-otp-input");
+    const verifyOtpBtn = document.getElementById("vortex-verify-otp-btn");
+
+    const ownerTaskControls = document.getElementById("vortex-owner-task-controls");
+    const taskTeamSelect = document.getElementById("vortex-task-team");
+    const tasksList = document.getElementById("vortex-tasks-list");
+    const tasksCountBadge = document.getElementById("vortex-tasks-count-badge");
+    const taskFilter = document.getElementById("vortex-task-filter");
+    const taskTeamFilter = document.getElementById("vortex-task-team-filter");
+    const taskAssigneeFilter = document.getElementById("vortex-task-assignee-filter");
+    const taskSearch = document.getElementById("vortex-task-search");
+
+    const pickAssigneeBtn = document.getElementById("vortex-pick-assignee-btn");
+    const assigneePicker = document.getElementById("vortex-assignee-picker");
+    const taskAssigneeSelect = document.getElementById("vortex-task-assignee-select");
+    const assigneeChips = document.getElementById("vortex-assignee-chips");
+    const teamAssigneeHint = document.getElementById("vortex-team-assignee-hint");
+    const selectedAssigneeLabel = document.getElementById("vortex-selected-assignee-label");
+
+    const availabilityCard = document.getElementById("vortex-availability-card");
+    const daysGrid = document.getElementById("vortex-days-grid");
+    const overlapDaySel = document.getElementById("vortex-overlap-day");
+    const overlapScopeSel = document.getElementById("vortex-overlap-scope");
+    const copyFreeBtn = document.getElementById("vortex-copy-free-btn");
+    const overlapSummaryBox = document.getElementById("vortex-overlap-summary");
+    const allTeamsFreeOverview = document.getElementById("vortex-all-teams-free-overview");
+    const myWeeklyHoursBadge = document.getElementById("vortex-my-weekly-hours");
+    const busyDayFilter = document.getElementById("vortex-busy-day-filter");
+    const busyTeamFilter = document.getElementById("vortex-busy-team-filter");
+    const busyList = document.getElementById("vortex-busy-list");
+
+    const chatBox = document.getElementById("vortex-chat-box");
+    const chatInput = document.getElementById("vortex-chat-input");
+    const sendChatBtn = document.getElementById("vortex-send-chat-btn");
+
+    function t(key) {
+      return (I18N[lang] && I18N[lang][key]) || I18N.en[key] || key;
+    }
+
+    function dayLabel(dayKey) {
+      const found = DAYS_OF_WEEK.find((d) => d.key === dayKey);
+      if (!found) return dayKey || "";
+      return lang === "ar" ? `${found.ar} / ${found.en}` : `${found.en} / ${found.ar}`;
+    }
+
+    function setStatus(text, type = "normal") {
+      statusBox.textContent = text;
+      statusBox.classList.remove("error", "ok");
+      if (type === "error") statusBox.classList.add("error");
+      if (type === "ok") statusBox.classList.add("ok");
+
+      if (currentUser && text) {
+        workspaceBanner.classList.remove("hidden", "error", "ok");
+        workspaceBanner.textContent = text;
+        if (type === "error") workspaceBanner.classList.add("error");
+        if (type === "ok") workspaceBanner.classList.add("ok");
+      } else {
+        workspaceBanner.classList.add("hidden");
+      }
+    }
+
+    function formatErr(err) {
+      const code = err && err.code ? String(err.code) : "";
+      const msg = err && err.message ? String(err.message).replace(/^Firebase:\s*/i, "") : "Error";
+      const friendlyEn = {
+        "auth/invalid-email": "Invalid email format.",
+        "auth/user-not-found": "No account found with this email.",
+        "auth/wrong-password": "Current password is incorrect.",
+        "auth/invalid-credential": "Invalid credentials.",
+        "auth/email-already-in-use": "Email is already registered; sign in instead.",
+        "auth/weak-password": "Password must be at least 6 characters.",
+        "auth/too-many-requests": "Too many attempts. Please try again later.",
+        "auth/network-request-failed": "Network connection error."
+      };
+      const friendlyAr = {
+        "auth/invalid-email": "صيغة البريد الإلكتروني غير صحيحة.",
+        "auth/user-not-found": "لا يوجد حساب مسجل بهذا البريد الإلكتروني.",
+        "auth/wrong-password": "كلمة المرور الحالية غير صحيحة.",
+        "auth/invalid-credential": "بيانات الدخول غير صحيحة.",
+        "auth/email-already-in-use": "هذا البريد الإلكتروني مسجل من قبل؛ استخدم تسجيل الدخول.",
+        "auth/weak-password": "كلمة المرور ضعيفة، يجب أن تكون 6 أحرف أو أرقام على الأقل.",
+        "auth/too-many-requests": "محاولات كثيرة جدًا، انتظر قليلًا ثم حاول مرة أخرى.",
+        "auth/network-request-failed": "مشكلة في الاتصال بالإنترنت."
+      };
+      const mapped = lang === "ar" ? friendlyAr[code] : friendlyEn[code];
+      return mapped || msg;
+    }
+
+    function isMobileOrIOS() {
+      return detectedDevice.id === "android" || detectedDevice.id === "ios";
+    }
+
+    function normalizePhone(raw) {
+      const cleaned = raw.trim().replace(/\s+/g, "");
+      if (!cleaned) return "";
+      if (cleaned.startsWith("+")) return cleaned;
+      if (/^0?1\d{9}$/.test(cleaned)) return "+2" + cleaned.replace(/^0/, "0");
+      return "+" + cleaned;
+    }
+
+    function syncNetBadge() {
+      const online = navigator.onLine;
+      netBadge.textContent = online ? t("online") : t("offline");
+      netBadge.classList.toggle("ok", online);
+      netBadge.classList.toggle("danger", !online);
+      deviceBadge.textContent = `${detectedDevice.label} • ${online ? "Active" : "Standby"}`;
+      deviceBadge.classList.toggle("ok", online);
+    }
+
+    function applyTheme() {
+      document.body.classList.toggle("dark", theme === "dark");
+      themeBtn.textContent = theme === "dark" ? t("lightMode") : t("darkMode");
+    }
+
+    function switchPage(pageName) {
+      if (pageName === "owners" && !isOwner()) pageName = "profile";
+      activePage = pageName;
+      document.querySelectorAll(".nav-btn").forEach((btn) => {
+        btn.classList.toggle("active", btn.dataset.vpage === pageName);
+      });
+      ["profile", "tickets", "timetable", "teams", "points", "chat", "owners"].forEach((p) => {
+        const el = document.getElementById(`vpage-${p}`);
+        if (el) el.classList.toggle("hidden", p !== pageName);
+      });
+    }
+
+    document.querySelectorAll(".nav-btn").forEach((btn) => {
+      btn.addEventListener("click", () => switchPage(btn.dataset.vpage));
+    });
+
+    document.querySelectorAll("[data-view-team]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        viewedTeam = btn.dataset.viewTeam || "ALL";
+        document.querySelectorAll("[data-view-team]").forEach((b) => {
+          b.classList.toggle("selected", b.dataset.viewTeam === viewedTeam);
+        });
+        renderSubteamsAndMembers();
+      });
+    });
+
+    function applyLanguage() {
+      document.documentElement.lang = lang;
+      document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+
+      document.getElementById("t-greeting").textContent = t("greeting");
+      document.getElementById("t-nav-acc").textContent = t("navAcc");
+      document.getElementById("t-nav-work").textContent = t("navWork");
+      document.getElementById("t-nav-admin").textContent = t("navAdmin");
+
+      document.getElementById("t-auth-title").textContent = t("authTitle");
+      document.getElementById("t-choose-auth").textContent = t("chooseAuth");
+      document.getElementById("t-signup-team-label").textContent = t("signupTeamLabel");
+      document.getElementById("t-signup-team-hint").textContent = t("signupTeamHint");
+      document.getElementById("t-google-title").textContent = t("googleTitle");
+      document.getElementById("t-google-desc").textContent = t("googleDesc");
+      googlePopupBtn.textContent = t("googlePopup");
+      googleRedirectBtn.textContent = t("googleRedirect");
+      document.getElementById("t-email-title").textContent = t("emailTitle");
+      emailInput.placeholder = t("emailPh");
+      passInput.placeholder = t("passPh");
+      emailSignInBtn.textContent = t("emailSignIn");
+      emailSignUpBtn.textContent = t("emailSignUp");
+      resetPassBtn.textContent = t("resetPass");
+      document.getElementById("t-phone-title").textContent = t("phoneTitle");
+      document.getElementById("t-sms-note").textContent = t("smsNote");
+      phoneInput.placeholder = t("phonePh");
+      sendOtpBtn.textContent = t("sendOtp");
+      otpInput.placeholder = t("otpPh");
+      verifyOtpBtn.textContent = t("verifyOtp");
+      logoutBtn.textContent = t("logout");
+
+      document.getElementById("t-profile-heading").textContent = t("profileHeading");
+      document.getElementById("t-profile-sub").textContent = t("profileSub");
+      document.getElementById("t-acc-details").textContent = t("accDetails");
+      document.getElementById("t-lbl-photo").textContent = t("lblPhoto");
+      document.getElementById("t-photo-hint").textContent = t("photoHint");
+      uploadPhotoBtn.textContent = t("uploadPhotoBtn");
+      removePhotoBtn.textContent = t("removePhotoBtn");
+      document.getElementById("t-lbl-username").textContent = t("lblUsername");
+      document.getElementById("t-lbl-email").textContent = t("lblEmail");
+      document.getElementById("t-lbl-my-team").textContent = t("lblMyTeam");
+      document.getElementById("t-lbl-site-pass").textContent = t("lblSitePass");
+      saveTeamBtn.textContent = t("saveTeam");
+      document.getElementById("t-lbl-uid").textContent = t("lblUid");
+      copyUidBtn.textContent = t("copyUid");
+
+      document.getElementById("t-pass-security-title").textContent = t("passSecurityTitle");
+      document.getElementById("t-change-site-pass-title").textContent = t("changeSitePassTitle");
+      document.getElementById("t-change-site-pass-hint").textContent = t("changeSitePassHint");
+      newSitePassInput.placeholder = t("newSitePassPh");
+      saveOwnSitePassBtn.textContent = t("saveOwnSitePassBtn");
+      document.getElementById("t-forgot-pass-inapp-title").textContent = t("forgotPassInAppTitle");
+      document.getElementById("t-forgot-pass-inapp-hint").textContent = t("forgotPassInAppHint");
+      forgotEmailInput.placeholder = t("emailPh");
+      sendForgotInAppBtn.textContent = t("sendForgotInAppBtn");
+
+      document.getElementById("t-tickets-heading").textContent = t("ticketsHeading");
+      document.getElementById("t-tickets-sub").textContent = t("ticketsSub");
+      document.getElementById("t-task-filter-title").textContent = t("taskFilterTitle");
+      taskSearch.placeholder = t("searchPh");
+      document.getElementById("t-tasks-list-heading").textContent = t("tasksListHeading");
+      document.getElementById("vortex-task-title").placeholder = t("taskPh");
+      document.getElementById("vortex-add-task-btn").textContent = t("addTask");
+      pickAssigneeBtn.textContent = t("pickAssigneeBtn");
+      document.getElementById("t-pick-assignee-title").textContent = t("pickAssigneeTitle");
+
+      document.getElementById("t-timetable-heading").textContent = t("timetableHeading");
+      document.getElementById("t-timetable-sub").textContent = t("timetableSub");
+      document.getElementById("t-common-free-title").textContent = t("commonFreeTitle");
+      copyFreeBtn.textContent = t("copyFreeBtn");
+      document.getElementById("t-days-grid-title").textContent = t("daysGridTitle");
+      document.getElementById("t-busy-list-title").textContent = isOwner() ? t("busyListOwnerTitle") : t("busyListTitle");
+
+      document.getElementById("t-teams-page-heading").textContent = t("teamsPageHeading");
+      document.getElementById("t-teams-page-sub").textContent = t("teamsPageSub");
+      document.getElementById("t-teams-filter-lbl").textContent = t("teamsFilterLbl");
+
+      document.getElementById("t-points-heading").textContent = t("pointsHeading");
+      document.getElementById("t-points-sub").textContent = t("pointsSub");
+      document.getElementById("t-lb-members-title").textContent = t("lbMembersTitle");
+
+      document.getElementById("t-chat-heading").textContent = t("chatHeading");
+      document.getElementById("t-chat-sub").textContent = t("chatSub");
+      document.getElementById("vortex-scroll-chat-btn").textContent = t("scrollChat");
+      chatInput.placeholder = t("chatPh");
+      sendChatBtn.textContent = t("sendChat");
+
+      document.getElementById("t-owners-page-title").textContent = t("ownersPageTitle");
+      document.getElementById("t-owners-page-sub").textContent = t("ownersPageSub");
+      document.getElementById("t-create-member-title").textContent = t("createMemberTitle");
+      newMemberNameInp.placeholder = t("newMemberNamePh");
+      newMemberEmailInp.placeholder = t("newMemberEmailPh");
+      newMemberUsernameInp.placeholder = t("newMemberUsernamePh");
+      regenUsernameBtn.textContent = t("regenUsernameBtn");
+      newMemberPassInp.placeholder = t("newMemberPassPh");
+      regenPassBtn.textContent = t("regenPassBtn");
+      createMemberBtn.textContent = t("createMemberBtn");
+      document.getElementById("t-all-accounts-title").textContent = t("allAccountsTitle");
+      document.getElementById("t-pass-note-owner").textContent = t("passNoteOwner");
+
+      document.getElementById("t-stat-total").textContent = t("statTotal");
+      document.getElementById("t-stat-pending").textContent = t("statPending");
+      document.getElementById("t-stat-done").textContent = t("statDone");
+      document.getElementById("t-stat-points").textContent = t("statPoints");
+
+      document.querySelectorAll("[data-i18n]").forEach((el) => {
+        const k = el.getAttribute("data-i18n");
+        if (I18N[lang][k]) el.textContent = I18N[lang][k];
+      });
+
+      langBtn.textContent = t("langSwitch");
+      applyTheme();
+      syncNetBadge();
+      renderDaysGrid();
+      renderAssigneeOptions();
+      renderUI();
+    }
+
+    themeBtn.addEventListener("click", () => {
+      theme = theme === "dark" ? "light" : "dark";
+      localStorage.setItem("vortex_theme", theme);
+      applyTheme();
+    });
+
+    langBtn.addEventListener("click", () => {
+      lang = lang === "ar" ? "en" : "ar";
+      localStorage.setItem("vortex_lang", lang);
+      applyLanguage();
+    });
+
+    window.addEventListener("online", () => { syncNetBadge(); setStatus(t("online"), "ok"); });
+    window.addEventListener("offline", () => { syncNetBadge(); setStatus(t("offline"), "error"); });
+
+    let auth = null;
+    let db = null;
+    let provider = null;
+    let confirmationResult = null;
+    let recaptchaVerifier = null;
+
+    try {
+      const app = initializeApp(firebaseConfig);
+      auth = getAuth(app);
+      db = getFirestore(app);
+      provider = new GoogleAuthProvider();
+      provider.setCustomParameters({ prompt: "select_account" });
+      setPersistence(auth, browserLocalPersistence).catch(() => {});
+    } catch (err) {
+      setStatus(formatErr(err), "error");
+    }
+
+    function ensureRecaptcha() {
+      if (!auth || recaptchaVerifier) return recaptchaVerifier;
+      recaptchaVerifier = new RecaptchaVerifier(auth, "vortex-recaptcha-box", { size: "invisible" });
+      return recaptchaVerifier;
+    }
+
+    let currentUser = null;
+    let currentRole = "Member";
+    let ownersSet = new Set(INITIAL_OWNERS.map((e) => e.toLowerCase()));
+    let knownEmailsMap = new Map();
+    let membersMap = new Map();
+    let allTasks = [];
+    let allBusySlots = [];
+    let allChat = [];
+    let unsubs = [];
+
+    function isOwner() {
+      return currentRole === "Owner";
+    }
+
+    function getCurrentUserTeam() {
+      if (!currentUser) return authTeamSelect.value || "GUI";
+      const savedProf = membersMap.get(currentUser.uid);
+      if (savedProf && TEAMS.includes(savedProf.team)) return savedProf.team;
+      return TEAMS.includes(authTeamSelect.value) ? authTeamSelect.value : "GUI";
+    }
+
+    async function wipeMemberAndAllHistory(memberObj) {
+      if (!isOwner() || !db || !memberObj) return;
+      const targetUid = memberObj.uid;
+      const targetEmail = String(memberObj.email || "").trim().toLowerCase();
+      const targetLabels = [
+        String(memberObj.fullName || "").trim().toLowerCase(),
+        String(memberObj.label || "").trim().toLowerCase(),
+        String(memberObj.username || "").trim().toLowerCase(),
+        targetEmail
+      ].filter(Boolean);
+
+      await deleteDoc(doc(db, "members_profiles", targetUid)).catch(() => {});
+      if (targetEmail) {
+        await deleteDoc(doc(db, "team_roster", encodeURIComponent(targetEmail))).catch(() => {});
+        knownEmailsMap.delete(targetEmail);
+      }
+
+      const slotsToDelete = allBusySlots.filter(
+        (sl) =>
+          sl.uid === targetUid ||
+          (targetEmail && String(sl.userLabel || "").trim().toLowerCase() === targetEmail) ||
+          targetLabels.includes(String(sl.userLabel || "").trim().toLowerCase())
+      );
+      await Promise.all(slotsToDelete.map((sl) => deleteDoc(doc(db, "busy_schedule", sl.id)).catch(() => {})));
+
+      const msgsToDelete = allChat.filter(
+        (msg) =>
+          msg.createdByUid === targetUid ||
+          targetLabels.includes(String(msg.createdByLabel || "").trim().toLowerCase())
+      );
+      await Promise.all(msgsToDelete.map((msg) => deleteDoc(doc(db, "chat_messages", msg.id)).catch(() => {})));
+
+      const tasksToClean = allTasks.filter((tk) => {
+        const asg = String(tk.assignedTo || "").trim().toLowerCase();
+        const cmp = String(tk.completedBy || "").trim().toLowerCase();
+        return targetLabels.includes(asg) || targetLabels.includes(cmp);
+      });
+      await Promise.all(
+        tasksToClean.map((tk) => {
+          const patch = {};
+          if (targetLabels.includes(String(tk.assignedTo || "").trim().toLowerCase())) patch.assignedTo = "";
+          if (targetLabels.includes(String(tk.completedBy || "").trim().toLowerCase())) patch.completedBy = "";
+          return updateDoc(doc(db, "tasks", tk.id), patch).catch(() => {});
+        })
+      );
+
+      membersMap.delete(targetUid);
+    }
+
+    function to24HourMinutes(hour12, minuteVal, period) {
+      let h = Number(hour12);
+      const m = Number(minuteVal);
+      if (Number.isNaN(h) || Number.isNaN(m) || h < 1 || h > 12 || m < 0 || m > 59) return null;
+      if (period === "AM") {
+        if (h === 12) h = 0;
+      } else if (period === "PM") {
+        if (h !== 12) h += 12;
+      } else {
+        return null;
+      }
+      return h * 60 + m;
+    }
+
+    function formatMinutes24(mins) {
+      const clamped = Math.max(0, Math.min(24 * 60, Math.round(mins)));
+      const h = String(Math.floor(clamped / 60)).padStart(2, "0");
+      const m = String(clamped % 60).padStart(2, "0");
+      return `${h}:${m}`;
+    }
+
+    function formatMinutes12(mins) {
+      const clamped = Math.max(0, Math.min(24 * 60, Math.round(mins)));
+      const h24 = Math.floor(clamped / 60);
+      const m = String(clamped % 60).padStart(2, "0");
+      const period = h24 >= 12 ? t("pmLbl") : t("amLbl");
+      let h12 = h24 % 12;
+      if (h12 === 0) h12 = 12;
+      return `${String(h12).padStart(2, "0")}:${m} ${period}`;
+    }
+
+    function parseStoredSlotRange(sl) {
+      if (typeof sl.startMin === "number" && typeof sl.endMin === "number" && sl.endMin > sl.startMin) {
+        return [sl.startMin, sl.endMin];
+      }
+      if (sl.from && sl.to && /^\d{2}:\d{2}$/.test(sl.from) && /^\d{2}:\d{2}$/.test(sl.to)) {
+        const [sh, sm] = sl.from.split(":").map(Number);
+        const [eh, em] = sl.to.split(":").map(Number);
+        const s = sh * 60 + sm;
+        const e = eh * 60 + em;
+        if (e > s) return [s, e];
+      }
+      return null;
+    }
+
+    function getVisibleBusySlots() {
+      if (!currentUser) return [];
+      if (isOwner()) return allBusySlots;
+      return allBusySlots.filter((sl) => sl.uid === currentUser.uid);
+    }
+
+    function computeMinutesForUid(uid, dayFilter = null) {
+      if (!currentUser) return 0;
+      if (!isOwner() && uid !== currentUser.uid) return 0;
+      let totalMins = 0;
+      allBusySlots.forEach((sl) => {
+        if (sl.uid !== uid) return;
+        if (dayFilter && sl.day !== dayFilter) return;
+        const rng = parseStoredSlotRange(sl);
+        if (rng) totalMins += rng[1] - rng[0];
+      });
+      return totalMins;
+    }
+
+    function formatHoursFromMinutes(mins) {
+      return (mins / 60).toFixed(1);
+    }
+
+    function computeFreeWindowsForSlots(sourceSlots) {
+      const windowStart = 8 * 60;
+      const windowEnd = 22 * 60;
+
+      const intervals = sourceSlots
+        .map((sl) => {
+          const rng = parseStoredSlotRange(sl);
+          if (!rng) return null;
+          return [Math.max(windowStart, rng[0]), Math.min(windowEnd, rng[1])];
+        })
+        .filter((iv) => iv && iv[1] > iv[0])
+        .sort((a, b) => a[0] - b[0]);
+
+      const merged = [];
+      intervals.forEach(([s, e]) => {
+        if (!merged.length || s > merged[merged.length - 1][1]) {
+          merged.push([s, e]);
+        } else {
+          merged[merged.length - 1][1] = Math.max(merged[merged.length - 1][1], e);
+        }
+      });
+
+      const freeWindows = [];
+      let cursor = windowStart;
+      merged.forEach(([bs, be]) => {
+        if (bs - cursor >= 30) {
+          freeWindows.push(`${formatMinutes12(cursor)} → ${formatMinutes12(bs)}`);
+        }
+        cursor = Math.max(cursor, be);
+      });
+      if (windowEnd - cursor >= 30) {
+        freeWindows.push(`${formatMinutes12(cursor)} → ${formatMinutes12(windowEnd)}`);
+      }
+      return freeWindows;
+    }
+
+    function buildHourOptions(selectedVal = "04") {
+      const hours = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"];
+      return hours
+        .map((h) => `<option value="${h}" ${h === selectedVal ? "selected" : ""}>${h}</option>`)
+        .join("");
+    }
+
+    function buildMinuteOptions(selectedVal = "00") {
+      const mins = ["00", "15", "30", "45"];
+      return mins
+        .map((m) => `<option value="${m}" ${m === selectedVal ? "selected" : ""}>${m}</option>`)
+        .join("");
+    }
+
+    function renderDaysGrid() {
+      if (!daysGrid) return;
+      daysGrid.innerHTML = "";
+
+      DAYS_OF_WEEK.forEach((dObj) => {
+        const daySlotsForMe = currentUser
+          ? allBusySlots.filter((s) => s.uid === currentUser.uid && s.day === dObj.key)
+          : [];
+        const dayMinsForMe = currentUser ? computeMinutesForUid(currentUser.uid, dObj.key) : 0;
+
+        const card = document.createElement("div");
+        card.className = `day-card ${daySlotsForMe.length ? "active-day" : ""}`;
+
+        const labelText = dayLabel(dObj.key);
+        card.innerHTML = `
+          <div class="day-header">
+            <strong>📅 ${escapeHtml(labelText)}</strong>
+            <span class="badge ok">⏱ ${escapeHtml(t("dayHoursPrefix"))}: ${formatHoursFromMinutes(dayMinsForMe)} ${escapeHtml(t("hoursUnit"))}</span>
+          </div>
+          <input type="text" class="day-title-inp" placeholder="${escapeHtml(t("activityNamePh"))}" />
+
+          <div class="time-group">
+            <span class="time-group-label">${escapeHtml(t("fromLbl"))}</span>
+            <select class="day-from-h">${buildHourOptions("04")}</select>
+            <span>:</span>
+            <select class="day-from-m">${buildMinuteOptions("00")}</select>
+            <select class="day-from-p">
+              <option value="AM">${escapeHtml(t("amLbl"))}</option>
+              <option value="PM" selected>${escapeHtml(t("pmLbl"))}</option>
+            </select>
+          </div>
+
+          <div class="time-group">
+            <span class="time-group-label">${escapeHtml(t("toLbl"))}</span>
+            <select class="day-to-h">${buildHourOptions("06")}</select>
+            <span>:</span>
+            <select class="day-to-m">${buildMinuteOptions("00")}</select>
+            <select class="day-to-p">
+              <option value="AM">${escapeHtml(t("amLbl"))}</option>
+              <option value="PM" selected>${escapeHtml(t("pmLbl"))}</option>
+            </select>
+          </div>
+
+          <input type="text" class="day-note-inp" placeholder="${escapeHtml(t("noteOptionalPh"))}" />
+          <label class="repeat-check">
+            <input type="checkbox" class="day-repeat-chk" checked />
+            <span>🔁 ${escapeHtml(t("repeatWeeklyLbl"))}</span>
+          </label>
+          <button type="button" class="day-save-btn">${escapeHtml(t("saveBusyBtn"))}</button>
+        `;
+
+        const titleInp = card.querySelector(".day-title-inp");
+        const fromH = card.querySelector(".day-from-h");
+        const fromM = card.querySelector(".day-from-m");
+        const fromP = card.querySelector(".day-from-p");
+        const toH = card.querySelector(".day-to-h");
+        const toM = card.querySelector(".day-to-m");
+        const toP = card.querySelector(".day-to-p");
+        const noteInp = card.querySelector(".day-note-inp");
+        const repeatChk = card.querySelector(".day-repeat-chk");
+        const saveBtn = card.querySelector(".day-save-btn");
+
+        saveBtn.addEventListener("click", async () => {
+          if (!currentUser || !db) return;
+          const titleVal = titleInp.value.trim();
+          if (!titleVal) {
+            setStatus(t("missingActivityName"), "error");
+            return;
+          }
+
+          const sMin = to24HourMinutes(fromH.value, fromM.value, fromP.value);
+          const eMin = to24HourMinutes(toH.value, toM.value, toP.value);
+          if (sMin === null || eMin === null || eMin <= sMin) {
+            setStatus(t("invalidTimeRange"), "error");
+            return;
+          }
+
+          const fromFormatted = formatMinutes12(sMin);
+          const toFormatted = formatMinutes12(eMin);
+
+          saveBtn.disabled = true;
+          try {
+            await addDoc(collection(db, "busy_schedule"), {
+              day: dObj.key,
+              title: titleVal,
+              from: fromFormatted,
+              to: toFormatted,
+              from24: formatMinutes24(sMin),
+              to24: formatMinutes24(eMin),
+              startMin: sMin,
+              endMin: eMin,
+              repeatWeekly: Boolean(repeatChk.checked),
+              note: noteInp.value.trim(),
+              team: getCurrentUserTeam(),
+              uid: currentUser.uid,
+              userLabel: currentUser.displayName || currentUser.email || currentUser.phoneNumber || currentUser.uid,
+              createdAt: serverTimestamp()
+            });
+            titleInp.value = "";
+            noteInp.value = "";
+            setStatus(`✔ ${labelText}: ${titleVal} (${fromFormatted} → ${toFormatted})`, "ok");
+          } catch (err) {
+            setStatus(formatErr(err), "error");
+          } finally {
+            saveBtn.disabled = false;
+          }
+        });
+
+        daysGrid.appendChild(card);
+      });
+    }
+
+    function buildAvailabilityTextForDay(dayKey, scopeTeam) {
+      const ownerMode = isOwner();
+      const chosenDaySlots = ownerMode
+        ? allBusySlots.filter((sl) => {
+            if (sl.day !== dayKey) return false;
+            if (scopeTeam && scopeTeam !== "ALL") return (sl.team || "GUI") === scopeTeam;
+            return true;
+          })
+        : allBusySlots.filter((sl) => currentUser && sl.uid === currentUser.uid && sl.day === dayKey);
+
+      if (!chosenDaySlots.length) return null;
+
+      const freeWindows = computeFreeWindowsForSlots(chosenDaySlots);
+      const freeText = freeWindows.length ? freeWindows.join(" | ") : t("noFreeInWindow");
+
+      const busyDetails = chosenDaySlots
+        .map((sl) => {
+          const who = ownerMode ? `${sl.userLabel || t("member")} (${sl.team || "GUI"})` : (sl.team || "GUI");
+          return `${who}: ${sl.title || t("untitled")} [${sl.from} → ${sl.to}]`;
+        })
+        .join(" • ");
+
+      return {
+        freeText,
+        busyDetails,
+        count: chosenDaySlots.length,
+        plainText: `${dayLabel(dayKey)} — ${t("freeWindowsPrefix")}: ${freeText} | ${busyDetails}`
+      };
+    }
+
+    function renderTimetableSection() {
+      const ownerMode = isOwner();
+      overlapScopeSel.classList.toggle("hidden", !ownerMode);
+      busyTeamFilter.classList.toggle("hidden", !ownerMode);
+      document.getElementById("t-busy-list-title").textContent = ownerMode ? t("busyListOwnerTitle") : t("busyListTitle");
+
+      if (currentUser) {
+        const wkMins = computeMinutesForUid(currentUser.uid, null);
+        myWeeklyHoursBadge.textContent = `⏱ ${t("weeklyHoursPrefix")}: ${formatHoursFromMinutes(wkMins)} ${t("hoursUnit")}`;
+      }
+
+      const visibleSlots = getVisibleBusySlots();
+
+      if (visibleSlots.length === 0) {
+        availabilityCard.classList.add("hidden");
+        overlapSummaryBox.innerHTML = "";
+        allTeamsFreeOverview.innerHTML = "";
+      } else {
+        const chosenDay = overlapDaySel.value || "Saturday";
+        const chosenScope = ownerMode ? (overlapScopeSel.value || "ALL") : getCurrentUserTeam();
+        const dayData = buildAvailabilityTextForDay(chosenDay, chosenScope);
+
+        if (!dayData) {
+          availabilityCard.classList.add("hidden");
+          overlapSummaryBox.innerHTML = "";
+          allTeamsFreeOverview.innerHTML = "";
+        } else {
+          availabilityCard.classList.remove("hidden");
+          const scopeTitle = ownerMode
+            ? (chosenScope === "ALL" ? (lang === "ar" ? "كل التيمات" : "All Teams") : chosenScope)
+            : (currentUser ? (currentUser.displayName || currentUser.email || t("member")) : "");
+
+          overlapSummaryBox.innerHTML = `
+            <div class="list-item" style="margin-top:0;">
+              <div style="flex:1; min-width:240px;">
+                <strong>📅 ${escapeHtml(dayLabel(chosenDay))} • 🎯 ${escapeHtml(scopeTitle)}</strong>
+                <div class="task-badges" style="margin-top:8px;">
+                  <span class="badge ok">🕒 ${escapeHtml(t("freeWindowsPrefix"))}: ${escapeHtml(dayData.freeText)}</span>
+                </div>
+                <div class="hint" style="margin-top:8px;">📌 ${escapeHtml(dayData.busyDetails)}</div>
+              </div>
+            </div>
+          `;
+
+          if (ownerMode) {
+            const activeTeamBlocks = TEAMS
+              .map((tm) => {
+                const tmData = buildAvailabilityTextForDay(chosenDay, tm);
+                if (!tmData) return "";
+                return `
+                  <div class="list-item" style="margin-top:8px;">
+                    <div style="flex:1; min-width:220px;">
+                      <strong>🎯 ${escapeHtml(tm)}</strong>
+                      <div class="task-badges">
+                        <span class="badge ok">🕒 ${escapeHtml(tmData.freeText)}</span>
+                      </div>
+                      <div class="hint" style="margin-top:6px;">${escapeHtml(tmData.busyDetails)}</div>
+                    </div>
+                  </div>
+                `;
+              })
+              .filter(Boolean)
+              .join("");
+
+            allTeamsFreeOverview.innerHTML = activeTeamBlocks;
+          } else {
+            allTeamsFreeOverview.innerHTML = "";
+          }
+        }
+      }
+
+      const fDay = busyDayFilter.value;
+      const fTeam = ownerMode ? busyTeamFilter.value : "all";
+
+      const filtered = visibleSlots.filter((sl) => {
+        const okDay = fDay === "all" || sl.day === fDay;
+        const okTeam = fTeam === "all" || (sl.team || "GUI") === fTeam;
+        return okDay && okTeam;
+      });
+
+      busyList.innerHTML = "";
+      if (!filtered.length) {
+        busyList.innerHTML = `<p class="hint" style="margin:0;">${escapeHtml(t("noBusyEntries"))}</p>`;
+        return;
+      }
+
+      filtered.forEach((sl) => {
+        const row = document.createElement("div");
+        row.className = "list-item";
+
+        const rng = parseStoredSlotRange(sl);
+        const slotDurHrs = rng ? ((rng[1] - rng[0]) / 60).toFixed(1) : "0.0";
+        const memberWkHrs = formatHoursFromMinutes(computeMinutesForUid(sl.uid, null));
+        const repeatText = sl.repeatWeekly ? t("repeatWeeklyLbl") : t("oneTimeLbl");
+
+        const left = document.createElement("div");
+        left.innerHTML = `
+          <strong>📌 ${escapeHtml(sl.title || t("untitled"))}</strong>
+          <div class="task-badges">
+            <span class="badge">📅 ${escapeHtml(dayLabel(sl.day))}</span>
+            <span class="badge warn">🕒 ${escapeHtml(sl.from || "--:--")} → ${escapeHtml(sl.to || "--:--")} (${slotDurHrs} ${escapeHtml(t("hoursUnit"))})</span>
+            <span class="badge ok">⏱ ${escapeHtml(t("memberWeeklyHours"))}: ${memberWkHrs} ${escapeHtml(t("hoursUnit"))}</span>
+            <span class="badge">🔁 ${escapeHtml(repeatText)}</span>
+            <span class="badge">🎯 ${escapeHtml(sl.team || "GUI")}</span>
+            ${ownerMode ? `<span class="badge">👤 ${escapeHtml(sl.userLabel || t("member"))}</span>` : ""}
+            ${sl.note ? `<span class="badge">📝 ${escapeHtml(sl.note)}</span>` : ""}
+          </div>
+        `;
+        row.appendChild(left);
+
+        const canDelete = currentUser && (ownerMode || sl.uid === currentUser.uid);
+        if (canDelete) {
+          const delBtn = document.createElement("button");
+          delBtn.type = "button";
+          delBtn.className = "danger";
+          delBtn.textContent = t("deleteBtn");
+          delBtn.addEventListener("click", async () => {
+            try {
+              await deleteDoc(doc(db, "busy_schedule", sl.id));
+            } catch (err) {
+              setStatus(formatErr(err), "error");
+            }
+          });
+          row.appendChild(delBtn);
+        }
+
+        busyList.appendChild(row);
+      });
+    }
+
+    copyFreeBtn.addEventListener("click", async () => {
+      const chosenDay = overlapDaySel.value || "Saturday";
+      const chosenScope = isOwner() ? (overlapScopeSel.value || "ALL") : getCurrentUserTeam();
+      const dayData = buildAvailabilityTextForDay(chosenDay, chosenScope);
+      if (!dayData) return;
+
+      try {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          await navigator.clipboard.writeText(dayData.plainText);
+        } else {
+          const tmp = document.createElement("textarea");
+          tmp.value = dayData.plainText;
+          document.body.appendChild(tmp);
+          tmp.select();
+          document.execCommand("copy");
+          document.body.removeChild(tmp);
+        }
+        setStatus(t("copiedFreeOk"), "ok");
+      } catch (_) {
+        setStatus(dayData.plainText, "ok");
+      }
+    });
+
+    function canMemberCompleteTask(task) {
+      if (!currentUser || task.status === "done") return false;
+      const myTeam = getCurrentUserTeam();
+      const taskTeam = task.team || "GUI";
+      if (myTeam !== taskTeam) return false;
+
+      const assignee = String(task.assignedTo || "").trim().toLowerCase();
+      if (!assignee) return true;
+
+      const myEmail = String(currentUser.email || "").trim().toLowerCase();
+      const myLabel = String(currentUser.displayName || currentUser.phoneNumber || currentUser.uid || "").trim().toLowerCase();
+      return (myEmail && assignee === myEmail) || (myLabel && assignee === myLabel);
+    }
+
+    function taskPointsValue(prio) {
+      if (prio === "urgent") return 30;
+      if (prio === "high") return 20;
+      return 10;
+    }
+
+    function completionOrderScore(task) {
+      if (!task.completedAt) return Number.MAX_SAFE_INTEGER;
+      if (typeof task.completedAt.toMillis === "function") return task.completedAt.toMillis();
+      if (task.completedAt.seconds) return task.completedAt.seconds * 1000;
+      const parsed = Date.parse(task.completedAt);
+      return Number.isNaN(parsed) ? Number.MAX_SAFE_INTEGER : parsed;
+    }
+
+    function speedRankBonus(rankIndex) {
+      if (rankIndex === 0) return 15;
+      if (rankIndex === 1) return 10;
+      if (rankIndex === 2) return 5;
+      return 2;
+    }
+
+    function computePointsBreakdown() {
+      const doneTasks = allTasks
+        .filter((tk) => tk.status === "done")
+        .sort((a, b) => completionOrderScore(a) - completionOrderScore(b));
+
+      const statsByKey = new Map();
+
+      function ensureEntry(key, displayName) {
+        if (!statsByKey.has(key)) {
+          statsByKey.set(key, { name: displayName, base: 0, speed: 0, total: 0, doneCount: 0 });
+        }
+        return statsByKey.get(key);
+      }
+
+      doneTasks.forEach((tk, idx) => {
+        const actorRaw = String(tk.completedBy || tk.assignedTo || "").trim();
+        if (!actorRaw) return;
+        const key = actorRaw.toLowerCase();
+        const entry = ensureEntry(key, actorRaw);
+        const base = taskPointsValue(tk.priority);
+        const bonus = speedRankBonus(idx);
+        entry.base += base;
+        entry.speed += bonus;
+        entry.total += base + bonus;
+        entry.doneCount += 1;
+      });
+
+      return statsByKey;
+    }
+
+    function getUserPointsBreakdown(userObj) {
+      const map = computePointsBreakdown();
+      if (!userObj) return { base: 0, speed: 0, total: 0, doneCount: 0 };
+      const candidates = [
+        String(userObj.email || "").trim().toLowerCase(),
+        String(userObj.label || "").trim().toLowerCase()
+      ].filter(Boolean);
+
+      for (const k of candidates) {
+        if (map.has(k)) return map.get(k);
+      }
+      return { base: 0, speed: 0, total: 0, doneCount: 0 };
+    }
+
+    async function persistMemberProfile(user, chosenTeam) {
+      if (!db || !user) return;
+      const teamVal = TEAMS.includes(chosenTeam) ? chosenTeam : "GUI";
+      const emailLower = (user.email || "").trim().toLowerCase();
+      const pendingDocId = emailLower ? makePendingUidFromEmail(emailLower) : "";
+
+      let pendingData = null;
+      if (pendingDocId && pendingDocId !== user.uid) {
+        try {
+          const pSnap = await getDoc(doc(db, "members_profiles", pendingDocId));
+          if (pSnap && pSnap.exists()) pendingData = pSnap.data();
+        } catch (_) {}
+      }
+
+      let existingData = {};
+      try {
+        const exSnap = await getDoc(doc(db, "members_profiles", user.uid));
+        if (exSnap && exSnap.exists()) existingData = exSnap.data();
+      } catch (_) {}
+
+      const mergedName =
+        existingData.fullName ||
+        (pendingData && pendingData.fullName) ||
+        user.displayName ||
+        (emailLower ? emailLower.split("@")[0] : "") ||
+        user.phoneNumber ||
+        user.uid;
+
+      const mergedUsername =
+        existingData.username ||
+        (pendingData && pendingData.username) ||
+        generateRandomUsername(mergedName, emailLower);
+
+      const mergedTeam =
+        (pendingData && TEAMS.includes(pendingData.team) ? pendingData.team : null) ||
+        (TEAMS.includes(existingData.team) ? existingData.team : null) ||
+        teamVal;
+
+      const mergedSitePass =
+        existingData.sitePasscode ||
+        (pendingData && pendingData.sitePasscode) ||
+        generateRandomPasscode(8);
+
+      const mergedPhoto = existingData.photoUrl || (pendingData && pendingData.photoUrl) || "";
+
+      try {
+        await setDoc(
+          doc(db, "members_profiles", user.uid),
+          {
+            uid: user.uid,
+            fullName: mergedName,
+            username: mergedUsername,
+            email: emailLower,
+            label: mergedName,
+            team: mergedTeam,
+            sitePasscode: mergedSitePass,
+            photoUrl: mergedPhoto,
+            emailVerified: Boolean(user.emailVerified || !emailLower),
+            platform: detectedDevice.id,
+            updatedAt: serverTimestamp()
+          },
+          { merge: true }
+        );
+        if (pendingData && pendingDocId && pendingDocId !== user.uid) {
+          await deleteDoc(doc(db, "members_profiles", pendingDocId)).catch(() => {});
+        }
+      } catch (_) {}
+    }
+
+    uploadPhotoBtn.addEventListener("click", () => photoFileInput.click());
+
+    photoFileInput.addEventListener("change", async () => {
+      const file = photoFileInput.files && photoFileInput.files[0];
+      if (!file || !currentUser || !db) return;
+      uploadPhotoBtn.disabled = true;
+      try {
+        const dataUrl = await compressImageToDataUrl(file);
+        await setDoc(
+          doc(db, "members_profiles", currentUser.uid),
+          { photoUrl: dataUrl, updatedAt: serverTimestamp() },
+          { merge: true }
+        );
+        photoFileInput.value = "";
+        setStatus(t("photoUpdatedOk"), "ok");
+      } catch (err) {
+        setStatus(formatErr(err), "error");
+      } finally {
+        uploadPhotoBtn.disabled = false;
+      }
+    });
+
+    removePhotoBtn.addEventListener("click", async () => {
+      if (!currentUser || !db) return;
+      try {
+        await setDoc(
+          doc(db, "members_profiles", currentUser.uid),
+          { photoUrl: "", updatedAt: serverTimestamp() },
+          { merge: true }
+        );
+        setStatus(t("photoRemovedOk"), "ok");
+      } catch (err) {
+        setStatus(formatErr(err), "error");
+      }
+    });
+
+    saveTeamBtn.addEventListener("click", async () => {
+      if (!currentUser) return;
+      const chosen = profileTeamSelect.value || "GUI";
+      await persistMemberProfile(currentUser, chosen);
+      setStatus(t("teamSaved"), "ok");
+    });
+
+    copyUidBtn.addEventListener("click", async () => {
+      if (!currentUser) return;
+      try {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          await navigator.clipboard.writeText(currentUser.uid);
+        }
+        setStatus(`${t("copiedUidOk")} (${currentUser.uid})`, "ok");
+      } catch (_) {
+        setStatus(currentUser.uid, "ok");
+      }
+    });
+
+    toggleSitePassBtn.addEventListener("click", () => {
+      showOwnSitePass = !showOwnSitePass;
+      renderUI();
+    });
+
+    saveOwnSitePassBtn.addEventListener("click", async () => {
+      if (!currentUser || !db) return;
+      const nextPass = newSitePassInput.value.trim();
+      if (nextPass.length < 4) {
+        setStatus(t("sitePassMinErr"), "error");
+        return;
+      }
+      saveOwnSitePassBtn.disabled = true;
+      try {
+        await setDoc(
+          doc(db, "members_profiles", currentUser.uid),
+          { sitePasscode: nextPass, updatedAt: serverTimestamp() },
+          { merge: true }
+        );
+        newSitePassInput.value = "";
+        setStatus(t("sitePassSavedOk"), "ok");
+      } catch (err) {
+        setStatus(formatErr(err), "error");
+      } finally {
+        saveOwnSitePassBtn.disabled = false;
+      }
+    });
+
+    sendForgotInAppBtn.addEventListener("click", async () => {
+      if (!auth) return;
+      const targetEmail = (forgotEmailInput.value || (currentUser && currentUser.email) || "").trim();
+      if (!isLikelyRealEmail(targetEmail)) {
+        setStatus(t("invalidRealEmail"), "error");
+        return;
+      }
+      sendForgotInAppBtn.disabled = true;
+      try {
+        await sendPasswordResetEmail(auth, targetEmail);
+        setStatus(`${t("resetSentOk")} (${targetEmail})`, "ok");
+      } catch (err) {
+        setStatus(formatErr(err), "error");
+      } finally {
+        sendForgotInAppBtn.disabled = false;
+      }
+    });
+
+    regenUsernameBtn.addEventListener("click", () => {
+      newMemberUsernameInp.value = generateRandomUsername(newMemberNameInp.value, newMemberEmailInp.value);
+    });
+
+    regenPassBtn.addEventListener("click", () => {
+      newMemberPassInp.value = generateRandomPasscode(8);
+    });
+
+    createMemberBtn.addEventListener("click", async () => {
+      if (!isOwner() || !db) {
+        setStatus(t("ownerOnlyError"), "error");
+        return;
+      }
+      const email = newMemberEmailInp.value.trim().toLowerCase();
+      if (!isLikelyRealEmail(email)) {
+        setStatus(t("invalidRealEmail"), "error");
+        return;
+      }
+      const fullName = newMemberNameInp.value.trim() || email.split("@")[0];
+      const teamVal = TEAMS.includes(newMemberTeamSel.value) ? newMemberTeamSel.value : "GUI";
+      const usernameVal = (newMemberUsernameInp.value.trim() || generateRandomUsername(fullName, email)).toLowerCase();
+      const sitePassVal = newMemberPassInp.value.trim() || generateRandomPasscode(8);
+      if (sitePassVal.length < 4) {
+        setStatus(t("sitePassMinErr"), "error");
+        return;
+      }
+
+      createMemberBtn.disabled = true;
+      try {
+        const docId = makePendingUidFromEmail(email);
+        await setDoc(
+          doc(db, "members_profiles", docId),
+          {
+            uid: docId,
+            fullName,
+            username: usernameVal,
+            email,
+            label: fullName,
+            team: teamVal,
+            sitePasscode: sitePassVal,
+            photoUrl: "",
+            emailVerified: false,
+            platform: "assigned-by-owner",
+            createdAt: serverTimestamp(),
+            updatedAt: serverTimestamp()
+          },
+          { merge: true }
+        );
+        await setDoc(
+          doc(db, "team_roster", encodeURIComponent(email)),
+          { email, team: teamVal, updatedAt: serverTimestamp() },
+          { merge: true }
+        );
+        knownEmailsMap.set(email, teamVal);
+        newMemberNameInp.value = "";
+        newMemberEmailInp.value = "";
+        newMemberUsernameInp.value = "";
+        newMemberPassInp.value = "";
+        setStatus(`${t("memberCreatedOk")} (${fullName} • @${usernameVal} • Pass: ${sitePassVal})`, "ok");
+      } catch (err) {
+        setStatus(formatErr(err), "error");
+      } finally {
+        createMemberBtn.disabled = false;
+      }
+    });
+
+    function getEffectiveOwnersSet() {
+      const merged = new Set(INITIAL_OWNERS.map((e) => e.toLowerCase()));
+      ownersSet.forEach((e) => merged.add(e.toLowerCase()));
+      return Array.from(merged).slice(0, MAX_OWNERS);
+    }
+
+    function getEmailTeamMap() {
+      const map = new Map();
+      membersMap.forEach((m) => {
+        if (m.email && m.email.includes("@")) {
+          map.set(m.email.toLowerCase(), TEAMS.includes(m.team) ? m.team : "GUI");
+        }
+      });
+      knownEmailsMap.forEach((tm, em) => {
+        map.set(em.toLowerCase(), TEAMS.includes(tm) ? tm : "GUI");
+      });
+      return map;
+    }
+
+    function getAllKnownEmails() {
+      const emails = new Set(getEffectiveOwnersSet());
+      knownEmailsMap.forEach((_, em) => { if (em) emails.add(em.toLowerCase()); });
+      if (currentUser && currentUser.email) emails.add(currentUser.email.toLowerCase());
+      membersMap.forEach((m) => { if (m.email && m.email.includes("@")) emails.add(m.email.toLowerCase()); });
+      allTasks.forEach((tk) => {
+        if (tk.createdByLabel && tk.createdByLabel.includes("@")) emails.add(tk.createdByLabel.toLowerCase());
+        if (tk.assignedTo && tk.assignedTo.includes("@")) emails.add(tk.assignedTo.toLowerCase());
+      });
+      return Array.from(emails);
+    }
+
+    function getEmailsForTeam(targetTeam) {
+      const all = getAllKnownEmails();
+      const emailTeamMap = getEmailTeamMap();
+      return all.filter((em) => emailTeamMap.get(em) === targetTeam);
+    }
+
+    function renderAssigneeOptions() {
+      const selectedTaskTeam = taskTeamSelect.value || "GUI";
+      const teamEmails = getEmailsForTeam(selectedTaskTeam);
+      const allEmails = getAllKnownEmails();
+      const prevSelectVal = taskAssigneeSelect.value;
+      const prevFilterVal = taskAssigneeFilter.value;
+
+      taskAssigneeSelect.innerHTML = `<option value="">${escapeHtml(t("unassignedOption"))}</option>`;
+      assigneeChips.innerHTML = "";
+
+      teamEmails.forEach((em) => {
+        const opt = document.createElement("option");
+        opt.value = em;
+        opt.textContent = `${em} (${selectedTaskTeam})`;
+        taskAssigneeSelect.appendChild(opt);
+
+        const isPicked = taskAssigneeSelect.value === em;
+        const chip = document.createElement("button");
+        chip.type = "button";
+        chip.className = `email-chip-btn ${isPicked ? "selected" : ""}`;
+        chip.textContent = `${isPicked ? "✓ " : "✉ "}${em} • ${selectedTaskTeam}`;
+        chip.addEventListener("click", () => {
+          taskAssigneeSelect.value = em;
+          const tmMap = getEmailTeamMap();
+          if (tmMap.has(em)) {
+            taskTeamSelect.value = tmMap.get(em);
+          }
+          syncSelectedAssigneeLabel();
+          renderAssigneeOptions();
+        });
+        assigneeChips.appendChild(chip);
+      });
+
+      if (teamEmails.length === 0) {
+        teamAssigneeHint.textContent = t("noTeamMemberHint").replaceAll("{team}", selectedTaskTeam);
+      } else {
+        teamAssigneeHint.textContent = "";
+      }
+
+      if (prevSelectVal && teamEmails.includes(prevSelectVal)) {
+        taskAssigneeSelect.value = prevSelectVal;
+      } else {
+        taskAssigneeSelect.value = "";
+      }
+
+      taskAssigneeFilter.innerHTML = `<option value="all">${escapeHtml(t("assigneeAll"))}</option>`;
+      allEmails.forEach((em) => {
+        const fOpt = document.createElement("option");
+        fOpt.value = em;
+        fOpt.textContent = em;
+        taskAssigneeFilter.appendChild(fOpt);
+      });
+      if (prevFilterVal && (prevFilterVal === "all" || allEmails.includes(prevFilterVal))) {
+        taskAssigneeFilter.value = prevFilterVal;
+      }
+
+      syncSelectedAssigneeLabel();
+    }
+
+    function syncSelectedAssigneeLabel() {
+      const chosen = taskAssigneeSelect.value;
+      if (chosen) {
+        selectedAssigneeLabel.textContent = `✓ ${t("assignedTo")}: ${chosen}`;
+        selectedAssigneeLabel.className = "badge picked";
+        taskAssigneeSelect.classList.add("is-selected-item");
+      } else {
+        selectedAssigneeLabel.textContent = t("unassignedOption");
+        selectedAssigneeLabel.className = "badge ok";
+        taskAssigneeSelect.classList.remove("is-selected-item");
+      }
+    }
+
+    taskTeamSelect.addEventListener("change", () => {
+      renderAssigneeOptions();
+    });
+
+    pickAssigneeBtn.addEventListener("click", () => {
+      if (!isOwner()) return;
+      renderAssigneeOptions();
+      assigneePicker.classList.toggle("hidden");
+    });
+
+    taskAssigneeSelect.addEventListener("change", () => {
+      const chosen = taskAssigneeSelect.value;
+      if (chosen) {
+        const tmMap = getEmailTeamMap();
+        if (tmMap.has(chosen)) {
+          taskTeamSelect.value = tmMap.get(chosen);
+        }
+      }
+      syncSelectedAssigneeLabel();
+      renderAssigneeOptions();
+    });
+
+    function computeRole(user) {
+      if (!user || !user.email) return "Member";
+      const email = user.email.toLowerCase();
+      if (getEffectiveOwnersSet().includes(email)) return "Owner";
+      return "Member";
+    }
+
+    function updateStats() {
+      const total = allTasks.length;
+      const done = allTasks.filter((item) => item.status === "done").length;
+      const pending = total - done;
+      const myBreakdown = currentUser
+        ? getUserPointsBreakdown({
+            email: currentUser.email,
+            label: currentUser.displayName || currentUser.email || currentUser.phoneNumber
+          })
+        : { total: 0 };
+
+      document.getElementById("stat-total-tasks").textContent = String(total);
+      document.getElementById("stat-pending-tasks").textContent = String(pending);
+      document.getElementById("stat-done-tasks").textContent = String(done);
+      document.getElementById("stat-user-points").textContent = String(myBreakdown.total);
+      document.getElementById("vortex-prof-points-badge").textContent = `⭐ ${myBreakdown.total} pts`;
+
+      renderSubteamsAndMembers();
+      renderPointsLeaderboard();
+    }
+
+    function renderSubteamsAndMembers() {
+      const box = document.getElementById("vortex-subteams-grid");
+      if (!box) return;
+      box.innerHTML = "";
+
+      const teamsToShow = viewedTeam === "ALL" ? TEAMS : [viewedTeam];
+      const allMembers = Array.from(membersMap.values());
+
+      teamsToShow.forEach((tm) => {
+        const tmMembers = allMembers.filter((m) => (m.team || "GUI") === tm);
+        const tmTasks = allTasks.filter((tk) => (tk.team || "GUI") === tm);
+        const tmDone = tmTasks.filter((tk) => tk.status === "done").length;
+        const pct = tmTasks.length > 0 ? Math.round((tmDone / tmTasks.length) * 100) : 0;
+
+        const block = document.createElement("div");
+        block.className = "list-item";
+        block.style.alignItems = "stretch";
+
+        const membersHtml = tmMembers.length
+          ? tmMembers
+              .map((m) => {
+                const pts = getUserPointsBreakdown(m).total;
+                return `<span class="badge ok">👤 ${escapeHtml(m.fullName || m.label || m.email || m.uid)} • ⭐ ${pts}</span>`;
+              })
+              .join(" ")
+          : `<span class="hint">${escapeHtml(t("noTeamMembers"))}</span>`;
+
+        block.innerHTML = `
+          <div style="flex:1; min-width:240px;">
+            <div class="row" style="justify-content:space-between;">
+              <strong style="font-size:16px; font-weight:800;">🎯 ${escapeHtml(tm)}</strong>
+              <span class="badge">${tmDone} / ${tmTasks.length} (${pct}%)</span>
+            </div>
+            <div class="progress-track"><div class="progress-fill" style="width:${pct}%;"></div></div>
+            <div class="row" style="margin-top:10px;">${membersHtml}</div>
+          </div>
+        `;
+        box.appendChild(block);
+      });
+    }
+
+    function renderPointsLeaderboard() {
+      const box = document.getElementById("vortex-points-list");
+      if (!box) return;
+      box.innerHTML = "";
+
+      const breakdownMap = computePointsBreakdown();
+      const entries = [];
+      const seenKeys = new Set();
+
+      Array.from(membersMap.values()).forEach((m) => {
+        const bd = getUserPointsBreakdown(m);
+        const k = String(m.email || m.label || m.uid).toLowerCase();
+        seenKeys.add(k);
+        entries.push({
+          name: m.fullName || m.label || m.email || m.uid,
+          team: m.team || "GUI",
+          base: bd.base,
+          speed: bd.speed,
+          points: bd.total,
+          doneCount: bd.doneCount
+        });
+      });
+
+      breakdownMap.forEach((bd, k) => {
+        if (!seenKeys.has(k)) {
+          entries.push({
+            name: bd.name,
+            team: "ROV",
+            base: bd.base,
+            speed: bd.speed,
+            points: bd.total,
+            doneCount: bd.doneCount
+          });
+        }
+      });
+
+      entries.sort((a, b) => b.points - a.points || b.speed - a.speed);
+
+      if (entries.length === 0) {
+        box.innerHTML = `<p class="hint" style="margin:0;">${escapeHtml(t("noPointsData"))}</p>`;
+        return;
+      }
+
+      entries.forEach((entry, idx) => {
+        const medal = idx === 0 ? "🥇" : idx === 1 ? "🥈" : idx === 2 ? "🥉" : `#${idx + 1}`;
+        const row = document.createElement("div");
+        row.className = "list-item";
+        row.innerHTML = `
+          <div>
+            <strong>${medal} • ${escapeHtml(entry.name)}</strong>
+            <div class="task-badges">
+              <span class="badge">🎯 ${escapeHtml(entry.team)}</span>
+              <span class="badge">${escapeHtml(t("basePtsLbl"))}: +${entry.base}</span>
+              <span class="badge ok">⚡ ${escapeHtml(t("speedBonusLbl"))}: +${entry.speed}</span>
+            </div>
+          </div>
+          <span class="badge warn">⭐ ${entry.points} pts</span>
+        `;
+        box.appendChild(row);
+      });
+    }
+
+    function renderOwnersList() {
+      const activeOwners = getEffectiveOwnersSet();
+      const badge = document.getElementById("vortex-owners-count-badge");
+      if (badge) badge.textContent = `Owners: ${activeOwners.length} / ${MAX_OWNERS}`;
+
+      const ownersList = document.getElementById("vortex-owners-list");
+      const rosterList = document.getElementById("vortex-roster-list");
+      ownersList.innerHTML = "";
+      activeOwners.forEach((email) => {
+        const chip = document.createElement("span");
+        chip.className = "badge ok";
+        chip.textContent = `👑 ${email}`;
+        ownersList.appendChild(chip);
+      });
+
+      const tmMap = getEmailTeamMap();
+      rosterList.innerHTML = "";
+      getAllKnownEmails().forEach((em) => {
+        const chip = document.createElement("span");
+        chip.className = "badge";
+        const tmTag = tmMap.get(em) || "GUI";
+        chip.textContent = `✉ ${em} • 🎯 ${tmTag}`;
+        rosterList.appendChild(chip);
+      });
+
+      const dirBox = document.getElementById("vortex-owner-accounts-directory");
+      const countBadge = document.getElementById("vortex-accounts-count-badge");
+      const allMembers = Array.from(membersMap.values());
+      if (countBadge) countBadge.textContent = String(allMembers.length);
+      if (!dirBox) return;
+      dirBox.innerHTML = "";
+
+      allMembers.forEach((m) => {
+        const item = document.createElement("div");
+        item.className = "list-item";
+        const emLower = String(m.email || "").toLowerCase();
+        const isAccOwner = activeOwners.includes(emLower);
+        const isPrimary = emLower === PRIMARY_OWNER_EMAIL.toLowerCase();
+        const fullNameVal = m.fullName || m.label || (m.email ? m.email.split("@")[0] : m.uid);
+        const usernameVal = m.username || generateRandomUsername(fullNameVal, emLower);
+        const sitePassVal = m.sitePasscode || "—";
+        const initialChar = String(fullNameVal || "U").trim().charAt(0).toUpperCase() || "U";
+        const verifiedBadgeHtml = m.emailVerified
+          ? `<span class="badge ok">✔ Verified</span>`
+          : `<span class="badge warn">⏳ Pending Verify</span>`;
+
+        const left = document.createElement("div");
+        left.style.flex = "1";
+        left.style.minWidth = "240px";
+        left.className = "row";
+        left.style.alignItems = "flex-start";
+
+        const avDiv = document.createElement("div");
+        avDiv.className = "mini-avatar";
+        renderAvatarContent(avDiv, m.photoUrl, initialChar);
+
+        const infoDiv = document.createElement("div");
+        infoDiv.style.flex = "1";
+        infoDiv.style.minWidth = "200px";
+        infoDiv.innerHTML = `
+          <strong>👤 ${escapeHtml(fullNameVal)}</strong> <span class="badge">@${escapeHtml(usernameVal)}</span>
+          <div class="task-badges">
+            <span class="badge ${isAccOwner ? "ok" : ""}">${isAccOwner ? "👑 Owner" : "👤 Member"}</span>
+            ${verifiedBadgeHtml}
+            <span class="badge">✉ ${escapeHtml(m.email || "—")}</span>
+            <span class="badge">🎯 ${escapeHtml(m.team || "GUI")}</span>
+            <span class="badge warn">🔑 ${escapeHtml(t("lblSitePass"))}: ${escapeHtml(sitePassVal)}</span>
+          </div>
+        `;
+
+        left.appendChild(avDiv);
+        left.appendChild(infoDiv);
+
+        const right = document.createElement("div");
+        right.className = "row";
+
+        const passInp = document.createElement("input");
+        passInp.type = "text";
+        passInp.dir = "ltr";
+        passInp.placeholder = t("sitePassFieldPh");
+        passInp.style.width = "155px";
+
+        const genBtn = document.createElement("button");
+        genBtn.type = "button";
+        genBtn.className = "secondary";
+        genBtn.textContent = t("genPassBtn");
+        genBtn.addEventListener("click", () => {
+          passInp.value = generateRandomPasscode(8);
+        });
+
+        const setPassBtn = document.createElement("button");
+        setPassBtn.type = "button";
+        setPassBtn.textContent = t("setSitePassBtn");
+        setPassBtn.addEventListener("click", async () => {
+          const val = passInp.value.trim();
+          if (val.length < 4) {
+            setStatus(t("sitePassMinErr"), "error");
+            return;
+          }
+          try {
+            await setDoc(
+              doc(db, "members_profiles", m.uid),
+              { sitePasscode: val, updatedAt: serverTimestamp() },
+              { merge: true }
+            );
+            passInp.value = "";
+            setStatus(`${t("sitePassSavedOk")} (${fullNameVal}: ${val})`, "ok");
+          } catch (err) {
+            setStatus(formatErr(err), "error");
+          }
+        });
+
+        const teamSel = document.createElement("select");
+        TEAMS.forEach((tm) => {
+          const opt = document.createElement("option");
+          opt.value = tm;
+          opt.textContent = tm;
+          if ((m.team || "GUI") === tm) opt.selected = true;
+          teamSel.appendChild(opt);
+        });
+
+        const updBtn = document.createElement("button");
+        updBtn.type = "button";
+        updBtn.className = "secondary";
+        updBtn.textContent = t("updateMemberTeamBtn");
+        updBtn.addEventListener("click", async () => {
+          try {
+            await setDoc(doc(db, "members_profiles", m.uid), { team: teamSel.value }, { merge: true });
+            setStatus(`${t("teamSaved")} (${fullNameVal} → ${teamSel.value})`, "ok");
+          } catch (err) {
+            setStatus(formatErr(err), "error");
+          }
+        });
+
+        right.appendChild(passInp);
+        right.appendChild(genBtn);
+        right.appendChild(setPassBtn);
+        right.appendChild(teamSel);
+        right.appendChild(updBtn);
+
+        if (!isPrimary) {
+          const wipeBtn = document.createElement("button");
+          wipeBtn.type = "button";
+          wipeBtn.className = "danger";
+          wipeBtn.textContent = t("wipeAccountBtn");
+          wipeBtn.addEventListener("click", async () => {
+            const msg = t("confirmWipeMsg").replaceAll("{name}", fullNameVal);
+            if (!window.confirm(msg)) return;
+            wipeBtn.disabled = true;
+            try {
+              await wipeMemberAndAllHistory(m);
+              renderUI();
+              setStatus(`${t("memberDeletedOk")} (${fullNameVal})`, "ok");
+            } catch (err) {
+              setStatus(formatErr(err), "error");
+            } finally {
+              wipeBtn.disabled = false;
+            }
+          });
+          right.appendChild(wipeBtn);
+        }
+
+        item.appendChild(left);
+        item.appendChild(right);
+        dirBox.appendChild(item);
+      });
+    }
+
+    function renderUI() {
+      if (!currentUser) {
+        authCard.classList.remove("hidden");
+        workspace.classList.add("hidden");
+        workspaceBanner.classList.add("hidden");
+        navSection.classList.add("hidden");
+        logoutBtn.classList.add("hidden");
+        otpBox.classList.add("hidden");
+        renderAvatarContent(miniAvatar, "", "V");
+        miniName.textContent = "Vortex Guest";
+        miniRole.textContent = "Member";
+        return;
+      }
+
+      currentRole = computeRole(currentUser);
+      const ownerMode = isOwner();
+      const activeTeam = getCurrentUserTeam();
+      const savedProf = membersMap.get(currentUser.uid) || {};
+      const identity = currentUser.email || currentUser.phoneNumber || currentUser.uid;
+      const fullNameVal = savedProf.fullName || savedProf.label || currentUser.displayName || (currentUser.email ? currentUser.email.split("@")[0] : "") || identity;
+      const usernameVal = savedProf.username || generateRandomUsername(fullNameVal, currentUser.email || "");
+      const initials = String(fullNameVal || "V").trim().charAt(0).toUpperCase() || "V";
+
+      profileTeamSelect.value = activeTeam;
+      if (currentUser.email && !forgotEmailInput.value) {
+        forgotEmailInput.value = currentUser.email;
+      }
+
+      const sitePassVal = savedProf.sitePasscode || "••••••";
+      document.getElementById("vortex-prof-site-pass").textContent = showOwnSitePass ? sitePassVal : "••••••";
+      toggleSitePassBtn.textContent = showOwnSitePass ? t("hideBtn") : t("showBtn");
+
+      authCard.classList.add("hidden");
+      otpBox.classList.add("hidden");
+      workspace.classList.remove("hidden");
+      navSection.classList.remove("hidden");
+      logoutBtn.classList.remove("hidden");
+      navAdminGroup.classList.toggle("hidden", !ownerMode);
+
+      renderAvatarContent(miniAvatar, savedProf.photoUrl || "", initials);
+      renderAvatarContent(document.getElementById("vortex-prof-photo-box"), savedProf.photoUrl || "", initials);
+
+      miniName.textContent = fullNameVal;
+      miniRole.textContent = `${currentRole} • ${activeTeam}`;
+
+      document.getElementById("vortex-prof-name").textContent = fullNameVal;
+      document.getElementById("vortex-prof-username").textContent = `@${usernameVal}`;
+      document.getElementById("vortex-prof-role").textContent = currentRole;
+      document.getElementById("vortex-prof-contact").textContent = identity;
+      document.getElementById("vortex-prof-uid").textContent = currentUser.uid;
+
+      ownerTaskControls.classList.toggle("hidden", !ownerMode);
+      if (!ownerMode) assigneePicker.classList.add("hidden");
+      if (ownerMode) renderOwnersList();
+
+      switchPage(activePage);
+      renderDaysGrid();
+      renderAssigneeOptions();
+      updateStats();
+      renderTasks();
+      renderTimetableSection();
+      renderChat();
+    }
+
+    function prioLabel(prio) {
+      if (prio === "urgent") return t("prioUrgent");
+      if (prio === "high") return t("prioHigh");
+      return t("prioNormal");
+    }
+
+    function renderTasks() {
+      const f = taskFilter.value;
+      const tmFilter = taskTeamFilter.value;
+      const asgFilter = taskAssigneeFilter.value;
+      const qText = taskSearch.value.trim().toLowerCase();
+
+      const filtered = allTasks.filter((task) => {
+        const okStatus = f === "all" || task.status === f;
+        const okTeam = tmFilter === "all" || (task.team || "GUI") === tmFilter;
+        const okAssignee = asgFilter === "all" || (task.assignedTo || "") === asgFilter;
+        const okSearch =
+          !qText ||
+          String(task.title || "").toLowerCase().includes(qText) ||
+          String(task.team || "").toLowerCase().includes(qText) ||
+          String(task.assignedTo || "").toLowerCase().includes(qText) ||
+          String(task.createdByLabel || "").toLowerCase().includes(qText);
+        return okStatus && okTeam && okAssignee && okSearch;
+      });
+
+      tasksCountBadge.textContent = String(filtered.length);
+      tasksList.innerHTML = "";
+
+      if (filtered.length === 0) {
+        tasksList.innerHTML = `<p class="hint" style="margin-top:14px;">${escapeHtml(t("noTasks"))}</p>`;
+        return;
+      }
+
+      filtered.forEach((task) => {
+        const div = document.createElement("div");
+        div.className = "list-item";
+
+        const left = document.createElement("div");
+        const titleEl = document.createElement("div");
+        titleEl.textContent = `📌 ${task.title || t("untitled")}`;
+        titleEl.style.fontWeight = "800";
+
+        const badgesRow = document.createElement("div");
+        badgesRow.className = "task-badges";
+
+        const stBadge = document.createElement("span");
+        stBadge.className = `badge ${task.status === "done" ? "ok" : "warn"}`;
+        stBadge.textContent = task.status === "done" ? `✅ ${t("stDone")}` : `⏳ ${t("stPending")}`;
+
+        const teamBadge = document.createElement("span");
+        teamBadge.className = "badge";
+        teamBadge.textContent = `🎯 ${task.team || "GUI"}`;
+
+        const prioBadge = document.createElement("span");
+        prioBadge.className = "badge";
+        prioBadge.textContent = `⚡ ${prioLabel(task.priority)}`;
+
+        const asgBadge = document.createElement("span");
+        asgBadge.className = "badge";
+        asgBadge.textContent = task.assignedTo
+          ? `✉ ${t("assignedTo")}: ${task.assignedTo}`
+          : `👥 ${t("openForTeam")}`;
+
+        const byBadge = document.createElement("span");
+        byBadge.className = "hint";
+        byBadge.textContent = `${t("by")}: ${task.createdByLabel || t("member")}`;
+
+        badgesRow.appendChild(stBadge);
+        badgesRow.appendChild(teamBadge);
+        badgesRow.appendChild(prioBadge);
+        badgesRow.appendChild(asgBadge);
+        badgesRow.appendChild(byBadge);
+
+        left.appendChild(titleEl);
+        left.appendChild(badgesRow);
+
+        const actions = document.createElement("div");
+        actions.className = "row";
+
+        if (isOwner()) {
+          const toggleBtn = document.createElement("button");
+          toggleBtn.type = "button";
+          toggleBtn.className = "secondary";
+          toggleBtn.textContent = task.status === "done" ? t("reopen") : t("complete");
+          toggleBtn.addEventListener("click", async () => {
+            try {
+              const nextStatus = task.status === "done" ? "pending" : "done";
+              const actor = currentUser.email || currentUser.displayName || currentUser.uid;
+              await updateDoc(doc(db, "tasks", task.id), {
+                status: nextStatus,
+                completedBy: nextStatus === "done" ? (task.assignedTo || actor) : "",
+                completedAt: nextStatus === "done" ? serverTimestamp() : null
+              });
+            } catch (err) {
+              setStatus(formatErr(err), "error");
+            }
+          });
+
+          const delBtn = document.createElement("button");
+          delBtn.type = "button";
+          delBtn.className = "danger";
+          delBtn.textContent = t("deleteBtn");
+          delBtn.addEventListener("click", async () => {
+            try {
+              await deleteDoc(doc(db, "tasks", task.id));
+            } catch (err) {
+              setStatus(formatErr(err), "error");
+            }
+          });
+
+          actions.appendChild(toggleBtn);
+          actions.appendChild(delBtn);
+        } else if (canMemberCompleteTask(task)) {
+          const doneBtn = document.createElement("button");
+          doneBtn.type = "button";
+          doneBtn.textContent = t("markDoneMember");
+          doneBtn.addEventListener("click", async () => {
+            if (!canMemberCompleteTask(task)) return;
+            try {
+              const actor = currentUser.email || currentUser.displayName || currentUser.phoneNumber || currentUser.uid;
+              await updateDoc(doc(db, "tasks", task.id), {
+                status: "done",
+                completedBy: actor,
+                completedAt: serverTimestamp()
+              });
+            } catch (err) {
+              setStatus(formatErr(err), "error");
+            }
+          });
+          actions.appendChild(doneBtn);
+        }
+
+        div.appendChild(left);
+        div.appendChild(actions);
+        tasksList.appendChild(div);
+      });
+    }
+
+    function renderChat() {
+      chatBox.innerHTML = "";
+      if (allChat.length === 0) {
+        chatBox.innerHTML = `<p class="hint" style="margin:0;">${escapeHtml(t("noChat"))}</p>`;
+        return;
+      }
+
+      allChat.forEach((msg) => {
+        const bubble = document.createElement("div");
+        const isMine = currentUser && msg.createdByUid === currentUser.uid;
+        bubble.className = `chat-msg ${isMine ? "mine" : ""}`;
+
+        const topRow = document.createElement("div");
+        topRow.className = "row";
+        topRow.style.justifyContent = "space-between";
+
+        const senderEl = document.createElement("strong");
+        senderEl.style.fontSize = "13px";
+        const tmTag = msg.senderTeam ? ` • 🎯 ${msg.senderTeam}` : "";
+        senderEl.textContent = `👤 ${msg.createdByLabel || t("member")}${tmTag}`;
+        topRow.appendChild(senderEl);
+
+        if (isOwner()) {
+          const delMsgBtn = document.createElement("button");
+          delMsgBtn.type = "button";
+          delMsgBtn.className = "danger";
+          delMsgBtn.style.padding = "5px 10px";
+          delMsgBtn.style.fontSize = "12px";
+          delMsgBtn.textContent = t("deleteBtn");
+          delMsgBtn.addEventListener("click", async () => {
+            try {
+              await deleteDoc(doc(db, "chat_messages", msg.id));
+            } catch (err) {
+              setStatus(formatErr(err), "error");
+            }
+          });
+          topRow.appendChild(delMsgBtn);
+        }
+
+        const textEl = document.createElement("div");
+        textEl.style.marginTop = "6px";
+        textEl.style.fontSize = "14px";
+        textEl.textContent = msg.text || "";
+
+        bubble.appendChild(topRow);
+        bubble.appendChild(textEl);
+        chatBox.appendChild(bubble);
+      });
+    }
+
+    if (auth) {
+      getRedirectResult(auth)
+        .then((res) => {
+          if (res && res.user) {
+            persistMemberProfile(res.user, authTeamSelect.value || "GUI");
+            setStatus(t("signedInOk"), "ok");
+          }
+        })
+        .catch((err) => setStatus(formatErr(err), "error"));
+    }
+
+    async function handleGoogleSignIn(forceRedirect = false) {
+      if (!auth || !provider) return;
+      try {
+        if (forceRedirect || isMobileOrIOS()) {
+          await signInWithRedirect(auth, provider);
+          return;
+        }
+        const cred = await signInWithPopup(auth, provider);
+        if (cred && cred.user) {
+          await persistMemberProfile(cred.user, authTeamSelect.value || "GUI");
+          setStatus(t("signedInOk"), "ok");
+        }
+      } catch (err) {
+        const code = err && err.code ? err.code : "";
+        if (
+          code === "auth/popup-blocked" ||
+          code === "auth/operation-not-supported-in-this-environment" ||
+          code === "auth/cancelled-popup-request"
+        ) {
+          try {
+            await signInWithRedirect(auth, provider);
+            return;
+          } catch (redirErr) {
+            setStatus(formatErr(redirErr), "error");
+            return;
+          }
+        }
+        setStatus(formatErr(err), "error");
+      }
+    }
+
+    googlePopupBtn.addEventListener("click", () => handleGoogleSignIn(false));
+    googleRedirectBtn.addEventListener("click", () => handleGoogleSignIn(true));
+
+    emailSignInBtn.addEventListener("click", async () => {
+      if (!auth) return;
+      const email = emailInput.value.trim().toLowerCase();
+      const pass = passInput.value;
+      if (!email || !pass) {
+        setStatus(t("missingEmailAndPass"), "error");
+        return;
+      }
+      if (!isLikelyRealEmail(email)) {
+        setStatus(t("invalidRealEmail"), "error");
+        return;
+      }
+      emailSignInBtn.disabled = true;
+      try {
+        const cred = await signInWithEmailAndPassword(auth, email, pass);
+        if (cred && cred.user) {
+          if (!cred.user.emailVerified) {
+            await sendEmailVerification(cred.user).catch(() => {});
+            await signOut(auth);
+            setStatus(t("emailNotVerifiedErr"), "error");
+            return;
+          }
+          await persistMemberProfile(cred.user, authTeamSelect.value || "GUI");
+          setStatus(t("signedInOk"), "ok");
+        }
+      } catch (err) {
+        setStatus(formatErr(err), "error");
+      } finally {
+        emailSignInBtn.disabled = false;
+      }
+    });
+
+    emailSignUpBtn.addEventListener("click", async () => {
+      if (!auth) return;
+      const email = emailInput.value.trim().toLowerCase();
+      const pass = passInput.value;
+      if (!email || !pass) {
+        setStatus(t("missingEmailAndPass"), "error");
+        return;
+      }
+      if (!isLikelyRealEmail(email)) {
+        setStatus(t("invalidRealEmail"), "error");
+        return;
+      }
+      if (pass.length < 6) {
+        setStatus(t("weakPassError"), "error");
+        return;
+      }
+      emailSignUpBtn.disabled = true;
+      try {
+        const cred = await createUserWithEmailAndPassword(auth, email, pass);
+        if (cred && cred.user) {
+          await sendEmailVerification(cred.user).catch(() => {});
+          await persistMemberProfile(cred.user, authTeamSelect.value || "GUI");
+          await signOut(auth);
+          setStatus(t("accountCreatedOk"), "ok");
+        }
+      } catch (err) {
+        setStatus(formatErr(err), "error");
+      } finally {
+        emailSignUpBtn.disabled = false;
+      }
+    });
+
+    resetPassBtn.addEventListener("click", async () => {
+      if (!auth) return;
+      const email = emailInput.value.trim().toLowerCase();
+      if (!isLikelyRealEmail(email)) {
+        setStatus(t("invalidRealEmail"), "error");
+        return;
+      }
+      resetPassBtn.disabled = true;
+      try {
+        await sendPasswordResetEmail(auth, email);
+        setStatus(`${t("resetSentOk")} (${email})`, "ok");
+      } catch (err) {
+        setStatus(formatErr(err), "error");
+      } finally {
+        resetPassBtn.disabled = false;
+      }
+    });
+
+    sendOtpBtn.addEventListener("click", async () => {
+      if (!auth) return;
+      const phone = normalizePhone(phoneInput.value);
+      if (!/^\+\d{8,15}$/.test(phone)) {
+        setStatus("Invalid phone format (+201012345678)", "error");
+        return;
+      }
+      sendOtpBtn.disabled = true;
+      try {
+        const verifier = ensureRecaptcha();
+        confirmationResult = await signInWithPhoneNumber(auth, phone, verifier);
+        otpBox.classList.remove("hidden");
+        setStatus(`SMS sent to ${phone}`, "ok");
+      } catch (err) {
+        setStatus(`${formatErr(err)} — Check Phone Auth & Authorized Domains in Firebase Console.`, "error");
+        if (recaptchaVerifier) {
+          try { recaptchaVerifier.clear(); } catch (_) {}
+          recaptchaVerifier = null;
+        }
+      } finally {
+        sendOtpBtn.disabled = false;
+      }
+    });
+
+    verifyOtpBtn.addEventListener("click", async () => {
+      const code = otpInput.value.trim();
+      if (!confirmationResult || !code) return;
+      verifyOtpBtn.disabled = true;
+      try {
+        const cred = await confirmationResult.confirm(code);
+        if (cred && cred.user) {
+          await persistMemberProfile(cred.user, authTeamSelect.value || "GUI");
+        }
+        otpInput.value = "";
+        phoneInput.value = "";
+        confirmationResult = null;
+        setStatus(t("signedInOk"), "ok");
+      } catch (err) {
+        setStatus(formatErr(err), "error");
+      } finally {
+        verifyOtpBtn.disabled = false;
+      }
+    });
+
+    logoutBtn.addEventListener("click", async () => {
+      try {
+        await signOut(auth);
+      } catch (err) {
+        setStatus(formatErr(err), "error");
+      }
+    });
+
+    overlapDaySel.addEventListener("change", renderTimetableSection);
+    overlapScopeSel.addEventListener("change", renderTimetableSection);
+    busyDayFilter.addEventListener("change", renderTimetableSection);
+    busyTeamFilter.addEventListener("change", renderTimetableSection);
+
+    document.getElementById("vortex-add-task-btn").addEventListener("click", async () => {
+      if (!isOwner()) {
+        setStatus(t("ownerOnlyError"), "error");
+        return;
+      }
+      const titleInput = document.getElementById("vortex-task-title");
+      const prioSel = document.getElementById("vortex-task-priority");
+      const title = titleInput.value.trim();
+      if (!title || !currentUser) return;
+
+      try {
+        await addDoc(collection(db, "tasks"), {
+          title,
+          team: taskTeamSelect.value,
+          status: "pending",
+          priority: prioSel.value,
+          assignedTo: taskAssigneeSelect.value || "",
+          completedBy: "",
+          completedAt: null,
+          createdByUid: currentUser.uid,
+          createdByLabel: currentUser.email || currentUser.phoneNumber || currentUser.uid,
+          createdAt: serverTimestamp()
+        });
+        titleInput.value = "";
+      } catch (err) {
+        setStatus(formatErr(err), "error");
+      }
+    });
+
+    async function sendChatMessage() {
+      const text = chatInput.value.trim();
+      if (!text || !currentUser) return;
+      const senderTeam = getCurrentUserTeam();
+
+      sendChatBtn.disabled = true;
+      try {
+        await addDoc(collection(db, "chat_messages"), {
+          text,
+          senderTeam,
+          createdByUid: currentUser.uid,
+          createdByLabel: currentUser.displayName || currentUser.email || currentUser.phoneNumber || currentUser.uid,
+          createdAt: serverTimestamp()
+        });
+        chatInput.value = "";
+        setTimeout(() => { chatBox.scrollTop = chatBox.scrollHeight; }, 100);
+      } catch (err) {
+        setStatus(formatErr(err), "error");
+      } finally {
+        sendChatBtn.disabled = false;
+      }
+    }
+
+    sendChatBtn.addEventListener("click", sendChatMessage);
+    chatInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") sendChatMessage();
+    });
+    document.getElementById("vortex-scroll-chat-btn").addEventListener("click", () => {
+      chatBox.scrollTop = chatBox.scrollHeight;
+    });
+
+    document.getElementById("vortex-add-owner-btn").addEventListener("click", async () => {
+      const input = document.getElementById("vortex-owner-email-input");
+      const email = input.value.trim().toLowerCase();
+      if (!isLikelyRealEmail(email)) {
+        setStatus(t("invalidRealEmail"), "error");
+        return;
+      }
+      if (!isOwner()) return;
+
+      const currentOwners = getEffectiveOwnersSet();
+      if (!currentOwners.includes(email) && currentOwners.length >= MAX_OWNERS) {
+        setStatus(t("maxOwnersReached"), "error");
+        return;
+      }
+
+      try {
+        await setDoc(doc(db, "owners", encodeURIComponent(email)), {
+          email,
+          role: "Owner",
+          updatedAt: serverTimestamp()
+        });
+        if (!knownEmailsMap.has(email)) knownEmailsMap.set(email, "GUI");
+        input.value = "";
+      } catch (err) {
+        setStatus(formatErr(err), "error");
+      }
+    });
+
+    document.getElementById("vortex-remove-owner-btn").addEventListener("click", async () => {
+      const input = document.getElementById("vortex-owner-email-input");
+      const email = input.value.trim().toLowerCase();
+      if (!email || !isOwner()) return;
+
+      if (email === PRIMARY_OWNER_EMAIL.toLowerCase()) {
+        setStatus(t("cannotRemovePrimary"), "error");
+        return;
+      }
+
+      try {
+        await deleteDoc(doc(db, "owners", encodeURIComponent(email)));
+        input.value = "";
+      } catch (err) {
+        setStatus(formatErr(err), "error");
+      }
+    });
+
+    document.getElementById("vortex-add-roster-btn").addEventListener("click", async () => {
+      const input = document.getElementById("vortex-roster-email-input");
+      const tmSel = document.getElementById("vortex-roster-team-select");
+      const email = input.value.trim().toLowerCase();
+      const chosenTeam = TEAMS.includes(tmSel.value) ? tmSel.value : "GUI";
+      if (!isLikelyRealEmail(email)) {
+        setStatus(t("invalidRealEmail"), "error");
+        return;
+      }
+      if (!isOwner()) return;
+      try {
+        await setDoc(doc(db, "team_roster", encodeURIComponent(email)), {
+          email,
+          team: chosenTeam,
+          updatedAt: serverTimestamp()
+        });
+        knownEmailsMap.set(email, chosenTeam);
+        input.value = "";
+        renderOwnersList();
+        renderAssigneeOptions();
+      } catch (err) {
+        setStatus(formatErr(err), "error");
+      }
+    });
+
+    taskFilter.addEventListener("change", renderTasks);
+    taskTeamFilter.addEventListener("change", renderTasks);
+    taskAssigneeFilter.addEventListener("change", renderTasks);
+    taskSearch.addEventListener("input", renderTasks);
+
+    if (auth && db) {
+      onAuthStateChanged(auth, async (user) => {
+        if (user && user.email && !user.emailVerified && user.providerData.some((p) => p.providerId === "password")) {
+          currentUser = null;
+          renderUI();
+          return;
+        }
+
+        currentUser = user;
+        unsubs.forEach((fn) => { if (typeof fn === "function") fn(); });
+        unsubs = [];
+
+        if (!user) {
+          allTasks = [];
+          allBusySlots = [];
+          allChat = [];
+          membersMap = new Map();
+          ownersSet = new Set(INITIAL_OWNERS.map((e) => e.toLowerCase()));
+          knownEmailsMap = new Map();
+          renderUI();
+          return;
+        }
+
+        renderUI();
+
+        getDoc(doc(db, "members_profiles", user.uid))
+          .then((snap) => {
+            if (!snap || !snap.exists()) {
+              persistMemberProfile(user, authTeamSelect.value || "GUI");
+            }
+          })
+          .catch(() => {});
+
+        unsubs.push(
+          onSnapshot(
+            collection(db, "members_profiles"),
+            (snap) => {
+              const nextMap = new Map();
+              snap.forEach((d) => {
+                const data = d.data();
+                if (data && data.uid) {
+                  nextMap.set(data.uid, {
+                    uid: data.uid,
+                    fullName: data.fullName || data.label || data.username || (data.email ? data.email.split("@")[0] : data.uid),
+                    username: data.username || generateRandomUsername(data.fullName || data.label || "", data.email || ""),
+                    email: data.email || "",
+                    label: data.fullName || data.label || data.username || data.email || data.uid,
+                    team: TEAMS.includes(data.team) ? data.team : "GUI",
+                    sitePasscode: data.sitePasscode || "",
+                    photoUrl: data.photoUrl || "",
+                    emailVerified: Boolean(data.emailVerified),
+                    platform: data.platform || "web"
+                  });
+                }
+              });
+              membersMap = nextMap;
+              renderUI();
+            },
+            () => renderUI()
+          )
+        );
+
+        unsubs.push(
+          onSnapshot(
+            collection(db, "owners"),
+            (snap) => {
+              const nextSet = new Set(INITIAL_OWNERS.map((e) => e.toLowerCase()));
+              snap.forEach((d) => {
+                const data = d.data();
+                if (data && data.email) {
+                  const em = String(data.email).toLowerCase();
+                  nextSet.add(em);
+                  if (!knownEmailsMap.has(em)) knownEmailsMap.set(em, "GUI");
+                }
+              });
+              ownersSet = nextSet;
+              renderUI();
+            },
+            () => renderUI()
+          )
+        );
+
+        unsubs.push(
+          onSnapshot(
+            collection(db, "team_roster"),
+            (snap) => {
+              snap.forEach((d) => {
+                const data = d.data();
+                if (data && data.email) {
+                  const em = String(data.email).toLowerCase();
+                  const tm = TEAMS.includes(data.team) ? data.team : "GUI";
+                  knownEmailsMap.set(em, tm);
+                }
+              });
+              renderOwnersList();
+              renderAssigneeOptions();
+            },
+            () => {}
+          )
+        );
+
+        unsubs.push(
+          onSnapshot(
+            query(collection(db, "tasks"), orderBy("createdAt", "desc")),
+            (snap) => {
+              allTasks = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+              updateStats();
+              renderTasks();
+              renderAssigneeOptions();
+            },
+            (err) => setStatus(formatErr(err), "error")
+          )
+        );
+
+        unsubs.push(
+          onSnapshot(
+            query(collection(db, "busy_schedule"), orderBy("createdAt", "desc")),
+            (snap) => {
+              allBusySlots = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+              renderDaysGrid();
+              renderTimetableSection();
+              renderSubteamsAndMembers();
+            },
+            (err) => setStatus(formatErr(err), "error")
+          )
+        );
+
+        unsubs.push(
+          onSnapshot(
+            query(collection(db, "chat_messages"), orderBy("createdAt", "asc")),
+            (snap) => {
+              allChat = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+              updateStats();
+              renderChat();
+            },
+            (err) => setStatus(formatErr(err), "error")
+          )
+        );
+      });
+    }
+
+    applyLanguage();
+  </script>
+</body>
+</html>
