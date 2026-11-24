@@ -1,13 +1,24 @@
 {
-  "background_color": "#ffffff",
-  "dir": "ltr",
+  "name": "Vortex ROV — Team Workspace",
+  "short_name": "Vortex ROV",
+  "description": "Internal workspace for Vortex ROV (MATE ROV) covering tasks, timetable, sub-teams, points, chat, and account management.",
+  "start_url": "./",
+  "scope": "./",
   "display": "standalone",
-  "name": "Vortex Rov",
-  "orientation": "any",
-  "scope": "/Vortex-Rov/",
-  "short_name": "Vortex Rov",
-  "start_url": "/Vortex-Rov/",
-  "theme_color": "#ffffff",
-  "id": "Vortex-Rov",
-  "description": "Vortex ROV Team Task Manager"
+  "background_color": "#080e1a",
+  "theme_color": "#0284c7",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' rx='44' fill='%230284c7'/%3E%3Ccircle cx='96' cy='96' r='44' fill='none' stroke='%23ffffff' stroke-width='12'/%3E%3Ccircle cx='96' cy='96' r='15' fill='%237dd3fc'/%3E%3C/svg%3E",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='112' fill='%230284c7'/%3E%3Ccircle cx='256' cy='256' r='118' fill='none' stroke='%23ffffff' stroke-width='30'/%3E%3Ccircle cx='256' cy='256' r='40' fill='%237dd3fc'/%3E%3C/svg%3E",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
 }
