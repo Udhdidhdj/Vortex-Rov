@@ -6,8 +6,9 @@
   <title>Vortex ROV — Team Workspace & Timetable</title>
   <meta name="description" content="Internal workspace for Vortex ROV (MATE ROV) covering tasks, timetable, sub-teams, points, chat, and account management." />
   <meta name="robots" content="noindex, nofollow" />
-  <meta name="theme-color" content="#0284c7" />
-  <link id="vortex-manifest-link" rel="manifest" href="/Vortex-Rov/manifest.json" />
+  <meta id="vortex-theme-color" name="theme-color" content="#0284c7" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' https: data: blob:; script-src 'self' 'unsafe-inline' https://www.gstatic.com; style-src 'self' 'unsafe-inline'; img-src 'self' https: data: blob:; connect-src 'self' https:;" />
+  <link rel="manifest" href="./manifest.json" />
   <link id="vortex-favicon-link" rel="icon" type="image/svg+xml" href="" />
 
   <style>
@@ -77,11 +78,6 @@
       flex-shrink: 0;
       display: inline-block;
       vertical-align: middle;
-    }
-
-    .ico-lg {
-      width: 18px;
-      height: 18px;
     }
 
     .app-shell {
@@ -317,7 +313,6 @@
       gap: 10px;
     }
 
-    /* Interactive Lamp Login Stage */
     .lamp-stage {
       position: relative;
       border-radius: 26px;
@@ -970,10 +965,8 @@
   </style>
 </head>
 <body>
-  <!-- Reusable Lucide-style SVG Sprite -->
   <svg id="vortex-svg-sprite" xmlns="http://www.w3.org/2000/svg" class="hidden" aria-hidden="true">
     <symbol id="ic-user" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol>
-    <symbol id="ic-users" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
     <symbol id="ic-clipboard" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/></symbol>
     <symbol id="ic-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></symbol>
     <symbol id="ic-target" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></symbol>
@@ -999,7 +992,6 @@
   </svg>
 
   <div class="app-shell">
-    <!-- Sidebar -->
     <aside class="sidebar">
       <div>
         <div class="greeting-box">
@@ -1074,7 +1066,6 @@
       </div>
     </aside>
 
-    <!-- Main Content -->
     <main class="main-area">
       <div class="main-inner">
         <div class="top-utility">
@@ -1094,7 +1085,7 @@
           </div>
         </div>
 
-        <!-- Interactive Lamp Login Stage -->
+        <!-- Login Stage -->
         <section id="vortex-auth-card" class="card" style="padding:12px;">
           <div id="vortex-lamp-stage" class="lamp-stage lamp-on">
             <div class="lamp-glow-beam"></div>
@@ -1133,7 +1124,7 @@
                 <div class="lamp-field-group">
                   <div id="vortex-id-input-box" class="lamp-input-box">
                     <span class="lamp-input-icon" aria-hidden="true"><svg class="ico"><use href="#ic-user"/></svg></span>
-                    <input id="vortex-login-identifier" type="text" dir="ltr" autocomplete="username" placeholder="Username or Email" />
+                    <input id="vortex-login-identifier" type="email" dir="ltr" autocomplete="email" placeholder="Email Address" />
                   </div>
                   <div id="vortex-id-error" class="lamp-field-error">
                     <svg class="ico"><use href="#ic-alert"/></svg>
@@ -1168,7 +1159,7 @@
             </div>
 
             <div class="lamp-status-wrap">
-              <div id="vortex-status-box">Loading account data...</div>
+              <div id="vortex-status-box" role="status" aria-live="polite"></div>
               <div class="row" style="margin-top:8px; justify-content:center;">
                 <button id="vortex-retry-load-btn" type="button" class="secondary hidden">
                   <svg class="ico"><use href="#ic-refresh"/></svg>
@@ -1179,9 +1170,9 @@
           </div>
         </section>
 
-        <!-- Workspace (Hidden until signed in) -->
+        <!-- Workspace -->
         <div id="vortex-workspace" class="hidden">
-          <div id="vortex-workspace-banner" class="hidden" style="margin-bottom:16px;"></div>
+          <div id="vortex-workspace-banner" role="status" aria-live="polite" class="hidden" style="margin-bottom:16px;"></div>
 
           <div id="vortex-stats-row" class="stats-row">
             <div class="stat-card">
@@ -1206,7 +1197,7 @@
           <section id="vpage-profile">
             <div class="page-header">
               <h1 id="t-profile-heading" class="page-title">My Profile</h1>
-              <p id="t-profile-sub" class="page-subtitle">Profile photo, username, sub-team, password update, and account details.</p>
+              <p id="t-profile-sub" class="page-subtitle">Profile photo, username, sub-team, and account details.</p>
             </div>
 
             <div class="card">
@@ -1218,7 +1209,7 @@
                   <div>
                     <div id="t-lbl-photo" class="field-label">Profile Photo</div>
                     <div id="vortex-prof-name" class="field-value">—</div>
-                    <div class="hint" id="t-photo-hint">Upload a profile photo from your device.</div>
+                    <div class="hint" id="t-photo-hint">Upload a compact profile photo from your device.</div>
                   </div>
                 </div>
                 <div class="row">
@@ -1247,14 +1238,14 @@
                   <div style="flex:1;">
                     <div id="t-lbl-my-team" class="field-label">My Sub-team</div>
                     <div class="row" style="margin-top:6px;">
-                      <select id="vortex-profile-team-select">
+                      <select id="vortex-profile-team-select" disabled>
                         <option value="GUI">GUI</option>
                         <option value="Vision">Vision</option>
                         <option value="Control">Control</option>
                         <option value="Mechanical">Mechanical</option>
                         <option value="Electrical">Electrical</option>
                       </select>
-                      <button id="vortex-save-team-btn" type="button"><span id="t-save-team-lbl">Save Team</span></button>
+                      <button id="vortex-save-team-btn" type="button" class="hidden"><span id="t-save-team-lbl">Save Team</span></button>
                     </div>
                   </div>
                 </div>
@@ -1267,27 +1258,17 @@
                 </div>
               </div>
             </div>
-
-            <div class="card">
-              <h3 id="t-pass-security-title" class="card-title"><svg class="ico"><use href="#ic-lock"/></svg><span id="t-pass-sec-text">Password Security (Min 8 Chars)</span></h3>
-              <div class="row">
-                <input id="vortex-new-site-pass-input" type="password" dir="ltr" placeholder="New password (8+ chars)" style="flex:1; min-width:220px;" />
-                <button id="vortex-save-own-site-pass-btn" type="button"><span id="t-save-own-pass-lbl">Update Password</span></button>
-              </div>
-            </div>
           </section>
 
           <!-- 2. Team Tasks -->
           <section id="vpage-tickets" class="hidden">
             <div class="page-header">
               <h1 id="t-tickets-heading" class="page-title">Team Tasks</h1>
-              <p id="t-tickets-sub" class="page-subtitle">Points are awarded only for tasks created or approved by an Owner. Completed tasks are locked from editing.</p>
+              <p id="t-tickets-sub" class="page-subtitle">Points are awarded only when an Owner approves a completed task.</p>
             </div>
 
             <div class="card">
-              <div class="card-title">
-                <span id="t-task-filter-title">Filter & Search Tasks</span>
-              </div>
+              <div class="card-title"><span id="t-task-filter-title">Filter & Search Tasks</span></div>
               <div class="row">
                 <input id="vortex-task-search" type="text" placeholder="Search by task, team, or email..." style="flex:1; min-width:200px;" />
                 <select id="vortex-task-filter">
@@ -1356,6 +1337,9 @@
               </div>
 
               <div id="vortex-tasks-list"></div>
+              <div class="row" style="margin-top:12px;">
+                <button id="vortex-load-older-tasks-btn" type="button" class="secondary"><span id="t-load-older-tasks">Load Older Tasks</span></button>
+              </div>
             </div>
           </section>
 
@@ -1363,7 +1347,7 @@
           <section id="vpage-timetable" class="hidden">
             <div class="page-header">
               <h1 id="t-timetable-heading" class="page-title">Timetable</h1>
-              <p id="t-timetable-sub" class="page-subtitle">Add busy slots from Saturday to Friday, view automatic best common meeting windows, and detect overlaps.</p>
+              <p id="t-timetable-sub" class="page-subtitle">Add busy slots from Saturday to Friday with timezone conversion and overlap detection.</p>
             </div>
 
             <div class="card">
@@ -1434,6 +1418,9 @@
                 </div>
               </div>
               <div id="vortex-busy-list"></div>
+              <div class="row" style="margin-top:12px;">
+                <button id="vortex-load-older-busy-btn" type="button" class="secondary"><span id="t-load-older-busy">Load Older Slots</span></button>
+              </div>
             </div>
           </section>
 
@@ -1464,13 +1451,13 @@
           <section id="vpage-points" class="hidden">
             <div class="page-header">
               <h1 id="t-points-heading" class="page-title">Points & Leaderboard</h1>
-              <p id="t-points-sub" class="page-subtitle">Points are earned only for Owner-created/approved completed tasks + speed rank bonus.</p>
+              <p id="t-points-sub" class="page-subtitle">Points are earned only for Owner-approved completed tasks + per-task speed rank bonus.</p>
             </div>
 
             <div class="card">
               <div class="card-title">
                 <span id="t-lb-members-title">Member Points & Speed Leaderboard</span>
-                <span class="badge warn">Speed Bonus: #1 +15 • #2 +10 • #3 +5</span>
+                <span class="badge warn">Per-Task Speed Bonus: #1 +15 • #2 +10 • #3 +5</span>
               </div>
               <div id="vortex-points-list"></div>
             </div>
@@ -1504,13 +1491,13 @@
           <section id="vpage-owners" class="hidden">
             <div class="page-header">
               <h1 id="t-owners-page-title" class="page-title">Owners & Accounts</h1>
-              <p id="t-owners-page-sub" class="page-subtitle">Owner controls: create member accounts with mandatory email, reset passwords, and manage owners.</p>
+              <p id="t-owners-page-sub" class="page-subtitle">Create Firebase Auth member accounts without signing out of your Owner account.</p>
             </div>
 
             <div class="card">
               <div class="card-title">
                 <span id="t-create-member-title">Create Member Account (Owner Only)</span>
-                <span class="badge ok">Owner Permission Required</span>
+                <span id="t-owner-perm-badge" class="badge ok">Owner Permission Required</span>
               </div>
               <div class="row">
                 <input id="vortex-new-member-name" type="text" placeholder="Full name (e.g. Omar Ali)" style="flex:1; min-width:170px;" />
@@ -1524,7 +1511,7 @@
                 </select>
               </div>
               <div class="row" style="margin-top:10px;">
-                <input id="vortex-new-member-username" type="text" dir="ltr" placeholder="Auto username" style="min-width:180px; flex:1;" />
+                <input id="vortex-new-member-username" type="text" dir="ltr" placeholder="Unique username" style="min-width:180px; flex:1;" />
                 <button id="vortex-regen-username-btn" type="button" class="secondary"><span id="t-gen-user-lbl">Gen Username</span></button>
                 <input id="vortex-new-member-pass" type="password" dir="ltr" placeholder="Password (min 8 chars)" style="min-width:170px; flex:1;" />
                 <button id="vortex-regen-pass-btn" type="button" class="secondary"><span id="t-gen-pass-lbl">Gen Password</span></button>
@@ -1547,10 +1534,10 @@
 
             <div class="card">
               <div class="card-title">
-                <span id="t-all-accounts-title">All Accounts & Password Reset</span>
+                <span id="t-all-accounts-title">All Accounts</span>
                 <span id="vortex-accounts-count-badge" class="badge ok">0</span>
               </div>
-              <div class="hint" id="t-pass-note-owner">Passwords are not displayed as plain text. Use Reset Password to set a new password (8+ chars). Remember to enforce Firebase Security Rules and restrict API keys by domain.</div>
+              <div class="hint" id="t-pass-note-owner">Passwords are managed securely by Firebase Auth and are never stored or loaded in Firestore.</div>
               <div id="vortex-owner-accounts-directory"></div>
             </div>
           </section>
@@ -1559,23 +1546,24 @@
           <section id="vpage-audit" class="hidden">
             <div class="page-header">
               <h1 id="t-audit-page-title" class="page-title">Audit Log & Backup</h1>
-              <p id="t-audit-page-sub" class="page-subtitle">Track account creation, deletion, and password resets, and export workspace backups.</p>
+              <p id="t-audit-page-sub" class="page-subtitle">Track account changes and export complete workspace backups.</p>
             </div>
 
             <div class="card">
               <div class="card-title">
                 <span id="t-backup-title">Export Backup (Owner Only)</span>
                 <div class="row">
-                  <button id="vortex-export-json-btn" type="button" class="secondary"><svg class="ico"><use href="#ic-download"/></svg><span>Export JSON</span></button>
-                  <button id="vortex-export-csv-btn" type="button" class="secondary"><svg class="ico"><use href="#ic-download"/></svg><span>Export CSV</span></button>
+                  <button id="vortex-export-json-btn" type="button" class="secondary"><svg class="ico"><use href="#ic-download"/></svg><span id="t-export-json-lbl">Export JSON</span></button>
+                  <button id="vortex-export-csv-btn" type="button" class="secondary"><svg class="ico"><use href="#ic-download"/></svg><span id="t-export-csv-lbl">Export CSV</span></button>
                 </div>
               </div>
-              <div class="hint" id="t-backup-hint">Download a snapshot of tasks, timetable slots, accounts, and audit logs.</div>
+              <div class="hint" id="t-backup-hint">Download a snapshot of accounts, tasks, timetable slots, and audit logs.</div>
             </div>
 
             <div class="card">
               <div class="card-title">
                 <span id="t-audit-log-title">Activity Audit Log</span>
+                <button id="vortex-load-older-audit-btn" type="button" class="secondary"><span id="t-load-older-audit">Load Older Logs</span></button>
               </div>
               <div id="vortex-audit-list"></div>
             </div>
@@ -1586,12 +1574,13 @@
   </div>
 
   <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
     import {
       getAuth,
       setPersistence,
       browserLocalPersistence,
       signInWithEmailAndPassword,
+      createUserWithEmailAndPassword,
       signOut,
       onAuthStateChanged
     } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
@@ -1608,7 +1597,10 @@
       onSnapshot,
       query,
       orderBy,
-      serverTimestamp
+      limit,
+      where,
+      serverTimestamp,
+      arrayUnion
     } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
     const MAX_OWNERS = 4;
@@ -1625,28 +1617,12 @@
       { key: "Thursday", ar: "الخميس", en: "Thursday" },
       { key: "Friday", ar: "الجمعة", en: "Friday" }
     ];
-    const PRIMARY_OWNER_EMAIL = "bilalmnam7@gmail.com";
-    const INITIAL_OWNERS = [PRIMARY_OWNER_EMAIL];
-    const MEMBER_SESSION_KEY = "vortex_member_session_v2";
-    const REMEMBERED_ID_KEY = "vortex_remembered_id_v2";
-    const LOGIN_RATE_KEY = "vortex_login_rate_v1";
+    const INITIAL_OWNERS = ["bilalmnam7@gmail.com"];
+    const REMEMBERED_ID_KEY = "vortex_remembered_email_v3";
+    const LOGIN_RATE_KEY = "vortex_login_rate_v3";
 
-    // Inline SVG Favicon & PWA Manifest setup
-    const svgIconStr = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="16" fill="#0284c7"/><circle cx="32" cy="32" r="14" fill="none" stroke="#ffffff" stroke-width="4"/><circle cx="32" cy="32" r="5" fill="#7dd3fc"/></svg>`;
-    const faviconUrl = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svgIconStr);
-    document.getElementById("vortex-favicon-link").href = faviconUrl;
-    try {
-      const manifestBlob = new Blob([JSON.stringify({
-        name: "Vortex ROV Workspace",
-        short_name: "Vortex ROV",
-        start_url: ".",
-        display: "standalone",
-        background_color: "#080e1a",
-        theme_color: "#0284c7",
-        icons: [{ src: faviconUrl, sizes: "any", type: "image/svg+xml" }]
-      })], { type: "application/manifest+json" });
-      document.getElementById("vortex-manifest-link").href = URL.createObjectURL(manifestBlob);
-    } catch (_) {}
+    const faviconSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="16" fill="#0284c7"/><circle cx="32" cy="32" r="14" fill="none" stroke="#ffffff" stroke-width="4"/><circle cx="32" cy="32" r="5" fill="#7dd3fc"/></svg>`;
+    document.getElementById("vortex-favicon-link").href = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(faviconSvg);
 
     const firebaseConfig = {
       apiKey: "AIzaSyCTb6fawE3ltI6A06lBVrx_5zre4Ei4N8g",
@@ -1677,17 +1653,17 @@
         darkMode: "Dark Mode",
         lightMode: "Light Mode",
         langSwitch: "العربية",
-        authTitle: "Welcome Back",
-        authSub: "Sign in to continue to your dashboard",
+        authTitle: "Sign In",
+        authSub: "Sign in with your team email and password",
         pullLampBtn: "Pull Lamp Cord",
-        loginIdPh: "Username or Email",
+        loginIdPh: "Email Address",
         loginPassPh: "Password (min 8 chars)",
         fillFieldErr: "Please fill out this field",
         rememberMe: "Remember me",
         forgotPass: "Forgot password?",
-        forgotPassMsg: "Contact an Owner to reset your account password.",
+        forgotPassMsg: "Contact an Owner to reset your Firebase Auth password.",
         loginSubmitBtn: "Sign In",
-        invalidLoginCreds: "Invalid username/email or password.",
+        invalidLoginCreds: "Invalid email or password.",
         rateLimitedMsg: "Too many failed attempts. Try again in {sec}s.",
         signedInOk: "Signed in successfully.",
         loadingAccounts: "Loading account data...",
@@ -1695,10 +1671,10 @@
         retryLbl: "Retry",
         logout: "Logout",
         profileHeading: "My Profile",
-        profileSub: "Profile photo, username, sub-team, password update, and account details.",
+        profileSub: "Profile photo, username, sub-team, and account details.",
         accDetails: "Account Details",
         lblPhoto: "Profile Photo",
-        photoHint: "Upload a profile photo from your device.",
+        photoHint: "Upload a compact profile photo from your device.",
         uploadPhotoBtn: "Choose Photo",
         removePhotoBtn: "Remove",
         photoUpdatedOk: "Profile photo updated.",
@@ -1711,13 +1687,8 @@
         lblUid: "Account UID",
         copyUid: "Copy UID",
         copiedUidOk: "Copied your UID.",
-        passSecurityTitle: "Password Security (Min 8 Chars)",
-        newSitePassPh: "New password (8+ chars)",
-        saveOwnSitePassBtn: "Update Password",
-        sitePassSavedOk: "Password updated successfully.",
-        sitePassMinErr: "Password must be at least 8 characters.",
         ticketsHeading: "Team Tasks",
-        ticketsSub: "Points are awarded only for tasks created or approved by an Owner. Completed tasks are locked from editing.",
+        ticketsSub: "Points are awarded only when an Owner approves a completed task.",
         taskFilterTitle: "Filter & Search Tasks",
         searchPh: "Search by task, team, or email...",
         filterAll: "All",
@@ -1745,6 +1716,8 @@
         startWorkBtn: "In Progress",
         approveDoneBtn: "Approve & Complete",
         markDoneMember: "Mark Done",
+        awaitingApprovalBadge: "Awaiting Owner Approval",
+        approvedBadge: "Owner Approved",
         taskLockedBadge: "Locked (Completed)",
         commentPh: "Add a comment...",
         addCommentBtn: "Comment",
@@ -1756,9 +1729,8 @@
         untitled: "Untitled",
         member: "Member",
         owner: "Owner",
-        by: "By",
         timetableHeading: "Timetable",
-        timetableSub: "Add busy slots from Saturday to Friday, view automatic best common meeting windows, and detect overlaps.",
+        timetableSub: "Add busy slots from Saturday to Friday with timezone conversion and overlap detection.",
         tzCardTitle: "Timezone & Best Common Meeting Time",
         copyFreeBtn: "Copy Summary",
         copiedFreeOk: "Summary copied to clipboard.",
@@ -1790,7 +1762,7 @@
         teamsFilterLbl: "Select Sub-team to View Members & Tasks:",
         noTeamMembers: "No members registered in this sub-team yet.",
         pointsHeading: "Points & Leaderboard",
-        pointsSub: "Points are earned only for Owner-created/approved completed tasks + speed rank bonus.",
+        pointsSub: "Points are earned only for Owner-approved completed tasks + per-task speed rank bonus.",
         lbMembersTitle: "Member Points & Speed Leaderboard",
         basePtsLbl: "Tasks",
         speedBonusLbl: "Speed Bonus",
@@ -1798,17 +1770,21 @@
         chatHeading: "Team Chat",
         chatSub: "Direct communication space with message deletion, older message history, and notifications.",
         loadOlderLbl: "Load Older Messages",
+        loadOlderTasks: "Load Older Tasks",
+        loadOlderBusy: "Load Older Slots",
+        loadOlderLogs: "Load Older Logs",
         enableNotifLbl: "Enable Notifications",
         scrollChat: "Latest Messages",
         chatPh: "Write a message to the team...",
         sendChat: "Send",
         noChat: "No messages yet.",
         ownersPageTitle: "Owners & Accounts",
-        ownersPageSub: "Owner controls: create member accounts with mandatory email, reset passwords, and manage owners.",
+        ownersPageSub: "Create Firebase Auth member accounts without signing out of your Owner account.",
         createMemberTitle: "Create Member Account (Owner Only)",
+        ownerPermBadge: "Owner Permission Required",
         newMemberNamePh: "Full name (e.g. Omar Ali)",
         newMemberEmailPh: "member@gmail.com (Required)",
-        newMemberUsernamePh: "Auto username",
+        newMemberUsernamePh: "Unique username",
         regenUsernameBtn: "Gen Username",
         newMemberPassPh: "Password (min 8 chars)",
         regenPassBtn: "Gen Password",
@@ -1818,15 +1794,16 @@
         memberCreatedOk: "Member account created successfully.",
         memberDeletedOk: "Account deleted successfully.",
         missingEmailOrPass: "Please enter a valid email and a password of at least 8 characters.",
-        allAccountsTitle: "All Accounts & Password Reset",
-        passNoteOwner: "Passwords are not displayed as plain text. Use Reset Password to set a new password (8+ chars). Remember to enforce Firebase Security Rules and restrict API keys by domain.",
-        resetPassBtn: "Reset Password",
-        genPassBtn: "Gen",
+        duplicateEmailOrUser: "Email or username already exists.",
+        allAccountsTitle: "All Accounts",
+        passNoteOwner: "Passwords are managed securely by Firebase Auth and are never stored or loaded in Firestore.",
         updateMemberTeamBtn: "Save Team",
         auditPageTitle: "Audit Log & Backup",
-        auditPageSub: "Track account creation, deletion, and password resets, and export workspace backups.",
+        auditPageSub: "Track account changes and export complete workspace backups.",
         backupTitle: "Export Backup (Owner Only)",
-        backupHint: "Download a snapshot of tasks, timetable slots, accounts, and audit logs.",
+        exportJsonLbl: "Export JSON",
+        exportCsvLbl: "Export CSV",
+        backupHint: "Download a snapshot of accounts, tasks, timetable slots, and audit logs.",
         auditLogTitle: "Activity Audit Log",
         noAuditLogs: "No audit entries recorded yet.",
         statTotal: "Total Tasks",
@@ -1835,7 +1812,8 @@
         statPoints: "Points",
         maxOwnersReached: "Reached the maximum limit of 4 Owner accounts.",
         ownerRemovedOk: "Owner removed successfully.",
-        ownerOnlyError: "This action is available to Owners only."
+        ownerOnlyError: "This action is available to Owners only.",
+        accountInactiveError: "Your account is inactive or has been removed."
       },
       ar: {
         greeting: "مساء الخير",
@@ -1855,28 +1833,28 @@
         darkMode: "الوضع الليلي",
         lightMode: "الوضع النهاري",
         langSwitch: "English",
-        authTitle: "Welcome Back",
-        authSub: "Sign in to continue to your dashboard",
+        authTitle: "تسجيل الدخول",
+        authSub: "سجّل الدخول بإيميل الفريق وكلمة المرور عبر Firebase Auth",
         pullLampBtn: "شد حبل اللمبة",
-        loginIdPh: "Username or Email",
-        loginPassPh: "Password (8+ chars)",
-        fillFieldErr: "Please fill out this field",
-        rememberMe: "Remember me",
-        forgotPass: "Forgot password?",
-        forgotPassMsg: "تواصل مع الأونر لإعادة تعيين باسورد حسابك.",
-        loginSubmitBtn: "Sign In",
-        invalidLoginCreds: "اليوزر نيم أو الإيميل أو الباسورد غير صحيح.",
+        loginIdPh: "البريد الإلكتروني",
+        loginPassPh: "كلمة المرور (8 أحرف فأكثر)",
+        fillFieldErr: "من فضلك املأ هذا الحقل",
+        rememberMe: "تذكرني",
+        forgotPass: "نسيت كلمة المرور؟",
+        forgotPassMsg: "تواصل مع الأونر لإعادة تعيين كلمة المرور.",
+        loginSubmitBtn: "دخول",
+        invalidLoginCreds: "البريد الإلكتروني أو كلمة المرور غير صحيحة.",
         rateLimitedMsg: "محاولات فاشلة كثيرة. أعد المحاولة بعد {sec} ثانية.",
         signedInOk: "تم تسجيل الدخول بنجاح.",
-        loadingAccounts: "جاري تحميل بيانات الحسابات...",
+        loadingAccounts: "جاري تحميل بيانات الحساب...",
         loadTimeoutErr: "انتهت مهلة تحميل البيانات أو حدث خطأ في الاتصال. اضغط Retry.",
         retryLbl: "Retry",
-        logout: "Logout",
+        logout: "تسجيل الخروج",
         profileHeading: "ملفي الشخصي",
-        profileSub: "صورة البروفايل، اليوزر نيم، التيم، وتحديث الباسورد.",
+        profileSub: "صورة البروفايل، اليوزر نيم، التيم، وبيانات الحساب.",
         accDetails: "تفاصيل الحساب",
         lblPhoto: "صورة البروفايل",
-        photoHint: "ارفع صورة بروفايل من جهازك.",
+        photoHint: "ارفع صورة بروفايل صغيرة من جهازك.",
         uploadPhotoBtn: "اختيار صورة",
         removePhotoBtn: "إزالة",
         photoUpdatedOk: "تم تحديث صورة البروفايل.",
@@ -1889,13 +1867,8 @@
         lblUid: "المعرف الخاص بالحساب (UID)",
         copyUid: "نسخ المعرف",
         copiedUidOk: "تم نسخ المعرف الخاص بك.",
-        passSecurityTitle: "تغيير الباسورد (8 أحرف فأكثر)",
-        newSitePassPh: "باسورد جديد (8 أحرف فأكثر)",
-        saveOwnSitePassBtn: "حفظ الباسورد",
-        sitePassSavedOk: "تم تحديث الباسورد بنجاح.",
-        sitePassMinErr: "الباسورد لازم يكون 8 أحرف أو أرقام على الأقل.",
         ticketsHeading: "المهام",
-        ticketsSub: "النقاط تُحسب فقط للمهام اللي أنشأها أو وافق عليها Owner، والمهام المكتملة مقفولة ضد التعديل.",
+        ticketsSub: "النقاط تُحسب فقط عندما يعتمد الـ Owner إتمام المهمة.",
         taskFilterTitle: "تصفية وبحث المهام",
         searchPh: "ابحث باسم المهمة أو التيم أو الإيميل...",
         filterAll: "الكل",
@@ -1923,6 +1896,8 @@
         startWorkBtn: "In Progress",
         approveDoneBtn: "اعتماد وإتمام",
         markDoneMember: "تم التنفيذ",
+        awaitingApprovalBadge: "بانتظار اعتماد Owner",
+        approvedBadge: "معتمدة من Owner",
         taskLockedBadge: "مقفولة (مكتملة)",
         commentPh: "اكتب تعليقًا...",
         addCommentBtn: "تعليق",
@@ -1934,9 +1909,8 @@
         untitled: "بدون عنوان",
         member: "عضو",
         owner: "Owner",
-        by: "بواسطة",
         timetableHeading: "Timetable",
-        timetableSub: "أضف مواعيدك من السبت للجمعة، مع عرض أفضل وقت اجتماع مشترك وتنبيه التداخل والمنطقة الزمنية.",
+        timetableSub: "أضف مواعيدك من السبت للجمعة مع تحويل المنطقة الزمنية وكشف التداخل.",
         tzCardTitle: "المنطقة الزمنية وأفضل وقت اجتماع مشترك",
         copyFreeBtn: "نسخ الملخص",
         copiedFreeOk: "تم نسخ الملخص بنجاح.",
@@ -1968,7 +1942,7 @@
         teamsFilterLbl: "اختر التيم لعرض أعضائه ومهامه:",
         noTeamMembers: "لا يوجد أعضاء مسجلون في هذا التيم بعد.",
         pointsHeading: "النقاط والترتيب",
-        pointsSub: "النقاط تُحسب فقط للمهام المكتملة التي أنشأها أو اعتمدها Owner + مكافأة السرعة.",
+        pointsSub: "النقاط تُحسب فقط للمهام المعتمدة من Owner + مكافأة السرعة لكل مهمة.",
         lbMembersTitle: "ترتيب الأعضاء بالنقاط والسرعة",
         basePtsLbl: "مهام",
         speedBonusLbl: "مكافأة السرعة",
@@ -1976,35 +1950,40 @@
         chatHeading: "شات الفريق",
         chatSub: "تواصل مباشر مع إمكانية حذف الرسائل وتحميل رسائل أقدم وتفعيل الإشعارات.",
         loadOlderLbl: "تحميل رسائل أقدم",
+        loadOlderTasks: "تحميل مهام أقدم",
+        loadOlderBusy: "تحميل مواعيد أقدم",
+        loadOlderLogs: "تحميل سجلات أقدم",
         enableNotifLbl: "تفعيل الإشعارات",
         scrollChat: "آخر الرسائل",
         chatPh: "اكتب رسالة للفريق...",
         sendChat: "إرسال",
         noChat: "لا توجد رسائل بعد.",
         ownersPageTitle: "الملاك والحسابات",
-        ownersPageSub: "صلاحيات الأونر: إنشاء حساب عضو بإيميل إجباري، إعادة تعيين باسورد، وإدارة الملاك.",
+        ownersPageSub: "إنشاء حسابات أعضاء عبر Firebase Auth دون الخروج من حساب الأونر.",
         createMemberTitle: "إنشاء حساب عضو (للأونر فقط)",
+        ownerPermBadge: "صلاحية Owner مطلوبة",
         newMemberNamePh: "اسم العضو الكامل (مثال: عمر علي)",
         newMemberEmailPh: "member@gmail.com (إجباري)",
-        newMemberUsernamePh: "يوزر نيم تلقائي",
+        newMemberUsernamePh: "يوزر نيم فريد",
         regenUsernameBtn: "توليد يوزر",
-        newMemberPassPh: "باسورد (8 أحرف فأكثر)",
+        newMemberPassPh: "كلمة المرور (8 أحرف فأكثر)",
         regenPassBtn: "توليد باسورد",
         createMemberBtn: "إنشاء حساب العضو",
         addOwnerBtn: "إضافة Owner",
         removeOwnerBtn: "إزالة Owner",
-        memberCreatedOk: "تم إنشاء حساب العضو بنجاح.",
+        memberCreatedOk: "تم إنشاء حساب العضو في Firebase Auth بنجاح.",
         memberDeletedOk: "تم حذف الحساب بنجاح.",
         missingEmailOrPass: "من فضلك اكتب إيميل صحيح وباسورد 8 أحرف أو أكثر.",
-        allAccountsTitle: "جميع الحسابات وإعادة تعيين الباسورد",
-        passNoteOwner: "لا يتم عرض الباسوردات كنص واضح. استخدم Reset Password لتعيين باسورد جديد (8+ أحرف). وتأكد من ضبط Firebase Rules وتقييد API keys بالدومين.",
-        resetPassBtn: "Reset Password",
-        genPassBtn: "توليد",
+        duplicateEmailOrUser: "هذا الإيميل أو اسم المستخدم مستخدم بالفعل.",
+        allAccountsTitle: "جميع الحسابات",
+        passNoteOwner: "كلمات المرور تُدار بالكامل عبر Firebase Auth ولا يتم تخزينها أو تحميلها في Firestore.",
         updateMemberTeamBtn: "حفظ التيم",
         auditPageTitle: "Audit Log & Backup",
-        auditPageSub: "سجل إنشاء وحذف الحسابات وإعادة تعيين الباسورد، وتصدير نسخة احتياطية.",
+        auditPageSub: "سجل تغييرات الحسابات وتصدير نسخة احتياطية كاملة.",
         backupTitle: "تصدير Backup (للأونر فقط)",
-        backupHint: "تحميل نسخة احتياطية للمهام والمواعيد والحسابات وسجل النشاط.",
+        exportJsonLbl: "تصدير JSON",
+        exportCsvLbl: "تصدير CSV",
+        backupHint: "تحميل نسخة احتياطية للحسابات والمهام والمواعيد وسجل النشاط.",
         auditLogTitle: "سجل النشاط (Audit Log)",
         noAuditLogs: "لا توجد سجلات نشاط بعد.",
         statTotal: "إجمالي المهام",
@@ -2013,7 +1992,8 @@
         statPoints: "النقاط",
         maxOwnersReached: "وصلت إلى الحد الأقصى المسموح به (4 حسابات Owner).",
         ownerRemovedOk: "تم إزالة حساب الأونر بنجاح.",
-        ownerOnlyError: "هذا الإجراء متاح للـ Owner فقط."
+        ownerOnlyError: "هذا الإجراء متاح للـ Owner فقط.",
+        accountInactiveError: "حسابك غير مفعّل أو تم حذفه."
       }
     };
 
@@ -2026,6 +2006,12 @@
         .replace(/'/g, "&#39;");
     }
 
+    function sanitizeCsvCell(val) {
+      const str = String(val ?? "");
+      const guarded = /^[=+\-@]/.test(str) ? `'${str}` : str;
+      return `"${guarded.replace(/"/g, '""')}"`;
+    }
+
     function isValidEmailFormat(rawEmail) {
       return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(String(rawEmail || "").trim());
     }
@@ -2033,9 +2019,7 @@
     function generateRandomPasscode(len = 10) {
       const chars = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789@#";
       let out = "";
-      for (let i = 0; i < len; i++) {
-        out += chars.charAt(Math.floor(Math.random() * chars.length));
-      }
+      for (let i = 0; i < len; i++) out += chars.charAt(Math.floor(Math.random() * chars.length));
       return out;
     }
 
@@ -2047,12 +2031,7 @@
       return `${base}_${suffix}`;
     }
 
-    function makeMemberDocIdFromEmail(email) {
-      const clean = String(email || "").trim().toLowerCase().replace(/[^a-z0-9]/g, "_");
-      return `member_${clean}`;
-    }
-
-    function compressImageToDataUrl(file, maxSize = 240, quality = 0.78) {
+    function compressImageToDataUrl(file, maxSize = 180, quality = 0.65) {
       return new Promise((resolve, reject) => {
         const reader = new FileReader();
         reader.onload = () => {
@@ -2070,8 +2049,7 @@
             }
             canvas.width = w;
             canvas.height = h;
-            const ctx = canvas.getContext("2d");
-            ctx.drawImage(img, 0, 0, w, h);
+            canvas.getContext("2d").drawImage(img, 0, 0, w, h);
             resolve(canvas.toDataURL("image/jpeg", quality));
           };
           img.onerror = reject;
@@ -2095,9 +2073,7 @@
       const ua = navigator.userAgent || "";
       const platform = navigator.platform || "";
       if (/android/i.test(ua)) return { id: "android", label: "Android" };
-      if (/iphone|ipad|ipod/i.test(ua) || (/mac/i.test(platform) && navigator.maxTouchPoints > 1)) {
-        return { id: "ios", label: "iOS" };
-      }
+      if (/iphone|ipad|ipod/i.test(ua) || (/mac/i.test(platform) && navigator.maxTouchPoints > 1)) return { id: "ios", label: "iOS" };
       if (/mac/i.test(platform) || /macintosh|mac os x/i.test(ua)) return { id: "macos", label: "macOS" };
       if (/win/i.test(platform) || /windows/i.test(ua)) return { id: "windows", label: "Windows" };
       return { id: "web", label: "Web" };
@@ -2111,7 +2087,10 @@
     let timezone = localStorage.getItem("vortex_tz") || "Africa/Cairo";
     let activePage = "profile";
     let viewedTeam = "ALL";
-    let chatLimit = 25;
+    let chatLimit = 50;
+    let tasksLimit = 50;
+    let busyLimit = 50;
+    let auditLimit = 50;
     let lastNotifiedChatId = null;
 
     const statusBox = document.getElementById("vortex-status-box");
@@ -2121,6 +2100,7 @@
     const netBadge = document.getElementById("vortex-net-badge");
     const themeBtn = document.getElementById("vortex-theme-btn");
     const langBtn = document.getElementById("vortex-lang-btn");
+    const themeMeta = document.getElementById("vortex-theme-color");
 
     const authCard = document.getElementById("vortex-auth-card");
     const lampStage = document.getElementById("vortex-lamp-stage");
@@ -2147,46 +2127,29 @@
       renderTimetableSection();
     });
 
-    // Rate limiting helpers
     function getRateState() {
-      try {
-        return JSON.parse(localStorage.getItem(LOGIN_RATE_KEY) || "{}") || {};
-      } catch (_) {
-        return {};
-      }
+      try { return JSON.parse(localStorage.getItem(LOGIN_RATE_KEY) || "{}") || {}; } catch (_) { return {}; }
     }
-
-    function setRateState(st) {
-      localStorage.setItem(LOGIN_RATE_KEY, JSON.stringify(st));
-    }
-
+    function setRateState(st) { localStorage.setItem(LOGIN_RATE_KEY, JSON.stringify(st)); }
     function getRemainingLockSeconds() {
       const st = getRateState();
       if (!st.lockedUntil) return 0;
       const diff = Math.ceil((st.lockedUntil - Date.now()) / 1000);
       return diff > 0 ? diff : 0;
     }
-
     function recordFailedLogin() {
       const st = getRateState();
       const fails = (st.fails || 0) + 1;
-      if (fails >= LOGIN_MAX_ATTEMPTS) {
-        setRateState({ fails: 0, lockedUntil: Date.now() + LOGIN_LOCK_SECONDS * 1000 });
-      } else {
-        setRateState({ fails, lockedUntil: 0 });
-      }
+      if (fails >= LOGIN_MAX_ATTEMPTS) setRateState({ fails: 0, lockedUntil: Date.now() + LOGIN_LOCK_SECONDS * 1000 });
+      else setRateState({ fails, lockedUntil: 0 });
     }
-
-    function clearFailedLogin() {
-      localStorage.removeItem(LOGIN_RATE_KEY);
-    }
+    function clearFailedLogin() { localStorage.removeItem(LOGIN_RATE_KEY); }
 
     function triggerLampPull() {
       lampCord.classList.add("pulled");
       setTimeout(() => lampCord.classList.remove("pulled"), 220);
       lampStage.classList.toggle("lamp-on");
     }
-
     lampCord.addEventListener("click", triggerLampPull);
     pullLampBtn.addEventListener("click", triggerLampPull);
 
@@ -2198,24 +2161,14 @@
     }
 
     loginIdInput.addEventListener("input", () => {
-      if (loginIdInput.value.trim()) {
-        idInputBox.classList.remove("has-error");
-        idErrorBox.classList.remove("visible");
-      }
+      if (loginIdInput.value.trim()) { idInputBox.classList.remove("has-error"); idErrorBox.classList.remove("visible"); }
     });
-
     loginPassInput.addEventListener("input", () => {
-      if (loginPassInput.value.trim()) {
-        passInputBox.classList.remove("has-error");
-        passErrorBox.classList.remove("visible");
-      }
+      if (loginPassInput.value.trim()) { passInputBox.classList.remove("has-error"); passErrorBox.classList.remove("visible"); }
     });
 
     const savedRememberedId = localStorage.getItem(REMEMBERED_ID_KEY);
-    if (savedRememberedId) {
-      loginIdInput.value = savedRememberedId;
-      rememberMeChk.checked = true;
-    }
+    if (savedRememberedId) { loginIdInput.value = savedRememberedId; rememberMeChk.checked = true; }
 
     toggleLoginPassBtn.addEventListener("click", () => {
       const isPwd = loginPassInput.type === "password";
@@ -2223,20 +2176,14 @@
       document.getElementById("vortex-login-eye-ico").innerHTML = `<use href="${isPwd ? "#ic-eye-off" : "#ic-eye"}"/>`;
     });
 
-    forgotPassBtn.addEventListener("click", () => {
-      setStatus(t("forgotPassMsg"), "normal");
-    });
+    forgotPassBtn.addEventListener("click", () => setStatus(t("forgotPassMsg"), "normal"));
 
     const profileTeamSelect = document.getElementById("vortex-profile-team-select");
     const saveTeamBtn = document.getElementById("vortex-save-team-btn");
     const copyUidBtn = document.getElementById("vortex-copy-uid-btn");
-
     const photoFileInput = document.getElementById("vortex-photo-file-input");
     const uploadPhotoBtn = document.getElementById("vortex-upload-photo-btn");
     const removePhotoBtn = document.getElementById("vortex-remove-photo-btn");
-
-    const newSitePassInput = document.getElementById("vortex-new-site-pass-input");
-    const saveOwnSitePassBtn = document.getElementById("vortex-save-own-site-pass-btn");
 
     const newMemberNameInp = document.getElementById("vortex-new-member-name");
     const newMemberEmailInp = document.getElementById("vortex-new-member-email");
@@ -2252,7 +2199,6 @@
     const navSection = document.getElementById("vortex-nav-section");
     const navAdminGroup = document.getElementById("vortex-nav-admin-group");
     const logoutBtn = document.getElementById("vortex-logout-btn");
-
     const miniAvatar = document.getElementById("vortex-mini-avatar");
     const miniName = document.getElementById("vortex-mini-name");
     const miniRole = document.getElementById("vortex-mini-role");
@@ -2319,13 +2265,13 @@
     }
 
     function setStatus(text, type = "normal", showRetry = false) {
-      statusBox.textContent = text;
+      statusBox.textContent = text || "";
       statusBox.classList.remove("error", "ok");
       if (type === "error") statusBox.classList.add("error");
       if (type === "ok") statusBox.classList.add("ok");
       retryLoadBtn.classList.toggle("hidden", !showRetry);
 
-      if (getEffectiveUser()) {
+      if (currentUser) {
         if (text) {
           workspaceBanner.classList.remove("hidden", "error", "ok");
           workspaceBanner.textContent = text;
@@ -2340,9 +2286,8 @@
     }
 
     function formatErr(err) {
-      const code = err && err.code ? String(err.code) : "";
       const msg = err && err.message ? String(err.message).replace(/^Firebase:\s*/i, "") : "Error";
-      return msg || code;
+      return msg;
     }
 
     function syncNetBadge() {
@@ -2355,38 +2300,34 @@
     }
 
     function applyTheme() {
-      document.body.classList.toggle("dark", theme === "dark");
-      document.getElementById("t-theme-lbl").textContent = theme === "dark" ? t("lightMode") : t("darkMode");
-      document.getElementById("vortex-theme-icon").innerHTML = `<use href="${theme === "dark" ? "#ic-sun" : "#ic-moon"}"/>`;
+      const isDark = theme === "dark";
+      document.body.classList.toggle("dark", isDark);
+      if (themeMeta) themeMeta.content = isDark ? "#080e1a" : "#0284c7";
+      document.getElementById("t-theme-lbl").textContent = isDark ? t("lightMode") : t("darkMode");
+      document.getElementById("vortex-theme-icon").innerHTML = `<use href="${isDark ? "#ic-sun" : "#ic-moon"}"/>`;
     }
 
     function switchPage(pageName) {
       if ((pageName === "owners" || pageName === "audit") && !isOwner()) pageName = "profile";
       activePage = pageName;
-      document.querySelectorAll(".nav-btn").forEach((btn) => {
-        btn.classList.toggle("active", btn.dataset.vpage === pageName);
-      });
+      document.querySelectorAll(".nav-btn").forEach((btn) => btn.classList.toggle("active", btn.dataset.vpage === pageName));
       ["profile", "tickets", "timetable", "teams", "points", "chat", "owners", "audit"].forEach((p) => {
         const el = document.getElementById(`vpage-${p}`);
         if (el) el.classList.toggle("hidden", p !== pageName);
       });
     }
 
-    document.querySelectorAll(".nav-btn").forEach((btn) => {
-      btn.addEventListener("click", () => switchPage(btn.dataset.vpage));
-    });
+    document.querySelectorAll(".nav-btn").forEach((btn) => btn.addEventListener("click", () => switchPage(btn.dataset.vpage)));
 
     document.querySelectorAll("[data-view-team]").forEach((btn) => {
       btn.addEventListener("click", () => {
         viewedTeam = btn.dataset.viewTeam || "ALL";
-        document.querySelectorAll("[data-view-team]").forEach((b) => {
-          b.classList.toggle("selected", b.dataset.viewTeam === viewedTeam);
-        });
+        document.querySelectorAll("[data-view-team]").forEach((b) => b.classList.toggle("selected", b.dataset.viewTeam === viewedTeam));
         renderSubteamsAndMembers();
       });
     });
 
-    function applyLanguage() {
+    function applyLanguage(rebuildDaysGrid = false) {
       document.documentElement.lang = lang;
       document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
 
@@ -2423,10 +2364,6 @@
       document.getElementById("t-lbl-uid").textContent = t("lblUid");
       document.getElementById("t-copy-uid-lbl").textContent = t("copyUid");
 
-      document.getElementById("t-pass-sec-text").textContent = t("passSecurityTitle");
-      newSitePassInput.placeholder = t("newSitePassPh");
-      document.getElementById("t-save-own-pass-lbl").textContent = t("saveOwnSitePassBtn");
-
       document.getElementById("t-tickets-heading").textContent = t("ticketsHeading");
       document.getElementById("t-tickets-sub").textContent = t("ticketsSub");
       document.getElementById("t-task-filter-title").textContent = t("taskFilterTitle");
@@ -2455,6 +2392,9 @@
       document.getElementById("t-chat-heading").textContent = t("chatHeading");
       document.getElementById("t-chat-sub").textContent = t("chatSub");
       document.getElementById("t-load-older-lbl").textContent = t("loadOlderLbl");
+      document.getElementById("t-load-older-tasks").textContent = t("loadOlderTasks");
+      document.getElementById("t-load-older-busy").textContent = t("loadOlderBusy");
+      document.getElementById("t-load-older-logs").textContent = t("loadOlderLogs");
       document.getElementById("t-enable-notif-lbl").textContent = t("enableNotifLbl");
       document.getElementById("t-scroll-chat-lbl").textContent = t("scrollChat");
       chatInput.placeholder = t("chatPh");
@@ -2463,6 +2403,7 @@
       document.getElementById("t-owners-page-title").textContent = t("ownersPageTitle");
       document.getElementById("t-owners-page-sub").textContent = t("ownersPageSub");
       document.getElementById("t-create-member-title").textContent = t("createMemberTitle");
+      document.getElementById("t-owner-perm-badge").textContent = t("ownerPermBadge");
       newMemberNameInp.placeholder = t("newMemberNamePh");
       newMemberEmailInp.placeholder = t("newMemberEmailPh");
       newMemberUsernameInp.placeholder = t("newMemberUsernamePh");
@@ -2478,6 +2419,8 @@
       document.getElementById("t-audit-page-title").textContent = t("auditPageTitle");
       document.getElementById("t-audit-page-sub").textContent = t("auditPageSub");
       document.getElementById("t-backup-title").textContent = t("backupTitle");
+      document.getElementById("t-export-json-lbl").textContent = t("exportJsonLbl");
+      document.getElementById("t-export-csv-lbl").textContent = t("exportCsvLbl");
       document.getElementById("t-backup-hint").textContent = t("backupHint");
       document.getElementById("t-audit-log-title").textContent = t("auditLogTitle");
 
@@ -2494,7 +2437,7 @@
       syncDaySelects();
       applyTheme();
       syncNetBadge();
-      renderDaysGrid();
+      if (rebuildDaysGrid) renderDaysGrid();
       renderAssigneeOptions();
       renderUI();
     }
@@ -2508,13 +2451,14 @@
     langBtn.addEventListener("click", () => {
       lang = lang === "ar" ? "en" : "ar";
       localStorage.setItem("vortex_lang", lang);
-      applyLanguage();
+      applyLanguage(true);
     });
 
     window.addEventListener("online", () => { syncNetBadge(); setStatus(t("online"), "ok"); });
     window.addEventListener("offline", () => { syncNetBadge(); setStatus(t("offline"), "error", true); });
 
     let auth = null;
+    let secondaryAuth = null;
     let db = null;
     let loadTimeoutId = null;
 
@@ -2522,30 +2466,32 @@
       clearTimeout(loadTimeoutId);
       setStatus(t("loadingAccounts"), "normal", false);
       loadTimeoutId = setTimeout(() => {
-        if (!getEffectiveUser()) {
+        if (currentUser) {
           setStatus(t("loadTimeoutErr"), "error", true);
         }
       }, 7000);
     }
 
     retryLoadBtn.addEventListener("click", () => {
-      armLoadTimeout();
-      if (getEffectiveUser()) startWorkspaceListeners();
+      if (currentUser) {
+        armLoadTimeout();
+        startWorkspaceListeners();
+      }
     });
 
     try {
       const app = initializeApp(firebaseConfig);
+      const secApp = getApps().find((a) => a.name === "SecondaryAuth") || initializeApp(firebaseConfig, "SecondaryAuth");
       auth = getAuth(app);
+      secondaryAuth = getAuth(secApp);
       db = getFirestore(app);
       setPersistence(auth, browserLocalPersistence).catch(() => {});
-      armLoadTimeout();
     } catch (err) {
       setStatus(formatErr(err), "error", true);
     }
 
     let currentUser = null;
-    let memberSession = null;
-    let currentRole = "Member";
+    let currentUserProfile = null;
     let ownersSet = new Set(INITIAL_OWNERS.map((e) => e.toLowerCase()));
     let knownEmailsMap = new Map();
     let membersMap = new Map();
@@ -2555,46 +2501,23 @@
     let allAuditLogs = [];
     let unsubs = [];
 
-    function getEffectiveUser() {
-      if (currentUser) {
-        return {
-          uid: currentUser.uid,
-          email: (currentUser.email || "").toLowerCase(),
-          displayName: currentUser.displayName || (currentUser.email ? currentUser.email.split("@")[0] : currentUser.uid),
-          isFirebaseOwner: true
-        };
-      }
-      if (memberSession && memberSession.uid) {
-        return {
-          uid: memberSession.uid,
-          email: (memberSession.email || "").toLowerCase(),
-          displayName: memberSession.fullName || memberSession.username || memberSession.email || memberSession.uid,
-          isFirebaseOwner: false
-        };
-      }
-      return null;
-    }
-
     function isOwner() {
-      const u = getEffectiveUser();
-      if (!u) return false;
-      if (u.isFirebaseOwner) return true;
-      return currentRole === "Owner";
+      if (!currentUser || !currentUser.email) return false;
+      return ownersSet.has(String(currentUser.email).trim().toLowerCase());
     }
 
     function getCurrentUserTeam() {
-      const u = getEffectiveUser();
-      if (!u) return "GUI";
-      const savedProf = membersMap.get(u.uid);
-      if (savedProf && TEAMS.includes(savedProf.team)) return savedProf.team;
-      if (memberSession && TEAMS.includes(memberSession.team)) return memberSession.team;
+      if (currentUserProfile && TEAMS.includes(currentUserProfile.team)) return currentUserProfile.team;
+      if (currentUser && membersMap.has(currentUser.uid)) {
+        const m = membersMap.get(currentUser.uid);
+        if (m && TEAMS.includes(m.team)) return m.team;
+      }
       return "GUI";
     }
 
     async function writeAuditLog(actionType, detailText) {
-      if (!db) return;
-      const u = getEffectiveUser();
-      const actor = (u && (u.email || u.displayName || u.uid)) || "system";
+      if (!db || !currentUser) return;
+      const actor = currentUser.email || currentUser.uid;
       try {
         await addDoc(collection(db, "audit_logs"), {
           action: actionType,
@@ -2612,7 +2535,7 @@
         setStatus(t("cannotRemoveLastOwner"), "error");
         return;
       }
-      await deleteDoc(doc(db, "owners", encodeURIComponent(clean))).catch(() => {});
+      await deleteDoc(doc(db, "owners", encodeURIComponent(clean)));
       ownersSet.delete(clean);
       await writeAuditLog("REMOVE_OWNER", `Removed owner ${clean}`);
       renderUI();
@@ -2627,6 +2550,10 @@
         return;
       }
 
+      // Delete member's busy schedule slots
+      const slotsSnap = await getDocs(query(collection(db, "busy_schedule"), where("uid", "==", targetUid)));
+      await Promise.all(slotsSnap.docs.map((d) => deleteDoc(doc(db, "busy_schedule", d.id))));
+
       await deleteDoc(doc(db, "members_profiles", targetUid)).catch(() => {});
       if (targetEmail) {
         await deleteDoc(doc(db, "owners", encodeURIComponent(targetEmail))).catch(() => {});
@@ -2635,28 +2562,22 @@
         knownEmailsMap.delete(targetEmail);
       }
       membersMap.delete(targetUid);
-      await writeAuditLog("DELETE_ACCOUNT", `Deleted account ${targetEmail || targetUid}`);
+      await writeAuditLog("DELETE_ACCOUNT", `Deleted profile & schedule for ${targetEmail || targetUid}`);
     }
 
     function to24HourMinutes(hour12, minuteVal, period) {
       let h = Number(hour12);
       const m = Number(minuteVal);
       if (Number.isNaN(h) || Number.isNaN(m) || h < 1 || h > 12 || m < 0 || m > 59) return null;
-      if (period === "AM") {
-        if (h === 12) h = 0;
-      } else if (period === "PM") {
-        if (h !== 12) h += 12;
-      } else {
-        return null;
-      }
+      if (period === "AM") { if (h === 12) h = 0; }
+      else if (period === "PM") { if (h !== 12) h += 12; }
+      else return null;
       return h * 60 + m;
     }
 
     function formatMinutes24(mins) {
       const clamped = Math.max(0, Math.min(24 * 60, Math.round(mins)));
-      const h = String(Math.floor(clamped / 60)).padStart(2, "0");
-      const m = String(clamped % 60).padStart(2, "0");
-      return `${h}:${m}`;
+      return `${String(Math.floor(clamped / 60)).padStart(2, "0")}:${String(clamped % 60).padStart(2, "0")}`;
     }
 
     function formatMinutes12(mins) {
@@ -2669,50 +2590,86 @@
       return `${String(h12).padStart(2, "0")}:${m} ${period}`;
     }
 
-    function parseStoredSlotRange(sl) {
-      if (typeof sl.startMin === "number" && typeof sl.endMin === "number" && sl.endMin > sl.startMin) {
-        return [sl.startMin, sl.endMin];
+    function getTimezoneOffsetMinutes(tzName) {
+      try {
+        const now = new Date();
+        const parts = new Intl.DateTimeFormat("en-US", {
+          timeZone: tzName,
+          hour12: false,
+          year: "numeric",
+          month: "2-digit",
+          day: "2-digit",
+          hour: "2-digit",
+          minute: "2-digit"
+        }).formatToParts(now);
+        const map = {};
+        parts.forEach((p) => { map[p.type] = Number(p.value); });
+        const asUtc = Date.UTC(map.year, map.month - 1, map.day, map.hour === 24 ? 0 : map.hour, map.minute);
+        const actualUtc = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), now.getUTCHours(), now.getUTCMinutes());
+        return Math.round((asUtc - actualUtc) / 60000);
+      } catch (_) {
+        return 0;
       }
-      if (sl.from && sl.to && /^\d{2}:\d{2}$/.test(sl.from) && /^\d{2}:\d{2}$/.test(sl.to)) {
+    }
+
+    function convertSlotRangeToSelectedTimezone(sl) {
+      let s = null;
+      let e = null;
+      if (typeof sl.startMin === "number" && typeof sl.endMin === "number" && sl.endMin > sl.startMin) {
+        s = sl.startMin;
+        e = sl.endMin;
+      } else if (sl.from && sl.to && /^\d{2}:\d{2}$/.test(sl.from) && /^\d{2}:\d{2}$/.test(sl.to)) {
         const [sh, sm] = sl.from.split(":").map(Number);
         const [eh, em] = sl.to.split(":").map(Number);
-        const s = sh * 60 + sm;
-        const e = eh * 60 + em;
-        if (e > s) return [s, e];
+        s = sh * 60 + sm;
+        e = eh * 60 + em;
       }
-      return null;
+      if (s === null || e === null || e <= s) return null;
+
+      const srcTz = sl.timezone || timezone;
+      if (srcTz === timezone) return [s, e];
+      const delta = getTimezoneOffsetMinutes(timezone) - getTimezoneOffsetMinutes(srcTz);
+      return [Math.max(0, Math.min(1440, s + delta)), Math.max(0, Math.min(1440, e + delta))];
     }
 
     function hasOverlapInSlots(slotsArr) {
       const ranges = slotsArr
-        .map((s) => ({ rng: parseStoredSlotRange(s), slot: s }))
+        .map((s) => ({ rng: convertSlotRangeToSelectedTimezone(s), slot: s }))
         .filter((x) => x.rng)
         .sort((a, b) => a.rng[0] - b.rng[0]);
+
       const overlaps = [];
-      for (let i = 1; i < ranges.length; i++) {
-        if (ranges[i].rng[0] < ranges[i - 1].rng[1]) {
-          overlaps.push(`${ranges[i - 1].slot.title} & ${ranges[i].slot.title}`);
+      let maxEndSoFar = -1;
+      let maxEndTitle = "";
+
+      ranges.forEach((item) => {
+        const [st, en] = item.rng;
+        if (maxEndSoFar !== -1 && st < maxEndSoFar) {
+          overlaps.push(`${maxEndTitle} & ${item.slot.title}`);
         }
-      }
+        if (en > maxEndSoFar) {
+          maxEndSoFar = en;
+          maxEndTitle = item.slot.title;
+        }
+      });
       return overlaps;
     }
 
     function getVisibleBusySlots() {
-      const u = getEffectiveUser();
-      if (!u) return [];
+      if (!currentUser) return [];
       if (isOwner()) return allBusySlots;
-      return allBusySlots.filter((sl) => sl.uid === u.uid);
+      return allBusySlots.filter((sl) => sl.uid === currentUser.uid);
     }
 
     function computeMinutesForUid(uid, dayFilter = null) {
-      const u = getEffectiveUser();
-      if (!u) return 0;
-      if (!isOwner() && uid !== u.uid) return 0;
+      if (!currentUser) return 0;
+      if (!isOwner() && uid !== currentUser.uid) return 0;
       let totalMins = 0;
       allBusySlots.forEach((sl) => {
         if (sl.uid !== uid) return;
         if (dayFilter && sl.day !== dayFilter) return;
-        const rng = parseStoredSlotRange(sl);
+        if (sl.repeatWeekly === false && !dayFilter) return;
+        const rng = convertSlotRangeToSelectedTimezone(sl);
         if (rng) totalMins += rng[1] - rng[0];
       });
       return totalMins;
@@ -2728,7 +2685,7 @@
 
       const intervals = sourceSlots
         .map((sl) => {
-          const rng = parseStoredSlotRange(sl);
+          const rng = convertSlotRangeToSelectedTimezone(sl);
           if (!rng) return null;
           return [Math.max(windowStart, rng[0]), Math.min(windowEnd, rng[1])];
         })
@@ -2737,59 +2694,48 @@
 
       const merged = [];
       intervals.forEach(([s, e]) => {
-        if (!merged.length || s > merged[merged.length - 1][1]) {
-          merged.push([s, e]);
-        } else {
-          merged[merged.length - 1][1] = Math.max(merged[merged.length - 1][1], e);
-        }
+        if (!merged.length || s > merged[merged.length - 1][1]) merged.push([s, e]);
+        else merged[merged.length - 1][1] = Math.max(merged[merged.length - 1][1], e);
       });
 
       const freeWindows = [];
       let cursor = windowStart;
       merged.forEach(([bs, be]) => {
-        if (bs - cursor >= 30) {
-          freeWindows.push({ start: cursor, end: bs, label: `${formatMinutes12(cursor)} → ${formatMinutes12(bs)}` });
-        }
+        if (bs - cursor >= 30) freeWindows.push({ start: cursor, end: bs, label: `${formatMinutes12(cursor)} → ${formatMinutes12(bs)}` });
         cursor = Math.max(cursor, be);
       });
-      if (windowEnd - cursor >= 30) {
-        freeWindows.push({ start: cursor, end: windowEnd, label: `${formatMinutes12(cursor)} → ${formatMinutes12(windowEnd)}` });
-      }
+      if (windowEnd - cursor >= 30) freeWindows.push({ start: cursor, end: windowEnd, label: `${formatMinutes12(cursor)} → ${formatMinutes12(windowEnd)}` });
       return freeWindows;
     }
 
     function buildHourOptions(selectedVal = "04") {
       return ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"]
-        .map((h) => `<option value="${h}" ${h === selectedVal ? "selected" : ""}>${h}</option>`)
-        .join("");
+        .map((h) => `<option value="${h}" ${h === selectedVal ? "selected" : ""}>${h}</option>`).join("");
     }
 
     function buildMinuteOptions(selectedVal = "00") {
       return ["00", "15", "30", "45"]
-        .map((m) => `<option value="${m}" ${m === selectedVal ? "selected" : ""}>${m}</option>`)
-        .join("");
+        .map((m) => `<option value="${m}" ${m === selectedVal ? "selected" : ""}>${m}</option>`).join("");
     }
 
     function renderDaysGrid() {
       if (!daysGrid) return;
       daysGrid.innerHTML = "";
-      const u = getEffectiveUser();
 
       DAYS_OF_WEEK.forEach((dObj) => {
-        const daySlotsForMe = u ? allBusySlots.filter((s) => s.uid === u.uid && s.day === dObj.key) : [];
-        const dayMinsForMe = u ? computeMinutesForUid(u.uid, dObj.key) : 0;
+        const daySlotsForMe = currentUser ? allBusySlots.filter((s) => s.uid === currentUser.uid && s.day === dObj.key) : [];
+        const dayMinsForMe = currentUser ? computeMinutesForUid(currentUser.uid, dObj.key) : 0;
 
         const card = document.createElement("div");
         card.className = `day-card ${daySlotsForMe.length ? "active-day" : ""}`;
-
         const labelText = dayLabel(dObj.key);
+
         card.innerHTML = `
           <div class="day-header">
             <strong>${escapeHtml(labelText)}</strong>
             <span class="badge ok">${escapeHtml(t("dayHoursPrefix"))}: ${formatHoursFromMinutes(dayMinsForMe)} ${escapeHtml(t("hoursUnit"))}</span>
           </div>
           <input type="text" class="day-title-inp" placeholder="${escapeHtml(t("activityNamePh"))}" />
-
           <div class="time-group">
             <span class="time-group-label">${escapeHtml(t("fromLbl"))}</span>
             <select class="day-from-h">${buildHourOptions("04")}</select>
@@ -2800,7 +2746,6 @@
               <option value="PM" selected>${escapeHtml(t("pmLbl"))}</option>
             </select>
           </div>
-
           <div class="time-group">
             <span class="time-group-label">${escapeHtml(t("toLbl"))}</span>
             <select class="day-to-h">${buildHourOptions("06")}</select>
@@ -2811,7 +2756,6 @@
               <option value="PM" selected>${escapeHtml(t("pmLbl"))}</option>
             </select>
           </div>
-
           <input type="text" class="day-note-inp" placeholder="${escapeHtml(t("noteOptionalPh"))}" />
           <label class="repeat-check">
             <input type="checkbox" class="day-repeat-chk" checked />
@@ -2832,31 +2776,21 @@
         const saveBtn = card.querySelector(".day-save-btn");
 
         saveBtn.addEventListener("click", async () => {
-          const activeU = getEffectiveUser();
-          if (!activeU || !db) return;
+          if (!currentUser || !db) return;
           const titleVal = titleInp.value.trim();
-          if (!titleVal) {
-            setStatus(t("missingActivityName"), "error");
-            return;
-          }
+          if (!titleVal) { setStatus(t("missingActivityName"), "error"); return; }
 
           const sMin = to24HourMinutes(fromH.value, fromM.value, fromP.value);
           const eMin = to24HourMinutes(toH.value, toM.value, toP.value);
-          if (sMin === null || eMin === null || eMin <= sMin) {
-            setStatus(t("invalidTimeRange"), "error");
-            return;
-          }
-
-          const fromFormatted = formatMinutes12(sMin);
-          const toFormatted = formatMinutes12(eMin);
+          if (sMin === null || eMin === null || eMin <= sMin) { setStatus(t("invalidTimeRange"), "error"); return; }
 
           saveBtn.disabled = true;
           try {
             await addDoc(collection(db, "busy_schedule"), {
               day: dObj.key,
               title: titleVal,
-              from: fromFormatted,
-              to: toFormatted,
+              from: formatMinutes12(sMin),
+              to: formatMinutes12(eMin),
               from24: formatMinutes24(sMin),
               to24: formatMinutes24(eMin),
               startMin: sMin,
@@ -2865,13 +2799,13 @@
               repeatWeekly: Boolean(repeatChk.checked),
               note: noteInp.value.trim(),
               team: getCurrentUserTeam(),
-              uid: activeU.uid,
-              userLabel: activeU.displayName || activeU.email || activeU.uid,
+              uid: currentUser.uid,
+              userLabel: currentUserProfile?.fullName || currentUser.email || currentUser.uid,
               createdAt: serverTimestamp()
             });
             titleInp.value = "";
             noteInp.value = "";
-            setStatus(`${labelText}: ${titleVal} (${fromFormatted} → ${toFormatted}) [${timezone}]`, "ok");
+            setStatus(`${labelText}: ${titleVal} (${formatMinutes12(sMin)} → ${formatMinutes12(eMin)}) [${timezone}]`, "ok");
           } catch (err) {
             setStatus(formatErr(err), "error");
           } finally {
@@ -2885,26 +2819,21 @@
 
     function buildAvailabilityTextForDay(dayKey, scopeTeam) {
       const ownerMode = isOwner();
-      const activeU = getEffectiveUser();
       const chosenDaySlots = ownerMode
-        ? allBusySlots.filter((sl) => {
-            if (sl.day !== dayKey) return false;
-            if (scopeTeam && scopeTeam !== "ALL") return (sl.team || "GUI") === scopeTeam;
-            return true;
-          })
-        : allBusySlots.filter((sl) => activeU && sl.uid === activeU.uid && sl.day === dayKey);
+        ? allBusySlots.filter((sl) => sl.day === dayKey && (!scopeTeam || scopeTeam === "ALL" || (sl.team || "GUI") === scopeTeam))
+        : allBusySlots.filter((sl) => currentUser && sl.uid === currentUser.uid && sl.day === dayKey);
 
       const freeWindows = computeFreeWindowsForSlots(chosenDaySlots);
       const bestWin = freeWindows.slice().sort((a, b) => (b.end - b.start) - (a.end - a.start))[0];
       const freeText = freeWindows.length ? freeWindows.map((w) => w.label).join(" | ") : t("noFreeInWindow");
       const overlaps = hasOverlapInSlots(chosenDaySlots);
 
-      const busyDetails = chosenDaySlots
-        .map((sl) => {
-          const who = ownerMode ? `${sl.userLabel || t("member")} (${sl.team || "GUI"})` : (sl.team || "GUI");
-          return `${who}: ${sl.title || t("untitled")} [${sl.from} → ${sl.to}]`;
-        })
-        .join(" • ");
+      const busyDetails = chosenDaySlots.map((sl) => {
+        const rng = convertSlotRangeToSelectedTimezone(sl);
+        const timeStr = rng ? `${formatMinutes12(rng[0])} → ${formatMinutes12(rng[1])}` : `${sl.from} → ${sl.to}`;
+        const who = ownerMode ? `${sl.userLabel || t("member")} (${sl.team || "GUI"})` : (sl.team || "GUI");
+        return `${who}: ${sl.title || t("untitled")} [${timeStr}]`;
+      }).join(" • ");
 
       return {
         freeText,
@@ -2917,17 +2846,15 @@
 
     function renderTimetableSection() {
       const ownerMode = isOwner();
-      const activeU = getEffectiveUser();
       overlapScopeSel.classList.toggle("hidden", !ownerMode);
       busyTeamFilter.classList.toggle("hidden", !ownerMode);
       document.getElementById("t-busy-list-title").textContent = ownerMode ? t("busyListOwnerTitle") : t("busyListTitle");
 
-      if (activeU) {
-        const wkMins = computeMinutesForUid(activeU.uid, null);
+      if (currentUser) {
+        const wkMins = computeMinutesForUid(currentUser.uid, null);
         myWeeklyHoursBadge.textContent = `${t("weeklyHoursPrefix")}: ${formatHoursFromMinutes(wkMins)} ${t("hoursUnit")}`;
       }
 
-      const visibleSlots = getVisibleBusySlots();
       const chosenDay = overlapDaySel.value || "Saturday";
       const chosenScope = ownerMode ? (overlapScopeSel.value || "ALL") : getCurrentUserTeam();
       const dayData = buildAvailabilityTextForDay(chosenDay, chosenScope);
@@ -2941,47 +2868,39 @@
           <div style="flex:1; min-width:240px;">
             <strong>${escapeHtml(dayLabel(chosenDay))} • ${escapeHtml(timezone)}</strong>
             <div class="task-badges" style="margin-top:8px;">
-              <span class="badge ok">${escapeHtml(t("bestSlotPrefix"))}: ${escapeHtml(dayData ? dayData.bestSlotText : "-")}</span>
-              <span class="badge">${escapeHtml(t("freeWindowsPrefix"))}: ${escapeHtml(dayData ? dayData.freeText : "-")}</span>
+              <span class="badge ok">${escapeHtml(t("bestSlotPrefix"))}: ${escapeHtml(dayData.bestSlotText)}</span>
+              <span class="badge">${escapeHtml(t("freeWindowsPrefix"))}: ${escapeHtml(dayData.freeText)}</span>
             </div>
             ${overlapAlertHtml}
-            ${dayData && dayData.busyDetails ? `<div class="hint" style="margin-top:8px;">${escapeHtml(dayData.busyDetails)}</div>` : ""}
+            ${dayData.busyDetails ? `<div class="hint" style="margin-top:8px;">${escapeHtml(dayData.busyDetails)}</div>` : ""}
           </div>
         </div>
       `;
 
       if (ownerMode) {
-        const activeTeamBlocks = TEAMS
-          .map((tm) => {
-            const tmSlots = allBusySlots.filter((sl) => sl.day === chosenDay && (sl.team || "GUI") === tm);
-            if (!tmSlots.length) return "";
-            const tmData = buildAvailabilityTextForDay(chosenDay, tm);
-            return `
-              <div class="list-item" style="margin-top:8px;">
-                <div style="flex:1; min-width:220px;">
-                  <strong>${escapeHtml(tm)}</strong>
-                  <div class="task-badges">
-                    <span class="badge ok">${escapeHtml(t("bestSlotPrefix"))}: ${escapeHtml(tmData.bestSlotText)}</span>
-                    <span class="badge">${escapeHtml(tmData.freeText)}</span>
-                  </div>
+        allTeamsFreeOverview.innerHTML = TEAMS.map((tm) => {
+          const tmSlots = allBusySlots.filter((sl) => sl.day === chosenDay && (sl.team || "GUI") === tm);
+          if (!tmSlots.length) return "";
+          const tmData = buildAvailabilityTextForDay(chosenDay, tm);
+          return `
+            <div class="list-item" style="margin-top:8px;">
+              <div style="flex:1; min-width:220px;">
+                <strong>${escapeHtml(tm)}</strong>
+                <div class="task-badges">
+                  <span class="badge ok">${escapeHtml(t("bestSlotPrefix"))}: ${escapeHtml(tmData.bestSlotText)}</span>
+                  <span class="badge">${escapeHtml(tmData.freeText)}</span>
                 </div>
               </div>
-            `;
-          })
-          .filter(Boolean)
-          .join("");
-        allTeamsFreeOverview.innerHTML = activeTeamBlocks;
+            </div>
+          `;
+        }).filter(Boolean).join("");
       } else {
         allTeamsFreeOverview.innerHTML = "";
       }
 
       const fDay = busyDayFilter.value;
       const fTeam = ownerMode ? busyTeamFilter.value : "all";
-      const filtered = visibleSlots.filter((sl) => {
-        const okDay = fDay === "all" || sl.day === fDay;
-        const okTeam = fTeam === "all" || (sl.team || "GUI") === fTeam;
-        return okDay && okTeam;
-      });
+      const filtered = getVisibleBusySlots().filter((sl) => (fDay === "all" || sl.day === fDay) && (fTeam === "all" || (sl.team || "GUI") === fTeam));
 
       busyList.innerHTML = "";
       if (!filtered.length) {
@@ -2992,17 +2911,18 @@
       filtered.forEach((sl) => {
         const row = document.createElement("div");
         row.className = "list-item";
-        const rng = parseStoredSlotRange(sl);
+        const rng = convertSlotRangeToSelectedTimezone(sl);
         const slotDurHrs = rng ? ((rng[1] - rng[0]) / 60).toFixed(1) : "0.0";
+        const timeRangeLabel = rng ? `${formatMinutes12(rng[0])} → ${formatMinutes12(rng[1])}` : `${sl.from || "--:--"} → ${sl.to || "--:--"}`;
         const memberWkHrs = formatHoursFromMinutes(computeMinutesForUid(sl.uid, null));
-        const repeatText = sl.repeatWeekly ? t("repeatWeeklyLbl") : t("oneTimeLbl");
+        const repeatText = sl.repeatWeekly === false ? t("oneTimeLbl") : t("repeatWeeklyLbl");
 
         const left = document.createElement("div");
         left.innerHTML = `
           <strong>${escapeHtml(sl.title || t("untitled"))}</strong>
           <div class="task-badges">
             <span class="badge">${escapeHtml(dayLabel(sl.day))}</span>
-            <span class="badge warn">${escapeHtml(sl.from || "--:--")} → ${escapeHtml(sl.to || "--:--")} (${slotDurHrs} ${escapeHtml(t("hoursUnit"))})</span>
+            <span class="badge warn">${escapeHtml(timeRangeLabel)} (${slotDurHrs} ${escapeHtml(t("hoursUnit"))})</span>
             <span class="badge ok">${escapeHtml(t("memberWeeklyHours"))}: ${memberWkHrs} ${escapeHtml(t("hoursUnit"))}</span>
             <span class="badge">${escapeHtml(repeatText)}</span>
             <span class="badge">${escapeHtml(sl.team || "GUI")}</span>
@@ -3012,18 +2932,13 @@
         `;
         row.appendChild(left);
 
-        const canDelete = activeU && (ownerMode || sl.uid === activeU.uid);
-        if (canDelete) {
+        if (currentUser && (ownerMode || sl.uid === currentUser.uid)) {
           const delBtn = document.createElement("button");
           delBtn.type = "button";
           delBtn.className = "danger";
           delBtn.textContent = t("deleteBtn");
           delBtn.addEventListener("click", async () => {
-            try {
-              await deleteDoc(doc(db, "busy_schedule", sl.id));
-            } catch (err) {
-              setStatus(formatErr(err), "error");
-            }
+            await deleteDoc(doc(db, "busy_schedule", sl.id));
           });
           row.appendChild(delBtn);
         }
@@ -3038,9 +2953,7 @@
       const dayData = buildAvailabilityTextForDay(chosenDay, chosenScope);
       if (!dayData) return;
       try {
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-          await navigator.clipboard.writeText(dayData.plainText);
-        }
+        if (navigator.clipboard && navigator.clipboard.writeText) await navigator.clipboard.writeText(dayData.plainText);
         setStatus(t("copiedFreeOk"), "ok");
       } catch (_) {
         setStatus(dayData.plainText, "ok");
@@ -3048,15 +2961,14 @@
     });
 
     function canMemberInteractTask(task) {
-      const u = getEffectiveUser();
-      if (!u || task.status === "done") return false;
+      if (!currentUser || task.status === "done") return false;
       const myTeam = getCurrentUserTeam();
       const taskTeam = task.team || "GUI";
       if (myTeam !== taskTeam) return false;
       const assignee = String(task.assignedTo || "").trim().toLowerCase();
       if (!assignee) return true;
-      const myEmail = String(u.email || "").trim().toLowerCase();
-      const myLabel = String(u.displayName || u.uid || "").trim().toLowerCase();
+      const myEmail = String(currentUser.email || "").trim().toLowerCase();
+      const myLabel = String(currentUserProfile?.fullName || "").trim().toLowerCase();
       return (myEmail && assignee === myEmail) || (myLabel && assignee === myLabel);
     }
 
@@ -3081,31 +2993,33 @@
       return 2;
     }
 
-    // Points are calculated ONLY for tasks created by an Owner or explicitly approved by an Owner
+    // Points are awarded strictly for tasks with ownerApproved === true; speed bonus ranks completions per task
     function computePointsBreakdown() {
-      const validDoneTasks = allTasks
-        .filter((tk) => tk.status === "done" && (tk.ownerCreated === true || tk.ownerApproved === true))
-        .sort((a, b) => completionOrderScore(a) - completionOrderScore(b));
-
+      const approvedTasks = allTasks.filter((tk) => tk.status === "done" && tk.ownerApproved === true);
       const statsByKey = new Map();
+
       function ensureEntry(key, displayName) {
-        if (!statsByKey.has(key)) {
-          statsByKey.set(key, { name: displayName, base: 0, speed: 0, total: 0, doneCount: 0 });
-        }
+        if (!statsByKey.has(key)) statsByKey.set(key, { name: displayName, base: 0, speed: 0, total: 0, doneCount: 0 });
         return statsByKey.get(key);
       }
 
-      validDoneTasks.forEach((tk, idx) => {
-        const actorRaw = String(tk.completedBy || tk.assignedTo || "").trim();
-        if (!actorRaw) return;
-        const key = actorRaw.toLowerCase();
-        const entry = ensureEntry(key, actorRaw);
-        const base = taskPointsValue(tk.priority);
-        const bonus = speedRankBonus(idx);
-        entry.base += base;
-        entry.speed += bonus;
-        entry.total += base + bonus;
-        entry.doneCount += 1;
+      approvedTasks.forEach((tk) => {
+        const completions = Array.isArray(tk.completions) && tk.completions.length
+          ? tk.completions.slice().sort((a, b) => (a.completedAtMs || 0) - (b.completedAtMs || 0))
+          : (tk.completedBy ? [{ actor: tk.completedBy, completedAtMs: completionOrderScore(tk) }] : []);
+
+        const basePts = taskPointsValue(tk.priority);
+        completions.forEach((comp, rankIdx) => {
+          const actorRaw = String(comp.actor || tk.assignedTo || "").trim();
+          if (!actorRaw) return;
+          const key = actorRaw.toLowerCase();
+          const entry = ensureEntry(key, actorRaw);
+          const bonus = speedRankBonus(rankIdx);
+          entry.base += basePts;
+          entry.speed += bonus;
+          entry.total += basePts + bonus;
+          entry.doneCount += 1;
+        });
       });
 
       return statsByKey;
@@ -3127,43 +3041,38 @@
     async function ensureOwnerProfile(user) {
       if (!db || !user || !user.email) return;
       const emailLower = user.email.trim().toLowerCase();
-      try {
-        const snap = await getDoc(doc(db, "members_profiles", user.uid));
-        if (!snap.exists()) {
-          const nameVal = user.displayName || emailLower.split("@")[0];
-          await setDoc(
-            doc(db, "members_profiles", user.uid),
-            {
-              uid: user.uid,
-              fullName: nameVal,
-              username: generateRandomUsername(nameVal, emailLower),
-              email: emailLower,
-              label: nameVal,
-              team: "GUI",
-              photoUrl: "",
-              platform: detectedDevice.id,
-              updatedAt: serverTimestamp()
-            },
-            { merge: true }
-          );
-        }
-      } catch (_) {}
+      const snap = await getDoc(doc(db, "members_profiles", user.uid));
+      if (!snap.exists()) {
+        const nameVal = user.displayName || emailLower.split("@")[0];
+        const prof = {
+          uid: user.uid,
+          fullName: nameVal,
+          username: generateRandomUsername(nameVal, emailLower),
+          email: emailLower,
+          label: nameVal,
+          team: "GUI",
+          photoUrl: "",
+          active: true,
+          platform: detectedDevice.id,
+          updatedAt: serverTimestamp()
+        };
+        await setDoc(doc(db, "members_profiles", user.uid), prof, { merge: true });
+        currentUserProfile = prof;
+      } else {
+        currentUserProfile = { uid: user.uid, ...snap.data() };
+      }
     }
 
     uploadPhotoBtn.addEventListener("click", () => photoFileInput.click());
 
     photoFileInput.addEventListener("change", async () => {
       const file = photoFileInput.files && photoFileInput.files[0];
-      const u = getEffectiveUser();
-      if (!file || !u || !db) return;
+      if (!file || !currentUser || !db) return;
       uploadPhotoBtn.disabled = true;
       try {
         const dataUrl = await compressImageToDataUrl(file);
-        await setDoc(doc(db, "members_profiles", u.uid), { photoUrl: dataUrl, updatedAt: serverTimestamp() }, { merge: true });
-        if (memberSession && memberSession.uid === u.uid) {
-          memberSession.photoUrl = dataUrl;
-          localStorage.setItem(MEMBER_SESSION_KEY, JSON.stringify(memberSession));
-        }
+        await setDoc(doc(db, "members_profiles", currentUser.uid), { photoUrl: dataUrl, updatedAt: serverTimestamp() }, { merge: true });
+        if (currentUserProfile) currentUserProfile.photoUrl = dataUrl;
         photoFileInput.value = "";
         setStatus(t("photoUpdatedOk"), "ok");
       } catch (err) {
@@ -3174,67 +3083,30 @@
     });
 
     removePhotoBtn.addEventListener("click", async () => {
-      const u = getEffectiveUser();
-      if (!u || !db) return;
-      try {
-        await setDoc(doc(db, "members_profiles", u.uid), { photoUrl: "", updatedAt: serverTimestamp() }, { merge: true });
-        if (memberSession && memberSession.uid === u.uid) {
-          memberSession.photoUrl = "";
-          localStorage.setItem(MEMBER_SESSION_KEY, JSON.stringify(memberSession));
-        }
-        setStatus(t("photoRemovedOk"), "ok");
-      } catch (err) {
-        setStatus(formatErr(err), "error");
-      }
+      if (!currentUser || !db) return;
+      await setDoc(doc(db, "members_profiles", currentUser.uid), { photoUrl: "", updatedAt: serverTimestamp() }, { merge: true });
+      if (currentUserProfile) currentUserProfile.photoUrl = "";
+      setStatus(t("photoRemovedOk"), "ok");
     });
 
     saveTeamBtn.addEventListener("click", async () => {
-      const u = getEffectiveUser();
-      if (!u || !db) return;
-      const chosen = profileTeamSelect.value || "GUI";
-      try {
-        await setDoc(doc(db, "members_profiles", u.uid), { team: chosen, updatedAt: serverTimestamp() }, { merge: true });
-        if (memberSession && memberSession.uid === u.uid) {
-          memberSession.team = chosen;
-          localStorage.setItem(MEMBER_SESSION_KEY, JSON.stringify(memberSession));
-        }
-        setStatus(t("teamSaved"), "ok");
-      } catch (err) {
-        setStatus(formatErr(err), "error");
+      if (!isOwner() || !currentUser || !db) {
+        setStatus(t("ownerOnlyError"), "error");
+        return;
       }
+      const chosen = profileTeamSelect.value || "GUI";
+      await setDoc(doc(db, "members_profiles", currentUser.uid), { team: chosen, updatedAt: serverTimestamp() }, { merge: true });
+      if (currentUserProfile) currentUserProfile.team = chosen;
+      setStatus(t("teamSaved"), "ok");
     });
 
     copyUidBtn.addEventListener("click", async () => {
-      const u = getEffectiveUser();
-      if (!u) return;
+      if (!currentUser) return;
       try {
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-          await navigator.clipboard.writeText(u.uid);
-        }
-        setStatus(`${t("copiedUidOk")} (${u.uid})`, "ok");
+        if (navigator.clipboard && navigator.clipboard.writeText) await navigator.clipboard.writeText(currentUser.uid);
+        setStatus(`${t("copiedUidOk")} (${currentUser.uid})`, "ok");
       } catch (_) {
-        setStatus(u.uid, "ok");
-      }
-    });
-
-    saveOwnSitePassBtn.addEventListener("click", async () => {
-      const u = getEffectiveUser();
-      if (!u || !db) return;
-      const nextPass = newSitePassInput.value.trim();
-      if (nextPass.length < MIN_PASS_LEN) {
-        setStatus(t("sitePassMinErr"), "error");
-        return;
-      }
-      saveOwnSitePassBtn.disabled = true;
-      try {
-        await setDoc(doc(db, "members_profiles", u.uid), { sitePasscode: nextPass, updatedAt: serverTimestamp() }, { merge: true });
-        await writeAuditLog("PASSWORD_CHANGED", `Updated password for ${u.email || u.uid}`);
-        newSitePassInput.value = "";
-        setStatus(t("sitePassSavedOk"), "ok");
-      } catch (err) {
-        setStatus(formatErr(err), "error");
-      } finally {
-        saveOwnSitePassBtn.disabled = false;
+        setStatus(currentUser.uid, "ok");
       }
     });
 
@@ -3247,7 +3119,7 @@
     });
 
     createMemberBtn.addEventListener("click", async () => {
-      if (!isOwner() || !db) {
+      if (!isOwner() || !db || !secondaryAuth) {
         setStatus(t("ownerOnlyError"), "error");
         return;
       }
@@ -3257,32 +3129,48 @@
         setStatus(t("missingEmailOrPass"), "error");
         return;
       }
+
       const fullName = newMemberNameInp.value.trim() || email.split("@")[0];
       const teamVal = TEAMS.includes(newMemberTeamSel.value) ? newMemberTeamSel.value : "GUI";
       const usernameVal = (newMemberUsernameInp.value.trim() || generateRandomUsername(fullName, email)).toLowerCase();
 
+      // Check duplicate email or username across existing profiles
+      const existingSnap = await getDocs(collection(db, "members_profiles"));
+      let isDup = false;
+      existingSnap.forEach((d) => {
+        const data = d.data() || {};
+        if (String(data.email || "").toLowerCase() === email || String(data.username || "").toLowerCase() === usernameVal) {
+          isDup = true;
+        }
+      });
+      if (isDup) {
+        setStatus(t("duplicateEmailOrUser"), "error");
+        return;
+      }
+
       createMemberBtn.disabled = true;
       try {
-        const docId = makeMemberDocIdFromEmail(email);
+        const cred = await createUserWithEmailAndPassword(secondaryAuth, email, passVal);
+        const createdUid = cred.user.uid;
+        await signOut(secondaryAuth).catch(() => {});
+
         const newAccountObj = {
-          uid: docId,
+          uid: createdUid,
           fullName,
           username: usernameVal,
           email,
           label: fullName,
           team: teamVal,
-          sitePasscode: passVal,
           photoUrl: "",
+          active: true,
           platform: "created-by-owner",
           createdAt: serverTimestamp(),
           updatedAt: serverTimestamp()
         };
-        await setDoc(doc(db, "members_profiles", docId), newAccountObj, { merge: true });
+        await setDoc(doc(db, "members_profiles", createdUid), newAccountObj);
         await setDoc(doc(db, "team_roster", encodeURIComponent(email)), { email, team: teamVal, updatedAt: serverTimestamp() }, { merge: true });
-        await writeAuditLog("CREATE_ACCOUNT", `Created account ${email} (@${usernameVal}, ${teamVal})`);
-        knownEmailsMap.set(email, teamVal);
-        membersMap.set(docId, { ...newAccountObj });
-        renderUI();
+        await writeAuditLog("CREATE_ACCOUNT", `Created Firebase Auth account ${email} (@${usernameVal}, ${teamVal})`);
+
         newMemberNameInp.value = "";
         newMemberEmailInp.value = "";
         newMemberUsernameInp.value = "";
@@ -3302,29 +3190,23 @@
     function getEmailTeamMap() {
       const map = new Map();
       membersMap.forEach((m) => {
-        if (m.email && m.email.includes("@")) {
-          map.set(m.email.toLowerCase(), TEAMS.includes(m.team) ? m.team : "GUI");
-        }
+        if (m.email && m.email.includes("@")) map.set(m.email.toLowerCase(), TEAMS.includes(m.team) ? m.team : "GUI");
       });
-      knownEmailsMap.forEach((tm, em) => {
-        map.set(em.toLowerCase(), TEAMS.includes(tm) ? tm : "GUI");
-      });
+      knownEmailsMap.forEach((tm, em) => map.set(em.toLowerCase(), TEAMS.includes(tm) ? tm : "GUI"));
       return map;
     }
 
     function getAllKnownEmails() {
       const emails = new Set(getEffectiveOwnersSet());
       knownEmailsMap.forEach((_, em) => { if (em) emails.add(em.toLowerCase()); });
-      const u = getEffectiveUser();
-      if (u && u.email) emails.add(u.email.toLowerCase());
+      if (currentUser && currentUser.email) emails.add(currentUser.email.toLowerCase());
       membersMap.forEach((m) => { if (m.email && m.email.includes("@")) emails.add(m.email.toLowerCase()); });
       return Array.from(emails);
     }
 
     function getEmailsForTeam(targetTeam) {
-      const all = getAllKnownEmails();
       const emailTeamMap = getEmailTeamMap();
-      return all.filter((em) => emailTeamMap.get(em) === targetTeam);
+      return getAllKnownEmails().filter((em) => emailTeamMap.get(em) === targetTeam);
     }
 
     function renderAssigneeOptions() {
@@ -3368,9 +3250,7 @@
         fOpt.textContent = em;
         taskAssigneeFilter.appendChild(fOpt);
       });
-      if (prevFilterVal && (prevFilterVal === "all" || allEmails.includes(prevFilterVal))) {
-        taskAssigneeFilter.value = prevFilterVal;
-      }
+      if (prevFilterVal && (prevFilterVal === "all" || allEmails.includes(prevFilterVal))) taskAssigneeFilter.value = prevFilterVal;
 
       syncSelectedAssigneeLabel();
     }
@@ -3403,19 +3283,13 @@
       renderAssigneeOptions();
     });
 
-    function computeRole(userObj) {
-      if (!userObj) return "Member";
-      if (userObj.email && getEffectiveOwnersSet().includes(userObj.email.toLowerCase())) return "Owner";
-      if (userObj.isFirebaseOwner && (!userObj.email || ownersSet.size === 0)) return "Owner";
-      return "Member";
-    }
-
     function updateStats() {
       const total = allTasks.length;
       const done = allTasks.filter((item) => item.status === "done").length;
       const pending = total - done;
-      const u = getEffectiveUser();
-      const myBreakdown = u ? getUserPointsBreakdown({ email: u.email, label: u.displayName }) : { total: 0 };
+      const myBreakdown = currentUser
+        ? getUserPointsBreakdown({ email: currentUser.email, label: currentUserProfile?.fullName || "" })
+        : { total: 0 };
 
       document.getElementById("stat-total-tasks").textContent = String(total);
       document.getElementById("stat-pending-tasks").textContent = String(pending);
@@ -3466,16 +3340,9 @@
       const box = document.getElementById("vortex-points-list");
       if (!box) return;
       box.innerHTML = "";
-      const breakdownMap = computePointsBreakdown();
       const entries = Array.from(membersMap.values()).map((m) => {
         const bd = getUserPointsBreakdown(m);
-        return {
-          name: m.fullName || m.label || m.email || m.uid,
-          team: m.team || "GUI",
-          base: bd.base,
-          speed: bd.speed,
-          points: bd.total
-        };
+        return { name: m.fullName || m.label || m.email || m.uid, team: m.team || "GUI", base: bd.base, speed: bd.speed, points: bd.total };
       }).sort((a, b) => b.points - a.points || b.speed - a.speed);
 
       if (!entries.length) {
@@ -3523,10 +3390,7 @@
         rmBtn.textContent = "×";
         rmBtn.title = t("removeOwnerTitle");
         rmBtn.addEventListener("click", async () => {
-          if (activeOwners.length <= 1) {
-            setStatus(t("cannotRemoveLastOwner"), "error");
-            return;
-          }
+          if (activeOwners.length <= 1) { setStatus(t("cannotRemoveLastOwner"), "error"); return; }
           if (!window.confirm(t("confirmDeleteMsg").replaceAll("{name}", email))) return;
           await removeOwnerEmail(email);
         });
@@ -3574,37 +3438,6 @@
         const right = document.createElement("div");
         right.className = "row";
 
-        const passInp = document.createElement("input");
-        passInp.type = "password";
-        passInp.dir = "ltr";
-        passInp.placeholder = t("newSitePassPh");
-        passInp.style.width = "165px";
-
-        const genBtn = document.createElement("button");
-        genBtn.type = "button";
-        genBtn.className = "secondary";
-        genBtn.textContent = t("genPassBtn");
-        genBtn.addEventListener("click", () => {
-          passInp.type = "text";
-          passInp.value = generateRandomPasscode(10);
-        });
-
-        const resetPassBtn = document.createElement("button");
-        resetPassBtn.type = "button";
-        resetPassBtn.textContent = t("resetPassBtn");
-        resetPassBtn.addEventListener("click", async () => {
-          const val = passInp.value.trim();
-          if (val.length < MIN_PASS_LEN) {
-            setStatus(t("sitePassMinErr"), "error");
-            return;
-          }
-          await setDoc(doc(db, "members_profiles", m.uid), { sitePasscode: val, updatedAt: serverTimestamp() }, { merge: true });
-          await writeAuditLog("RESET_PASSWORD", `Reset password for ${m.email || m.uid}`);
-          passInp.value = "";
-          passInp.type = "password";
-          setStatus(`${t("sitePassSavedOk")} (${fullNameVal})`, "ok");
-        });
-
         const teamSel = document.createElement("select");
         TEAMS.forEach((tm) => {
           const opt = document.createElement("option");
@@ -3628,23 +3461,16 @@
         delAccBtn.className = "danger";
         delAccBtn.textContent = t("deleteAccountBtn");
         delAccBtn.addEventListener("click", async () => {
-          if (isAccOwner && activeOwners.length <= 1) {
-            setStatus(t("cannotRemoveLastOwner"), "error");
-            return;
-          }
+          if (isAccOwner && activeOwners.length <= 1) { setStatus(t("cannotRemoveLastOwner"), "error"); return; }
           if (!window.confirm(t("confirmDeleteMsg").replaceAll("{name}", fullNameVal))) return;
           await deleteMemberAccount(m);
           renderUI();
           setStatus(`${t("memberDeletedOk")} (${fullNameVal})`, "ok");
         });
 
-        right.appendChild(passInp);
-        right.appendChild(genBtn);
-        right.appendChild(resetPassBtn);
         right.appendChild(teamSel);
         right.appendChild(updBtn);
         right.appendChild(delAccBtn);
-
         item.appendChild(left);
         item.appendChild(right);
         dirBox.appendChild(item);
@@ -3684,9 +3510,13 @@
 
     document.getElementById("vortex-export-json-btn").addEventListener("click", () => {
       if (!isOwner()) return;
+      const safeAccounts = Array.from(membersMap.values()).map(({ uid, fullName, username, email, team, active }) => ({
+        uid, fullName, username, email, team, active
+      }));
       const payload = {
         exportedAt: new Date().toISOString(),
         timezone,
+        accounts: safeAccounts,
         tasks: allTasks,
         busySlots: allBusySlots,
         auditLogs: allAuditLogs
@@ -3696,16 +3526,16 @@
 
     document.getElementById("vortex-export-csv-btn").addEventListener("click", () => {
       if (!isOwner()) return;
-      const rows = [["type", "title_or_action", "team_or_actor", "status_or_day", "deadline_or_time"]];
+      const rows = [["type", "title_or_name", "team_or_email", "status_or_day", "deadline_or_time"]];
+      Array.from(membersMap.values()).forEach((m) => rows.push(["account", m.fullName || "", m.email || "", m.team || "", m.username || ""]));
       allTasks.forEach((tk) => rows.push(["task", tk.title || "", tk.team || "", tk.status || "", tk.deadline || ""]));
       allBusySlots.forEach((sl) => rows.push(["timetable", sl.title || "", sl.team || "", sl.day || "", `${sl.from || ""} - ${sl.to || ""}`]));
-      const csv = rows.map((r) => r.map((c) => `"${String(c).replace(/"/g, '""')}"`).join(",")).join("\n");
+      const csv = rows.map((r) => r.map(sanitizeCsvCell).join(",")).join("\n");
       downloadFile("vortex-rov-backup.csv", csv, "text/csv;charset=utf-8;");
     });
 
     function renderUI() {
-      const u = getEffectiveUser();
-      if (!u) {
+      if (!currentUser) {
         authCard.classList.remove("hidden");
         workspace.classList.add("hidden");
         statsRow.classList.add("hidden");
@@ -3721,15 +3551,18 @@
       clearTimeout(loadTimeoutId);
       retryLoadBtn.classList.add("hidden");
       clearFieldErrors();
-      currentRole = computeRole(u);
+
       const ownerMode = isOwner();
       const activeTeam = getCurrentUserTeam();
-      const savedProf = membersMap.get(u.uid) || memberSession || {};
-      const fullNameVal = savedProf.fullName || savedProf.label || u.displayName || u.email || u.uid;
-      const usernameVal = savedProf.username || generateRandomUsername(fullNameVal, u.email || "");
+      const savedProf = membersMap.get(currentUser.uid) || currentUserProfile || {};
+      const fullNameVal = savedProf.fullName || savedProf.label || currentUser.displayName || currentUser.email || currentUser.uid;
+      const usernameVal = savedProf.username || generateRandomUsername(fullNameVal, currentUser.email || "");
       const initials = String(fullNameVal || "V").trim().charAt(0).toUpperCase() || "V";
 
       profileTeamSelect.value = activeTeam;
+      profileTeamSelect.disabled = !ownerMode;
+      saveTeamBtn.classList.toggle("hidden", !ownerMode);
+
       authCard.classList.add("hidden");
       workspace.classList.remove("hidden");
       statsRow.classList.remove("hidden");
@@ -3746,8 +3579,8 @@
       document.getElementById("vortex-prof-name").textContent = fullNameVal;
       document.getElementById("vortex-prof-username").textContent = `@${usernameVal}`;
       document.getElementById("vortex-prof-role").textContent = ownerMode ? t("owner") : t("member");
-      document.getElementById("vortex-prof-contact").textContent = u.email || "—";
-      document.getElementById("vortex-prof-uid").textContent = u.uid;
+      document.getElementById("vortex-prof-contact").textContent = currentUser.email || "—";
+      document.getElementById("vortex-prof-uid").textContent = currentUser.uid;
 
       ownerTaskControls.classList.toggle("hidden", !ownerMode);
       if (!ownerMode) assigneePicker.classList.add("hidden");
@@ -3757,7 +3590,6 @@
       }
 
       switchPage(activePage);
-      renderDaysGrid();
       renderAssigneeOptions();
       updateStats();
       renderTasks();
@@ -3787,11 +3619,7 @@
         const okStatus = f === "all" || task.status === f;
         const okTeam = tmFilter === "all" || (task.team || "GUI") === tmFilter;
         const okAssignee = asgFilter === "all" || (task.assignedTo || "") === asgFilter;
-        const okSearch =
-          !qText ||
-          String(task.title || "").toLowerCase().includes(qText) ||
-          String(task.team || "").toLowerCase().includes(qText) ||
-          String(task.assignedTo || "").toLowerCase().includes(qText);
+        const okSearch = !qText || String(task.title || "").toLowerCase().includes(qText) || String(task.team || "").toLowerCase().includes(qText) || String(task.assignedTo || "").toLowerCase().includes(qText);
         return okStatus && okTeam && okAssignee && okSearch;
       });
 
@@ -3803,7 +3631,6 @@
         return;
       }
 
-      const u = getEffectiveUser();
       const ownerMode = isOwner();
 
       filtered.forEach((task) => {
@@ -3851,6 +3678,11 @@
         }
 
         if (isCompleted) {
+          const apprBadge = document.createElement("span");
+          apprBadge.className = `badge ${task.ownerApproved ? "ok" : "warn"}`;
+          apprBadge.textContent = task.ownerApproved ? t("approvedBadge") : t("awaitingApprovalBadge");
+          badgesRow.appendChild(apprBadge);
+
           const lockBadge = document.createElement("span");
           lockBadge.className = "badge";
           lockBadge.textContent = t("taskLockedBadge");
@@ -3860,7 +3692,6 @@
         left.appendChild(titleEl);
         left.appendChild(badgesRow);
 
-        // Comments section (allowed even when completed)
         const commentsBox = document.createElement("div");
         commentsBox.className = "comments-box";
         const comments = Array.isArray(task.comments) ? task.comments : [];
@@ -3886,9 +3717,11 @@
         cBtn.textContent = t("addCommentBtn");
         cBtn.addEventListener("click", async () => {
           const txt = cInp.value.trim();
-          if (!txt || !u) return;
-          const nextComments = comments.concat([{ author: u.displayName || u.email || u.uid, text: txt }]);
-          await updateDoc(doc(db, "tasks", task.id), { comments: nextComments });
+          if (!txt || !currentUser) return;
+          const authorName = currentUserProfile?.fullName || currentUser.email || currentUser.uid;
+          await updateDoc(doc(db, "tasks", task.id), {
+            comments: arrayUnion({ author: authorName, text: txt })
+          });
           cInp.value = "";
         });
 
@@ -3897,7 +3730,6 @@
         commentsBox.appendChild(cRow);
         left.appendChild(commentsBox);
 
-        // Actions: Completed tasks cannot be edited/reopened
         const actions = document.createElement("div");
         actions.className = "row";
 
@@ -3915,12 +3747,13 @@
             approveBtn.type = "button";
             approveBtn.textContent = t("approveDoneBtn");
             approveBtn.addEventListener("click", async () => {
-              const actor = (u && (u.email || u.displayName || u.uid)) || t("owner");
+              const actor = task.assignedTo || currentUser.email || currentUser.uid;
               await updateDoc(doc(db, "tasks", task.id), {
                 status: "done",
                 ownerApproved: true,
-                completedBy: task.assignedTo || actor,
-                completedAt: serverTimestamp()
+                completedBy: actor,
+                completedAt: serverTimestamp(),
+                completions: arrayUnion({ actor, completedAtMs: Date.now() })
               });
             });
 
@@ -3949,17 +3782,27 @@
             doneBtn.type = "button";
             doneBtn.textContent = t("markDoneMember");
             doneBtn.addEventListener("click", async () => {
-              const actor = (u && (u.email || u.displayName || u.uid)) || t("member");
+              const actor = currentUser.email || currentUser.uid;
               await updateDoc(doc(db, "tasks", task.id), {
                 status: "done",
+                ownerApproved: false,
                 completedBy: actor,
-                completedAt: serverTimestamp()
+                completedAt: serverTimestamp(),
+                completions: arrayUnion({ actor, completedAtMs: Date.now() })
               });
             });
 
             actions.appendChild(progBtn);
             actions.appendChild(doneBtn);
           }
+        } else if (ownerMode && !task.ownerApproved) {
+          const approveBtn = document.createElement("button");
+          approveBtn.type = "button";
+          approveBtn.textContent = t("approveDoneBtn");
+          approveBtn.addEventListener("click", async () => {
+            await updateDoc(doc(db, "tasks", task.id), { ownerApproved: true });
+          });
+          actions.appendChild(approveBtn);
         }
 
         div.appendChild(left);
@@ -3975,12 +3818,9 @@
         return;
       }
 
-      const u = getEffectiveUser();
-      const shownMsgs = allChat.slice(-chatLimit);
-
-      shownMsgs.forEach((msg) => {
+      allChat.forEach((msg) => {
         const bubble = document.createElement("div");
-        const isMine = u && msg.createdByUid === u.uid;
+        const isMine = currentUser && msg.createdByUid === currentUser.uid;
         bubble.className = `chat-msg ${isMine ? "mine" : ""}`;
 
         const topRow = document.createElement("div");
@@ -4016,9 +3856,21 @@
       });
     }
 
+    document.getElementById("vortex-load-older-tasks-btn").addEventListener("click", () => {
+      tasksLimit += 50;
+      startWorkspaceListeners();
+    });
+    document.getElementById("vortex-load-older-busy-btn").addEventListener("click", () => {
+      busyLimit += 50;
+      startWorkspaceListeners();
+    });
+    document.getElementById("vortex-load-older-audit-btn").addEventListener("click", () => {
+      auditLimit += 50;
+      startWorkspaceListeners();
+    });
     loadOlderChatBtn.addEventListener("click", () => {
-      chatLimit += 25;
-      renderChat();
+      chatLimit += 50;
+      startWorkspaceListeners();
     });
 
     enableNotifBtn.addEventListener("click", async () => {
@@ -4035,30 +3887,45 @@
 
     function startWorkspaceListeners() {
       clearWorkspaceListeners();
-      if (!db || !getEffectiveUser()) return;
+      if (!db || !currentUser) return;
 
       unsubs.push(
-        onSnapshot(collection(db, "members_profiles"), (snap) => {
+        onSnapshot(collection(db, "members_profiles"), async (snap) => {
           const nextMap = new Map();
+          let foundSelf = false;
           snap.forEach((d) => {
             const data = d.data();
-            if (data && data.uid) {
-              nextMap.set(data.uid, {
-                uid: data.uid,
-                fullName: data.fullName || data.label || data.username || (data.email ? data.email.split("@")[0] : data.uid),
+            if (data && (data.uid || d.id)) {
+              const uidVal = data.uid || d.id;
+              if (uidVal === currentUser.uid) {
+                foundSelf = true;
+                currentUserProfile = { uid: uidVal, ...data };
+                if (data.active === false) {
+                  setStatus(t("accountInactiveError"), "error");
+                  signOut(auth).catch(() => {});
+                  return;
+                }
+              }
+              nextMap.set(uidVal, {
+                uid: uidVal,
+                fullName: data.fullName || data.label || data.username || (data.email ? data.email.split("@")[0] : uidVal),
                 username: data.username || generateRandomUsername(data.fullName || data.label || "", data.email || ""),
                 email: data.email || "",
-                label: data.fullName || data.label || data.username || data.email || data.uid,
+                label: data.fullName || data.label || data.username || data.email || uidVal,
                 team: TEAMS.includes(data.team) ? data.team : "GUI",
-                sitePasscode: data.sitePasscode || "",
                 photoUrl: data.photoUrl || "",
-                platform: data.platform || "web"
+                active: data.active !== false
               });
             }
           });
+          if (!foundSelf && !isOwner()) {
+            setStatus(t("accountInactiveError"), "error");
+            await signOut(auth).catch(() => {});
+            return;
+          }
           membersMap = nextMap;
           renderUI();
-        }, () => renderUI())
+        }, (err) => setStatus(formatErr(err), "error", true))
       );
 
       unsubs.push(
@@ -4072,9 +3939,6 @@
               if (!knownEmailsMap.has(em)) knownEmailsMap.set(em, "GUI");
             }
           });
-          if (nextSet.size === 0 && currentUser && currentUser.email) {
-            nextSet.add(String(currentUser.email).toLowerCase());
-          }
           ownersSet = nextSet;
           renderUI();
         }, () => renderUI())
@@ -4084,16 +3948,14 @@
         onSnapshot(collection(db, "team_roster"), (snap) => {
           snap.forEach((d) => {
             const data = d.data();
-            if (data && data.email) {
-              knownEmailsMap.set(String(data.email).toLowerCase(), TEAMS.includes(data.team) ? data.team : "GUI");
-            }
+            if (data && data.email) knownEmailsMap.set(String(data.email).toLowerCase(), TEAMS.includes(data.team) ? data.team : "GUI");
           });
           renderAssigneeOptions();
         }, () => {})
       );
 
       unsubs.push(
-        onSnapshot(query(collection(db, "tasks"), orderBy("createdAt", "desc")), (snap) => {
+        onSnapshot(query(collection(db, "tasks"), orderBy("createdAt", "desc"), limit(tasksLimit)), (snap) => {
           allTasks = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
           updateStats();
           renderTasks();
@@ -4102,20 +3964,18 @@
       );
 
       unsubs.push(
-        onSnapshot(query(collection(db, "busy_schedule"), orderBy("createdAt", "desc")), (snap) => {
+        onSnapshot(query(collection(db, "busy_schedule"), orderBy("createdAt", "desc"), limit(busyLimit)), (snap) => {
           allBusySlots = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
-          renderDaysGrid();
           renderTimetableSection();
           renderSubteamsAndMembers();
         }, (err) => setStatus(formatErr(err), "error", true))
       );
 
       unsubs.push(
-        onSnapshot(query(collection(db, "chat_messages"), orderBy("createdAt", "asc")), (snap) => {
-          allChat = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+        onSnapshot(query(collection(db, "chat_messages"), orderBy("createdAt", "desc"), limit(chatLimit)), (snap) => {
+          allChat = snap.docs.map((d) => ({ id: d.id, ...d.data() })).reverse();
           const latest = allChat[allChat.length - 1];
-          const u = getEffectiveUser();
-          if (latest && latest.id !== lastNotifiedChatId && u && latest.createdByUid !== u.uid) {
+          if (latest && latest.id !== lastNotifiedChatId && currentUser && latest.createdByUid !== currentUser.uid) {
             lastNotifiedChatId = latest.id;
             if ("Notification" in window && Notification.permission === "granted") {
               new Notification("Vortex ROV Chat", { body: `${latest.createdByLabel || "Member"}: ${latest.text || ""}` });
@@ -4125,117 +3985,57 @@
         }, (err) => setStatus(formatErr(err), "error", true))
       );
 
-      unsubs.push(
-        onSnapshot(query(collection(db, "audit_logs"), orderBy("createdAt", "desc")), (snap) => {
-          allAuditLogs = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
-          if (isOwner()) renderAuditLog();
-        }, () => {})
-      );
+      if (isOwner()) {
+        unsubs.push(
+          onSnapshot(query(collection(db, "audit_logs"), orderBy("createdAt", "desc"), limit(auditLimit)), (snap) => {
+            allAuditLogs = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+            renderAuditLog();
+          }, () => {})
+        );
+      }
     }
 
-    async function tryMemberSignIn(identifierRaw, passwordRaw) {
-      const idVal = String(identifierRaw || "").trim().toLowerCase().replace(/^@/, "");
-      const passVal = String(passwordRaw || "").trim();
-      if (!idVal || !passVal || !db) return false;
-
-      const snap = await getDocs(collection(db, "members_profiles"));
-      let matched = null;
-      snap.forEach((d) => {
-        const data = d.data() || {};
-        const docEmail = String(data.email || "").trim().toLowerCase();
-        const docUser = String(data.username || "").trim().toLowerCase();
-        const docPass = String(data.sitePasscode || "").trim();
-        if ((docEmail === idVal || docUser === idVal) && docPass && docPass === passVal) {
-          matched = {
-            uid: data.uid || d.id,
-            fullName: data.fullName || data.label || docUser || docEmail,
-            username: docUser,
-            email: docEmail,
-            team: TEAMS.includes(data.team) ? data.team : "GUI",
-            photoUrl: data.photoUrl || ""
-          };
-        }
-      });
-
-      if (!matched) {
-        recordFailedLogin();
-        setStatus(t("invalidLoginCreds"), "error");
-        return false;
-      }
-
-      clearFailedLogin();
-      if (rememberMeChk.checked) {
-        localStorage.setItem(REMEMBERED_ID_KEY, identifierRaw.trim());
-      } else {
-        localStorage.removeItem(REMEMBERED_ID_KEY);
-      }
-
-      memberSession = matched;
-      localStorage.setItem(MEMBER_SESSION_KEY, JSON.stringify(matched));
-      membersMap.set(matched.uid, matched);
-      startWorkspaceListeners();
-      renderUI();
-      setStatus(`${t("signedInOk")} (${matched.fullName})`, "ok");
-      return true;
-    }
-
-    loginSubmitBtn.addEventListener("click", async () => {
+    async function handleSignInSubmit() {
       const lockSec = getRemainingLockSeconds();
       if (lockSec > 0) {
         setStatus(t("rateLimitedMsg").replaceAll("{sec}", String(lockSec)), "error");
         return;
       }
 
-      if (!lampStage.classList.contains("lamp-on")) {
-        lampStage.classList.add("lamp-on");
-      }
+      if (!lampStage.classList.contains("lamp-on")) lampStage.classList.add("lamp-on");
 
-      const idVal = loginIdInput.value.trim();
+      const emailVal = loginIdInput.value.trim().toLowerCase();
       const passVal = loginPassInput.value.trim();
 
       clearFieldErrors();
       let hasEmpty = false;
-      if (!idVal) {
-        idInputBox.classList.add("has-error");
-        idErrorBox.classList.add("visible");
-        hasEmpty = true;
-      }
-      if (!passVal) {
-        passInputBox.classList.add("has-error");
-        passErrorBox.classList.add("visible");
-        hasEmpty = true;
-      }
-      if (hasEmpty) {
-        setStatus(t("fillFieldErr"), "error");
-        return;
-      }
+      if (!emailVal) { idInputBox.classList.add("has-error"); idErrorBox.classList.add("visible"); hasEmpty = true; }
+      if (!passVal) { passInputBox.classList.add("has-error"); passErrorBox.classList.add("visible"); hasEmpty = true; }
+      if (hasEmpty) { setStatus(t("fillFieldErr"), "error"); return; }
 
       loginSubmitBtn.disabled = true;
       try {
-        if (auth && idVal.toLowerCase() === PRIMARY_OWNER_EMAIL.toLowerCase()) {
-          try {
-            await signInWithEmailAndPassword(auth, idVal.toLowerCase(), passVal);
-            clearFailedLogin();
-            if (rememberMeChk.checked) localStorage.setItem(REMEMBERED_ID_KEY, idVal);
-            else localStorage.removeItem(REMEMBERED_ID_KEY);
-            setStatus(t("signedInOk"), "ok");
-            return;
-          } catch (_) {}
-        }
-        await tryMemberSignIn(idVal, passVal);
+        await signInWithEmailAndPassword(auth, emailVal, passVal);
+        clearFailedLogin();
+        if (rememberMeChk.checked) localStorage.setItem(REMEMBERED_ID_KEY, emailVal);
+        else localStorage.removeItem(REMEMBERED_ID_KEY);
+        setStatus(t("signedInOk"), "ok");
+      } catch (_) {
+        recordFailedLogin();
+        setStatus(t("invalidLoginCreds"), "error");
       } finally {
         loginSubmitBtn.disabled = false;
       }
-    });
+    }
 
-    loginPassInput.addEventListener("keydown", (e) => {
-      if (e.key === "Enter") loginSubmitBtn.click();
-    });
+    loginSubmitBtn.addEventListener("click", handleSignInSubmit);
+    loginIdInput.addEventListener("keydown", (e) => { if (e.key === "Enter") handleSignInSubmit(); });
+    loginPassInput.addEventListener("keydown", (e) => { if (e.key === "Enter") handleSignInSubmit(); });
 
     logoutBtn.addEventListener("click", async () => {
-      memberSession = null;
-      localStorage.removeItem(MEMBER_SESSION_KEY);
       clearWorkspaceListeners();
+      currentUser = null;
+      currentUserProfile = null;
       allTasks = [];
       allBusySlots = [];
       allChat = [];
@@ -4243,9 +4043,7 @@
       membersMap = new Map();
       ownersSet = new Set(INITIAL_OWNERS.map((e) => e.toLowerCase()));
       knownEmailsMap = new Map();
-      if (auth && auth.currentUser) {
-        try { await signOut(auth); } catch (_) {}
-      }
+      if (auth) await signOut(auth).catch(() => {});
       renderUI();
     });
 
@@ -4255,15 +4053,11 @@
     busyTeamFilter.addEventListener("change", renderTimetableSection);
 
     document.getElementById("vortex-add-task-btn").addEventListener("click", async () => {
-      if (!isOwner()) {
-        setStatus(t("ownerOnlyError"), "error");
-        return;
-      }
+      if (!isOwner()) { setStatus(t("ownerOnlyError"), "error"); return; }
       const titleInput = document.getElementById("vortex-task-title");
       const prioSel = document.getElementById("vortex-task-priority");
       const title = titleInput.value.trim();
-      const u = getEffectiveUser();
-      if (!title || !u) return;
+      if (!title || !currentUser) return;
 
       await addDoc(collection(db, "tasks"), {
         title,
@@ -4275,10 +4069,11 @@
         ownerCreated: true,
         ownerApproved: false,
         comments: [],
+        completions: [],
         completedBy: "",
         completedAt: null,
-        createdByUid: u.uid,
-        createdByLabel: u.email || u.displayName || u.uid,
+        createdByUid: currentUser.uid,
+        createdByLabel: currentUser.email || currentUser.uid,
         createdAt: serverTimestamp()
       });
       titleInput.value = "";
@@ -4287,15 +4082,14 @@
 
     async function sendChatMessage() {
       const text = chatInput.value.trim();
-      const u = getEffectiveUser();
-      if (!text || !u) return;
+      if (!text || !currentUser) return;
       sendChatBtn.disabled = true;
       try {
         await addDoc(collection(db, "chat_messages"), {
           text,
           senderTeam: getCurrentUserTeam(),
-          createdByUid: u.uid,
-          createdByLabel: u.displayName || u.email || u.uid,
+          createdByUid: currentUser.uid,
+          createdByLabel: currentUserProfile?.fullName || currentUser.email || currentUser.uid,
           createdAt: serverTimestamp()
         });
         chatInput.value = "";
@@ -4308,21 +4102,14 @@
     }
 
     sendChatBtn.addEventListener("click", sendChatMessage);
-    chatInput.addEventListener("keydown", (e) => {
-      if (e.key === "Enter") sendChatMessage();
-    });
-    document.getElementById("vortex-scroll-chat-btn").addEventListener("click", () => {
-      chatBox.scrollTop = chatBox.scrollHeight;
-    });
+    chatInput.addEventListener("keydown", (e) => { if (e.key === "Enter") sendChatMessage(); });
+    document.getElementById("vortex-scroll-chat-btn").addEventListener("click", () => { chatBox.scrollTop = chatBox.scrollHeight; });
 
     document.getElementById("vortex-add-owner-btn").addEventListener("click", async () => {
       const input = document.getElementById("vortex-owner-email-input");
       const email = input.value.trim().toLowerCase();
-      if (!isValidEmailFormat(email)) {
-        setStatus(t("missingEmailOrPass"), "error");
-        return;
-      }
-      if (!isOwner()) return;
+      if (!isValidEmailFormat(email)) { setStatus(t("missingEmailOrPass"), "error"); return; }
+      if (!isOwner()) { setStatus(t("ownerOnlyError"), "error"); return; }
       const currentOwners = getEffectiveOwnersSet();
       if (!currentOwners.includes(email) && currentOwners.length >= MAX_OWNERS) {
         setStatus(t("maxOwnersReached"), "error");
@@ -4339,10 +4126,7 @@
       const input = document.getElementById("vortex-owner-email-input");
       const email = input.value.trim().toLowerCase();
       if (!email || !isOwner()) return;
-      if (ownersSet.size <= 1 && ownersSet.has(email)) {
-        setStatus(t("cannotRemoveLastOwner"), "error");
-        return;
-      }
+      if (ownersSet.size <= 1 && ownersSet.has(email)) { setStatus(t("cannotRemoveLastOwner"), "error"); return; }
       if (!window.confirm(t("confirmDeleteMsg").replaceAll("{name}", email))) return;
       await removeOwnerEmail(email);
       input.value = "";
@@ -4354,35 +4138,46 @@
     taskAssigneeFilter.addEventListener("change", renderTasks);
     taskSearch.addEventListener("input", renderTasks);
 
-    try {
-      const rawSession = localStorage.getItem(MEMBER_SESSION_KEY);
-      if (rawSession) memberSession = JSON.parse(rawSession);
-    } catch (_) {
-      memberSession = null;
-    }
-
     if (auth && db) {
       onAuthStateChanged(auth, async (user) => {
-        currentUser = user;
-        if (user) {
-          memberSession = null;
-          localStorage.removeItem(MEMBER_SESSION_KEY);
-          await ensureOwnerProfile(user);
-          startWorkspaceListeners();
-          renderUI();
-          return;
-        }
-        if (memberSession && memberSession.uid) {
-          startWorkspaceListeners();
-          renderUI();
-          return;
-        }
+        clearTimeout(loadTimeoutId);
+        retryLoadBtn.classList.add("hidden");
         clearWorkspaceListeners();
-        renderUI();
+
+        if (!user) {
+          currentUser = null;
+          currentUserProfile = null;
+          setStatus("", "normal", false);
+          renderUI();
+          return;
+        }
+
+        currentUser = user;
+        armLoadTimeout();
+        try {
+          const ownersSnap = await getDocs(collection(db, "owners"));
+          const nextOwners = new Set();
+          ownersSnap.forEach((d) => {
+            if (d.data() && d.data().email) nextOwners.add(String(d.data().email).toLowerCase());
+          });
+          if (nextOwners.size > 0) ownersSet = nextOwners;
+
+          await ensureOwnerProfile(user);
+          if (currentUserProfile && currentUserProfile.active === false) {
+            setStatus(t("accountInactiveError"), "error");
+            await signOut(auth).catch(() => {});
+            return;
+          }
+
+          startWorkspaceListeners();
+          renderUI();
+        } catch (err) {
+          setStatus(formatErr(err), "error", true);
+        }
       });
     }
 
-    applyLanguage();
+    applyLanguage(true);
   </script>
 </body>
 </html>
