@@ -64,7 +64,7 @@
       color: var(--text);
       font-size: clamp(14px, 1.05vw, 16px);
       min-height: 100vh;
-      transition: background-color 0.2s ease, color 0.2s ease;
+      transition: background-color 0.25s ease, color 0.25s ease;
     }
 
     body[data-platform="ios"] button,
@@ -305,142 +305,244 @@
       gap: 10px;
     }
 
-    /* Sign In UI matching reference image with Vortex ROV colors */
-    .signin-stage {
+    /* Interactive Lamp Login Stage inspired by video_1.mp4 with Vortex ROV colors */
+    .lamp-stage {
+      position: relative;
       border-radius: 26px;
-      padding: clamp(24px, 4vw, 48px) clamp(14px, 3vw, 28px);
+      padding: clamp(24px, 4vw, 48px) clamp(16px, 4vw, 36px);
+      background: #05080f;
+      border: 1px solid rgba(56, 189, 248, 0.22);
+      overflow: hidden;
+      box-shadow: 0 22px 55px rgba(2, 12, 27, 0.45);
+      transition: background 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .lamp-stage.lamp-on {
       background:
-        radial-gradient(circle at 16% 18%, rgba(56, 189, 248, 0.72), transparent 46%),
-        radial-gradient(circle at 84% 82%, rgba(2, 132, 199, 0.78), transparent 48%),
-        linear-gradient(135deg, #071324 0%, #0b2949 52%, #075985 100%);
-      box-shadow: 0 18px 45px rgba(7, 25, 54, 0.28);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 16px;
+        radial-gradient(circle at 24% 28%, rgba(56, 189, 248, 0.24), transparent 46%),
+        radial-gradient(circle at 74% 48%, rgba(14, 165, 233, 0.16), transparent 55%),
+        linear-gradient(135deg, #071324 0%, #0b2440 55%, #08182d 100%);
     }
 
-    .signin-blob-card {
-      width: 100%;
-      max-width: 450px;
-      background: linear-gradient(155deg, rgba(14, 165, 233, 0.88) 0%, rgba(15, 45, 82, 0.94) 56%, rgba(6, 182, 212, 0.88) 100%);
-      border: 2px solid rgba(125, 211, 252, 0.65);
-      border-radius: 46% 54% 48% 52% / 44% 42% 58% 56%;
-      padding: clamp(28px, 5vw, 42px) clamp(22px, 4vw, 34px);
-      box-shadow: 0 22px 45px rgba(2, 12, 27, 0.45);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 14px;
-      color: #ffffff;
-    }
-
-    .signin-top-avatar {
-      width: 82px;
-      height: 82px;
+    .lamp-glow-beam {
+      position: absolute;
+      top: 72px;
+      inset-inline-start: 14%;
+      width: 340px;
+      height: 340px;
       border-radius: 50%;
-      background: #ffffff;
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.35) 0%, rgba(14, 165, 233, 0.08) 55%, transparent 75%);
+      filter: blur(18px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    .lamp-stage.lamp-on .lamp-glow-beam {
+      opacity: 1;
+      transform: scale(1.06);
+    }
+
+    .lamp-layout {
+      position: relative;
+      z-index: 2;
       display: grid;
-      place-items: center;
-      box-shadow: 0 8px 20px rgba(2, 132, 199, 0.32);
+      grid-template-columns: minmax(170px, 260px) minmax(280px, 420px);
+      justify-content: center;
+      align-items: center;
+      gap: clamp(24px, 5vw, 72px);
     }
 
-    .signin-top-avatar svg {
-      width: 48px;
-      height: 48px;
+    .lamp-column {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      user-select: none;
     }
 
-    .signin-heading-txt {
-      margin: 2px 0 6px;
-      font-size: 30px;
+    .lamp-svg {
+      width: 175px;
+      height: 235px;
+      overflow: visible;
+    }
+
+    .lamp-shade-light {
+      opacity: 0;
+      transition: opacity 0.35s ease;
+    }
+
+    .lamp-stage.lamp-on .lamp-shade-light {
+      opacity: 1;
+    }
+
+    .lamp-cord-group {
+      cursor: pointer;
+      transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .lamp-cord-group.pulled {
+      transform: translateY(14px);
+    }
+
+    .lamp-pull-hint {
+      font-size: 12px;
+      font-weight: 700;
+      color: #94a3b8;
+      background: rgba(15, 25, 43, 0.85);
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      padding: 6px 12px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .lamp-stage.lamp-on .lamp-pull-hint {
+      color: #bae6fd;
+      border-color: rgba(56, 189, 248, 0.5);
+    }
+
+    .lamp-form-panel {
+      width: 100%;
+      background: rgba(12, 18, 30, 0.94);
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      border-radius: 20px;
+      padding: clamp(22px, 3.5vw, 32px);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+      color: #f8fafc;
+      opacity: 0.35;
+      transform: translateY(8px) scale(0.985);
+      filter: blur(1px);
+      pointer-events: none;
+      transition: opacity 0.38s ease, transform 0.38s ease, filter 0.38s ease, border-color 0.35s ease;
+    }
+
+    .lamp-stage.lamp-on .lamp-form-panel {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      filter: blur(0);
+      pointer-events: auto;
+      border-color: rgba(56, 189, 248, 0.45);
+    }
+
+    .lamp-welcome-title {
+      margin: 0;
+      font-size: 28px;
       font-weight: 800;
       color: #ffffff;
-      letter-spacing: 0.01em;
-      text-shadow: 0 2px 10px rgba(2, 12, 27, 0.35);
+      line-height: 1.2;
     }
 
-    .signin-field-row {
-      width: 100%;
-      display: flex;
-      align-items: center;
-      gap: 10px;
+    .lamp-welcome-sub {
+      margin: 6px 0 20px;
+      font-size: 13.5px;
+      color: #94a3b8;
+    }
+
+    .lamp-field-group {
+      margin-bottom: 14px;
       direction: ltr;
     }
 
-    .signin-side-badge {
-      width: 40px;
-      height: 40px;
-      border-radius: 12px;
-      flex-shrink: 0;
-      background: linear-gradient(135deg, #38bdf8 0%, #0284c7 100%);
-      color: #ffffff;
-      display: grid;
-      place-items: center;
-      font-size: 16px;
-      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.35);
-    }
-
-    .signin-pill-input-wrap {
-      flex: 1;
+    .lamp-input-box {
       position: relative;
       display: flex;
       align-items: center;
-      background: rgba(8, 22, 42, 0.32);
-      border: 1.5px solid rgba(186, 230, 253, 0.85);
-      border-radius: 999px;
-      padding: 2px 12px 2px 16px;
-      min-height: 44px;
+      background: #141c2c;
+      border: 1.5px solid #263349;
+      border-radius: 12px;
+      padding: 2px 12px;
+      min-height: 46px;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
     }
 
-    .signin-pill-input-wrap input {
+    .lamp-input-box:focus-within {
+      border-color: #38bdf8;
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.18);
+    }
+
+    .lamp-input-box.has-error {
+      border-color: #ef4444;
+      box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.18);
+    }
+
+    .lamp-input-icon {
+      font-size: 15px;
+      margin-right: 10px;
+      color: #94a3b8;
+      flex-shrink: 0;
+    }
+
+    .lamp-input-box input {
       width: 100%;
-      border: none;
-      background: transparent;
-      color: #ffffff;
-      font-size: 14.5px;
-      font-weight: 600;
+      border: none !important;
+      background: transparent !important;
+      color: #ffffff !important;
+      font-size: 14px;
       padding: 8px 4px;
       min-height: 36px;
       outline: none;
     }
 
-    .signin-pill-input-wrap input::placeholder {
-      color: rgba(224, 242, 254, 0.88);
-      font-weight: 500;
+    .lamp-input-box input::placeholder {
+      color: #64748b;
     }
 
-    .signin-eye-btn {
+    .lamp-eye-btn {
       background: transparent !important;
       border: none !important;
-      color: #ffffff !important;
+      color: #94a3b8 !important;
       padding: 4px 6px !important;
       min-height: 32px !important;
       font-size: 15px;
-      cursor: pointer;
     }
 
-    .signin-meta-line {
-      width: 100%;
+    .lamp-field-error {
+      display: none;
+      margin-top: 7px;
+      padding: 7px 11px;
+      border-radius: 9px;
+      background: rgba(239, 68, 68, 0.16);
+      border: 1px solid rgba(239, 68, 68, 0.55);
+      color: #fecaca;
+      font-size: 12.5px;
+      font-weight: 700;
+      align-items: center;
+      gap: 6px;
+      animation: lampShake 0.28s ease;
+    }
+
+    .lamp-field-error.visible {
+      display: flex;
+    }
+
+    @keyframes lampShake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      75% { transform: translateX(5px); }
+    }
+
+    .lamp-meta-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
       gap: 8px;
+      margin: 8px 0 16px;
       font-size: 12.5px;
-      color: #ffffff;
-      padding: 2px 6px;
+      color: #cbd5e1;
       direction: ltr;
     }
 
-    .signin-remember-lbl {
+    .lamp-remember-label {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 7px;
       cursor: pointer;
-      color: #ffffff;
       font-weight: 600;
     }
 
-    .signin-remember-lbl input[type="checkbox"] {
+    .lamp-remember-label input[type="checkbox"] {
       width: 15px;
       height: 15px;
       min-height: 15px;
@@ -449,56 +551,43 @@
       cursor: pointer;
     }
 
-    .signin-forgot-link {
+    .lamp-link-btn {
       background: transparent !important;
       border: none !important;
-      color: #e0f2fe !important;
+      color: #38bdf8 !important;
       font-size: 12.5px;
-      font-weight: 600;
+      font-weight: 700;
       padding: 2px 4px !important;
       min-height: 28px !important;
       text-decoration: underline;
       text-underline-offset: 3px;
     }
 
-    .signin-login-btn {
-      width: 190px;
-      border-radius: 999px !important;
-      padding: 11px 22px !important;
-      min-height: 44px !important;
-      background: linear-gradient(90deg, #0284c7 0%, #0ea5e9 52%, #06b6d4 100%) !important;
+    .lamp-signin-btn {
+      width: 100%;
+      min-height: 46px !important;
+      border-radius: 12px !important;
+      background: linear-gradient(90deg, #0284c7 0%, #0ea5e9 55%, #38bdf8 100%) !important;
       color: #ffffff !important;
       font-size: 15px !important;
       font-weight: 800 !important;
-      letter-spacing: 0.06em;
-      box-shadow: 0 8px 20px rgba(2, 132, 199, 0.42);
-      margin-top: 4px;
+      box-shadow: 0 10px 24px rgba(14, 165, 233, 0.35);
     }
 
-    .signin-bottom-note {
+    .lamp-footer-note {
+      margin-top: 14px;
       text-align: center;
       font-size: 12.5px;
-      color: #ffffff;
-      line-height: 1.5;
-      margin-top: 2px;
+      color: #94a3b8;
       direction: ltr;
     }
 
-    .signin-signup-trigger {
-      background: transparent !important;
-      border: none !important;
-      color: #bae6fd !important;
-      font-weight: 800 !important;
-      padding: 0 4px !important;
-      min-height: 24px !important;
-      text-decoration: underline;
-      display: inline !important;
-    }
-
-    .signin-status-pill {
+    .lamp-status-wrap {
+      position: relative;
+      z-index: 2;
       width: 100%;
-      max-width: 450px;
-      border-radius: 14px;
+      max-width: 720px;
+      margin: 18px auto 0;
     }
 
     .days-grid {
@@ -848,6 +937,10 @@
         flex: 1 1 auto;
         justify-content: center;
       }
+      .lamp-layout {
+        grid-template-columns: 1fr;
+        gap: 18px;
+      }
     }
   </style>
 </head>
@@ -914,58 +1007,92 @@
           </div>
         </div>
 
-        <!-- Sign In UI matching reference screenshot with Vortex ROV theme -->
-        <section id="vortex-auth-card" class="card" style="padding:14px;">
-          <div class="signin-stage">
-            <div class="signin-blob-card">
-              <div class="signin-top-avatar" aria-hidden="true">
-                <svg viewBox="0 0 64 64" fill="none">
+        <!-- Interactive Lamp Login Stage (video_1.mp4 style with Vortex ROV colors) -->
+        <section id="vortex-auth-card" class="card" style="padding:12px;">
+          <div id="vortex-lamp-stage" class="lamp-stage lamp-on">
+            <div class="lamp-glow-beam"></div>
+
+            <div class="lamp-layout">
+              <!-- Lamp Column -->
+              <div class="lamp-column">
+                <svg class="lamp-svg" viewBox="0 0 200 250" fill="none" aria-hidden="true">
                   <defs>
-                    <linearGradient id="vortexAvatarGrad" x1="12" y1="8" x2="52" y2="56" gradientUnits="userSpaceOnUse">
-                      <stop offset="0%" stop-color="#38bdf8" />
-                      <stop offset="55%" stop-color="#0284c7" />
-                      <stop offset="100%" stop-color="#06b6d4" />
+                    <linearGradient id="vortexLampShade" x1="40" y1="55" x2="155" y2="115" gradientUnits="userSpaceOnUse">
+                      <stop offset="0%" stop-color="#0ea5e9" />
+                      <stop offset="100%" stop-color="#0369a1" />
+                    </linearGradient>
+                    <linearGradient id="vortexLampGlowGrad" x1="40" y1="55" x2="155" y2="115" gradientUnits="userSpaceOnUse">
+                      <stop offset="0%" stop-color="#7dd3fc" />
+                      <stop offset="100%" stop-color="#0284c7" />
                     </linearGradient>
                   </defs>
-                  <circle cx="32" cy="21" r="10.5" fill="url(#vortexAvatarGrad)" />
-                  <path d="M12 52C12 41.5066 20.9543 34 32 34C43.0457 34 52 41.5066 52 52C52 54.2091 50.2091 56 48 56H16C13.7909 56 12 54.2091 12 52Z" fill="url(#vortexAvatarGrad)" />
+                  <!-- Base -->
+                  <rect x="44" y="214" width="84" height="10" rx="5" fill="#1e293b" />
+                  <!-- Stand Arm -->
+                  <path d="M86 214V132C86 95 104 72 128 72" stroke="#334155" stroke-width="7" stroke-linecap="round" />
+                  <!-- Shade -->
+                  <path d="M52 108C52 72 74 52 106 52C138 52 156 72 156 108H52Z" fill="url(#vortexLampShade)" />
+                  <path class="lamp-shade-light" d="M52 108C52 72 74 52 106 52C138 52 156 72 156 108H52Z" fill="url(#vortexLampGlowGrad)" />
+                  <!-- Bulb -->
+                  <ellipse class="lamp-shade-light" cx="104" cy="112" rx="18" ry="8" fill="#e0f2fe" />
+                  <!-- Pull Cord -->
+                  <g id="vortex-lamp-cord" class="lamp-cord-group">
+                    <line x1="76" y1="108" x2="76" y2="164" stroke="#94a3b8" stroke-width="2.5" stroke-dasharray="3 2" />
+                    <circle cx="76" cy="168" r="7" fill="#38bdf8" stroke="#0f172a" stroke-width="2" />
+                  </g>
                 </svg>
+
+                <button id="vortex-pull-lamp-btn" type="button" class="lamp-pull-hint">💡 Pull Lamp Cord</button>
               </div>
 
-              <h1 id="t-auth-title" class="signin-heading-txt">Sign In</h1>
+              <!-- Form Panel -->
+              <div class="lamp-form-panel">
+                <h1 id="t-auth-title" class="lamp-welcome-title">Welcome Back</h1>
+                <p id="t-auth-sub" class="lamp-welcome-sub">Sign in to continue to your dashboard</p>
 
-              <div class="signin-field-row">
-                <span class="signin-side-badge" aria-hidden="true">👤</span>
-                <div class="signin-pill-input-wrap">
-                  <input id="vortex-login-identifier" type="text" dir="ltr" autocomplete="username" placeholder="Username" />
+                <div class="lamp-field-group">
+                  <div id="vortex-id-input-box" class="lamp-input-box">
+                    <span class="lamp-input-icon" aria-hidden="true">👤</span>
+                    <input id="vortex-login-identifier" type="text" dir="ltr" autocomplete="username" placeholder="Username or Email" />
+                  </div>
+                  <div id="vortex-id-error" class="lamp-field-error">
+                    <span>⚠</span>
+                    <span id="vortex-id-error-text">Please fill out this field</span>
+                  </div>
                 </div>
-              </div>
 
-              <div class="signin-field-row">
-                <span class="signin-side-badge" aria-hidden="true">🔒</span>
-                <div class="signin-pill-input-wrap">
-                  <input id="vortex-login-pass" type="password" dir="ltr" autocomplete="current-password" placeholder="••••••••••••" />
-                  <button id="vortex-toggle-login-pass-btn" type="button" class="signin-eye-btn" aria-label="Toggle password visibility">👁</button>
+                <div class="lamp-field-group">
+                  <div id="vortex-pass-input-box" class="lamp-input-box">
+                    <span class="lamp-input-icon" aria-hidden="true">🔒</span>
+                    <input id="vortex-login-pass" type="password" dir="ltr" autocomplete="current-password" placeholder="Password" />
+                    <button id="vortex-toggle-login-pass-btn" type="button" class="lamp-eye-btn" aria-label="Toggle password visibility">👁</button>
+                  </div>
+                  <div id="vortex-pass-error" class="lamp-field-error">
+                    <span>⚠</span>
+                    <span id="vortex-pass-error-text">Please fill out this field</span>
+                  </div>
                 </div>
-              </div>
 
-              <div class="signin-meta-line">
-                <label class="signin-remember-lbl">
-                  <input id="vortex-remember-me-chk" type="checkbox" checked />
-                  <span id="t-remember-me">Remember me</span>
-                </label>
-                <button id="vortex-forgot-pass-btn" type="button" class="signin-forgot-link">Forgot password?</button>
-              </div>
+                <div class="lamp-meta-row">
+                  <label class="lamp-remember-label">
+                    <input id="vortex-remember-me-chk" type="checkbox" checked />
+                    <span id="t-remember-me">Remember me</span>
+                  </label>
+                  <button id="vortex-forgot-pass-btn" type="button" class="lamp-link-btn">Forgot password?</button>
+                </div>
 
-              <button id="vortex-login-submit-btn" type="button" class="signin-login-btn">LOGIN</button>
+                <button id="vortex-login-submit-btn" type="button" class="lamp-signin-btn">Sign In</button>
 
-              <div class="signin-bottom-note">
-                <span id="t-no-acc-prefix">Don't have account?</span>
-                <button id="vortex-signup-owner-hint-btn" type="button" class="signin-signup-trigger">Sign up!</button>
+                <div class="lamp-footer-note">
+                  <span id="t-no-acc-prefix">Don't have account?</span>
+                  <button id="vortex-signup-owner-hint-btn" type="button" class="lamp-link-btn">Sign up!</button>
+                </div>
               </div>
             </div>
 
-            <div id="vortex-status-box" class="signin-status-pill">⏳ Loading account data...</div>
+            <div class="lamp-status-wrap">
+              <div id="vortex-status-box">⏳ Loading account data...</div>
+            </div>
           </div>
         </section>
 
@@ -1422,17 +1549,20 @@
         darkMode: "🌙 Dark Mode",
         lightMode: "☀ Light Mode",
         langSwitch: "🌐 العربية",
-        authTitle: "Sign In",
-        loginIdPh: "Username",
-        loginPassPh: "••••••••••••",
+        authTitle: "Welcome Back",
+        authSub: "Sign in to continue to your dashboard",
+        pullLampBtn: "💡 Pull Lamp Cord",
+        loginIdPh: "Username or Email",
+        loginPassPh: "Password",
+        fillFieldErr: "Please fill out this field",
         rememberMe: "Remember me",
         forgotPass: "Forgot password?",
         forgotPassMsg: "Contact the Owner to view or reset your account password.",
-        loginSubmitBtn: "LOGIN",
+        loginSubmitBtn: "Sign In",
         noAccPrefix: "Don't have account?",
         signupTrigger: "Sign up!",
         signupOwnerOnlyMsg: "Accounts are created by the Owner only. Use the username or email and password given by the Owner.",
-        missingLoginCreds: "Please enter your username or email and password.",
+        missingLoginCreds: "Please fill out this field.",
         invalidLoginCreds: "Invalid username/email or password, or account was not created by Owner.",
         signedInOk: "✔ Signed in successfully.",
         loadingAccounts: "⏳ Loading account data...",
@@ -1588,13 +1718,16 @@
         darkMode: "🌙 الوضع الليلي",
         lightMode: "☀ الوضع النهاري",
         langSwitch: "🌐 English",
-        authTitle: "Sign In",
-        loginIdPh: "Username",
-        loginPassPh: "••••••••••••",
+        authTitle: "Welcome Back",
+        authSub: "Sign in to continue to your dashboard",
+        pullLampBtn: "💡 شد حبل اللمبة",
+        loginIdPh: "Username or Email",
+        loginPassPh: "Password",
+        fillFieldErr: "Please fill out this field",
         rememberMe: "Remember me",
         forgotPass: "Forgot password?",
         forgotPassMsg: "تواصل مع الأونر لمعرفة أو إعادة تعيين باسورد حسابك.",
-        loginSubmitBtn: "LOGIN",
+        loginSubmitBtn: "Sign In",
         noAccPrefix: "Don't have account?",
         signupTrigger: "Sign up!",
         signupOwnerOnlyMsg: "إنشاء الحسابات يتم عن طريق الأونر فقط؛ سجل دخولك باليوزر نيم أو الإيميل والباسورد اللي أنشأهم الأونر.",
@@ -1850,6 +1983,15 @@
     const langBtn = document.getElementById("vortex-lang-btn");
 
     const authCard = document.getElementById("vortex-auth-card");
+    const lampStage = document.getElementById("vortex-lamp-stage");
+    const lampCord = document.getElementById("vortex-lamp-cord");
+    const pullLampBtn = document.getElementById("vortex-pull-lamp-btn");
+    const idInputBox = document.getElementById("vortex-id-input-box");
+    const passInputBox = document.getElementById("vortex-pass-input-box");
+    const idErrorBox = document.getElementById("vortex-id-error");
+    const passErrorBox = document.getElementById("vortex-pass-error");
+    const idErrorText = document.getElementById("vortex-id-error-text");
+    const passErrorText = document.getElementById("vortex-pass-error-text");
     const loginIdInput = document.getElementById("vortex-login-identifier");
     const loginPassInput = document.getElementById("vortex-login-pass");
     const toggleLoginPassBtn = document.getElementById("vortex-toggle-login-pass-btn");
@@ -1857,6 +1999,36 @@
     const forgotPassBtn = document.getElementById("vortex-forgot-pass-btn");
     const loginSubmitBtn = document.getElementById("vortex-login-submit-btn");
     const signupOwnerHintBtn = document.getElementById("vortex-signup-owner-hint-btn");
+
+    function triggerLampPull() {
+      lampCord.classList.add("pulled");
+      setTimeout(() => lampCord.classList.remove("pulled"), 220);
+      lampStage.classList.toggle("lamp-on");
+    }
+
+    lampCord.addEventListener("click", triggerLampPull);
+    pullLampBtn.addEventListener("click", triggerLampPull);
+
+    function clearFieldErrors() {
+      idInputBox.classList.remove("has-error");
+      passInputBox.classList.remove("has-error");
+      idErrorBox.classList.remove("visible");
+      passErrorBox.classList.remove("visible");
+    }
+
+    loginIdInput.addEventListener("input", () => {
+      if (loginIdInput.value.trim()) {
+        idInputBox.classList.remove("has-error");
+        idErrorBox.classList.remove("visible");
+      }
+    });
+
+    loginPassInput.addEventListener("input", () => {
+      if (loginPassInput.value.trim()) {
+        passInputBox.classList.remove("has-error");
+        passErrorBox.classList.remove("visible");
+      }
+    });
 
     const savedRememberedId = localStorage.getItem(REMEMBERED_ID_KEY);
     if (savedRememberedId) {
@@ -2068,8 +2240,12 @@
       document.getElementById("t-nav-admin").textContent = t("navAdmin");
 
       document.getElementById("t-auth-title").textContent = t("authTitle");
+      document.getElementById("t-auth-sub").textContent = t("authSub");
+      pullLampBtn.textContent = t("pullLampBtn");
       loginIdInput.placeholder = t("loginIdPh");
       loginPassInput.placeholder = t("loginPassPh");
+      idErrorText.textContent = t("fillFieldErr");
+      passErrorText.textContent = t("fillFieldErr");
       document.getElementById("t-remember-me").textContent = t("rememberMe");
       forgotPassBtn.textContent = t("forgotPass");
       loginSubmitBtn.textContent = t("loginSubmitBtn");
@@ -3425,6 +3601,7 @@
         return;
       }
 
+      clearFieldErrors();
       currentRole = computeRole(u);
       const ownerMode = isOwner();
       const activeTeam = getCurrentUserTeam();
@@ -3829,10 +4006,27 @@
     }
 
     loginSubmitBtn.addEventListener("click", async () => {
+      if (!lampStage.classList.contains("lamp-on")) {
+        lampStage.classList.add("lamp-on");
+      }
+
       const idVal = loginIdInput.value.trim();
       const passVal = loginPassInput.value.trim();
-      if (!idVal || !passVal) {
-        setStatus(t("missingLoginCreds"), "error");
+
+      clearFieldErrors();
+      let hasEmpty = false;
+      if (!idVal) {
+        idInputBox.classList.add("has-error");
+        idErrorBox.classList.add("visible");
+        hasEmpty = true;
+      }
+      if (!passVal) {
+        passInputBox.classList.add("has-error");
+        passErrorBox.classList.add("visible");
+        hasEmpty = true;
+      }
+      if (hasEmpty) {
+        setStatus(t("fillFieldErr"), "error");
         return;
       }
 
